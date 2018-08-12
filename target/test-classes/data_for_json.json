@@ -1,9 +1,0 @@
-{
-  "models_path" : "c:/temp/models",
-  "peers_path" : "c:/temp/peers",
-  "some_array" : [1,2,3, "Hello", 2.43],
-  "inner_object" : {
-    "inner_object_property" : 32
-  },
-  "another_object" : "Empty"
-}
