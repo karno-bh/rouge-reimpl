@@ -1,0 +1,6 @@
+DocumnentId, Peer
+"Document01", "peer01.txt"
+"Document01", "peer02.txt"
+"Document01", "peer03.txt"
+"Document02", "peer04.txt"
+"Document02", "peer05.txt"

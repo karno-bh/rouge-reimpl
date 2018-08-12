@@ -1,0 +1,12 @@
+{
+  "workingSetDirectory": "c:\\my\\learning\\final-project\\working-set\\attempt001",
+  "workingSetMetrics": ["rougen1", "rougen2", "rougel", "rougew", "elena_readability", "elena_topics_readability"],
+  "postMetricsProcessing": ["normalizeFleschAndWordVariation", "saveToCSV"],
+  "resultDirectory": "result",
+  "containerClass": "il.ac.sce.ir.metric.core.config.DefaultContainerImpl",
+  "mainAlgoClass": "il.ac.sce.ir.metric.core.config.MainAlgoDefaultImpl",
+  "additionalContainerConfig": {
+    "fileSystemCachePath": "cache",
+    "topics": ["M000", "M001", "M002", "M003", "M004", "M005", "M006", "M007", "M008", "M009"]
+  }
+}

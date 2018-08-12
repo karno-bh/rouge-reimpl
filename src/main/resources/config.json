@@ -1,0 +1,18 @@
+{
+  "methods" : [
+    {
+      "method" : "RougeN"
+    },
+    {
+
+    }
+  ],
+  "models" : {
+    "modelsPath" : "c:/temp/peers"
+  },
+  "peersToModels" : {
+    "multiModelCalculation" : "average",
+    "documentToPeers" : "documentToPeers.csv",
+    "documentToModels" : "documentToModels.csv"
+  }
+}

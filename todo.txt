@@ -1,0 +1,27 @@
+2018-08-07:
+    Done:
+        1. In order to not overcomplicate the logic, results are re-collected from the existing CSV
+           files and processed. For instance, FRE is calculated in this way. For that some concept
+           of Reducer was introduced to generalize the such task if they will be needed
+           
+    TODO:
+        1. Items from the previous list.
+        2. Some refactoring:
+             - Make save and load CSV as something general. The same code are spread over the whole
+               code base.
+             - Remove repeated code reducers
+        3. Make a "setup.bat" to start coding from zero.
+        4. Put the sources in Git repo.
+        
+    Next:
+        1. Implementing GUI in some form. Meanwhile the variants to start are JavaFX and React. Most
+           of chances GUI will be in WEB form...
+
+2018-07-10:
+    1. First need to collect results and only then report them. Some of properties depent on total
+       result. For instance, FRE should be normalized within total run.
+    2. Add non implemented Elena's metrics 
+    3. Small refatoring to move from "starter" package to relevant packages
+    4. Implement George Graph comparisons
+    5. Start writting GUI (WEB?)
+    6. Add Filtering Tokens Processor into container within appropriate flags in JSON config.
