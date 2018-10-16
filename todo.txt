@@ -1,12 +1,14 @@
 2018-10-16
     Done:
         1. GUI initiated as Empty React Project
+        2. Temp data is added to git repo
     TODO:
         1. Understand where I am staying. (!!!very important!!!)
         2. George Graph comparison should be started (!important!)
         3. Understand how to link GUI and backend somehow.
         4. Make project to be independent from the hard-link drive locations
-        5. Add corpora into some git project... or whatever.
+        5. Add libraries and installation instructions to be added to mvn repository
+        
 
 2018-08-12:
     Done:
