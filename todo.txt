@@ -5,6 +5,8 @@
         1. Understand where I am staying. (!!!very important!!!)
         2. George Graph comparison should be started (!important!)
         3. Understand how to link GUI and backend somehow.
+        4. Make project to be independent from the hard-link drive locations
+        5. Add corpora into some git project... or whatever.
 
 2018-08-12:
     Done:
