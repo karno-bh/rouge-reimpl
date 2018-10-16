@@ -1,3 +1,11 @@
+2018-10-16
+    Done:
+        1. GUI initiated as Empty React Project
+    TODO:
+        1. Understand where I am staying. (!!!very important!!!)
+        2. George Graph comparison should be started (!important!)
+        3. Understand how to link GUI and backend somehow.
+
 2018-08-12:
     Done:
         1.Added into  a Git repo
