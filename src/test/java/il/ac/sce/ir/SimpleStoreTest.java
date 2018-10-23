@@ -7,6 +7,10 @@ import il.ac.sce.ir.metric.Tuple2;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Should be removed as core changed. Do not rely on this. Once will be cleared
+ */
+@Deprecated
 public class SimpleStoreTest {
 
     @Test
