@@ -1,3 +1,11 @@
+2018-10-24
+    CONTINUE:
+        Implementing George metrics
+    Done:
+        1. More or less structure of sep-config.json to support george metrics. The huge problem with his metrics that
+           it just calculates the cross product between the documents. It is ok... but it is not good for the SEP
+        2. Some tests are done to retrieve parse the document with Open Calais.
+
 2018-10-23
     CONTINUE:
         Implementing George metrics
