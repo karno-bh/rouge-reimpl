@@ -22,6 +22,7 @@ public interface Constants {
     String ROUGEW_LOWER_CASE = "rougew";
     String ELENA_READABILITY_LOWER_CASE = "elena_readability";
     String ELENA_TOPICS_READABILITY_LOWER_CASE = "elena_topics_readability";
+    String GEORGE_GRAPH_METRIC_LOWER_CASE = "george_graph_metric";
     String[] METRICS_FOR_SYSTEM = {
             ROUGEN_LOWER_CASE,
             ROUGEL_LOWER_CASE,

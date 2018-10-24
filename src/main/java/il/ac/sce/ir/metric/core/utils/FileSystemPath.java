@@ -1,5 +1,9 @@
 package il.ac.sce.ir.metric.core.utils;
 
+import il.ac.sce.ir.metric.core.config.Configuration;
+import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.config.ProcessedCategory;
+
 import java.io.File;
 
 public class FileSystemPath {
@@ -14,5 +18,13 @@ public class FileSystemPath {
             }
         }
         return sb.toString();
+    }
+
+    public String getCategoryDir(Configuration configuration, ProcessedCategory processedCategory) {
+        return configuration.getWorkingSetDirectory() + File.separator + processedCategory.getDirLocation();
+    }
+
+    public String getTopicsDir(String categoryDir, ProcessedCategory processedCategory) {
+        return categoryDir + File.separator + Constants.TOPICS;
     }
 }

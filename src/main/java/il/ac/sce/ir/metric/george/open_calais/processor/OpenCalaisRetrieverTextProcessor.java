@@ -1,4 +1,4 @@
-package il.ac.sce.ir.metric.open_calais.processor;
+package il.ac.sce.ir.metric.george.open_calais.processor;
 
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;

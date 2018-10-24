@@ -6,6 +6,10 @@ import org.junit.Test;
 
 import java.io.File;
 
+/**
+ * Look at the new functionality under ./open_calais package... will be removed soon... maybe :)
+ */
+@Deprecated
 public class OpenCalaisExtractorCustomTest {
 
     @Test

@@ -2,9 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b802410-e008-41e2-b987-4c47977eb396" name="Default" comment="some">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/reporter/GeorgeReporter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/OpenCalaisRetrieverTest.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisTextProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisRetrieverTextProcessor.java" />
+      <change beforePath="$PROJECT_DIR$/sep-config.json" afterPath="$PROJECT_DIR$/sep-config.json" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisRetrieverTextProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/open_calais/processor/OpenCalaisRetrieverTextProcessor.java" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/OpenCalaisExtractorCustomTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/OpenCalaisExtractorCustomTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,97 +35,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ElenaReadbilityPeersReporter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ElenaReadbilityPeersReporter.java">
+      <file leaf-file-name="sep-config.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sep-config.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="216">
+              <caret line="9" column="94" lean-forward="true" selection-start-line="9" selection-start-column="94" selection-end-line="9" selection-end-column="94" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ElenaReadabilityMetricScoreCalculator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/elena/reporter/ElenaReadabilityMetricScoreCalculator.java">
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OpenCalaisExtractorCustom.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/namedentitygraph/utils/OpenCalaisExtractorCustom.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-239">
-              <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OpenCalaisRetrieverTextProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisRetrieverTextProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OpenCalaisEntiryResolverTextProcessor.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#363#364#0" expanded="true" />
-                <element signature="e#390#391#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Text.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/data/Text.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DPMatrixBiTextProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/processor/DPMatrixBiTextProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NGramHits.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/processor/NGramHits.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NGramTextProcessor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/processor/NGramTextProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="15" column="11" lean-forward="false" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+            <state relative-caret-position="312">
+              <caret line="61" column="25" lean-forward="true" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -126,9 +58,90 @@
       <file leaf-file-name="DefaultContainerImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/DefaultContainerImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+            <state relative-caret-position="3888">
+              <caret line="187" column="78" lean-forward="true" selection-start-line="187" selection-start-column="78" selection-end-line="187" selection-end-column="78" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OpenCalaisExtractorCustomTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/OpenCalaisExtractorCustomTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="9" column="96" lean-forward="false" selection-start-line="9" selection-start-column="96" selection-end-line="9" selection-end-column="96" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OpenCalaisRetrieverTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/OpenCalaisRetrieverTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-53">
+              <caret line="25" column="75" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="75" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileSystemCSVSaver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="26" column="57" lean-forward="true" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContainerConfigData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ContainerConfigData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="32">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Configuration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="46" column="49" lean-forward="false" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
+              <folding>
+                <element signature="e#1172#1173#0" expanded="true" />
+                <element signature="e#1210#1211#0" expanded="true" />
+                <element signature="e#1429#1430#0" expanded="true" />
+                <element signature="e#1477#1478#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CachedMapRecollector.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/recollector/CachedMapRecollector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="72" column="52" lean-forward="false" selection-start-line="72" selection-start-column="52" selection-end-line="72" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileSystemPath.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -164,9 +177,10 @@
       <find>properNounRatio</find>
       <find>precision</find>
       <find>topic</find>
-      <find>saveToCSV</find>
       <find>TextC</find>
       <find>filter</find>
+      <find>elena_topics_readability</find>
+      <find>saveToCSV</find>
     </findStrings>
     <replaceStrings>
       <replace>dpMatrix</replace>
@@ -186,11 +200,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/Starter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/FileToStringProcessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/ElenaReadbilityReporter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/ContainerConfigData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/elena/reporter/ElenaReadabilityMetricScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/nlp/processor/CoreNLPTextProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/DefaultContainerImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/TestVolatile.java" />
@@ -218,15 +227,10 @@
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/NormalizeFleschRedabilityAndWordVariationByCorpus.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/Configuration.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/recollector/CachedMapRecollector.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/NormalizedFleschReducerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/CombineReducer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Configuration.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java" />
-        <option value="$PROJECT_DIR$/sep-config.json" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/DefaultContainerImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/ReducerStore.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/MainAlgoDefaultImpl.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/SimpleStoreTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/open_calais/OpenCalaisTextProcessor.java" />
@@ -234,9 +238,19 @@
         <option value="$PROJECT_DIR$/todo.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisTextProcessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/namedentitygraph/utils/OpenCalaisExtractorCustom.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisRetrieverTextProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/namedentitygraph/utils/OpenCalaisExtractorCustom.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java" />
+        <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/OpenCalaisRetrieverTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ElenaReadbilityTopicsReporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/reporter/GeorgeReporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Configuration.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java" />
+        <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/OpenCalaisExtractorCustomTest.java" />
+        <option value="$PROJECT_DIR$/sep-config.json" />
       </list>
     </option>
   </component>
@@ -247,11 +261,20 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="260" />
     <option name="y" value="25" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -268,8 +291,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -331,7 +354,27 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="metric" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="recollector" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="metric" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="reducer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="metric" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -349,7 +392,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="metric" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="george" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -358,6 +401,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="metric" type="462c0819:PsiDirectoryNode" />
+              <item name="george" type="462c0819:PsiDirectoryNode" />
               <item name="processor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -367,26 +411,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="metric" type="462c0819:PsiDirectoryNode" />
-              <item name="processor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="metric" type="462c0819:PsiDirectoryNode" />
-              <item name="rouge" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="metric" type="462c0819:PsiDirectoryNode" />
-              <item name="rouge" type="462c0819:PsiDirectoryNode" />
-              <item name="processor" type="462c0819:PsiDirectoryNode" />
+              <item name="george" type="462c0819:PsiDirectoryNode" />
+              <item name="reporter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -415,6 +441,15 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ir" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ir" type="462c0819:PsiDirectoryNode" />
+              <item name="open_calais" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -453,6 +488,23 @@
               <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="lang" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nio" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="nio" type="462c0819:PsiDirectoryNode" />
+              <item name="file" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -712,7 +764,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/my/learning/final-project/rouge-reimpl/rouge-reimpl/src/main/java/il/ac/sce/ir/metric/core/recollector/CachedMapRecollector.java" />
   </component>
@@ -743,7 +795,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OpenCalaisExtractorCustomTest.openCalaisCustomTest">
+  <component name="RunManager" selected="JUnit.OpenCalaisRetrieverTest.openCalaisEntiryResolverTest">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -803,31 +855,6 @@
       <module name="" />
       <envs />
     </configuration>
-    <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="il.ac.sce.ir.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="rouge-reimpl" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="il.ac.sce.ir" />
-      <option name="MAIN_CLASS_NAME" value="il.ac.sce.ir.NormalizedFleschReducerTest" />
-      <option name="METHOD_NAME" value="normalizeFleschReducerTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
     <configuration name="OpenCalaisExtractorCustomTest.openCalaisCustomTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -853,19 +880,44 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="RecollectorTest.storeReducerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="il.ac.sce.ir.*" />
+          <option name="PATTERN" value="il.ac.sce.ir.open_calais.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="rouge-reimpl" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="il.ac.sce.ir" />
-      <option name="MAIN_CLASS_NAME" value="il.ac.sce.ir.RecollectorTest" />
-      <option name="METHOD_NAME" value="storeReducerTest" />
+      <option name="PACKAGE_NAME" value="il.ac.sce.ir.open_calais" />
+      <option name="MAIN_CLASS_NAME" value="il.ac.sce.ir.open_calais.OpenCalaisRetrieverTest" />
+      <option name="METHOD_NAME" value="openCalaisEntiryResolverTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="OpenCalaisRetrieverTest.openCalaisRetrieveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="il.ac.sce.ir.open_calais.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="rouge-reimpl" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="il.ac.sce.ir.open_calais" />
+      <option name="MAIN_CLASS_NAME" value="il.ac.sce.ir.open_calais.OpenCalaisRetrieverTest" />
+      <option name="METHOD_NAME" value="openCalaisRetrieveTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -940,18 +992,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Starter" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.RecollectorTest.storeReducerTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.NormalizedFleschReducerTest.normalizeFleschReducerTest" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Starter (1)" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.OpenCalaisExtractorCustomTest.openCalaisCustomTest" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Starter (1)" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.OpenCalaisExtractorCustomTest.openCalaisCustomTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.OpenCalaisRetrieverTest.openCalaisRetrieveTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.OpenCalaisExtractorCustomTest.openCalaisCustomTest" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Starter (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Starter" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.NormalizedFleschReducerTest.normalizeFleschReducerTest" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.RecollectorTest.storeReducerTest" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.OpenCalaisRetrieverTest.openCalaisRetrieveTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.OpenCalaisExtractorCustomTest.openCalaisCustomTest" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Starter (1)" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Starter" />
       </list>
     </recent_temporary>
   </component>
@@ -972,27 +1024,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.02 at 19h 25m 24s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.02 at 20h 01m 30s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.06 at 06h 26m 59s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.06 at 14h 10m 26s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.06 at 14h 12m 10s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.06 at 14h 12m 45s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.06 at 14h 14m 00s.xml">
-      <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="NormalizedFleschReducerTest_normalizeFleschReducerTest - 2018.08.06 at 14h 25m 18s.xml">
       <configuration name="NormalizedFleschReducerTest.normalizeFleschReducerTest" configurationId="JUnit" />
     </history-entry>
@@ -1001,6 +1032,27 @@
     </history-entry>
     <history-entry file="OpenCalaisExtractorCustomTest_openCalaisCustomTest - 2018.10.23 at 17h 53m 39s.xml">
       <configuration name="OpenCalaisExtractorCustomTest.openCalaisCustomTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisEntiryResolverTest - 2018.10.24 at 17h 01m 46s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisEntiryResolverTest - 2018.10.24 at 17h 03m 12s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisEntiryResolverTest - 2018.10.24 at 17h 04m 16s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisEntiryResolverTest - 2018.10.24 at 17h 05m 40s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisEntiryResolverTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisRetrieveTest - 2018.10.24 at 16h 39m 59s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisRetrieveTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisRetrieveTest - 2018.10.24 at 16h 40m 14s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisRetrieveTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="OpenCalaisRetrieverTest_openCalaisRetrieveTest - 2018.10.24 at 16h 40m 28s.xml">
+      <configuration name="OpenCalaisRetrieverTest.openCalaisRetrieveTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1013,7 +1065,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1023,19 +1075,19 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24520256" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19989339" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29462364" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29462364" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1205,13 +1257,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java</url>
-          <line>65</line>
+          <line>64</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java</url>
-          <line>89</line>
+          <line>88</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
@@ -1276,254 +1328,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/reporter/RougeLMultimodelScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-700">
-          <caret line="21" column="11" lean-forward="false" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
-          <folding>
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#810#811#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/reporter/RougeNMultimodelScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/reporter/RougeWMultimodelScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="22" column="51" lean-forward="false" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/utils/RougeUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/NgramExtractorDefaultImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="60" lean-forward="false" selection-start-line="6" selection-start-column="60" selection-end-line="6" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/FileSystemCacheTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/OpenCalaisExtractorCustomTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="76" lean-forward="false" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/NGramExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="27" lean-forward="false" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/LoggingSLFTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/JacksonTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/RecollectorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="51" lean-forward="false" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/MainAlgo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="62" column="11" lean-forward="false" selection-start-line="62" selection-start-column="11" selection-end-line="62" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/MainAlgoDefaultImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="52" column="71" lean-forward="true" selection-start-line="52" selection-start-column="71" selection-end-line="52" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/NGramExtractor01Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-191">
-          <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/RougeNTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/token_filter/StopwordsRemovalFilterProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/token_filter/PunctuationFilterProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="27" lean-forward="true" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/token_filter/PorterStemmerFilterProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="29" lean-forward="true" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/StopWordRemovalTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="114" column="46" lean-forward="true" selection-start-line="114" selection-start-column="46" selection-end-line="114" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/builder/TextPipelineExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/builder/TextPipeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/TextProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/TextToTokensProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/json/json/20160810/json-20160810.jar!/org/json/JSONObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/open_calais/OpenCalaisRetrieverTextProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/RougeNPipeLineTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="46" column="34" lean-forward="false" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/nlp/processor/CoreNLPTextProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="73" lean-forward="false" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/builder/BiTextPipelineExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="28" column="32" lean-forward="true" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/token_filter/LowerCaseFilterProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1531,7 +1339,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1539,7 +1346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1547,7 +1353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1555,15 +1360,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/NormalizeFleschRedabilityAndWordVariationByCorpus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1571,23 +1367,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/recollector/CachedMapRecollector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ElenaReadbilityTopicsReporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1595,22 +1374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/elena/reporter/ElenaReadabilityMetricScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/DefaultContainerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="66" column="37" lean-forward="false" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1631,19 +1394,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/processor/DPMatrixBiTextProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/NamedEntityGraph/com.leo.namedentitygraph/1.0-SNAPSHOT/com.leo.namedentitygraph-1.0-SNAPSHOT.jar!/entity_extractor/OpenCalaisExtractor.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2921">
           <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1651,7 +1405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1663,9 +1416,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisRetrieverTextProcessor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/OpenCalaisExtractorProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
+        <state relative-caret-position="425">
+          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/CacheMemoryTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="66" lean-forward="false" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/RougeNPipeLineTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1088">
+          <caret line="84" column="35" lean-forward="true" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/processor/DPMatrixBiTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/AbstractCacheTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" column="42" lean-forward="true" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/FileSystemCacheTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-421">
+          <caret line="13" column="27" lean-forward="false" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/ReadabilityMetricScoreTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="24" column="32" lean-forward="true" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/nlp/processor/CoreNLPTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="73" lean-forward="false" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/NamedEntityGraph/com.leo.namedentitygraph/1.0-SNAPSHOT/com.leo.namedentitygraph-1.0-SNAPSHOT.jar!/entity_extractor/TextEntities.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/TestCoreNLPPipeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="30" column="42" lean-forward="false" selection-start-line="30" selection-start-column="42" selection-end-line="30" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/open_calais/processor/OpenCalaisRetrieverTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
           <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1673,23 +1506,248 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/namedentitygraph/utils/OpenCalaisExtractorCustom.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/MainAlgo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-239">
-          <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score_calculator/PeerMultimodelScoreCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        <state relative-caret-position="68">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/Reporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/PeerMultimodelReportProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/PeerMultimodelReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/data/BiText.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/namedentitygraph/utils/OpenCalaisExtractorCustom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/elena/reporter/ElenaReadabilityMetricScoreCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="18" column="41" lean-forward="true" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/ReportedProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/Score.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score_calculator/ReadabilityMetricsScoreCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/open_calais/processor/OpenCalaisEntiryResolverTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="23" column="57" lean-forward="true" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#363#364#0" expanded="true" />
-            <element signature="e#390#391#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/MainAlgoDefaultImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="42" column="53" lean-forward="false" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ProcessedCategory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ElenaReadbilityTopicsReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="51" column="27" lean-forward="true" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/george/reporter/GeorgeReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#482#483#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#633#634#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/NormalizeFleschRedabilityAndWordVariationByCorpus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="13" column="50" lean-forward="false" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/recollector/CachedMapRecollector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="72" column="52" lean-forward="false" selection-start-line="72" selection-start-column="52" selection-end-line="72" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="46" column="49" lean-forward="false" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
+          <folding>
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#1429#1430#0" expanded="true" />
+            <element signature="e#1477#1478#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/ContainerConfigData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="61" column="25" lean-forward="true" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/jre/lib/rt.jar!/java/nio/file/Paths.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-153">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1190#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="26" column="57" lean-forward="true" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/config/DefaultContainerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3888">
+          <caret line="187" column="78" lean-forward="true" selection-start-line="187" selection-start-column="78" selection-end-line="187" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/OpenCalaisRetrieverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-53">
+          <caret line="25" column="75" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/OpenCalaisExtractorCustomTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="96" lean-forward="false" selection-start-line="9" selection-start-column="96" selection-end-line="9" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sep-config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="94" lean-forward="true" selection-start-line="9" selection-start-column="94" selection-end-line="9" selection-end-column="94" />
+          <folding />
         </state>
       </provider>
     </entry>

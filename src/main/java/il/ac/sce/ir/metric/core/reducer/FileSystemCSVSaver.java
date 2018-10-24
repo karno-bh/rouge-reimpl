@@ -1,6 +1,5 @@
 package il.ac.sce.ir.metric.core.reducer;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import il.ac.sce.ir.metric.core.config.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.utils.FileSystemPath;
