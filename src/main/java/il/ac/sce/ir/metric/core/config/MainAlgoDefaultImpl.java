@@ -1,18 +1,13 @@
 package il.ac.sce.ir.metric.core.config;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-import il.ac.sce.ir.metric.core.reducer.CombineReducer;
 import il.ac.sce.ir.metric.core.reducer.Reducer;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
+import il.ac.sce.ir.metric.core.utils.CategoryPathResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 public class MainAlgoDefaultImpl implements MainAlgo {
 
@@ -59,24 +54,8 @@ public class MainAlgoDefaultImpl implements MainAlgo {
     }
 
     protected List<ProcessedCategory> resolveCategories(String startDirLocation) {
-        File startDir = new File(startDirLocation);
-        String[] categoriesDirs = startDir.list((startDirInnerFile, fileName) -> startDirInnerFile.isDirectory());
-        if (categoriesDirs == null || categoriesDirs.length == 0) {
-            throw new RuntimeException("Nothing to process. No category found at " + startDirLocation);
-        }
-        return Arrays.stream(categoriesDirs)
-                .map(category -> {
-                    File categoryDescriptionFile = new File(category + File.separator + Constants.DESCRIPTION_FILE);
-                    String description = null;
-                    if (categoryDescriptionFile.isFile()) {
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(categoryDescriptionFile), StandardCharsets.UTF_8.name()))){
-                            description = reader.readLine();
-                        } catch (IOException ignored) {
-                        }
-                    }
-                    return ProcessedCategory.as().dirLocation(category).description(description).build();
-                })
-                .collect(Collectors.toList());
+        CategoryPathResolver categoryPathResolver = new CategoryPathResolver();
+        return categoryPathResolver.resolveCategories(startDirLocation);
     }
 
 }

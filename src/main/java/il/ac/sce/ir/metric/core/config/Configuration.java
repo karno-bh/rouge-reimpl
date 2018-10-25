@@ -103,6 +103,7 @@ public class Configuration {
             requiredReducers.add(requiredReducer);
         }
         mirror.requiredReducers = requiredReducers;
+        mirror.georgeGraphMetricConfig = utils.requireJSONTypeAndCast(jsonData.get(Constants.GEORGE_GRAPH_METRIC_CONFIG), Constants.GEORGE_GRAPH_METRIC_CONFIG, Map.class);
 
         return mirror;
     }
@@ -116,6 +117,7 @@ public class Configuration {
         private Map<String, Object> additionalContainerConfig;
         private String resultDirectory;
         private List<String> requiredReducers = new ArrayList<>();
+        private Map<String, Object> georgeGraphMetricConfig;
 
         public Mirror workingSetDirectory(String workingSetDirectory) {
             this.workingSetDirectory = workingSetDirectory;
