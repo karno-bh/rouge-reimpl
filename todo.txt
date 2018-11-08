@@ -1,3 +1,12 @@
+2018-11-08
+    CONTINUE:
+        Implementing AutoSummENG.
+    Done:
+        1. Pruned wrong direction of "George metrics"
+        2. Added a test that shows how to compute AutoSummENG metrics
+    TODO:
+        1. Implement AutoSummENG with Text<> and Caching.
+
 2018-10-25
     CONTINUE:
         Implementing George metrics
