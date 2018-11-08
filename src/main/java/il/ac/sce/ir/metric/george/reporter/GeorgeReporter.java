@@ -1,6 +1,7 @@
 package il.ac.sce.ir.metric.george.reporter;
 
 import entity_extractor.TextEntities;
+import gr.demokritos.iit.conceptualIndex.structs.Distribution;
 import il.ac.sce.ir.metric.core.config.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.config.ProcessedCategory;
@@ -15,8 +16,8 @@ import utils.tf_idf.DocumentOptimizedParser;
 
 import java.io.File;
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class GeorgeReporter implements Reporter {
@@ -92,6 +93,42 @@ public class GeorgeReporter implements Reporter {
                 })
                 .collect(Collectors.toList());
 
+        logger.info("Calculating TF-IDF...");
+
+        DocumentOptimizedParser dp = new DocumentOptimizedParser();
+        if (keepTopTerms) {
+            dp.parseFiles(allTopicEntities);
+        }
+
+        // For Cosine Similarity, create text distrubutions containing all terms
+        Map<String, double[]> fullDistributions = null;
+        if (methods.isEnabled(Methods.COSINE)) {
+            Set<String> allTerms = dp.getAllTerms();
+            ArrayList<String> allTermsList = new ArrayList<>();
+            allTermsList.addAll(allTerms);
+            fullDistributions = new HashMap<>();
+
+            for (TextEntities text : allTopicEntities) {
+                double[] fullTextDistrib = new double[allTermsList.size()];
+                Distribution<String> textDistrib = dp.getDistributionOfDocument(text.getTitle());
+
+                int count = 0;
+                for (String term : allTerms) {
+                    // If the text contains this term use its value, else set it to 0
+                    if (textDistrib.asTreeMap().containsKey(term)) {
+                        fullTextDistrib[count] = textDistrib.getValue(term);
+                    } else {
+                        fullTextDistrib[count] = 0.0;
+                    }
+
+                    count++;
+                }
+
+                fullDistributions.put(text.getTitle(), fullTextDistrib);
+            }
+        }
+
+        System.out.println("Full Distributions: \n" + fullDistributions);
 
     }
 }

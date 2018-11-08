@@ -86,6 +86,7 @@ public class OpenCalaisEntiryResolverTextProcessor implements TextProcessor<Stri
                     // Only add entity if its name is not blacklisted
                     if (!blacklist.contains(entity.getName())) {
                         entities.addEntity(entity);
+                        entities.setTitle(data.getTextId());
                     }
                 }
             }
