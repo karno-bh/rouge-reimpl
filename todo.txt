@@ -9,6 +9,7 @@
            c. Starters and Containers are live in separate package
            d. Old ideas are deleted
         3. Merged to master
+        4. TextProcessor cache is cleaner up
     TODO:
         1. Write reported for AutoSummENG.
         2. Add reporter to main starter and containers

@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b802410-e008-41e2-b987-4c47977eb396" name="Default" comment="some">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectNGramSymWinDocumentTextProcessor.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectSimpleTextDocumentTextProcessor.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/autosummeng/AutoSummENGTextProcessorTest.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/data/Text.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/data/Text.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/AbstractCacheTextProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/AbstractCacheTextProcessor.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/CacheMemoryTextProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/CacheMemoryTextProcessor.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/FileSystemCacheTextProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/FileSystemCacheTextProcessor.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/CacheProcessorTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/CacheProcessorTest.java" />
       <change beforePath="$PROJECT_DIR$/todo.txt" afterPath="$PROJECT_DIR$/todo.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -96,8 +87,8 @@
       <file leaf-file-name="todo.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="54" lean-forward="true" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+            <state relative-caret-position="187">
+              <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -1780,8 +1771,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/todo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="54" lean-forward="true" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+        <state relative-caret-position="187">
+          <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
           <folding />
         </state>
       </provider>
