@@ -3,15 +3,15 @@ package il.ac.sce.ir.open_calais;
 import entity_extractor.TextEntities;
 import il.ac.sce.ir.metric.core.builder.TextPipeline;
 import il.ac.sce.ir.metric.core.builder.TextPipelineExtractor;
-import il.ac.sce.ir.metric.core.config.Configuration;
-import il.ac.sce.ir.metric.core.config.ProcessedCategory;
+import il.ac.sce.ir.metric.core.container.data.Configuration;
+
 import il.ac.sce.ir.metric.core.processor.FileSystemCacheTextProcessor;
-import il.ac.sce.ir.metric.core.reporter.Reporter;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.utils.CategoryPathResolver;
-import il.ac.sce.ir.metric.george.data.Methods;
-import il.ac.sce.ir.metric.george.open_calais.processor.OpenCalaisEntiryResolverTextProcessor;
-import il.ac.sce.ir.metric.george.open_calais.processor.OpenCalaisRetrieverTextProcessor;
-import il.ac.sce.ir.metric.george.reporter.GeorgeReporter;
+import il.ac.sce.ir.metric.concrete_metric.george.data.Methods;
+import il.ac.sce.ir.metric.concrete_metric.george.open_calais.processor.OpenCalaisEntiryResolverTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.george.open_calais.processor.OpenCalaisRetrieverTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.george.reporter.GeorgeReporter;
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.Test;
 

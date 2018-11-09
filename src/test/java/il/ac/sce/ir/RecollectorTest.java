@@ -2,7 +2,7 @@ package il.ac.sce.ir;
 
 import il.ac.sce.ir.metric.core.recollector.CachedMapRecollector;
 import il.ac.sce.ir.metric.core.reducer.ReducerStore;
-import il.ac.sce.ir.metric.core.config.Configuration;
+import il.ac.sce.ir.metric.core.container.data.Configuration;
 import org.junit.Test;
 
 import java.util.Map;

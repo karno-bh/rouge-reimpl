@@ -1,7 +1,7 @@
 package il.ac.sce.ir.metric.core.utils;
 
 import il.ac.sce.ir.metric.core.config.Constants;
-import il.ac.sce.ir.metric.core.config.ProcessedCategory;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

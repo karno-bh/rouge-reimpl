@@ -1,6 +1,6 @@
 package il.ac.sce.ir.metric.core.recollector;
 
-import il.ac.sce.ir.metric.core.config.Configuration;
+import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

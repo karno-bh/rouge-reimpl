@@ -77,7 +77,7 @@ public class AutoSummENGReImplAttemptTest {
 
             if (bDoCharNGrams) {
                 ndNDoc2 = new NGramSymWinDocument(charMin, charMax, charDist, charMin, charMax);
-                ndDoc2.loadDataStringFromFile(model);
+                ndNDoc2.loadDataStringFromFile(model);
             }
 
             try {

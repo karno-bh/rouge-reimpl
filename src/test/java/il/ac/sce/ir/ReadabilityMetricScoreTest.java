@@ -2,7 +2,7 @@ package il.ac.sce.ir;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import il.ac.sce.ir.metric.elena.reporter.ElenaReadabilityMetricScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.core.builder.TextPipeline;
 import il.ac.sce.ir.metric.core.builder.TextPipelineExtractor;
 import il.ac.sce.ir.metric.core.data.Text;
@@ -10,7 +10,7 @@ import il.ac.sce.ir.metric.core.processor.CacheMemoryTextProcessor;
 import il.ac.sce.ir.metric.core.processor.FileSystemCacheTextProcessor;
 import il.ac.sce.ir.metric.core.processor.FileToStringProcessor;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
-import il.ac.sce.ir.metric.nlp.processor.CoreNLPTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.common.nlp.processor.CoreNLPTextProcessor;
 import org.junit.Test;
 
 import java.util.Map;

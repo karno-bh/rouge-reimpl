@@ -1,6 +1,6 @@
 package il.ac.sce.ir.metric.core.reducer;
 
-import il.ac.sce.ir.metric.core.config.Configuration;
+import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.utils.FileSystemPath;
 

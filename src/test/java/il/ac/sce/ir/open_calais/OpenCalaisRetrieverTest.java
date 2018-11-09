@@ -6,8 +6,8 @@ import il.ac.sce.ir.metric.core.builder.TextPipelineExtractor;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.processor.FileSystemCacheTextProcessor;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;
-import il.ac.sce.ir.metric.george.open_calais.processor.OpenCalaisEntiryResolverTextProcessor;
-import il.ac.sce.ir.metric.george.open_calais.processor.OpenCalaisRetrieverTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.george.open_calais.processor.OpenCalaisEntiryResolverTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.george.open_calais.processor.OpenCalaisRetrieverTextProcessor;
 import org.apache.commons.httpclient.HttpClient;
 import org.junit.Test;
 

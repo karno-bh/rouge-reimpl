@@ -1,9 +1,5 @@
 package il.ac.sce.ir.metric.core.utils;
 
-import il.ac.sce.ir.metric.core.config.Configuration;
-import il.ac.sce.ir.metric.core.config.Constants;
-import il.ac.sce.ir.metric.core.config.ProcessedCategory;
-
 import java.io.File;
 
 public class FileSystemPath {
