@@ -16,12 +16,14 @@ public interface Constants {
     String ORIGINAL_TOPICS = "topics";
     String RESULT_DIRECTORY = "resultDirectory";
     String POST_METRICS_PROCESSING = "postMetricsProcessing";
+    String GEORGE_GRAPH_METRIC_CONFIG = "georgeGraphMetricConfig";
 
     String ROUGEN_LOWER_CASE = "rougen";
     String ROUGEL_LOWER_CASE = "rougel";
     String ROUGEW_LOWER_CASE = "rougew";
     String ELENA_READABILITY_LOWER_CASE = "elena_readability";
     String ELENA_TOPICS_READABILITY_LOWER_CASE = "elena_topics_readability";
+    String GEORGE_GRAPH_METRIC_LOWER_CASE = "george_graph_metric";
     String[] METRICS_FOR_SYSTEM = {
             ROUGEN_LOWER_CASE,
             ROUGEL_LOWER_CASE,
@@ -61,5 +63,13 @@ public interface Constants {
     String SAVE_TO_CSV_REDUCER = "saveToCSV";
 
     String COMBINE_REDUCER = "combineReducer";
+
+    String GEORGE_METHOD_N_GRAMS = "ngrams";
+    String GEORGE_METHOD_WORD_GRAPHS = "wordGraphs";
+    String GEORGE_METHOD_PLACEHOLDER = "placeholder";
+    String GEORGE_METHOD_PLACEHOLDER_SS = "placeholder_ss";
+    String GEORGE_METHOD_RANDOM = "random";
+    String GEORGE_METHOD_COSINE = "cosine";
+    String GEORGE_METHOD_PLACE_HOLDER_EXTRAWEIGHT = "placeholder_extra_weight";
 
 }

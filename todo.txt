@@ -1,3 +1,44 @@
+2018-11-08
+    CONTINUE:
+        Implementing AutoSummENG.
+    Done:
+        1. Pruned wrong direction of "George metrics"
+        2. Added a test that shows how to compute AutoSummENG metrics
+    TODO:
+        1. Implement AutoSummENG with Text<> and Caching.
+
+2018-10-25
+    CONTINUE:
+        Implementing George metrics
+    Done:
+        1. TF-IDF will be calculated from topics.
+        2.
+    TODO:
+        1. Refactor code copy-paste among Reporters which finds systems/peers/topics etc. Need to do it in more general
+           maner.
+
+2018-10-24
+    CONTINUE:
+        Implementing George metrics
+    Done:
+        1. More or less structure of sep-config.json to support george metrics. The huge problem with his metrics that
+           it just calculates the cross product between the documents. It is ok... but it is not good for the SEP
+        2. Some tests are done to retrieve parsed document within Open Calais.
+
+2018-10-23
+    CONTINUE:
+        Implementing George metrics
+    Done:
+        1. Started implementing George metrics within Text and TextProcessor.
+    TODO:
+        1. See the last one (2018-10-16)
+        2. The project should be cleaned. It is salad in the names of packages:
+            a. il.ac.sce.ir.metric.core.config should be cleared
+            b. Need to clean very old ideas how the project should look like
+            c. Need to move il.ac.sce.ir.metric.core.processor.token_filter being not under the core
+        3. GUI with react will be too complicated?.. Looks like some simpler solution should be done.
+
+
 2018-10-16
     Done:
         1. GUI initiated as Empty React Project

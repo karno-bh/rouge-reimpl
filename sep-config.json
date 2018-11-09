@@ -1,12 +1,24 @@
 {
   "workingSetDirectory": "c:\\my\\learning\\final-project\\working-set\\attempt001",
-  "workingSetMetrics": ["rougen1", "rougen2", "rougel", "rougew", "elena_readability", "elena_topics_readability"],
+  "workingSetMetrics": ["rougen1", "rougen2", "rougel", "rougew", "elena_readability", "elena_topics_readability", "george_graph_metric"],
   "postMetricsProcessing": ["normalizeFleschAndWordVariation", "saveToCSV"],
   "resultDirectory": "result",
-  "containerClass": "il.ac.sce.ir.metric.core.config.DefaultContainerImpl",
-  "mainAlgoClass": "il.ac.sce.ir.metric.core.config.MainAlgoDefaultImpl",
+  "containerClass": "il.ac.sce.ir.metric.starter.command_line.main.container.DefaultContainerImpl",
+  "mainAlgoClass": "il.ac.sce.ir.metric.starter.command_line.main.container.algo.MainAlgoDefaultImpl",
   "additionalContainerConfig": {
     "fileSystemCachePath": "cache",
     "topics": ["M000", "M001", "M002", "M003", "M004", "M005", "M006", "M007", "M008", "M009"]
+  },
+  "georgeGraphMetricConfig": {
+    "openCalaisExtractor": {
+      "openCalaisUrl": "https://api.thomsonreuters.com/permid/calais",
+      "sleepTimeMS": 500,
+      "maxRetries": 10,
+      "apacheHttpClientConfig": [["http.useragent", "Calais Rest Client"]],
+      "apiKey": "iSDDWuAd3qriwV0UYpkepAXjgamaI8BE"
+    },
+    "requiredMethods": [
+      "ngrams", "wordGraphs", "placeholder", "placeholder_ss", "random", "cosine", "placeholder_extra_weight"
+    ]
   }
 }

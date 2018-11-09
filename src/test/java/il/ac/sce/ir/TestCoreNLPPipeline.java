@@ -2,7 +2,7 @@ package il.ac.sce.ir;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import il.ac.sce.ir.metric.nlp.processor.CoreNLPTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.common.nlp.processor.CoreNLPTextProcessor;
 import il.ac.sce.ir.metric.core.builder.TextPipeline;
 import il.ac.sce.ir.metric.core.builder.TextPipelineExtractor;
 import il.ac.sce.ir.metric.core.data.Text;
