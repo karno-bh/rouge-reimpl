@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -21,9 +22,15 @@ public class FileSystemCacheTextProcessor<X, Y> extends AbstractCacheTextProcess
 
     public FileSystemCacheTextProcessor(TextProcessor<X, Y> textProcessor,
                                         String fileSystemCachePrefix,
+                                        String parameter) {
+        this(textProcessor, fileSystemCachePrefix, parameter, new ConcurrentHashMap<>());
+    }
+
+    public FileSystemCacheTextProcessor(TextProcessor<X, Y> textProcessor,
+                                        String fileSystemCachePrefix,
                                         String parameter,
                                         Map<String, String> textIdHashCache) {
-        super(null, textProcessor);
+        super(textProcessor);
         Objects.requireNonNull(textIdHashCache, "Text ID Cache of Hashes cannot be null");
         if (parameter == null || parameter.isEmpty()) {
             throw new IllegalArgumentException("Parameter cannot be empty");

@@ -1,3 +1,18 @@
+2018-11-09
+    CONTINUE:
+        Implementing AutoSummENG.
+    Done:
+        1. AutoSummENG partially implemented with Text<> and Caching in AutoSummENGTextProcessorTest
+        2. Big redesign of project structure (Look 2018-10-23 Todo list, Item #2)
+           a. Concrete Metrics now live in dedicated package
+           b. Core package was cleaned up
+           c. Starters and Containers are live in separate package
+           d. Old ideas are deleted
+        3. Merged to master
+    TODO:
+        1. Write reported for AutoSummENG.
+        2. Add reporter to main starter and containers
+
 2018-11-08
     CONTINUE:
         Implementing AutoSummENG.

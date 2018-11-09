@@ -6,16 +6,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-public  class CacheMemoryTextProcessor<X, Y> extends AbstractCacheTextProcessor<X, Y> {
+public class CacheMemoryTextProcessor<X, Y> extends AbstractCacheTextProcessor<X, Y> {
 
-    private Map<String, Text<Y>> cache = new ConcurrentHashMap<>();
-
-    public CacheMemoryTextProcessor(AbstractCacheTextProcessor<X, Y> nextLevelCache, TextProcessor<X, Y> textProcessor) {
-        super(nextLevelCache, textProcessor);
-    }
+    protected final Map<String, Text<Y>> cache = new ConcurrentHashMap<>();
 
     public CacheMemoryTextProcessor(TextProcessor<X, Y> textProcessor) {
-        super(null, textProcessor);
+        super(textProcessor);
     }
 
     @Override

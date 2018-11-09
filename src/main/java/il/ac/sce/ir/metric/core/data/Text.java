@@ -23,6 +23,6 @@ public class Text<T> {
     }
 
     public static Text<String> asFileLocation(String textId) {
-        return new Text<String>(textId, textId);
+        return new Text<>(textId, textId);
     }
 }
