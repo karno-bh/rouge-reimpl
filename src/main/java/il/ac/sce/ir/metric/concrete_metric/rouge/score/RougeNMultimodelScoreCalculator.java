@@ -6,6 +6,7 @@ import il.ac.sce.ir.metric.core.processor.BiTextProcessor;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.core.score.Score;
+import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
 
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,6 @@ public class RougeNMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
 
     private TextProcessor<String, Map<String, Integer>> nGramProcessor;
 
-    private List<Text<String>> models;
-
-    private Text<String> peer;
-
     public void setnGramHits(BiTextProcessor<String, Integer> nGramHits) {
         this.nGramHits = nGramHits;
     }
@@ -28,32 +25,15 @@ public class RougeNMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
         this.nGramProcessor = nGramProcessor;
     }
 
-    @Override
-    public void setModels(List<Text<String>> models) {
-        this.models = models;
-    }
-
-    @Override
-    public void setPeer(Text<String> peer) {
-        this.peer = peer;
-    }
-
-    @Override
-    public List<Text<String>> getModels() {
-        return models;
-    }
-
-    @Override
-    public Text<String> getPeer() {
-        return peer;
-    }
-
     public BiTextProcessor<String, Integer> getnGramHits() {
         return nGramHits;
     }
 
     @Override
-    public Score computeScore() {
+    public Score computeScore(MultiModelPair multiModelPair) {
+        Text<String> peer = multiModelPair.getPeer();
+        List<Text<String>> models = multiModelPair.getModels();
+
         double totalHits = 0;
         double totalModelGrams = 0;
         double totalPeerGrams = 0;

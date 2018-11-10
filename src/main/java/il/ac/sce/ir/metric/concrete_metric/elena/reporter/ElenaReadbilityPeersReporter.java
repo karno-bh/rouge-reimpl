@@ -93,9 +93,8 @@ public class ElenaReadbilityPeersReporter implements Reporter {
             }
             for (final String peerFileName : peerFileNames) {
                 Text<String> peerText = Text.asFileLocation(processedSystemDirLocation + File.separator + peerFileName);
-                scoreCalculator.setOriginalText(peerText);
 
-                ReadabilityMetricScore score = scoreCalculator.computeScore();
+                ReadabilityMetricScore score = scoreCalculator.computeScore(peerText);
                 reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
             }
         }

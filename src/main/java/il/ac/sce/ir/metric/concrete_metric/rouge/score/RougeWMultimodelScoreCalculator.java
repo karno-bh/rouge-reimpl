@@ -6,6 +6,7 @@ import il.ac.sce.ir.metric.core.processor.BiTextProcessor;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.core.score.Score;
+import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -15,10 +16,6 @@ public class RougeWMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
     private BiTextProcessor<List<String>, boolean[]> someModelMatchProcessor;
 
     private TextProcessor<String, List<String>> tokenProcessor;
-
-    private List<Text<String>> models;
-
-    private Text<String> peer;
 
     private Supplier<DoubleDoubleFunction> weightFunctionSupplier;
 
@@ -58,27 +55,10 @@ public class RougeWMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
     }
 
     @Override
-    public List<Text<String>> getModels() {
-        return models;
-    }
+    public Score computeScore(MultiModelPair multiModelPair) {
+        Text<String> peer = multiModelPair.getPeer();
+        List<Text<String>> models = multiModelPair.getModels();
 
-    @Override
-    public void setModels(List<Text<String>> models) {
-        this.models = models;
-    }
-
-    @Override
-    public Text<String> getPeer() {
-        return peer;
-    }
-
-    @Override
-    public void setPeer(Text<String> peer) {
-        this.peer = peer;
-    }
-
-    @Override
-    public Score computeScore() {
         DoubleDoubleFunction weightFunction = weightFunctionSupplier.get();
         DoubleDoubleFunction inverseWeightFunction = inverseWeightFunctionSupplier.get();
         List<String> peerTokens = tokenProcessor.process(peer).getTextData();

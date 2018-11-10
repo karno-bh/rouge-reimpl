@@ -9,6 +9,7 @@ import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategor
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,10 +111,9 @@ public class PeerMultimodelReporter implements Reporter {
                     continue;
                 }
                 Text<String> peerText = Text.asFileLocation(processedSystemDirLocation + File.separator + peerFileName);
-                scoreCalculator.setModels(fileTexts);
-                scoreCalculator.setPeer(peerText);
+                MultiModelPair multiModelPair = new MultiModelPair(peerText, fileTexts);
 
-                Score score = scoreCalculator.computeScore();
+                Score score = scoreCalculator.computeScore(multiModelPair);
                 reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
             }
         }

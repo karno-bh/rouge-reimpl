@@ -15,6 +15,7 @@ import il.ac.sce.ir.metric.concrete_metric.rouge.processor.SomeModelMatchContinu
 import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeLMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeNMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeWMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
 import org.junit.Test;
 
 import java.text.MessageFormat;
@@ -88,17 +89,19 @@ public class RougeNPipeLineTest {
         BiTextProcessor<String, Integer> nGramHits = new NGramHits(nGram1Extractor.getTextProcessor());
 
         RougeNMultimodelScoreCalculator rougeNMultimodelReporter = new RougeNMultimodelScoreCalculator();
-        rougeNMultimodelReporter.setModels(models);
-        rougeNMultimodelReporter.setPeer(peer1);
+
         rougeNMultimodelReporter.setnGramProcessor(nGram1Extractor.getTextProcessor());
         rougeNMultimodelReporter.setnGramHits(nGramHits);
 
-        Score s = rougeNMultimodelReporter.computeScore();
+        MultiModelPair multiModelPair = new MultiModelPair(peer1, models);
+
+
+        Score s = rougeNMultimodelReporter.computeScore(multiModelPair);
         System.out.println(s);
 
         RougeLMultimodelScoreCalculator rougeLMultimodelReporter = new RougeLMultimodelScoreCalculator();
-        rougeLMultimodelReporter.setModels(models);
-        rougeLMultimodelReporter.setPeer(peer1);
+
+        multiModelPair = new MultiModelPair(peer1, models);
 
         BiTextPipelineExtractor<List<String>, int[][]> dpMatrixExtractor = new BiTextPipelineExtractor<>();
         BiTextPipelineExtractor<List<String>, boolean[]> someModelMatchExtractor = new BiTextPipelineExtractor<>();
@@ -111,19 +114,19 @@ public class RougeNPipeLineTest {
         rougeLMultimodelReporter.setDpMatrixProcessor(dpMatrixExtractor.getBiTextProcessor());
         rougeLMultimodelReporter.setTokensProcessor(tokensExtractor.getTextProcessor());
 
-        s = rougeLMultimodelReporter.computeScore();
+        s = rougeLMultimodelReporter.computeScore(multiModelPair);
         System.out.println(s);
 
         RougeWMultimodelScoreCalculator rougeWMultimodelReporter = new RougeWMultimodelScoreCalculator();
         final double weighFactor = 1.2d;
         rougeWMultimodelReporter.setWeightFunctionSupplier(() -> value -> Math.pow(value, weighFactor));
         rougeWMultimodelReporter.setInverseWeightFunctionSupplier(() -> value -> Math.pow(value, 1 / weighFactor));
-        rougeWMultimodelReporter.setModels(models);
-        rougeWMultimodelReporter.setPeer(peer1);
+
+        multiModelPair = new MultiModelPair(peer1, models);
         rougeWMultimodelReporter.setTokenProcessor(tokensExtractor.getTextProcessor());
         rougeWMultimodelReporter.setSomeModelMatchProcessor(someModelMatchExtractor.getBiTextProcessor());
 
-        s = rougeWMultimodelReporter.computeScore();
+        s = rougeWMultimodelReporter.computeScore(multiModelPair);
         System.out.println(s);
     }
 }

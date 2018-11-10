@@ -1,12 +1,15 @@
-2018-11-10
+2018-11-10--001
     CONTINUE:
         1. Implementing AutoSummENG.
         2. Overall small refactoring tasks
     Done:
-        1. headerCreated class member removed from reporters to allow multithreaded execution
+        1. [Multithreading preparations] headerCreated class member removed from reporters
+           to allow multithreaded execution
         2. DocumentDesc class is added as a way for not having processors holding an information which related only
            to texts. For instance, AutoSummENG graph calculation depends on passed parameters. So, it is aggregated in
            DocumentDesc and the Text<DocumentDesc> and not in the Processor
+        3. [Multithreading preparations] ScoreCalculator changed so that it gets now texts
+           as function parameters and not from object members
     TODO:
         1. Write reported for AutoSummENG.
         2. Add reporter to main starter and containers
