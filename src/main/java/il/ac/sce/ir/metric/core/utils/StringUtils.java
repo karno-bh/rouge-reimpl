@@ -10,4 +10,8 @@ public class StringUtils {
         }
         return false;
     }
+
+    public boolean isEmpty(CharSequence string) {
+        return org.apache.commons.lang3.StringUtils.isEmpty(string);
+    }
 }

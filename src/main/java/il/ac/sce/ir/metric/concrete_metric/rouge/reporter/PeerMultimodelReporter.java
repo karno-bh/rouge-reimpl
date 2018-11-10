@@ -42,7 +42,7 @@ public class PeerMultimodelReporter implements Reporter {
         this.scoreCalculator = scoreCalculator;
     }
 
-    private boolean headerCreated = false;
+//    private boolean headerCreated = false;
 
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
@@ -85,7 +85,7 @@ public class PeerMultimodelReporter implements Reporter {
                 .collect(Collectors.toList());
 
         for (ProcessedSystem processedSystem : processedSystems) {
-            headerCreated = false;
+            boolean headerCreated[] = {false}; // hacky way to propagate...
             String processedSystemDirLocation = processedSystem.getDirLocation();
             File processedSystemDir = new File(processedSystemDirLocation);
             String[] peerFileNames = processedSystemDir.list((file, fileName) -> {
@@ -114,13 +114,13 @@ public class PeerMultimodelReporter implements Reporter {
                 scoreCalculator.setPeer(peerText);
 
                 Score score = scoreCalculator.computeScore();
-                reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score);
+                reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
             }
         }
     }
 
     protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
-                                        String metric, Configuration configuration, String fileName, Score score) {
+                                        String metric, Configuration configuration, String fileName, Score score, boolean[] headerCreated) {
 
         requireAndCreateDirectory(configuration);
 
@@ -147,10 +147,10 @@ public class PeerMultimodelReporter implements Reporter {
             properties = filteredProperties;
 
             Set<String> sortedKeys = new TreeSet<>(properties.keySet());
-            if (!headerCreated) {
+            if (!headerCreated[0]) {
                 String header = buildHeader(sortedKeys);
                 pw.println(header);
-                headerCreated = true;
+                headerCreated[0] = true;
             }
             String reportedPeerFileName = fileName;
             int separatorLastIndex = reportedPeerFileName.lastIndexOf(File.separator);

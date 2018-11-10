@@ -42,7 +42,7 @@ public class ElenaReadbilityPeersReporter implements Reporter {
         this.scoreCalculator = scoreCalculator;
     }
 
-    private boolean headerCreated = false;
+    // private boolean headerCreated = false;
 
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
@@ -80,7 +80,7 @@ public class ElenaReadbilityPeersReporter implements Reporter {
                 .collect(Collectors.toList());
 
         for (ProcessedSystem processedSystem : processedSystems) {
-            headerCreated = false;
+            boolean headerCreated[] = {false};
             String processedSystemDirLocation = processedSystem.getDirLocation();
             File processedSystemDir = new File(processedSystemDirLocation);
             String[] peerFileNames = processedSystemDir.list((file, fileName) -> {
@@ -96,13 +96,13 @@ public class ElenaReadbilityPeersReporter implements Reporter {
                 scoreCalculator.setOriginalText(peerText);
 
                 ReadabilityMetricScore score = scoreCalculator.computeScore();
-                reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score);
+                reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
             }
         }
     }
 
     protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
-                                        String metric, Configuration configuration, String fileName, ReadabilityMetricScore score) {
+                                        String metric, Configuration configuration, String fileName, ReadabilityMetricScore score, boolean[] headerCreated) {
         requireAndCreateDirectory(configuration);
 
         StringBuilder resultFileNameBuf = constructResultFileName(processedCategory, processedSystem, metric);
@@ -129,10 +129,10 @@ public class ElenaReadbilityPeersReporter implements Reporter {
 
 
             Set<String> sortedKeys = new TreeSet<>(properties.keySet());
-            if (!headerCreated) {
+            if (!headerCreated[0]) {
                 String header = buildHeader(sortedKeys);
                 pw.println(header);
-                headerCreated = true;
+                headerCreated[0] = true;
             }
             String reportedPeerFileName = fileName;
             int separatorLastIndex = reportedPeerFileName.lastIndexOf(File.separator);
