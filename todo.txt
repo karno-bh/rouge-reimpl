@@ -1,3 +1,17 @@
+2018-11-11
+    CONTINUE:
+        1. Cleaning a mess with resolving a paths for peers/models/topics
+        2. Implementing AutoSummENG.
+    Done:
+        1. Reorganizing packages for tests
+        2. Started writing FileSystemTopology that will aggregate the logic
+           for resolving a paths for peers/models/topics
+    TODO:
+        1  Finish FileSystemTopology
+        2. Write reported for AutoSummENG.
+        3. Add reporter to main starter and containers
+        4. !!Multithreading should be added!!
+
 2018-11-10--001
     CONTINUE:
         1. Implementing AutoSummENG.

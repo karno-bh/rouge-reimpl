@@ -1,4 +1,4 @@
-package il.ac.sce.ir;
+package il.ac.sce.ir.libs_playing;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

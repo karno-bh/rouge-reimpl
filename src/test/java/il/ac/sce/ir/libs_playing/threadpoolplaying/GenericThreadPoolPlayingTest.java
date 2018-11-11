@@ -1,4 +1,4 @@
-package il.ac.sce.ir.threadpoolplaying;
+package il.ac.sce.ir.libs_playing.threadpoolplaying;
 
 import org.junit.Test;
 
@@ -6,7 +6,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class GenericThreadPoolPlayingTest {
 

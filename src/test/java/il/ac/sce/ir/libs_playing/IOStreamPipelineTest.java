@@ -1,4 +1,4 @@
-package il.ac.sce.ir;
+package il.ac.sce.ir.libs_playing;
 
 import il.ac.sce.ir.metric.core.builder.OutputStreamPipeline;
 import org.junit.Test;

@@ -49,6 +49,7 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
         int wordsNum = 0;
         int sentencesNum = 0;
         int properNouns = 0;
+        StringUtils stringUtils = new StringUtils();
         for (CoreMap sentence : sentences) {
             for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                 // this is the text of the token
@@ -58,7 +59,7 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
                 // this is the NER label of the token
                 String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
-                if (!StringUtils.contains(word, ",", ".", "?", "!", "'")) {
+                if (!stringUtils.contains(word, ",", ".", "?", "!", "'")) {
                     wordsNum++;
                     uniqueWords.add(word);
                     if (pos.contains("NNP")) {
