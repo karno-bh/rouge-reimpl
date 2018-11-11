@@ -1,9 +1,9 @@
-package il.ac.sce.ir.metric.core.reporter.file_system_reflection;
+package il.ac.sce.ir.metric.core.utils.file_system;
 
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.data.Text;
-import il.ac.sce.ir.metric.core.utils.CategoryPathResolver;
-import il.ac.sce.ir.metric.core.utils.FileSystemPath;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

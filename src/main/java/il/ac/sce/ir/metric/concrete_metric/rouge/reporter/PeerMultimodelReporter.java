@@ -5,18 +5,18 @@ import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.FileSystemTopologyResolver;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemCommons;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
-import il.ac.sce.ir.metric.core.utils.FileSystemPath;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.text.MessageFormat;
 import java.util.*;
 
 public class PeerMultimodelReporter implements Reporter {
@@ -50,6 +50,9 @@ public class PeerMultimodelReporter implements Reporter {
         Configuration configuration = getConfiguration();
         FileSystemTopologyResolver fileSystemTopologyResolver = new FileSystemTopologyResolver();
         FileSystemPath fileSystemPath = new FileSystemPath();
+        FileSystemCommons fileSystemCommons = new FileSystemCommons();
+
+        fileSystemCommons.requireAndCreateResultDirectory(configuration.getResultDirectory());
         String workingSetDirectory = configuration.getWorkingSetDirectory();
 
         File modelsDirectory = fileSystemTopologyResolver.getModelsDirectory(workingSetDirectory, processedCategory);
@@ -84,8 +87,6 @@ public class PeerMultimodelReporter implements Reporter {
 
     protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
                                         String metric, Configuration configuration, String fileName, Score score, boolean[] headerCreated) {
-
-        requireAndCreateResultDirectory(configuration.getResultDirectory());
 
         StringBuilder resultFileNameBuf = constructResultFileName(processedCategory, processedSystem, metric);
 
@@ -157,17 +158,5 @@ public class PeerMultimodelReporter implements Reporter {
                 .append(Constants.RESULT_FILE_ENITITIES_SEPARATOR).append(processedSystemDesc)
                 .append(Constants.RESULT_FILE_ENITITIES_SEPARATOR).append(metric);
         return resultFileNameBuf;
-    }
-
-    private void requireAndCreateResultDirectory(String resultDirectoryName) {
-        File resultDirectory = new File(resultDirectoryName);
-        if (!resultDirectory.exists()) {
-            boolean mkdirsOk = resultDirectory.mkdirs();
-            if (!mkdirsOk) {
-                throw new RuntimeException("Cannot create result directory: " + resultDirectoryName);
-            }
-        } else if (!resultDirectory.isDirectory()) {
-            throw new RuntimeException(MessageFormat.format("Result Directory \"{0}\" is not a directory on file system", resultDirectory));
-        }
     }
 }
