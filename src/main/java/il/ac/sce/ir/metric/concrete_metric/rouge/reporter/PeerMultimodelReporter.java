@@ -5,6 +5,7 @@ import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.FileSystemTopologyResolver;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,43 +48,13 @@ public class PeerMultimodelReporter implements Reporter {
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
         Configuration configuration = getConfiguration();
+        FileSystemTopologyResolver fileSystemTopologyResolver = new FileSystemTopologyResolver();
+        String workingSetDirectory = configuration.getWorkingSetDirectory();
 
-        String categoryDir = configuration.getWorkingSetDirectory() + File.separator + processedCategory.getDirLocation();
-        String peersDirectoryName = categoryDir + File.separator + Constants.PEERS_DIRECTORY;
-        File peersDirectory = new File(peersDirectoryName);
-        if (!peersDirectory.isDirectory()) {
-            throw new RuntimeException(peersDirectoryName + " is not a directory");
-        }
+        File modelsDirectory = fileSystemTopologyResolver.getModelsDirectory(workingSetDirectory, processedCategory);
+        String modelsDirectoryName = modelsDirectory.getAbsolutePath();
 
-        String modelsDirectoryName = categoryDir + File.separator + Constants.MODELS_DIRECTORY;
-        File modelsDirectory = new File(modelsDirectoryName);
-        if (!modelsDirectory.isDirectory()) {
-            throw new RuntimeException(modelsDirectory + " is not a directory");
-        }
-
-        String[] systems = peersDirectory.list((file, name) -> file.isDirectory());
-        if (systems == null || systems.length == 0) {
-            logger.warn("Category {} does not have any system");
-            return;
-        }
-        List<ProcessedSystem> processedSystems = Arrays.stream(systems)
-                .map(systemDirName -> {
-                    String pathName = peersDirectory + File.separator + systemDirName + File.separator + Constants.DESCRIPTION_FILE;
-                    File systemDescriptionFile = new File(pathName);
-                    String description = null;
-                    if (systemDescriptionFile.isFile()) {
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(systemDescriptionFile), StandardCharsets.UTF_8.name()))) {
-                            description = reader.readLine();
-                        } catch (IOException ignored) {
-                        }
-                    }
-                    return ProcessedSystem.as()
-                            .dirLocation(peersDirectory + File.separator + systemDirName)
-                            .description(description)
-                            .build();
-                })
-                .collect(Collectors.toList());
-
+        List<ProcessedSystem> processedSystems = fileSystemTopologyResolver.getProcessedSystems(workingSetDirectory, processedCategory);
         for (ProcessedSystem processedSystem : processedSystems) {
             boolean headerCreated[] = {false}; // hacky way to propagate...
             String processedSystemDirLocation = processedSystem.getDirLocation();

@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b802410-e008-41e2-b987-4c47977eb396" name="Default" comment="some">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopology.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/score/ElenaReadabilityMetricScoreCalculator.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/score/ElenaReadabilityMetricScoreCalculator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultiModelMultithreadedReporter.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultiModelMultithreadedReporter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/StringUtils.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/StringUtils.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/ClassReflectionTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/ClassReflectionTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/IOStreamPipelineTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/IOStreamPipelineTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/JacksonTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/JacksonTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/LoggingSLFTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/LoggingSLFTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/StringFunctionTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/StringFunctionTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/threadpoolplaying/GenericThreadPoolPlayingTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/threadpoolplaying/GenericThreadPoolPlayingTest.java" />
-      <change beforePath="$PROJECT_DIR$/todo.txt" afterPath="$PROJECT_DIR$/todo.txt" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,12 +30,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PeerMultimodelReporter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PeerMultimodelReporter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="100" column="103" lean-forward="false" selection-start-line="100" selection-start-column="103" selection-end-line="100" selection-end-column="103" />
+            <state relative-caret-position="459">
+              <caret line="64" column="15" lean-forward="true" selection-start-line="64" selection-start-column="15" selection-end-line="64" selection-end-column="15" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/container/data/Configuration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <folding>
+                <element signature="e#1227#1228#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedSystem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1218#1219#0" expanded="true" />
@@ -75,34 +76,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainAlgoDefaultImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/algo/MainAlgoDefaultImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="61" column="43" lean-forward="true" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CategoryPathResolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/CategoryPathResolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="13" column="33" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="33" />
+            <state relative-caret-position="88">
+              <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="33" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileSystemTopology.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopology.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -110,27 +89,22 @@
       <file leaf-file-name="FileSystemTopologyResolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="280">
+              <caret line="23" column="101" lean-forward="false" selection-start-line="23" selection-start-column="101" selection-end-line="23" selection-end-column="101" />
               <folding>
-                <element signature="e#276#277#0" expanded="true" />
-                <element signature="e#318#319#0" expanded="true" />
-                <element signature="e#388#389#0" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
-                <element signature="e#523#524#0" expanded="true" />
-                <element signature="e#550#551#0" expanded="true" />
-                <element signature="e#615#616#0" expanded="true" />
-                <element signature="e#642#643#0" expanded="true" />
-                <element signature="e#707#708#0" expanded="true" />
-                <element signature="e#734#735#0" expanded="true" />
-                <element signature="e#803#804#0" expanded="true" />
-                <element signature="e#830#831#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4360#4361#0" expanded="true" />
+                <element signature="e#4387#4388#0" expanded="true" />
+                <element signature="e#4452#4453#0" expanded="true" />
+                <element signature="e#4479#4480#0" expanded="true" />
+                <element signature="e#4548#4549#0" expanded="true" />
+                <element signature="e#4575#4576#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="todo.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="todo.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/todo.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
@@ -140,11 +114,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ElenaReadbilityPeersReporter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityPeersReporter.java">
+      <file leaf-file-name="JInsectNGramSymWinDocumentTextProcessor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectNGramSymWinDocumentTextProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="63" column="13" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+            <state relative-caret-position="408">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JInsectSimpleTextDocumentTextProcessor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectSimpleTextDocumentTextProcessor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="19" column="62" lean-forward="false" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -153,7 +137,7 @@
       <file leaf-file-name="ElenaReadbilityTopicsReporter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityTopicsReporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
+            <state relative-caret-position="1241">
               <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
               <folding />
             </state>
@@ -173,7 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dpMatchMatrix</find>
       <find>slf</find>
       <find>_</find>
       <find>metric</find>
@@ -203,6 +186,7 @@
       <find>headerCreat</find>
       <find>release</find>
       <find>shutdown</find>
+      <find>requireAndCreateDirectory</find>
     </findStrings>
     <replaceStrings>
       <replace>dpMatrix</replace>
@@ -261,7 +245,6 @@
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/ReadabilityMetricScoreTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/RougeNPipeLineTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/threadpoolplaying/GenericThreadPoolPlayingTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/ClassReflectionTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/JacksonTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/LoggingSLFTest.java" />
@@ -271,8 +254,9 @@
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/score/ElenaReadabilityMetricScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/StringUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopology.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java" />
         <option value="$PROJECT_DIR$/todo.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java" />
       </list>
     </option>
   </component>
@@ -313,7 +297,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -493,6 +477,27 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="metric" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="metric" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rouge-reimpl" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="metric" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -1039,9 +1044,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1078,7 +1083,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.IOStreamPipelineTest">
+  <component name="RunManager" selected="Application.Starter">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -1288,9 +1293,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.IOStreamPipelineTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.GenericThreadPoolPlayingTest.playWithThreadPoolExampleTest" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Starter" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Starter" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.IOStreamPipelineTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.GenericThreadPoolPlayingTest.playWithThreadPoolExampleTest" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.AutoSummENGTextProcessorTest.autoSummEngWithTextProcessorWithSpecialTextTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.AutoSummENGTextProcessorTest.autoSummEngWithTextProcessorTest" />
       </list>
@@ -1365,19 +1370,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5824411" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24147122" sideWeight="0.49441788" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15884861" sideWeight="0.49441788" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29443255" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18603411" sideWeight="0.50558215" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29443255" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1431,13 +1436,13 @@
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/utils/RougeUtils.java</url>
           <line>36</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/score/RougeWMultimodelScoreCalculator.java</url>
           <line>103</line>
           <properties />
@@ -1449,13 +1454,13 @@
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/Starter.java</url>
           <line>54</line>
           <properties />
           <option name="timeStamp" value="22" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/DefaultContainerImpl.java</url>
           <line>49</line>
           <properties />
@@ -1469,53 +1474,47 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java</url>
-          <line>71</line>
-          <properties />
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java</url>
-          <line>89</line>
+          <line>59</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java</url>
-          <line>92</line>
+          <line>62</line>
           <properties />
           <option name="timeStamp" value="27" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java</url>
-          <line>108</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="28" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java</url>
-          <line>184</line>
+          <line>154</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/score/ElenaReadabilityMetricScoreCalculator.java</url>
           <line>42</line>
           <properties />
           <option name="timeStamp" value="33" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityTopicsReporter.java</url>
           <line>128</line>
           <properties />
           <option name="timeStamp" value="34" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/StopWordRemovalTest.java</url>
           <line>109</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/StopWordRemovalTest.java</url>
           <line>114</line>
           <properties />
@@ -1533,73 +1532,73 @@
           <properties />
           <option name="timeStamp" value="42" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/NormalizeFleschRedabilityAndWordVariationByCorpus.java</url>
           <line>99</line>
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java</url>
           <line>64</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java</url>
           <line>88</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/algo/MainAlgoDefaultImpl.java</url>
           <line>50</line>
           <properties />
           <option name="timeStamp" value="46" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/container/data/Configuration.java</url>
           <line>100</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/DefaultContainerImpl.java</url>
           <line>178</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/GeorgeMetricReporterTest.java</url>
           <line>54</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/george/reporter/GeorgeReporter.java</url>
           <line>61</line>
           <properties />
           <option name="timeStamp" value="53" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/george/reporter/GeorgeReporter.java</url>
           <line>93</line>
           <properties />
           <option name="timeStamp" value="55" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/george/reporter/GeorgeReporter.java</url>
           <line>101</line>
           <properties />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/george/reporter/GeorgeReporter.java</url>
           <line>128</line>
           <properties />
           <option name="timeStamp" value="58" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/processor/CacheMemoryTextProcessor.java</url>
           <line>18</line>
           <properties />
@@ -1636,14 +1635,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/nio/file/Paths.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="71" column="66" lean-forward="false" selection-start-line="71" selection-start-column="66" selection-end-line="71" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/autosummeng/AutoSummENGTextProcessorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="628">
@@ -1717,22 +1708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectNGramSymWinDocumentTextProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectSimpleTextDocumentTextProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="62" lean-forward="false" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/utils/RougeUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
@@ -1777,9 +1752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28292#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1795,10 +1767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="1393" column="23" lean-forward="true" selection-start-line="1393" selection-start-column="23" selection-end-line="1393" selection-end-column="23" />
-          <folding>
-            <element signature="e#58750#58751#0" expanded="false" />
-            <element signature="e#58776#58777#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1814,7 +1782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="57" column="17" lean-forward="false" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1822,10 +1789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="530" column="18" lean-forward="false" selection-start-line="530" selection-start-column="18" selection-end-line="530" selection-end-column="18" />
-          <folding>
-            <element signature="e#21068#21069#0" expanded="false" />
-            <element signature="e#21142#21143#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1844,7 +1807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3626">
           <caret line="87" column="34" lean-forward="false" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1852,15 +1814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-342">
           <caret line="48" column="8" lean-forward="false" selection-start-line="48" selection-start-column="8" selection-end-line="66" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3004#3005#0" expanded="false" />
-            <element signature="e#3041#3042#0" expanded="false" />
-            <element signature="e#3077#3078#0" expanded="false" />
-            <element signature="e#3115#3116#0" expanded="false" />
-            <element signature="e#3280#3281#0" expanded="false" />
-            <element signature="e#3324#3325#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1868,7 +1821,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1876,7 +1828,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1884,7 +1835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1932,7 +1882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1964,7 +1913,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1973,8 +1921,8 @@
         <state relative-caret-position="68">
           <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
           <folding>
-            <element signature="e#336#337#0" expanded="true" />
-            <element signature="e#411#412#0" expanded="true" />
+            <element signature="e#336#337#0" expanded="false" />
+            <element signature="e#411#412#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1997,34 +1945,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopology.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="374">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/algo/MainAlgoDefaultImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="61" column="43" lean-forward="true" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/CategoryPathResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="13" column="33" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="100" column="103" lean-forward="false" selection-start-line="100" selection-start-column="103" selection-end-line="100" selection-end-column="103" />
+        <state relative-caret-position="782">
+          <caret line="61" column="43" lean-forward="false" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -2039,21 +1971,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityTopicsReporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
+        <state relative-caret-position="1241">
           <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1218#1219#0" expanded="true" />
-            <element signature="e#1294#1295#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2065,31 +1985,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="e#276#277#0" expanded="true" />
-            <element signature="e#318#319#0" expanded="true" />
-            <element signature="e#388#389#0" expanded="true" />
-            <element signature="e#450#451#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#550#551#0" expanded="true" />
-            <element signature="e#615#616#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <element signature="e#707#708#0" expanded="true" />
-            <element signature="e#734#735#0" expanded="true" />
-            <element signature="e#803#804#0" expanded="true" />
-            <element signature="e#830#831#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/todo.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectSimpleTextDocumentTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="62" lean-forward="false" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/auto_summ_eng/processor/JInsectNGramSymWinDocumentTextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/CategoryPathResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/container/data/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="e#1227#1228#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1218#1219#0" expanded="true" />
+            <element signature="e#1294#1295#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="23" column="101" lean-forward="false" selection-start-line="23" selection-start-column="101" selection-end-line="23" selection-end-column="101" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4360#4361#0" expanded="true" />
+            <element signature="e#4387#4388#0" expanded="true" />
+            <element signature="e#4452#4453#0" expanded="true" />
+            <element signature="e#4479#4480#0" expanded="true" />
+            <element signature="e#4548#4549#0" expanded="true" />
+            <element signature="e#4575#4576#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="64" column="15" lean-forward="true" selection-start-line="64" selection-start-column="15" selection-end-line="64" selection-end-column="15" />
           <folding />
         </state>
       </provider>
