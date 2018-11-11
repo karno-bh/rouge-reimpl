@@ -11,13 +11,13 @@ import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
+import il.ac.sce.ir.metric.core.utils.FileSystemPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PeerMultimodelReporter implements Reporter {
 
@@ -49,39 +49,32 @@ public class PeerMultimodelReporter implements Reporter {
     public void report(ProcessedCategory processedCategory, String metric) {
         Configuration configuration = getConfiguration();
         FileSystemTopologyResolver fileSystemTopologyResolver = new FileSystemTopologyResolver();
+        FileSystemPath fileSystemPath = new FileSystemPath();
         String workingSetDirectory = configuration.getWorkingSetDirectory();
 
         File modelsDirectory = fileSystemTopologyResolver.getModelsDirectory(workingSetDirectory, processedCategory);
-        String modelsDirectoryName = modelsDirectory.getAbsolutePath();
 
         List<ProcessedSystem> processedSystems = fileSystemTopologyResolver.getProcessedSystems(workingSetDirectory, processedCategory);
+        if (processedSystems == null || processedSystems.isEmpty()) {
+            logger.warn("Category {} does not have any system", processedCategory.getDirLocation());
+            return;
+        }
         for (ProcessedSystem processedSystem : processedSystems) {
             boolean headerCreated[] = {false}; // hacky way to propagate...
             String processedSystemDirLocation = processedSystem.getDirLocation();
-            File processedSystemDir = new File(processedSystemDirLocation);
-            String[] peerFileNames = processedSystemDir.list((file, fileName) -> {
-                File dirFile = new File(processedSystemDirLocation + File.separator + fileName);
-                return dirFile.isFile();
-            });
-            if (peerFileNames == null  || peerFileNames.length == 0) {
+            List<String> peerFileNames = fileSystemTopologyResolver.getPeerFileNames(processedSystem);
+            if (peerFileNames.isEmpty()) {
                 logger.warn("System {} does not have any file", processedSystem.getDescription());
                 continue;
             }
             for (final String peerFileName : peerFileNames) {
-                String[] modelsArr = modelsDirectory.list((file, fileName) -> fileName.startsWith(peerFileName));
-                if (modelsArr == null || modelsArr.length == 0) {
-                    logger.warn("No models for peer {}", peerFileName);
-                    continue;
-                }
-                List<Text<String>> fileTexts = Arrays.stream(modelsArr)
-                        .map(modelFileName -> modelsDirectoryName + File.separator + modelFileName)
-                        .map(Text::asFileLocation).collect(Collectors.toList());
-                if (fileTexts == null || fileTexts.isEmpty()) {
+                List<Text<String>> modelsPerPeer = fileSystemTopologyResolver.getModelTextsPerPeer(modelsDirectory, peerFileName);
+                if (modelsPerPeer == null || modelsPerPeer.isEmpty()) {
                     logger.warn("No models found for peer {} in category {}", peerFileName, processedCategory.getDescription());
                     continue;
                 }
-                Text<String> peerText = Text.asFileLocation(processedSystemDirLocation + File.separator + peerFileName);
-                MultiModelPair multiModelPair = new MultiModelPair(peerText, fileTexts);
+                Text<String> peerText = Text.asFileLocation(fileSystemPath.combinePath(processedSystemDirLocation, peerFileName));
+                MultiModelPair multiModelPair = new MultiModelPair(peerText, modelsPerPeer);
 
                 Score score = scoreCalculator.computeScore(multiModelPair);
                 reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
@@ -92,7 +85,7 @@ public class PeerMultimodelReporter implements Reporter {
     protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
                                         String metric, Configuration configuration, String fileName, Score score, boolean[] headerCreated) {
 
-        requireAndCreateDirectory(configuration);
+        requireAndCreateResultDirectory(configuration.getResultDirectory());
 
         StringBuilder resultFileNameBuf = constructResultFileName(processedCategory, processedSystem, metric);
 
@@ -166,8 +159,7 @@ public class PeerMultimodelReporter implements Reporter {
         return resultFileNameBuf;
     }
 
-    private void requireAndCreateDirectory(Configuration configuration) {
-        String resultDirectoryName = configuration.getResultDirectory();
+    private void requireAndCreateResultDirectory(String resultDirectoryName) {
         File resultDirectory = new File(resultDirectoryName);
         if (!resultDirectory.exists()) {
             boolean mkdirsOk = resultDirectory.mkdirs();
@@ -175,7 +167,7 @@ public class PeerMultimodelReporter implements Reporter {
                 throw new RuntimeException("Cannot create result directory: " + resultDirectoryName);
             }
         } else if (!resultDirectory.isDirectory()) {
-            throw new RuntimeException(MessageFormat.format("Result Directory \"(0)\" is not a directory on file system", resultDirectory));
+            throw new RuntimeException(MessageFormat.format("Result Directory \"{0}\" is not a directory on file system", resultDirectory));
         }
     }
 }

@@ -1,12 +1,14 @@
 package il.ac.sce.ir.metric.core.reporter.file_system_reflection;
 
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.utils.CategoryPathResolver;
 import il.ac.sce.ir.metric.core.utils.FileSystemPath;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +40,19 @@ public class FileSystemTopologyResolver {
             throw new RuntimeException(peersDirectoryName + " is not a directory");
         }
         return peersDirectory;
+    }
+
+    public List<String> getPeerFileNames(ProcessedSystem processedSystem) {
+        String processedSystemDirLocation = processedSystem.getDirLocation();
+        File processedSystemDir = new File(processedSystemDirLocation);
+        String[] peerFileNames = processedSystemDir.list((file, fileName) -> {
+            File dirFile = new File(processedSystemDirLocation + File.separator + fileName);
+            return dirFile.isFile();
+        });
+        if (peerFileNames == null) {
+            return Collections.EMPTY_LIST;
+        }
+        return Arrays.asList(peerFileNames);
     }
 
     public List<ProcessedSystem> getProcessedSystems(String workingSetDirectory, ProcessedCategory processedCategory) {
@@ -77,16 +92,19 @@ public class FileSystemTopologyResolver {
         return processedSystems;
     }
 
-    public List<String> getModels(ProcessedCategory category) {
-        return null;
+    public List<Text<String>> getModelTextsPerPeer(File modelsDirectory, String peerFileName) {
+        final FileSystemPath fileSystemPath = new FileSystemPath();
+        String modelsDirectoryName = modelsDirectory.getAbsolutePath();
+        String[] modelsArr = modelsDirectory.list((file, fileName) -> fileName.startsWith(peerFileName));
+        if (modelsArr == null || modelsArr.length == 0) {
+            return Collections.EMPTY_LIST;
+        }
+        return Arrays.stream(modelsArr)
+//                .map(modelFileName -> modelsDirectoryName + File.separator + modelFileName)
+                .map(modelFileName -> fileSystemPath.combinePath(modelsDirectoryName, modelFileName))
+                .map(Text::asFileLocation)
+                .collect(Collectors.toList());
     }
 
-    public List<String> getTopics(ProcessedCategory category) {
-        return null;
-    }
-
-    public List<String> getPeers(ProcessedSystem processedSystem) {
-        return null;
-    }
 
 }
