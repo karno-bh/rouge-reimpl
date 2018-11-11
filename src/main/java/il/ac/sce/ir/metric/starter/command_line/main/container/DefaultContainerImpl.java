@@ -13,7 +13,7 @@ import il.ac.sce.ir.metric.core.container.data.ContainerConfigData;
 import il.ac.sce.ir.metric.core.processor.*;
 import il.ac.sce.ir.metric.core.recollector.CachedMapRecollector;
 import il.ac.sce.ir.metric.core.reducer.*;
-import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadbilityPeersReporter;
+import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadabilityPeersReporter;
 import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadbilityTopicsReporter;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.common.nlp.processor.CoreNLPTextProcessor;
@@ -151,15 +151,15 @@ public class DefaultContainerImpl extends Container {
                 .extract(fsCachedCoreNLPAnnotationExtractor);
 
         if (lowerCaseMetrics.contains(Constants.ELENA_READABILITY_LOWER_CASE)) {
-            ElenaReadbilityPeersReporter elenaReadbilityPeersReporter = new ElenaReadbilityPeersReporter();
+            ElenaReadabilityPeersReporter elenaReadabilityPeersReporter = new ElenaReadabilityPeersReporter();
 
             ElenaReadabilityMetricScoreCalculator readabilityMetricScoreCalculator = new ElenaReadabilityMetricScoreCalculator();
             readabilityMetricScoreCalculator.setDocumentAnnotationProcessor(fsCachedCoreNLPAnnotationExtractor.getTextProcessor());
             readabilityMetricScoreCalculator.setTextReadProcessor(cachedTextExtractor.getTextProcessor());
 
-            elenaReadbilityPeersReporter.setConfiguration(configuration);
-            elenaReadbilityPeersReporter.setScoreCalculator(readabilityMetricScoreCalculator);
-            setBean(Constants.ELENA_READABILITY_LOWER_CASE, elenaReadbilityPeersReporter);
+            elenaReadabilityPeersReporter.setConfiguration(configuration);
+            elenaReadabilityPeersReporter.setScoreCalculator(readabilityMetricScoreCalculator);
+            setBean(Constants.ELENA_READABILITY_LOWER_CASE, elenaReadabilityPeersReporter);
         }
 
         if (lowerCaseMetrics.contains(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE)) {

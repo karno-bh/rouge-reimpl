@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b802410-e008-41e2-b987-4c47977eb396" name="Default" comment="some">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemCommons.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/george/reporter/GeorgeReporter.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/george/reporter/GeorgeReporter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reducer/FileSystemCSVSaver.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopologyResolver.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemTopologyResolver.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/CategoryPathResolver.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/CategoryPathResolver.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/FileSystemPath.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemPath.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/algo/MainAlgoDefaultImpl.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/algo/MainAlgoDefaultImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/GeorgeMetricReporterTest.java" afterPath="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/open_calais/GeorgeMetricReporterTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityPeersReporter.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadabilityPeersReporter.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/DefaultContainerImpl.java" afterPath="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/DefaultContainerImpl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,72 +32,61 @@
       <file leaf-file-name="PeerMultimodelReporter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="51" column="35" lean-forward="true" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
+            <state relative-caret-position="764">
+              <caret line="137" column="49" lean-forward="true" selection-start-line="137" selection-start-column="49" selection-end-line="137" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileSystemTopologyResolver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemTopologyResolver.java">
+      <file leaf-file-name="Score.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/Score.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="42" lean-forward="false" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+            <state relative-caret-position="849">
+              <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1774#1775#0" expanded="true" />
+                <element signature="e#1816#1817#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileSystemCommons.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemCommons.java">
+      <file leaf-file-name="ReportedProperties.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/ReportedProperties.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CategoryPathResolver.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/CategoryPathResolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileSystemPath.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemPath.java">
+      <file leaf-file-name="ReadabilityMetricScore.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/ReadabilityMetricScore.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RangeMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/RangeMapper.java">
+      <file leaf-file-name="ElenaReadabilityPeersReporter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadabilityPeersReporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="510">
+              <caret line="136" column="22" lean-forward="false" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StringUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/StringUtils.java">
+      <file leaf-file-name="Reporter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/Reporter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -173,7 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/rouge/processor/NGramPipeline.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metrics/common/processor/CoreNLPTextProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metrics/common/nlp/processor/CoreNLPTextProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/Starter.java" />
@@ -204,7 +184,6 @@
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/score/RougeWMultimodelScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score_calculator/ReadabilityMetricsScoreCalculator.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityTopicsReporter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityPeersReporter.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/ReadabilityMetricScoreTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/RougeNPipeLineTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/il/ac/sce/ir/threadpoolplaying/GenericThreadPoolPlayingTest.java" />
@@ -224,6 +203,8 @@
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemTopologyResolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/CategoryPathResolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemPath.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityPeersReporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadabilityPeersReporter.java" />
       </list>
     </option>
   </component>
@@ -506,7 +487,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="metric" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="score_calculator" type="462c0819:PsiDirectoryNode" />
+              <item name="score" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -517,7 +498,6 @@
               <item name="metric" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="score_calculator" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rouge-reimpl" type="b2602c69:ProjectViewProjectNode" />
@@ -1606,56 +1586,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/lang/Math.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="772" column="31" lean-forward="false" selection-start-line="772" selection-start-column="31" selection-end-line="772" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/concurrent/Executors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3626">
-          <caret line="87" column="34" lean-forward="false" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/threadpoolplaying/GenericThreadPoolPlayingTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342">
-          <caret line="48" column="8" lean-forward="false" selection-start-line="48" selection-start-column="8" selection-end-line="66" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/ClassReflectionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/JacksonTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/libs_playing/LoggingSLFTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/CacheProcessorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-699">
-          <caret line="32" column="97" lean-forward="false" selection-start-line="32" selection-start-column="97" selection-end-line="32" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/il/ac/sce/ir/FileSystemCacheTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1726,14 +1656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/score/ElenaReadabilityMetricScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultiModelMultithreadedReporter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1783,30 +1705,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1218#1219#0" expanded="false" />
-            <element signature="e#1294#1295#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/Collections.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="4396" column="29" lean-forward="false" selection-start-line="4396" selection-start-column="29" selection-end-line="4396" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadbilityPeersReporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="53" column="44" lean-forward="true" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1842,14 +1744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedCategory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/FileSystemTopology.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/starter/command_line/main/container/DefaultContainerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1871,14 +1765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score_calculator/ScoreCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1967,9 +1853,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemCommons.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedSystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/file_system_reflection/ProcessedCategory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/CategoryPathResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemCommons.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1977,17 +1887,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/score/RougeWMultimodelScoreCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="51" column="35" lean-forward="true" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
+        <state relative-caret-position="68">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/score/RougeNMultimodelScoreCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="56" lean-forward="true" selection-start-line="0" selection-start-column="56" selection-end-line="0" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/score/RougeLMultimodelScoreCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/FileSystemTopologyResolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="-544">
           <caret line="16" column="42" lean-forward="false" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1995,10 +1921,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/utils/file_system/CategoryPathResolver.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/score/ElenaReadabilityMetricScoreCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="41" column="34" lean-forward="false" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score_calculator/ScoreCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/reporter/Reporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/ReadabilityMetricScore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/ReportedProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/core/score/Score.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="849">
+          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
+          <folding>
+            <element signature="e#1774#1775#0" expanded="true" />
+            <element signature="e#1816#1817#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/rouge/reporter/PeerMultimodelReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="764">
+          <caret line="137" column="49" lean-forward="true" selection-start-line="137" selection-start-column="49" selection-end-line="137" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/il/ac/sce/ir/metric/concrete_metric/elena/reporter/ElenaReadabilityPeersReporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="136" column="22" lean-forward="false" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
           <folding />
         </state>
       </provider>

@@ -18,7 +18,7 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ElenaReadbilityPeersReporter implements Reporter {
+public class ElenaReadabilityPeersReporter implements Reporter {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
