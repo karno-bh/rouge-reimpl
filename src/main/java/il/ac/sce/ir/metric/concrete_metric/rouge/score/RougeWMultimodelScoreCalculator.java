@@ -101,9 +101,10 @@ public class RougeWMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
         }
         double recall = inverseWeightFunction.apply(totalHit / totalBase);
         double precision = inverseWeightFunction.apply(totalHit / totalPrecision);
-        Score score = new Score();
-        score.setRecall(recall);
-        score.setPrecision(precision);
+        Score score = new Score.Builder()
+                .precision(precision)
+                .recall(recall)
+                .build();
         return score;
     }
 }

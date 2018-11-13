@@ -53,9 +53,10 @@ public class RougeLMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
         }
         double presicion = hitCount / ((double)peerTokens.getTextData().size() * (double) models.size());
         double recall = hitCount / modelLengthCount;
-        Score score = new Score();
-        score.setPrecision(presicion);
-        score.setRecall(recall);
+        Score score = new Score.Builder()
+                .precision(presicion)
+                .recall(recall)
+                .build();
         return score;
     }
 }

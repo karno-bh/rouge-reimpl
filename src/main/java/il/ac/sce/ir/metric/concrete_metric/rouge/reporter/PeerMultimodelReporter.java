@@ -1,29 +1,34 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import il.ac.sce.ir.metric.core.container.data.Configuration;
+import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.data.ReportedBundle;
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
-import il.ac.sce.ir.metric.core.utils.file_system.FileSystemCommons;
-import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
+import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemCommons;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class PeerMultimodelReporter implements Reporter {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Configuration configuration;
+
+    private ExecutorService executorService;
 
     private PeerMultimodelScoreCalculator scoreCalculator;
 
@@ -43,7 +48,15 @@ public class PeerMultimodelReporter implements Reporter {
         this.scoreCalculator = scoreCalculator;
     }
 
-//    private boolean headerCreated = false;
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
+
+    //    private boolean headerCreated = false;
 
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
@@ -62,6 +75,8 @@ public class PeerMultimodelReporter implements Reporter {
             logger.warn("Category {} does not have any system", processedCategory.getDirLocation());
             return;
         }
+
+        List<Future<ReportedBundle>> scoresFutures = new ArrayList<>();
         for (ProcessedSystem processedSystem : processedSystems) {
             boolean headerCreated[] = {false}; // hacky way to propagate...
             String processedSystemDirLocation = processedSystem.getDirLocation();
@@ -70,6 +85,7 @@ public class PeerMultimodelReporter implements Reporter {
                 logger.warn("System {} does not have any file", processedSystem.getDescription());
                 continue;
             }
+
             for (final String peerFileName : peerFileNames) {
                 List<Text<String>> modelsPerPeer = fileSystemTopologyResolver.getModelTextsPerPeer(modelsDirectory, peerFileName);
                 if (modelsPerPeer == null || modelsPerPeer.isEmpty()) {
@@ -79,14 +95,24 @@ public class PeerMultimodelReporter implements Reporter {
                 Text<String> peerText = Text.asFileLocation(fileSystemPath.combinePath(processedSystemDirLocation, peerFileName));
                 MultiModelPair multiModelPair = new MultiModelPair(peerText, modelsPerPeer);
 
-                Score score = scoreCalculator.computeScore(multiModelPair);
-                reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
+                Score score = getScoreCalculator().computeScore(multiModelPair);
+                ReportedBundle reportedBundle = new ReportedBundle.Builder()
+                        .processedCategory(processedCategory)
+                        .processedSystem(processedSystem)
+                        .metric(metric)
+                        .peerFileName(peerFileName)
+                        .score(score)
+                        .build();
+
+                reportConcreteSystem(processedCategory, processedSystem, metric, peerFileName, score, headerCreated);
             }
         }
     }
 
     protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
-                                        String metric, Configuration configuration, String fileName, Score score, boolean[] headerCreated) {
+                                        String metric, String fileName, Score score, boolean[] headerCreated) {
+
+        Configuration configuration = getConfiguration();
 
         StringBuilder resultFileNameBuf = constructResultFileName(processedCategory, processedSystem, metric);
 
@@ -99,16 +125,8 @@ public class PeerMultimodelReporter implements Reporter {
                         new FileWriter(resultFile, true)
                 )
         )){
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> properties = objectMapper.convertValue(score, Map.class);
-            Map<String, Object> filteredProperties = new HashMap<>();
-            for (Map.Entry<String, Object> prop : properties.entrySet()) {
-                String propertyName = prop.getKey();
-                if (score.resolveReportedProperties().contains(propertyName)) {
-                    filteredProperties.put(propertyName, prop.getValue());
-                }
-            }
-            properties = filteredProperties;
+            ObjectToMapConverter objectToMapConverter = new ObjectToMapConverter();
+            Map<String, Object> properties = objectToMapConverter.getReportedProperties(score);
 
             Set<String> sortedKeys = new TreeSet<>(properties.keySet());
             if (!headerCreated[0]) {
@@ -159,4 +177,5 @@ public class PeerMultimodelReporter implements Reporter {
                 .append(Constants.RESULT_FILE_ENITITIES_SEPARATOR).append(metric);
         return resultFileNameBuf;
     }
+
 }

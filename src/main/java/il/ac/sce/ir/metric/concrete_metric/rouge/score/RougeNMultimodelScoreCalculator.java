@@ -45,9 +45,10 @@ public class RougeNMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
             totalModelGrams += modelGrams.getTextData().get("_cn_");
             totalPeerGrams += peerGrams.getTextData().get("_cn_");
         }
-        Score score = new Score();
-        score.setPrecision(totalHits / totalPeerGrams);
-        score.setRecall(totalHits / totalModelGrams);
+        Score score = new Score.Builder()
+                .precision(totalHits / totalPeerGrams)
+                .recall(totalHits / totalModelGrams)
+                .build();
         return score;
     }
 }

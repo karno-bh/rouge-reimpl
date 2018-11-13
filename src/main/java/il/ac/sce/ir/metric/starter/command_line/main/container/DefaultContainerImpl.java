@@ -28,6 +28,8 @@ import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeWMultimodelScoreCalc
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class DefaultContainerImpl extends Container {
@@ -46,6 +48,10 @@ public class DefaultContainerImpl extends Container {
 
     @Override
     public void build() {
+
+        // some empiric number...
+        // TODO number should come from configuration
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
 
         TextPipelineExtractor<String, List<String>> tokensExtractor = new TextPipelineExtractor<>();
 
@@ -89,6 +95,7 @@ public class DefaultContainerImpl extends Container {
             PeerMultimodelReporter reporter = new PeerMultimodelReporter();
             reporter.setScoreCalculator(rougeNMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
 
             setBean(rougeNMetric, reporter);
         }
@@ -113,6 +120,8 @@ public class DefaultContainerImpl extends Container {
             PeerMultimodelReporter reporter = new PeerMultimodelReporter();
             reporter.setScoreCalculator(rougeLMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
+
             setBean(Constants.ROUGEL_LOWER_CASE, reporter);
         }
 
@@ -128,6 +137,7 @@ public class DefaultContainerImpl extends Container {
             PeerMultimodelReporter reporter = new PeerMultimodelReporter();
             reporter.setScoreCalculator(rougeWMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
 
             setBean(Constants.ROUGEW_LOWER_CASE, reporter);
         }

@@ -9,6 +9,7 @@ import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategor
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
+import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,16 +116,8 @@ public class ElenaReadabilityPeersReporter implements Reporter {
                         new FileWriter(resultFile, true)
                 )
         )){
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> properties = objectMapper.convertValue(score, Map.class);
-            Map<String, Object> filteredProperties = new HashMap<>();
-            for (Map.Entry<String, Object> prop : properties.entrySet()) {
-                String propertyName = prop.getKey();
-                if (score.resolveReportedProperties().contains(propertyName)) {
-                    filteredProperties.put(propertyName, prop.getValue());
-                }
-            }
-            properties = filteredProperties;
+            ObjectToMapConverter objectToMapConverter = new ObjectToMapConverter();
+            Map<String, Object> properties = objectToMapConverter.getReportedProperties(score);
 
 
             Set<String> sortedKeys = new TreeSet<>(properties.keySet());
