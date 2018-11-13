@@ -93,8 +93,8 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
                 logger.info("Processing file: {}", topicFile);
 
                 Text<String> text = Text.asFileLocation(topicFile);
-                scoreCalculator.setOriginalText(text);
-                ReadabilityMetricScore readabilityMetricScore = scoreCalculator.computeScore();
+                
+                ReadabilityMetricScore readabilityMetricScore = scoreCalculator.computeScore(text);
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 Map<String, Object> scoreAsMap = objectMapper.convertValue(readabilityMetricScore, Map.class);

@@ -42,9 +42,8 @@ public class ReadabilityMetricScoreTest {
         ElenaReadabilityMetricScoreCalculator readabilityMetricScoreReporter = new ElenaReadabilityMetricScoreCalculator();
         readabilityMetricScoreReporter.setDocumentAnnotationProcessor(fsCachedCoreNLPAnnotationExtractor.getTextProcessor());
         readabilityMetricScoreReporter.setTextReadProcessor(cachedTextExtractor.getTextProcessor());
-        readabilityMetricScoreReporter.setOriginalText(peer1);
 
-        ReadabilityMetricScore readabilityMetricScore = readabilityMetricScoreReporter.computeScore();
+        ReadabilityMetricScore readabilityMetricScore = readabilityMetricScoreReporter.computeScore(peer1);
         System.out.println("FleschReadingEase: " + readabilityMetricScore.getFleschReadingEase());
         System.out.println("ProperNounRation: " + readabilityMetricScore.getProperNounRation());
         System.out.println("UniqueProperNounsRatio: " + readabilityMetricScore.getUniqueProperNounsRatio());

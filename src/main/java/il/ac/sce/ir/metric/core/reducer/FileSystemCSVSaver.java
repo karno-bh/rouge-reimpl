@@ -2,7 +2,7 @@ package il.ac.sce.ir.metric.core.reducer;
 
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
-import il.ac.sce.ir.metric.core.utils.FileSystemPath;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
 
 import java.io.*;
 import java.util.*;

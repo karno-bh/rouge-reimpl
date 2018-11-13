@@ -1,3 +1,50 @@
+2018-11-11
+    CONTINUE:
+        1. Cleaning a mess with resolving a paths for peers/models/topics
+        2. Implementing AutoSummENG.
+    Done:
+        1. Reorganizing packages for tests
+        2. Started writing FileSystemTopology that will aggregate the logic
+           for resolving a paths for peers/models/topics
+    TODO:
+        1  Finish FileSystemTopology
+        2. Write reported for AutoSummENG.
+        3. Add reporter to main starter and containers
+        4. !!Multithreading should be added!!
+
+2018-11-10--001
+    CONTINUE:
+        1. Implementing AutoSummENG.
+        2. Overall small refactoring tasks
+    Done:
+        1. [Multithreading preparations] headerCreated class member removed from reporters
+           to allow multithreaded execution
+        2. DocumentDesc class is added as a way for not having processors holding an information which related only
+           to texts. For instance, AutoSummENG graph calculation depends on passed parameters. So, it is aggregated in
+           DocumentDesc and the Text<DocumentDesc> and not in the Processor
+        3. [Multithreading preparations] ScoreCalculator changed so that it gets now texts
+           as function parameters and not from object members
+    TODO:
+        1. Write reported for AutoSummENG.
+        2. Add reporter to main starter and containers
+        3. !!Multithreading should be added!!
+
+2018-11-09
+    CONTINUE:
+        Implementing AutoSummENG.
+    Done:
+        1. AutoSummENG partially implemented with Text<> and Caching in AutoSummENGTextProcessorTest
+        2. Big redesign of project structure (Look 2018-10-23 Todo list, Item #2)
+           a. Concrete Metrics now live in dedicated package
+           b. Core package was cleaned up
+           c. Starters and Containers are live in separate package
+           d. Old ideas are deleted
+        3. Merged to master
+        4. TextProcessor cache is cleaner up
+    TODO:
+        1. Write reported for AutoSummENG.
+        2. Add reporter to main starter and containers
+
 2018-11-08
     CONTINUE:
         Implementing AutoSummENG.

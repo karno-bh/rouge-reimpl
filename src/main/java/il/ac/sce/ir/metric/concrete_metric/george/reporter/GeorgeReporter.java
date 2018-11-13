@@ -8,7 +8,7 @@ import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.utils.FileSystemPath;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
 import il.ac.sce.ir.metric.concrete_metric.george.data.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

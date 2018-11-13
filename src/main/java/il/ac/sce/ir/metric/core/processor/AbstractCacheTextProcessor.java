@@ -6,14 +6,11 @@ import java.util.Objects;
 
 public abstract class AbstractCacheTextProcessor<X, Y> implements TextProcessor<X, Y> {
 
-    private final AbstractCacheTextProcessor<X, Y> nextLevelCache;
-
     private final TextProcessor<X, Y> textProcessor;
 
-    public AbstractCacheTextProcessor(AbstractCacheTextProcessor<X, Y> nextLevelCache, TextProcessor<X, Y> textProcessor) {
+    public AbstractCacheTextProcessor(TextProcessor<X, Y> textProcessor) {
         Objects.requireNonNull(textProcessor, "Text Processor should not be null");
         this.textProcessor = textProcessor;
-        this.nextLevelCache = nextLevelCache;
     }
 
     @Override
@@ -22,11 +19,8 @@ public abstract class AbstractCacheTextProcessor<X, Y> implements TextProcessor<
         if (result != null) {
             return result;
         }
-        if (nextLevelCache != null) {
-            result = nextLevelCache.process(data);
-        } else {
-            result = textProcessor.process(data);
-        }
+        result = textProcessor.process(data);
+
         setToCache(result);
         return result;
     }

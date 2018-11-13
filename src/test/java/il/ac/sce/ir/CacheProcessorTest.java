@@ -16,7 +16,7 @@ public class CacheProcessorTest {
     public void memoryCacheTest() {
         TextProcessor<String, String> fileDocumentProcessor = new FileToStringProcessor();
         TextProcessor<String, List<String>> tokenProcessor = new TextToTokensProcessor();
-        TextProcessor<String, List<String>> cacheTokenProcessor = new CacheMemoryTextProcessor<>(null, tokenProcessor);
+        TextProcessor<String, List<String>> cacheTokenProcessor = new CacheMemoryTextProcessor<>(tokenProcessor);
         Text<String> initialData = new Text<>("c:/my/temp/doc1.txt", "c:/my/temp/doc1.txt");
         Text<String> text = fileDocumentProcessor.process(initialData);
         Text<List<String>> tokens = cacheTokenProcessor.process(text);
@@ -30,7 +30,7 @@ public class CacheProcessorTest {
         TextProcessor<String, String> fileDocumentProcessor = new FileToStringProcessor();
         TextProcessor<String, List<String>> tokenProcessor = new TextToTokensProcessor();
         TextProcessor<String, List<String>> pipeline = new PipelineProcessor<>(fileDocumentProcessor, tokenProcessor);
-        TextProcessor<String, List<String>> cacheTokenProcessor = new CacheMemoryTextProcessor<>(null, pipeline);
+        TextProcessor<String, List<String>> cacheTokenProcessor = new CacheMemoryTextProcessor<>(pipeline);
 
         Text<String> initialData = new Text<>("c:/my/temp/doc1.txt", "c:/my/temp/doc1.txt");
         //Text<String> text = fileDocumentProcessor.process(initialData);

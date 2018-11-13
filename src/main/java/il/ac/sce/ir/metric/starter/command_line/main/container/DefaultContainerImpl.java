@@ -13,7 +13,7 @@ import il.ac.sce.ir.metric.core.container.data.ContainerConfigData;
 import il.ac.sce.ir.metric.core.processor.*;
 import il.ac.sce.ir.metric.core.recollector.CachedMapRecollector;
 import il.ac.sce.ir.metric.core.reducer.*;
-import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadbilityPeersReporter;
+import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadabilityPeersReporter;
 import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadbilityTopicsReporter;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.common.nlp.processor.CoreNLPTextProcessor;
@@ -28,6 +28,8 @@ import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeWMultimodelScoreCalc
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class DefaultContainerImpl extends Container {
@@ -46,6 +48,10 @@ public class DefaultContainerImpl extends Container {
 
     @Override
     public void build() {
+
+        // some empiric number...
+        // TODO number should come from configuration
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
 
         TextPipelineExtractor<String, List<String>> tokensExtractor = new TextPipelineExtractor<>();
 
@@ -89,6 +95,7 @@ public class DefaultContainerImpl extends Container {
             PeerMultimodelReporter reporter = new PeerMultimodelReporter();
             reporter.setScoreCalculator(rougeNMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
 
             setBean(rougeNMetric, reporter);
         }
@@ -113,6 +120,8 @@ public class DefaultContainerImpl extends Container {
             PeerMultimodelReporter reporter = new PeerMultimodelReporter();
             reporter.setScoreCalculator(rougeLMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
+
             setBean(Constants.ROUGEL_LOWER_CASE, reporter);
         }
 
@@ -128,6 +137,7 @@ public class DefaultContainerImpl extends Container {
             PeerMultimodelReporter reporter = new PeerMultimodelReporter();
             reporter.setScoreCalculator(rougeWMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
 
             setBean(Constants.ROUGEW_LOWER_CASE, reporter);
         }
@@ -151,15 +161,15 @@ public class DefaultContainerImpl extends Container {
                 .extract(fsCachedCoreNLPAnnotationExtractor);
 
         if (lowerCaseMetrics.contains(Constants.ELENA_READABILITY_LOWER_CASE)) {
-            ElenaReadbilityPeersReporter elenaReadbilityPeersReporter = new ElenaReadbilityPeersReporter();
+            ElenaReadabilityPeersReporter elenaReadabilityPeersReporter = new ElenaReadabilityPeersReporter();
 
             ElenaReadabilityMetricScoreCalculator readabilityMetricScoreCalculator = new ElenaReadabilityMetricScoreCalculator();
             readabilityMetricScoreCalculator.setDocumentAnnotationProcessor(fsCachedCoreNLPAnnotationExtractor.getTextProcessor());
             readabilityMetricScoreCalculator.setTextReadProcessor(cachedTextExtractor.getTextProcessor());
 
-            elenaReadbilityPeersReporter.setConfiguration(configuration);
-            elenaReadbilityPeersReporter.setScoreCalculator(readabilityMetricScoreCalculator);
-            setBean(Constants.ELENA_READABILITY_LOWER_CASE, elenaReadbilityPeersReporter);
+            elenaReadabilityPeersReporter.setConfiguration(configuration);
+            elenaReadabilityPeersReporter.setScoreCalculator(readabilityMetricScoreCalculator);
+            setBean(Constants.ELENA_READABILITY_LOWER_CASE, elenaReadabilityPeersReporter);
         }
 
         if (lowerCaseMetrics.contains(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE)) {

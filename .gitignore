@@ -26,3 +26,5 @@ cache/
 result/
 target/
 .idea/
+
+workspace.xml

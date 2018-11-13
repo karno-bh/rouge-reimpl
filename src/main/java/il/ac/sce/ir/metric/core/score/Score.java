@@ -7,6 +7,8 @@ import java.util.*;
 
 public class Score implements Serializable, ReportedProperties {
 
+    private final static double DEFAULT_ALPHA = 0.5D;
+
     private static final Set<String> REPORTED_PROPERTIES = Collections.unmodifiableSet(
             new HashSet<>(Arrays.asList(
                     Constants.PRECISION,
@@ -15,24 +17,25 @@ public class Score implements Serializable, ReportedProperties {
                     Constants.F1_MEASURE
             )));
 
-    private double precision;
-    private double recall;
-    private double alpha = 0.5;
-    private Double f1;
+    private final double precision;
+    private final double recall;
+    private final double alpha;
+    private final Double f1;
 
-    public void setAlpha(double alpha) {
+    public Score(double alpha, double precision, double recall) {
         this.alpha = alpha;
-        f1 = null;
-    }
-
-    public void setPrecision(double precision) {
         this.precision = precision;
-        f1 = null;
+        this.recall = recall;
+        double factor = (1 - alpha) * precision + alpha * recall;
+        if (factor > 0) {
+            f1 = (precision * recall) / factor;
+        } else {
+            f1 = null;
+        }
     }
 
-    public void setRecall(double recall) {
-        this.recall = recall;
-        f1 = null;
+    public Score(double precision, double recall) {
+        this(DEFAULT_ALPHA, precision, recall);
     }
 
     public double getAlpha() {
@@ -47,14 +50,7 @@ public class Score implements Serializable, ReportedProperties {
         return recall;
     }
 
-    public double getF1Measure() {
-        if (f1 != null) {
-            return f1;
-        }
-        double factor = (1 - alpha) * precision + alpha * recall;
-        if (factor > 0) {
-            f1 = (precision * recall) / factor;
-        }
+    public Double getF1Measure() {
         return f1;
     }
 
@@ -68,5 +64,40 @@ public class Score implements Serializable, ReportedProperties {
     @Override
     public Set<String> resolveReportedProperties() {
         return REPORTED_PROPERTIES;
+    }
+
+    public static class Builder {
+
+        private Double precision;
+
+        private Double recall;
+
+        private Double alpha;
+
+        public Builder precision(double precision) {
+            this.precision = precision;
+            return this;
+        }
+
+        public Builder recall(double recall) {
+            this.recall = recall;
+            return this;
+        }
+
+        public Builder alpha(double alpha) {
+            this.alpha = alpha;
+            return this;
+        }
+
+        public Score build() {
+            if (precision == null || recall == null) {
+                throw new IllegalArgumentException("Either precision or recall is not provided." +
+                        " Both should be provided");
+            }
+            if (alpha == null) {
+                return new Score(precision, recall);
+            }
+            return new Score(precision, recall, alpha);
+        }
     }
 }

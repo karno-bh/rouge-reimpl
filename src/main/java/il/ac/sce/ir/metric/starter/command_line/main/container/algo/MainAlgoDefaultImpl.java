@@ -6,7 +6,7 @@ import il.ac.sce.ir.metric.core.container.container_algorithm.MainAlgo;
 import il.ac.sce.ir.metric.core.reducer.Reducer;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.utils.CategoryPathResolver;
+import il.ac.sce.ir.metric.core.utils.file_system.CategoryPathResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

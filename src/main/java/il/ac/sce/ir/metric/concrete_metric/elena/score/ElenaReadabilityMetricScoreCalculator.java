@@ -18,8 +18,6 @@ import java.util.Set;
 
 public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetricsScoreCalculator {
 
-    private Text<String> originalText;
-
     private TextProcessor<String, String> textReadProcessor;
 
     private TextProcessor<String, Annotation> documentAnnotationProcessor;
@@ -32,14 +30,6 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
         this.documentAnnotationProcessor = documentAnnotationProcessor;
     }
 
-    public Text<String> getOriginalText() {
-        return originalText;
-    }
-
-    public void setOriginalText(Text<String> originalText) {
-        this.originalText = originalText;
-    }
-
     public TextProcessor<String, String> getTextReadProcessor() {
         return textReadProcessor;
     }
@@ -49,7 +39,7 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
     }
 
     @Override
-    public ReadabilityMetricScore computeScore() {
+    public ReadabilityMetricScore computeScore(Text<String> originalText) {
         Text<Annotation> annotatedText = documentAnnotationProcessor.process(originalText);
         Annotation document = annotatedText.getTextData();
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
@@ -59,6 +49,7 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
         int wordsNum = 0;
         int sentencesNum = 0;
         int properNouns = 0;
+        StringUtils stringUtils = new StringUtils();
         for (CoreMap sentence : sentences) {
             for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                 // this is the text of the token
@@ -68,7 +59,7 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
                 // this is the NER label of the token
                 String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
-                if (!StringUtils.contains(word, ",", ".", "?", "!", "'")) {
+                if (!stringUtils.contains(word, ",", ".", "?", "!", "'")) {
                     wordsNum++;
                     uniqueWords.add(word);
                     if (pos.contains("NNP")) {

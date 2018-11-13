@@ -7,7 +7,7 @@ import il.ac.sce.ir.metric.core.container.data.Configuration;
 
 import il.ac.sce.ir.metric.core.processor.FileSystemCacheTextProcessor;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.utils.CategoryPathResolver;
+import il.ac.sce.ir.metric.core.utils.file_system.CategoryPathResolver;
 import il.ac.sce.ir.metric.concrete_metric.george.data.Methods;
 import il.ac.sce.ir.metric.concrete_metric.george.open_calais.processor.OpenCalaisEntiryResolverTextProcessor;
 import il.ac.sce.ir.metric.concrete_metric.george.open_calais.processor.OpenCalaisRetrieverTextProcessor;
