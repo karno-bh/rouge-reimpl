@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class PeerMultiModelMultithreadedReporter implements Reporter {
+public class PeerMultiModelOriginalReporter implements Reporter {
 
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

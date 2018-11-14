@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
+import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncAllResultsProcessor;
 import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.data.AsyncScoreCalculatorInputData;
 import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.data.ReportedBundle;
@@ -111,90 +112,9 @@ public class PeerMultimodelReporter implements Reporter {
             }
         }
 
-        for (Future<ReportedBundle> reportedBundleFuture : scoresFutures) {
-            try {
-                ReportedBundle reportedBundle = reportedBundleFuture.get();
-                reportConcreteSystem(reportedBundle.getProcessedCategory(),
-                        reportedBundle.getProcessedSystem(),
-                        reportedBundle.getMetric(),
-                        reportedBundle.getPeerFileName(),
-                        reportedBundle.getScore(),
-                        new boolean[]{true});
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
-                                        String metric, String fileName, Score score, boolean[] headerCreated) {
-
-        Configuration configuration = getConfiguration();
-
-        StringBuilder resultFileNameBuf = constructResultFileName(processedCategory, processedSystem, metric);
-
-        String resultFileName = resultFileNameBuf.toString();
-
-        File resultFile = new File(configuration.getResultDirectory() + File.separator + resultFileName + Constants.CSV_EXTENSION);
-
-        try (PrintWriter pw = new PrintWriter(
-                new BufferedWriter(
-                        new FileWriter(resultFile, true)
-                )
-        )){
-            ObjectToMapConverter objectToMapConverter = new ObjectToMapConverter();
-            Map<String, Object> properties = objectToMapConverter.getReportedProperties(score);
-
-            Set<String> sortedKeys = new TreeSet<>(properties.keySet());
-            if (!headerCreated[0]) {
-                String header = buildHeader(sortedKeys);
-                pw.println(header);
-                headerCreated[0] = true;
-            }
-            String reportedPeerFileName = fileName;
-            int separatorLastIndex = reportedPeerFileName.lastIndexOf(File.separator);
-            if (separatorLastIndex != -1) {
-                reportedPeerFileName = reportedPeerFileName.substring(separatorLastIndex + 1);
-            }
-
-            StringBuilder reportLineBuf = new StringBuilder(256);
-            reportLineBuf.append(fileName);
-            for (String key : sortedKeys) {
-                Number scoreValue = (Number)properties.get(key);
-                reportLineBuf.append(Constants.CSV_REPORT_SEPARATOR).append(scoreValue.doubleValue());
-            }
-            String reportLine = reportLineBuf.toString();
-            pw.println(reportLine);
-        } catch(IOException ioe) {
-            throw new RuntimeException("Error while writing a report for " + resultFileName, ioe);
-        }
-    }
-
-    private String buildHeader(Set<String> sortedKeys) {
-        StringBuilder headerBuf = new StringBuilder(256);
-        headerBuf.append(Constants.PEER);
-
-        for (String key : sortedKeys) {
-            headerBuf.append(Constants.CSV_REPORT_SEPARATOR).append(key);
-        }
-        return headerBuf.toString();
-    }
-
-    private StringBuilder constructResultFileName(ProcessedCategory processedCategory, ProcessedSystem processedSystem, String metric) {
-        StringBuilder resultFileNameBuf = new StringBuilder(256);
-        resultFileNameBuf.append(processedCategory.getDescription());
-        String processedSystemDesc = processedSystem.getDescription().trim();
-
-        int separatorLastIndex = processedSystemDesc.lastIndexOf(File.separator);
-        if (separatorLastIndex != -1) {
-            processedSystemDesc = processedSystemDesc.substring(separatorLastIndex + 1);
-        }
-        resultFileNameBuf
-                .append(Constants.RESULT_FILE_ENITITIES_SEPARATOR).append(processedSystemDesc)
-                .append(Constants.RESULT_FILE_ENITITIES_SEPARATOR).append(metric);
-        return resultFileNameBuf;
+        // processAllResults(scoresFutures);
+        AsyncAllResultsProcessor asyncAllResultsProcessor = new AsyncAllResultsProcessor(scoresFutures, getConfiguration());
+        executorService.submit(asyncAllResultsProcessor);
     }
 
 }

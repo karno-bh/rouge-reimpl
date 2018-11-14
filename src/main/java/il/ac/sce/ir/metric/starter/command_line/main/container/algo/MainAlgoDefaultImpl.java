@@ -61,6 +61,7 @@ public class MainAlgoDefaultImpl implements MainAlgo {
 
     }
 
+
     protected List<ProcessedCategory> resolveCategories(String startDirLocation) {
         CategoryPathResolver categoryPathResolver = new CategoryPathResolver();
         return categoryPathResolver.resolveCategories(startDirLocation);
