@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MainAlgoDefaultImpl implements MainAlgo {
@@ -54,6 +55,9 @@ public class MainAlgoDefaultImpl implements MainAlgo {
             Reducer reducer = (Reducer) possibleReducer;
             reducer.reduce();
         }
+
+        ExecutorService mainThreadPool = (ExecutorService) container.getBean(Constants.MAIN_TRHEAD_POOL);
+        mainThreadPool.shutdown();
 
     }
 

@@ -72,4 +72,6 @@ public interface Constants {
     String GEORGE_METHOD_COSINE = "cosine";
     String GEORGE_METHOD_PLACE_HOLDER_EXTRAWEIGHT = "placeholder_extra_weight";
 
+    String MAIN_TRHEAD_POOL = "mainThreadPool";
+
 }

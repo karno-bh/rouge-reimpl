@@ -1,5 +1,7 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
+import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.data.AsyncScoreCalculatorInputData;
 import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.data.ReportedBundle;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -95,16 +98,32 @@ public class PeerMultimodelReporter implements Reporter {
                 Text<String> peerText = Text.asFileLocation(fileSystemPath.combinePath(processedSystemDirLocation, peerFileName));
                 MultiModelPair multiModelPair = new MultiModelPair(peerText, modelsPerPeer);
 
-                Score score = getScoreCalculator().computeScore(multiModelPair);
-                ReportedBundle reportedBundle = new ReportedBundle.Builder()
+                AsyncScoreCalculatorInputData asyncScoreCalculatorInputData = new AsyncScoreCalculatorInputData.Builder()
                         .processedCategory(processedCategory)
                         .processedSystem(processedSystem)
                         .metric(metric)
                         .peerFileName(peerFileName)
-                        .score(score)
+                        .multiModelPair(multiModelPair)
                         .build();
+                Future<ReportedBundle> bundleFuture = executorService.submit(new AsyncScoreCalculator(asyncScoreCalculatorInputData, getScoreCalculator()));
+                scoresFutures.add(bundleFuture);
+                // reportConcreteSystem(processedCategory, processedSystem, metric, peerFileName, score, headerCreated);
+            }
+        }
 
-                reportConcreteSystem(processedCategory, processedSystem, metric, peerFileName, score, headerCreated);
+        for (Future<ReportedBundle> reportedBundleFuture : scoresFutures) {
+            try {
+                ReportedBundle reportedBundle = reportedBundleFuture.get();
+                reportConcreteSystem(reportedBundle.getProcessedCategory(),
+                        reportedBundle.getProcessedSystem(),
+                        reportedBundle.getMetric(),
+                        reportedBundle.getPeerFileName(),
+                        reportedBundle.getScore(),
+                        new boolean[]{true});
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
         }
     }

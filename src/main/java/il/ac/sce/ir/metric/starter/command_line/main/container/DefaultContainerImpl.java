@@ -52,6 +52,7 @@ public class DefaultContainerImpl extends Container {
         // some empiric number...
         // TODO number should come from configuration
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+        setBean(Constants.MAIN_TRHEAD_POOL, executorService);
 
         TextPipelineExtractor<String, List<String>> tokensExtractor = new TextPipelineExtractor<>();
 
