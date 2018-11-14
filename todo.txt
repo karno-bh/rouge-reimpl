@@ -17,6 +17,7 @@
         5. Start writing a Project Document.
         6. Reducers should write in the same directory...
         7. Reducer for one gigantus table?..
+        8. Clean tests not to have absolute file paths. (=> need to upload test data)
 
 2018-11-11
     CONTINUE:
