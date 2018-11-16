@@ -1,15 +1,10 @@
 package il.ac.sce.ir.metric.core.reporter.template;
 
-import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncAllResultsProcessor;
-import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
-import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
-import il.ac.sce.ir.metric.core.score.Score;
-import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemCommons;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
@@ -20,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 
 public abstract class AbstractPeerReporter<T> implements Reporter {
 

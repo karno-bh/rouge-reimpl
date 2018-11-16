@@ -1,5 +1,38 @@
-2018-11-16
+2018-11-16--002
     CONTINUE:
+        1. !!!Redesign of Multithreading!!! It does not work correctly :(
+        2. !!!Check if ForkJoinPool will solve an issue with task splitting!!! The only possible seen way is to enlarge
+           the thread pool to have joining points... this is not correct as there will be locked wasted thread!
+        3. Split ProcessedPeer to ProcessedPeer and ProcessedPeerData
+        4. Flat directory structure of Reporters => move async_actions under concrete reporter node, i.e.
+           elena.async_actions, rouge_async_actions.
+        5. Cleaning a mess with resolving a paths for peers/models/topics (should be cleaned from Elena's Topic Metrics)
+        6. Multithreading for Elena's metric should be added
+        7. Changing data object to be as much as possible immutable.
+           --== Immutability should be a part of design of passing among the threads ==--
+        8. Move common logic for mapping object to Map, CSV String, etc.
+    Done:
+        1. ProcessedPeer to hold all related data for peer
+        2. Template for peer processing (@see AbstractPeerReporter). (don't like it as it's built on top inheritance...
+           will be looking for better solution if there will be a time for that)
+        3. Common logic for mapping moved to CommonPeerFile reporter
+        4. Elena peer reporter is now a child of AbstractPeerReporter
+        5. Added multithreading for Elena metric. (However, it should be corrected)
+    TODO:
+        1. Implementing AutoSummENG. + Write reporter for AutoSummENG.
+        2. Add missing libraries with .bat file to load them into local Maven repository
+        3. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        4. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
+        5. Start writing a Project Document.
+        6. Reducers should write in the same directory...
+        7. Reducer to generate(!) one gigantus table?..
+        8. Clean tests not to have absolute file paths. (=> need to upload test data)
+
+2018-11-16--001
+    CONTINUE:
+        1. !!!Redesign of Multithreading!!! It does not work correctly :(
+        2. !!!Check if ForkJoinPool will solve an issue with task splitting!!! The only possible seen way is to enlarge
+           the thread pool to have joining points... this is not correct as there will be locked wasted thread!
         1. Split ProcessedPeer to ProcessedPeer and ProcessedPeerData
         2. Flat directory structure of Reporters => move async_actions under concrete reporter node, i.e.
            elena.async_actions, rouge_async_actions.

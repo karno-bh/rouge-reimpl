@@ -1,7 +1,7 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
-import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncAllResultsProcessor;
-import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions.AsyncScoreCalculator;
+import il.ac.sce.ir.metric.core.async_action.AsyncAllResultsProcessor;
+import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;

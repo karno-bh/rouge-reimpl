@@ -51,7 +51,7 @@ public class DefaultContainerImpl extends Container {
 
         // some empiric number...
         // TODO number should come from configuration
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
         setBean(Constants.MAIN_TRHEAD_POOL, executorService);
 
         TextPipelineExtractor<String, List<String>> tokensExtractor = new TextPipelineExtractor<>();
@@ -170,6 +170,7 @@ public class DefaultContainerImpl extends Container {
 
             elenaReadabilityPeersReporter.setConfiguration(configuration);
             elenaReadabilityPeersReporter.setScoreCalculator(readabilityMetricScoreCalculator);
+            elenaReadabilityPeersReporter.setExecutorService(executorService);
             setBean(Constants.ELENA_READABILITY_LOWER_CASE, elenaReadabilityPeersReporter);
         }
 
