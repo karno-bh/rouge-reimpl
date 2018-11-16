@@ -1,12 +1,8 @@
-package il.ac.sce.ir.metric.concrete_metric.rouge.reporter.data;
-
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
-import il.ac.sce.ir.metric.core.score.Score;
+package il.ac.sce.ir.metric.core.reporter.file_system_reflection;
 
 import java.util.Objects;
 
-public class ReportedBundle {
+public class ProcessedPeer<T> {
 
     private final ProcessedCategory processedCategory;
 
@@ -16,18 +12,15 @@ public class ReportedBundle {
 
     private final String peerFileName;
 
-    private final Score score;
+    private final T peerData;
 
-    public ReportedBundle(ProcessedCategory processedCategory,
-                          ProcessedSystem processedSystem,
-                          String metric,
-                          String peerFileName,
-                          Score score) {
+    public ProcessedPeer(ProcessedCategory processedCategory, ProcessedSystem processedSystem, String metric, String peerFileName,
+                         T peerData) {
         this.processedCategory = processedCategory;
         this.processedSystem = processedSystem;
         this.metric = metric;
         this.peerFileName = peerFileName;
-        this.score = score;
+        this.peerData = peerData;
     }
 
     public ProcessedCategory getProcessedCategory() {
@@ -46,11 +39,15 @@ public class ReportedBundle {
         return peerFileName;
     }
 
-    public Score getScore() {
-        return score;
+    public T getPeerData() {
+        return peerData;
     }
 
-    public static class Builder {
+    public static <Delegate> Builder<Delegate> as() {
+        return new Builder<>();
+    }
+
+    public static class Builder<U> {
 
         private ProcessedCategory processedCategory;
 
@@ -60,47 +57,51 @@ public class ReportedBundle {
 
         private String peerFileName;
 
-        private Score score;
+        private boolean checkPeerData = true;
 
+        private U peerData;
 
-        public Builder processedCategory(ProcessedCategory processedCategory) {
+        public Builder<U> processedCategory(ProcessedCategory processedCategory) {
             this.processedCategory = processedCategory;
             return this;
         }
 
-        public Builder processedSystem(ProcessedSystem processedSystem) {
+        public Builder<U> processedSystem(ProcessedSystem processedSystem) {
             this.processedSystem = processedSystem;
             return this;
         }
 
-        public Builder metric(String metric) {
+        public Builder<U> metric(String metric) {
             this.metric = metric;
             return this;
         }
 
-        public Builder peerFileName(String peerFileName) {
+        public Builder<U> peerFileName(String peerFileName) {
             this.peerFileName = peerFileName;
             return this;
         }
 
-        public Builder score(Score score) {
-            this.score = score;
+        public Builder<U> checkPeerData(boolean checkPeerData) {
+            this.checkPeerData = checkPeerData;
             return this;
         }
 
-        public ReportedBundle build() {
+        public Builder<U> peerData(U peerData) {
+            this.peerData = peerData;
+            return this;
+        }
+
+        public ProcessedPeer<U> build() {
             Objects.requireNonNull(processedCategory, "Processed Category should not be null");
             Objects.requireNonNull(processedSystem, "Processed System should not be null");
             Objects.requireNonNull(metric, "Metric should not be null");
             Objects.requireNonNull(peerFileName, "Peer File Name should not be null");
-            Objects.requireNonNull(score, "Score should not be null");
+            if (checkPeerData) {
+                Objects.requireNonNull(peerData, "Peer Data should not be null");
+            }
 
-            return new ReportedBundle(processedCategory,
-                    processedSystem,
-                    metric,
-                    peerFileName,
-                    score);
+            return new ProcessedPeer<U>(processedCategory, processedSystem,
+                    metric, peerFileName, peerData);
         }
     }
-
 }

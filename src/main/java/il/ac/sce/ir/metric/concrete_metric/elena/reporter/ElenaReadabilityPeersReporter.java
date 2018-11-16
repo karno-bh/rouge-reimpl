@@ -10,6 +10,8 @@ import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
+import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,61 +50,34 @@ public class ElenaReadabilityPeersReporter implements Reporter {
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
         Configuration configuration = getConfiguration();
+        FileSystemTopologyResolver fileSystemTopologyResolver = new FileSystemTopologyResolver();
+        FileSystemPath fileSystemPath = new FileSystemPath();
 
-        String categoryDir = configuration.getWorkingSetDirectory() + File.separator + processedCategory.getDirLocation();
-        String peersDirectoryName = categoryDir + File.separator + Constants.PEERS_DIRECTORY;
-        File peersDirectory = new File(peersDirectoryName);
-        if (!peersDirectory.isDirectory()) {
-            throw new RuntimeException(peersDirectoryName + " is not a directory");
-        }
-
-        String[] systems = peersDirectory.list((file, name) -> file.isDirectory());
-        if (systems == null || systems.length == 0) {
-            logger.warn("Category {} does not have any system");
-            return;
-        }
-
-        List<ProcessedSystem> processedSystems = Arrays.stream(systems)
-                .map(systemDirName -> {
-                    String pathName = peersDirectory + File.separator + systemDirName + File.separator + Constants.DESCRIPTION_FILE;
-                    File systemDescriptionFile = new File(pathName);
-                    String description = null;
-                    if (systemDescriptionFile.isFile()) {
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(systemDescriptionFile), StandardCharsets.UTF_8.name()))) {
-                            description = reader.readLine();
-                        } catch (IOException ignored) {
-                        }
-                    }
-                    return ProcessedSystem.as()
-                            .dirLocation(peersDirectory + File.separator + systemDirName)
-                            .description(description)
-                            .build();
-                })
-                .collect(Collectors.toList());
+        List<ProcessedSystem> processedSystems =
+                fileSystemTopologyResolver.getProcessedSystems(
+                        configuration.getWorkingSetDirectory(),
+                        processedCategory);
 
         for (ProcessedSystem processedSystem : processedSystems) {
             boolean headerCreated[] = {false};
             String processedSystemDirLocation = processedSystem.getDirLocation();
-            File processedSystemDir = new File(processedSystemDirLocation);
-            String[] peerFileNames = processedSystemDir.list((file, fileName) -> {
-                File dirFile = new File(processedSystemDirLocation + File.separator + fileName);
-                return dirFile.isFile();
-            });
-            if (peerFileNames == null  || peerFileNames.length == 0) {
+            List<String> peerFileNames = fileSystemTopologyResolver.getPeerFileNames(processedSystem);
+            if (peerFileNames.isEmpty()) {
                 logger.warn("System {} does not have any file", processedSystem.getDescription());
                 continue;
             }
             for (final String peerFileName : peerFileNames) {
-                Text<String> peerText = Text.asFileLocation(processedSystemDirLocation + File.separator + peerFileName);
+                Text<String> peerText = Text.asFileLocation(fileSystemPath.combinePath(processedSystemDirLocation, peerFileName));
 
                 ReadabilityMetricScore score = scoreCalculator.computeScore(peerText);
-                reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
+                reportConcreteSystem(processedCategory, processedSystem, metric, peerFileName, score, headerCreated);
             }
         }
     }
 
     protected void reportConcreteSystem(ProcessedCategory processedCategory, ProcessedSystem processedSystem,
-                                        String metric, Configuration configuration, String fileName, ReadabilityMetricScore score, boolean[] headerCreated) {
+                                        String metric, String fileName, ReadabilityMetricScore score, boolean[] headerCreated) {
+        Configuration configuration = getConfiguration();
         requireAndCreateDirectory(configuration);
 
         StringBuilder resultFileNameBuf = constructResultFileName(processedCategory, processedSystem, metric);

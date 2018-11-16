@@ -1,9 +1,9 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter.async_actions;
 
-import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.data.ReportedBundle;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
@@ -22,18 +22,18 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final List<Future<ReportedBundle>> allResultsPromisses;
+    private final List<Future<ProcessedPeer<Score>>> allResultsPromisses;
 
     private final Configuration configuration;
 
-    public AsyncAllResultsProcessor(List<Future<ReportedBundle>> allResultsPromisses, Configuration configuration) {
+    public AsyncAllResultsProcessor(List<Future<ProcessedPeer<Score>>> allResultsPromisses, Configuration configuration) {
         Objects.requireNonNull(allResultsPromisses, "Result Promisses cannot be null");
         Objects.requireNonNull(configuration, "Configuration could not be null");
         this.allResultsPromisses = allResultsPromisses;
         this.configuration = configuration;
     }
 
-    public List<Future<ReportedBundle>> getAllResultsPromisses() {
+    public List<Future<ProcessedPeer<Score>>> getAllResultsPromisses() {
         return allResultsPromisses;
     }
 
@@ -43,11 +43,11 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
 
     @Override
     public Void call() throws Exception {
-        List<Future<ReportedBundle>> allResultsPromisses = getAllResultsPromisses();
-        List<ReportedBundle> reportedBundles = new ArrayList<>();
-        for (Future<ReportedBundle> reportedBundleFuture : allResultsPromisses) {
+        List<Future<ProcessedPeer<Score>>> allResultsPromisses = getAllResultsPromisses();
+        List<ProcessedPeer<Score>> reportedBundles = new ArrayList<>();
+        for (Future<ProcessedPeer<Score>> reportedBundleFuture : allResultsPromisses) {
             try {
-                ReportedBundle reportedBundle = reportedBundleFuture.get();
+                ProcessedPeer<Score> reportedBundle = reportedBundleFuture.get();
                 reportedBundles.add(reportedBundle);
             } catch (InterruptedException e) {
                 logger.error("Main thread pool was interrupted", e);
@@ -62,29 +62,29 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
         return null;
     }
 
-    protected void groupAndReport(List<ReportedBundle> reportedBundles) {
+    protected void groupAndReport(List<ProcessedPeer<Score>> reportedBundles) {
 
-        Map<String, List<ReportedBundle>> groups = new HashMap<>();
+        Map<String, List<ProcessedPeer<Score>>> groups = new HashMap<>();
 
         MessageFormat keyFormat = new MessageFormat("{0}_{1}_{2}");
-        for (final ReportedBundle reportedBundle : reportedBundles) {
+        for (final ProcessedPeer<Score> reportedBundle : reportedBundles) {
             String key = keyFormat.format(new Object[]{
                     reportedBundle.getProcessedCategory().getDirLocation(),
                     reportedBundle.getProcessedSystem().getDirLocation(),
                     reportedBundle.getMetric()
             });
-            List<ReportedBundle> bundlesPerFile = groups.computeIfAbsent(key, _key -> new ArrayList<>());
+            List<ProcessedPeer<Score>> bundlesPerFile = groups.computeIfAbsent(key, _key -> new ArrayList<>());
             bundlesPerFile.add(reportedBundle);
         }
         dumpAllFiles(groups);
     }
 
-    protected void dumpAllFiles(Map<String, List<ReportedBundle>> groups) {
+    protected void dumpAllFiles(Map<String, List<ProcessedPeer<Score>>> groups) {
         FileSystemPath fileSystemPath = new FileSystemPath();
         Configuration configuration = getConfiguration();
         groups.forEach(
             (groupKey, reportedBundlesPerFile) -> {
-                ReportedBundle firstBundle = reportedBundlesPerFile.get(0);
+                ProcessedPeer<Score> firstBundle = reportedBundlesPerFile.get(0);
                 String resultFileName = constructResultFileName(firstBundle.getProcessedCategory(),
                         firstBundle.getProcessedSystem(),
                         firstBundle.getMetric()).toString();
@@ -92,7 +92,7 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
                         resultFileName) + Constants.CSV_EXTENSION);
 
                 ObjectToMapConverter objectToMapConverter = new ObjectToMapConverter();
-                Map<String, Object> properties = objectToMapConverter.getReportedProperties(firstBundle.getScore());
+                Map<String, Object> properties = objectToMapConverter.getReportedProperties(firstBundle.getPeerData());
                 Set<String> sortedKeys = new TreeSet<>(properties.keySet());
                 String header = buildHeader(sortedKeys);
 
@@ -102,8 +102,8 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
                         )
                 )) {
                     pw.println(header);
-                    for (ReportedBundle reportedBundle : reportedBundlesPerFile) {
-                        Map<String, Object> reportedProperties = objectToMapConverter.getReportedProperties(reportedBundle.getScore());
+                    for (ProcessedPeer<Score> reportedBundle : reportedBundlesPerFile) {
+                        Map<String, Object> reportedProperties = objectToMapConverter.getReportedProperties(reportedBundle.getPeerData());
                         StringBuilder reportLineBuf = new StringBuilder(256);
                         reportLineBuf.append(reportedBundle.getPeerFileName());
                         convertMetricsToReportLine(reportedProperties, sortedKeys, reportLineBuf);
