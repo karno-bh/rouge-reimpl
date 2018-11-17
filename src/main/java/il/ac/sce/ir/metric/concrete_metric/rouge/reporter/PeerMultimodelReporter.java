@@ -54,6 +54,11 @@ public class PeerMultimodelReporter extends AbstractPeerReporter<Future<Processe
     @Override
     protected void processResults(List<Future<ProcessedPeer<Score>>> scoresCollector) {
         AsyncAllResultsProcessor<Score> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector, getConfiguration());
-        getExecutorService().submit(asyncAllResultsProcessor);
+//        getExecutorService().submit(asyncAllResultsProcessor);
+        try {
+            asyncAllResultsProcessor.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

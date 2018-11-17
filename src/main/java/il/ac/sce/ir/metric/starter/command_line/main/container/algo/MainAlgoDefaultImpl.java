@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MainAlgoDefaultImpl implements MainAlgo {
@@ -36,34 +34,20 @@ public class MainAlgoDefaultImpl implements MainAlgo {
     public void run() {
 
         Container container = getContainer();
-        ExecutorService mainThreadPool = (ExecutorService) container.getBean(Constants.MAIN_TRHEAD_POOL);
         try {
             String startDirLocation = container.getConfiguration().getWorkingSetDirectory();
             List<ProcessedCategory> categories = resolveCategories(startDirLocation);
 
-            Future<?> mainTask = mainThreadPool.submit(new Runnable() {
-                @Override
-                public void run() {
-                    for (ProcessedCategory category : categories) {
-                        for (String requiredMetric : container.getConfiguration().getRequiredMetrics()) {
-                            String beanKey = requiredMetric.trim().toLowerCase();
-                            Object bean = container.getBean(beanKey);
-                            if (bean != null) {
-                                logger.info("Processing category: {}, metric {}", category.getDescription(), requiredMetric);
-                                Reporter reporter = (Reporter) bean;
-                                reporter.report(category, requiredMetric);
-                            }
-                        }
+            for (ProcessedCategory category : categories) {
+                for (String requiredMetric : container.getConfiguration().getRequiredMetrics()) {
+                    String beanKey = requiredMetric.trim().toLowerCase();
+                    Object bean = container.getBean(beanKey);
+                    if (bean != null) {
+                        logger.info("Processing category: {}, metric {}", category.getDescription(), requiredMetric);
+                        Reporter reporter = (Reporter) bean;
+                        reporter.report(category, requiredMetric);
                     }
                 }
-            });
-
-            try {
-                mainTask.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             }
 
             Object possibleReducer = container.getBean(Constants.COMBINE_REDUCER);
@@ -73,8 +57,10 @@ public class MainAlgoDefaultImpl implements MainAlgo {
                 reducer.reduce();
             }
         } finally {
+            ExecutorService mainThreadPool = (ExecutorService) container.getBean(Constants.MAIN_TRHEAD_POOL);
             mainThreadPool.shutdown();
         }
+
     }
 
 
