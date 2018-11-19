@@ -1,9 +1,10 @@
 package il.ac.sce.ir.metric.concrete_metric.elena.reporter;
 
+import il.ac.sce.ir.metric.core.async_action.AllResultProcessorGroupers;
 import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.data.Text;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.template.AbstractPeerReporter;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
@@ -11,7 +12,7 @@ import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricSco
 import java.util.*;
 import java.util.concurrent.Future;
 
-public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<ProcessedPeer<ReadabilityMetricScore>>> {
+public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<ProcessedChunk<ReadabilityMetricScore>>> {
 
     private ElenaReadabilityMetricScoreCalculator scoreCalculator;
 
@@ -24,27 +25,28 @@ public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<P
     }
 
     @Override
-    protected void processConcretePeer(ProcessedPeer<Void> processedPeer, List<Future<ProcessedPeer<ReadabilityMetricScore>>> scoresCollector) {
-        Text<String> peerText = Text.asFileLocation(getFileSystemPath().combinePath(processedPeer.getProcessedSystem().getDirLocation(),
-                processedPeer.getPeerFileName()));
+    protected void processConcretePeer(ProcessedChunk<Void> processedChunk, List<Future<ProcessedChunk<ReadabilityMetricScore>>> scoresCollector) {
+        Text<String> peerText = Text.asFileLocation(getFileSystemPath().combinePath(processedChunk.getProcessedSystem().getDirLocation(),
+                processedChunk.getPeerFileName()));
 
-        ProcessedPeer<Text<String>> peerToProcess = new ProcessedPeer.Builder<Text<String>>()
-                .processedCategory(processedPeer.getProcessedCategory())
-                .processedSystem(processedPeer.getProcessedSystem())
-                .metric(processedPeer.getMetric())
-                .peerFileName(processedPeer.getPeerFileName())
-                .peerData(peerText)
+        ProcessedChunk<Text<String>> peerToProcess = new ProcessedChunk.Builder<Text<String>>()
+                .processedCategory(processedChunk.getProcessedCategory())
+                .processedSystem(processedChunk.getProcessedSystem())
+                .metric(processedChunk.getMetric())
+                .peerFileName(processedChunk.getPeerFileName())
+                .chunkData(peerText)
                 .build();
 
         AsyncScoreCalculator<Text<String>, ReadabilityMetricScore> task = new AsyncScoreCalculator<>(peerToProcess, getScoreCalculator());
-        Future<ProcessedPeer<ReadabilityMetricScore>> taskFuture = getExecutorService().submit(task);
+        Future<ProcessedChunk<ReadabilityMetricScore>> taskFuture = getExecutorService().submit(task);
         scoresCollector.add(taskFuture);
     }
 
     @Override
-    protected void processResults(List<Future<ProcessedPeer<ReadabilityMetricScore>>> scoresCollector) {
+    protected void processResults(List<Future<ProcessedChunk<ReadabilityMetricScore>>> scoresCollector) {
+        AllResultProcessorGroupers allResultProcessorGroupers = new AllResultProcessorGroupers();
         AsyncPeerAllResultsProcessor<ReadabilityMetricScore> asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor<>(scoresCollector,
-                getConfiguration(), getArbiter(), getMetricName());
+                getConfiguration(), getArbiter(), getMetricName(), allResultProcessorGroupers.getFileNamePeerCombiner(ReadabilityMetricScore.class));
         getExecutorService().submit(asyncPeerAllResultsProcessor);
         /*try {
             asyncPeerAllResultsProcessor.call();

@@ -6,7 +6,7 @@ import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
@@ -77,7 +77,7 @@ public class PeerMultiModelOriginalMultithreadedReporter implements Reporter {
             return;
         }
 
-        List<Future<ProcessedPeer<Score>>> scoresFutures = new ArrayList<>();
+        List<Future<ProcessedChunk<Score>>> scoresFutures = new ArrayList<>();
         for (ProcessedSystem processedSystem : processedSystems) {
 
             String processedSystemDirLocation = processedSystem.getDirLocation();
@@ -96,21 +96,21 @@ public class PeerMultiModelOriginalMultithreadedReporter implements Reporter {
                 Text<String> peerText = Text.asFileLocation(fileSystemPath.combinePath(processedSystemDirLocation, peerFileName));
                 MultiModelPair multiModelPair = new MultiModelPair(peerText, modelsPerPeer);
 
-                ProcessedPeer<MultiModelPair> processedPeer = new ProcessedPeer.Builder<MultiModelPair>()
+                ProcessedChunk<MultiModelPair> processedChunk = new ProcessedChunk.Builder<MultiModelPair>()
                         .processedCategory(processedCategory)
                         .processedSystem(processedSystem)
                         .metric(metric)
                         .peerFileName(peerFileName)
-                        .peerData(multiModelPair)
+                        .chunkData(multiModelPair)
                         .build();
-                Future<ProcessedPeer<Score>> bundleFuture = executorService.submit(new AsyncScoreCalculator(processedPeer, getScoreCalculator()));
+                Future<ProcessedChunk<Score>> bundleFuture = executorService.submit(new AsyncScoreCalculator(processedChunk, getScoreCalculator()));
                 scoresFutures.add(bundleFuture);
                 // reportConcreteSystem(processedCategory, processedSystem, metric, peerFileName, score, headerCreated);
             }
         }
 
         // processAllResults(scoresFutures);
-        AsyncPeerAllResultsProcessor asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor(scoresFutures, getConfiguration(), null, null);
+        AsyncPeerAllResultsProcessor asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor(scoresFutures, getConfiguration(), null, null, null);
         executorService.submit(asyncPeerAllResultsProcessor);
     }
 }

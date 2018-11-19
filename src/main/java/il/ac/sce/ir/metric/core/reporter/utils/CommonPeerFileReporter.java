@@ -2,10 +2,9 @@ package il.ac.sce.ir.metric.core.reporter.utils;
 
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.score.ReportedProperties;
-import il.ac.sce.ir.metric.core.score.Score;
 import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
 
@@ -15,10 +14,10 @@ import java.util.*;
 public class CommonPeerFileReporter {
 
 
-    public <T extends ReportedProperties> void reportConcreteFile(List<ProcessedPeer<T>> reportedBundlesPerFile, String resultDirectory) {
+    public <T extends ReportedProperties> void reportConcreteFile(List<ProcessedChunk<T>> reportedBundlesPerFile, String resultDirectory) {
         final FileSystemPath fileSystemPath = new FileSystemPath();
         final CommonFileReporter commonFileReporter = new CommonFileReporter();
-        ProcessedPeer<T> firstBundle = reportedBundlesPerFile.get(0);
+        ProcessedChunk<T> firstBundle = reportedBundlesPerFile.get(0);
         String resultFileName = constructResultFileName(firstBundle.getProcessedCategory(),
                 firstBundle.getProcessedSystem(),
                 firstBundle.getMetric());
@@ -26,7 +25,7 @@ public class CommonPeerFileReporter {
                 resultFileName) + Constants.CSV_EXTENSION);
 
         ObjectToMapConverter objectToMapConverter = new ObjectToMapConverter();
-        Map<String, Object> properties = objectToMapConverter.getReportedProperties(firstBundle.getPeerData());
+        Map<String, Object> properties = objectToMapConverter.getReportedProperties(firstBundle.getChunkData());
         Set<String> sortedKeys = new TreeSet<>(properties.keySet());
         String header = commonFileReporter.buildHeader(sortedKeys);
 
@@ -36,8 +35,8 @@ public class CommonPeerFileReporter {
                 )
         )) {
             pw.println(header);
-            for (ProcessedPeer<T> reportedBundle : reportedBundlesPerFile) {
-                Map<String, Object> reportedProperties = objectToMapConverter.getReportedProperties(reportedBundle.getPeerData());
+            for (ProcessedChunk<T> reportedBundle : reportedBundlesPerFile) {
+                Map<String, Object> reportedProperties = objectToMapConverter.getReportedProperties(reportedBundle.getChunkData());
                 StringBuilder reportLineBuf = new StringBuilder(256);
                 reportLineBuf.append(reportedBundle.getPeerFileName());
                 commonFileReporter.convertMetricsToReportLine(reportedProperties, sortedKeys, reportLineBuf);

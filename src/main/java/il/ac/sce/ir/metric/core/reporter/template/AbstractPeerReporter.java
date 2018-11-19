@@ -4,7 +4,7 @@ import il.ac.sce.ir.metric.core.async_action.Arbiter;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemCommons;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
@@ -114,21 +114,21 @@ public abstract class AbstractPeerReporter<T> implements Reporter {
             }
 
             for (final String peerFileName : peerFileNames) {
-                ProcessedPeer<Void> processedPeer = new ProcessedPeer.Builder<Void>()
+                ProcessedChunk<Void> processedChunk = new ProcessedChunk.Builder<Void>()
                         .processedCategory(processedCategory)
                         .processedSystem(processedSystem)
                         .metric(metric)
                         .peerFileName(peerFileName)
-                        .checkPeerData(false)
+                        .checkChunkData(false)
                         .build();
-                processConcretePeer(processedPeer, scoresCollector);
+                processConcretePeer(processedChunk, scoresCollector);
             }
         }
 
         processResults(scoresCollector);
     }
 
-    protected abstract void processConcretePeer(ProcessedPeer<Void> processedPeer, List<T> scoresCollector);
+    protected abstract void processConcretePeer(ProcessedChunk<Void> processedChunk, List<T> scoresCollector);
 
     protected abstract void processResults(List<T> scoresCollector);
 }

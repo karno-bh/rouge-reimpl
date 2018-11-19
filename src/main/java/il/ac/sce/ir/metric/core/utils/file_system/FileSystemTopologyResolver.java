@@ -19,7 +19,7 @@ public class FileSystemTopologyResolver {
         return categoryPathResolver.resolveCategories(startDirLocation);
     }
 
-    public List<String> getAllTopicFiles(String workingSetDirectory, ProcessedCategory processedCategory) {
+    public List<String> getAllTopicRelativeFiles(String workingSetDirectory, ProcessedCategory processedCategory) {
         final FileSystemPath fileSystemPath = new FileSystemPath();
         String categoryDir = fileSystemPath.combinePath(workingSetDirectory, processedCategory.getDirLocation());
         String topicsDir = fileSystemPath.combinePath(categoryDir,Constants.TOPICS);
@@ -136,7 +136,7 @@ public class FileSystemTopologyResolver {
                                                             ProcessedCategory processedCategory,
                                                             Function<String, String> topicGrouper) {
         FileSystemPath fileSystemPath = new FileSystemPath();
-        List<String> allTopicFiles = getAllTopicFiles(workingSetDirectory, processedCategory);
+        List<String> allTopicFiles = getAllTopicRelativeFiles(workingSetDirectory, processedCategory);
         File topicsDir = getTopicsDir(workingSetDirectory, processedCategory);
         Map<String, List<String>> topicsWithFileNames = new HashMap<>();
         for (String topicFile : allTopicFiles) {

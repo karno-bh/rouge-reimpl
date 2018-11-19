@@ -1,30 +1,24 @@
 package il.ac.sce.ir.metric.core.async_action;
 
-import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.utils.CommonPeerFileReporter;
 import il.ac.sce.ir.metric.core.score.ReportedProperties;
-import il.ac.sce.ir.metric.core.score.Score;
-import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
-import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.function.Function;
 
 public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implements Callable<Void> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final List<Future<ProcessedPeer<T>>> allResultsPromisses;
+    private final List<Future<ProcessedChunk<T>>> allResultsPromisses;
 
     private final Arbiter arbiter;
 
@@ -32,19 +26,23 @@ public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implemen
 
     private final Configuration configuration;
 
-    public AsyncPeerAllResultsProcessor(List<Future<ProcessedPeer<T>>> allResultsPromisses,
+    private final Function<ProcessedChunk<T>, String> fileNameGrouper;
+
+    public AsyncPeerAllResultsProcessor(List<Future<ProcessedChunk<T>>> allResultsPromisses,
                                         Configuration configuration,
                                         Arbiter arbiter,
-                                        String metricName) {
+                                        String metricName,
+                                        Function<ProcessedChunk<T>, String> fileNameGrouper) {
         Objects.requireNonNull(allResultsPromisses, "Result Promisses cannot be null");
         Objects.requireNonNull(configuration, "Configuration could not be null");
         this.allResultsPromisses = allResultsPromisses;
         this.configuration = configuration;
         this.arbiter = arbiter;
         this.metricName = metricName;
+        this.fileNameGrouper = fileNameGrouper;
     }
 
-    public List<Future<ProcessedPeer<T>>> getAllResultsPromisses() {
+    public List<Future<ProcessedChunk<T>>> getAllResultsPromisses() {
         return allResultsPromisses;
     }
 
@@ -62,12 +60,12 @@ public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implemen
 
     @Override
     public Void call() throws Exception {
-        List<Future<ProcessedPeer<T>>> allResultsPromisses = getAllResultsPromisses();
-        List<ProcessedPeer<T>> reportedBundles = new ArrayList<>();
+        List<Future<ProcessedChunk<T>>> allResultsPromisses = getAllResultsPromisses();
+        List<ProcessedChunk<T>> reportedBundles = new ArrayList<>();
         try {
-            for (Future<ProcessedPeer<T>> reportedBundleFuture : allResultsPromisses) {
+            for (Future<ProcessedChunk<T>> reportedBundleFuture : allResultsPromisses) {
                 try {
-                    ProcessedPeer<T> reportedBundle = reportedBundleFuture.get();
+                    ProcessedChunk<T> reportedBundle = reportedBundleFuture.get();
                     reportedBundles.add(reportedBundle);
                 } catch (InterruptedException e) {
                     logger.error("Main thread pool was interrupted", e);
@@ -87,24 +85,20 @@ public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implemen
         }
     }
 
-    protected void groupAndReport(List<ProcessedPeer<T>> reportedBundles) {
+    public void groupAndReport(List<ProcessedChunk<T>> reportedBundles) {
 
-        Map<String, List<ProcessedPeer<T>>> groups = new HashMap<>();
+        Map<String, List<ProcessedChunk<T>>> groups = new HashMap<>();
 
-        MessageFormat keyFormat = new MessageFormat("{0}_{1}_{2}");
-        for (final ProcessedPeer<T> reportedBundle : reportedBundles) {
-            String key = keyFormat.format(new Object[]{
-                    reportedBundle.getProcessedCategory().getDirLocation(),
-                    reportedBundle.getProcessedSystem().getDirLocation(),
-                    reportedBundle.getMetric()
-            });
-            List<ProcessedPeer<T>> bundlesPerFile = groups.computeIfAbsent(key, _key -> new ArrayList<>());
+        // MessageFormat keyFormat = new MessageFormat("{0}_{1}_{2}");
+        for (final ProcessedChunk<T> reportedBundle : reportedBundles) {
+            String key = fileNameGrouper.apply(reportedBundle);
+            List<ProcessedChunk<T>> bundlesPerFile = groups.computeIfAbsent(key, _key -> new ArrayList<>());
             bundlesPerFile.add(reportedBundle);
         }
         dumpAllFiles(groups);
     }
 
-    protected void dumpAllFiles(Map<String, List<ProcessedPeer<T>>> groups) {
+    public void dumpAllFiles(Map<String, List<ProcessedChunk<T>>> groups) {
         Configuration configuration = getConfiguration();
         CommonPeerFileReporter commonPeerFileReporter = new CommonPeerFileReporter();
         groups.forEach(
