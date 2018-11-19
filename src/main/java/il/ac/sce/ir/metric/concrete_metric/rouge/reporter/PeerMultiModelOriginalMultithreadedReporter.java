@@ -110,7 +110,7 @@ public class PeerMultiModelOriginalMultithreadedReporter implements Reporter {
         }
 
         // processAllResults(scoresFutures);
-        AsyncAllResultsProcessor asyncAllResultsProcessor = new AsyncAllResultsProcessor(scoresFutures, getConfiguration());
+        AsyncAllResultsProcessor asyncAllResultsProcessor = new AsyncAllResultsProcessor(scoresFutures, getConfiguration(), null, null);
         executorService.submit(asyncAllResultsProcessor);
     }
 }

@@ -59,13 +59,14 @@ public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<P
 
     @Override
     protected void processResults(List<Future<ProcessedPeer<ReadabilityMetricScore>>> scoresCollector) {
-        AsyncAllResultsProcessor<ReadabilityMetricScore> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector, getConfiguration());
-        // getExecutorService().submit(asyncAllResultsProcessor);
-        try {
+        AsyncAllResultsProcessor<ReadabilityMetricScore> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector,
+                getConfiguration(), getArbiter(), getMetricName());
+        getExecutorService().submit(asyncAllResultsProcessor);
+        /*try {
             asyncAllResultsProcessor.call();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            getLogger().error("Error while dumping results onto the disk");
+        }*/
     }
 
 }

@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
+import il.ac.sce.ir.metric.core.async_action.Arbiter;
 import il.ac.sce.ir.metric.core.async_action.AsyncAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.data.Text;
@@ -53,12 +54,14 @@ public class PeerMultimodelReporter extends AbstractPeerReporter<Future<Processe
 
     @Override
     protected void processResults(List<Future<ProcessedPeer<Score>>> scoresCollector) {
-        AsyncAllResultsProcessor<Score> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector, getConfiguration());
-//        getExecutorService().submit(asyncAllResultsProcessor);
-        try {
+        Arbiter arbiter = getArbiter();
+        AsyncAllResultsProcessor<Score> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector,
+                getConfiguration(), getArbiter(), getMetricName());
+        getExecutorService().submit(asyncAllResultsProcessor);
+        /*try {
             asyncAllResultsProcessor.call();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            getLogger().error("Error while dumping results onto the disk");
+        }*/
     }
 }

@@ -2,6 +2,7 @@ package il.ac.sce.ir.metric.starter.command_line.main.container;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import il.ac.sce.ir.metric.core.async_action.Arbiter;
 import il.ac.sce.ir.metric.core.builder.BiTextPipeline;
 import il.ac.sce.ir.metric.core.builder.BiTextPipelineExtractor;
 import il.ac.sce.ir.metric.core.builder.TextPipeline;
@@ -48,6 +49,10 @@ public class DefaultContainerImpl extends Container {
 
     @Override
     public void build() {
+
+
+        Arbiter arbiter = new Arbiter();
+        setBean(Constants.ARBITER, arbiter);
 
         // some empiric number...
         // TODO number should come from configuration
@@ -97,6 +102,9 @@ public class DefaultContainerImpl extends Container {
             reporter.setScoreCalculator(rougeNMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
             reporter.setExecutorService(executorService);
+            arbiter.register(rougeNMetric);
+            reporter.setArbiter(arbiter);
+            reporter.setMetricName(rougeNMetric);
 
             setBean(rougeNMetric, reporter);
         }
@@ -122,6 +130,9 @@ public class DefaultContainerImpl extends Container {
             reporter.setScoreCalculator(rougeLMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
             reporter.setExecutorService(executorService);
+            arbiter.register(Constants.ROUGEL_LOWER_CASE);
+            reporter.setArbiter(arbiter);
+            reporter.setMetricName(Constants.ROUGEL_LOWER_CASE);
 
             setBean(Constants.ROUGEL_LOWER_CASE, reporter);
         }
@@ -139,6 +150,9 @@ public class DefaultContainerImpl extends Container {
             reporter.setScoreCalculator(rougeWMultimodelScoreCalculator);
             reporter.setConfiguration(configuration);
             reporter.setExecutorService(executorService);
+            arbiter.register(Constants.ROUGEW_LOWER_CASE);
+            reporter.setArbiter(arbiter);
+            reporter.setMetricName(Constants.ROUGEW_LOWER_CASE);
 
             setBean(Constants.ROUGEW_LOWER_CASE, reporter);
         }
@@ -171,6 +185,10 @@ public class DefaultContainerImpl extends Container {
             elenaReadabilityPeersReporter.setConfiguration(configuration);
             elenaReadabilityPeersReporter.setScoreCalculator(readabilityMetricScoreCalculator);
             elenaReadabilityPeersReporter.setExecutorService(executorService);
+            arbiter.register(Constants.ELENA_READABILITY_LOWER_CASE);
+            elenaReadabilityPeersReporter.setArbiter(arbiter);
+            elenaReadabilityPeersReporter.setMetricName(Constants.ELENA_READABILITY_LOWER_CASE);
+
             setBean(Constants.ELENA_READABILITY_LOWER_CASE, elenaReadabilityPeersReporter);
         }
 

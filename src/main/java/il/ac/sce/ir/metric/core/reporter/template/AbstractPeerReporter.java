@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.core.reporter.template;
 
+import il.ac.sce.ir.metric.core.async_action.Arbiter;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
@@ -29,6 +30,10 @@ public abstract class AbstractPeerReporter<T> implements Reporter {
     private ExecutorService executorService;
 
     private volatile File modelsDirectory;
+
+    private Arbiter arbiter;
+
+    private String metricName;
 
     public Logger getLogger() {
         return logger;
@@ -64,6 +69,22 @@ public abstract class AbstractPeerReporter<T> implements Reporter {
 
     public void setModelsDirectory(File modelsDirectory) {
         this.modelsDirectory = modelsDirectory;
+    }
+
+    public Arbiter getArbiter() {
+        return arbiter;
+    }
+
+    public void setArbiter(Arbiter arbiter) {
+        this.arbiter = arbiter;
+    }
+
+    public String getMetricName() {
+        return metricName;
+    }
+
+    public void setMetricName(String metricName) {
+        this.metricName = metricName;
     }
 
     @Override

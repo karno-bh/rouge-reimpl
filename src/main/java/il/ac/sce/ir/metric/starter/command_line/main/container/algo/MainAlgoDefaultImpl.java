@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.starter.command_line.main.container.algo;
 
+import il.ac.sce.ir.metric.core.async_action.Arbiter;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.Container;
 import il.ac.sce.ir.metric.core.container.container_algorithm.MainAlgo;
@@ -50,6 +51,9 @@ public class MainAlgoDefaultImpl implements MainAlgo {
                 }
             }
 
+            Arbiter arbiter = (Arbiter)container.getBean(Constants.ARBITER);
+            arbiter.release();
+
             Object possibleReducer = container.getBean(Constants.COMBINE_REDUCER);
             if (possibleReducer != null && possibleReducer instanceof Reducer) {
                 logger.info("Running reducers");
@@ -70,3 +74,4 @@ public class MainAlgoDefaultImpl implements MainAlgo {
     }
 
 }
+

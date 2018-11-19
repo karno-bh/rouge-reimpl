@@ -1,3 +1,25 @@
+2018-11-19
+    CONTINUE:
+        1. Split ProcessedPeer to ProcessedPeer and ProcessedPeerData
+        2. Cleaning a mess with resolving a paths for peers/models/topics (should be cleaned from Elena's Topic Metrics)
+        3. Multithreading for Elena's metric should be added
+        4. Changing data object to be as much as possible immutable.
+           --== Immutability should be a part of design of passing among the threads ==--
+        5. Elena topics readability should not be dependent on externals
+    Done:
+        1. Stealing pool was rejected due to complexity of implementation by current design. Moreover, it is not needed
+           mostly. Instead, Arbiter class was introduced.
+        2. Async actions meanwhile removed from the concrete metric reporters
+    TODO:
+        1. Implementing AutoSummENG. + Write reporter for AutoSummENG.
+        2. Add missing libraries with .bat file to load them into local Maven repository
+        3. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        4. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
+        5. Start writing a Project Document.
+        6. Reducers should write in the same directory...
+        7. Reducer to generate(!) one gigantus table?..
+        8. Clean tests not to have absolute file paths. (=> need to upload test data)
+
 2018-11-16--002
     CONTINUE:
         1. !!!Redesign of Multithreading!!! It does not work correctly :(

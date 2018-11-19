@@ -26,14 +26,22 @@ public class AsyncAllResultsProcessor<T extends ReportedProperties> implements C
 
     private final List<Future<ProcessedPeer<T>>> allResultsPromisses;
 
+    private final Arbiter arbiter;
+
+    private final String metricName;
+
     private final Configuration configuration;
 
-    public
-    AsyncAllResultsProcessor(List<Future<ProcessedPeer<T>>> allResultsPromisses, Configuration configuration) {
+    public AsyncAllResultsProcessor(List<Future<ProcessedPeer<T>>> allResultsPromisses,
+                                    Configuration configuration,
+                                    Arbiter arbiter,
+                                    String metricName) {
         Objects.requireNonNull(allResultsPromisses, "Result Promisses cannot be null");
         Objects.requireNonNull(configuration, "Configuration could not be null");
         this.allResultsPromisses = allResultsPromisses;
         this.configuration = configuration;
+        this.arbiter = arbiter;
+        this.metricName = metricName;
     }
 
     public List<Future<ProcessedPeer<T>>> getAllResultsPromisses() {
@@ -44,25 +52,39 @@ public class AsyncAllResultsProcessor<T extends ReportedProperties> implements C
         return configuration;
     }
 
+    public Arbiter getArbiter() {
+        return arbiter;
+    }
+
+    public String getMetricName() {
+        return metricName;
+    }
+
     @Override
     public Void call() throws Exception {
         List<Future<ProcessedPeer<T>>> allResultsPromisses = getAllResultsPromisses();
         List<ProcessedPeer<T>> reportedBundles = new ArrayList<>();
-        for (Future<ProcessedPeer<T>> reportedBundleFuture : allResultsPromisses) {
-            try {
-                ProcessedPeer<T> reportedBundle = reportedBundleFuture.get();
-                reportedBundles.add(reportedBundle);
-            } catch (InterruptedException e) {
-                logger.error("Main thread pool was interrupted", e);
-                throw new IllegalStateException("Main thread pool was interrupted", e);
-            } catch (ExecutionException e) {
-                logger.error("Got exception while calculating ReportedBundle");
-                throw new RuntimeException("Got exception while calculating ReportedBundle", e);
+        try {
+            for (Future<ProcessedPeer<T>> reportedBundleFuture : allResultsPromisses) {
+                try {
+                    ProcessedPeer<T> reportedBundle = reportedBundleFuture.get();
+                    reportedBundles.add(reportedBundle);
+                } catch (InterruptedException e) {
+                    logger.error("Main thread pool was interrupted", e);
+                    throw new IllegalStateException("Main thread pool was interrupted", e);
+                } catch (ExecutionException e) {
+                    logger.error("Got exception while calculating ReportedBundle");
+                    throw new RuntimeException("Got exception while calculating ReportedBundle", e);
+                }
+            }
+
+            groupAndReport(reportedBundles);
+            return null;
+        } finally {
+            if (getArbiter() != null) {
+                getArbiter().signalizeFinish(getMetricName());
             }
         }
-
-        groupAndReport(reportedBundles);
-        return null;
     }
 
     protected void groupAndReport(List<ProcessedPeer<T>> reportedBundles) {
@@ -90,6 +112,7 @@ public class AsyncAllResultsProcessor<T extends ReportedProperties> implements C
                 commonPeerFileReporter.reportConcreteFile(reportedBundlesPerFile, configuration.getResultDirectory());
             }
         );
+
     }
 
 }
