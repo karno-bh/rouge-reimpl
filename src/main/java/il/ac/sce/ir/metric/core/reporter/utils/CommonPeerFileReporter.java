@@ -17,7 +17,7 @@ public class CommonPeerFileReporter {
 
     public <T extends ReportedProperties> void reportConcreteFile(List<ProcessedPeer<T>> reportedBundlesPerFile, String resultDirectory) {
         final FileSystemPath fileSystemPath = new FileSystemPath();
-
+        final CommonFileReporter commonFileReporter = new CommonFileReporter();
         ProcessedPeer<T> firstBundle = reportedBundlesPerFile.get(0);
         String resultFileName = constructResultFileName(firstBundle.getProcessedCategory(),
                 firstBundle.getProcessedSystem(),
@@ -28,7 +28,7 @@ public class CommonPeerFileReporter {
         ObjectToMapConverter objectToMapConverter = new ObjectToMapConverter();
         Map<String, Object> properties = objectToMapConverter.getReportedProperties(firstBundle.getPeerData());
         Set<String> sortedKeys = new TreeSet<>(properties.keySet());
-        String header = buildHeader(sortedKeys);
+        String header = commonFileReporter.buildHeader(sortedKeys);
 
         try (PrintWriter pw = new PrintWriter(
                 new BufferedWriter(
@@ -40,23 +40,13 @@ public class CommonPeerFileReporter {
                 Map<String, Object> reportedProperties = objectToMapConverter.getReportedProperties(reportedBundle.getPeerData());
                 StringBuilder reportLineBuf = new StringBuilder(256);
                 reportLineBuf.append(reportedBundle.getPeerFileName());
-                convertMetricsToReportLine(reportedProperties, sortedKeys, reportLineBuf);
+                commonFileReporter.convertMetricsToReportLine(reportedProperties, sortedKeys, reportLineBuf);
                 String reportLine = reportLineBuf.toString();
                 pw.println(reportLine);
             }
         } catch (IOException ioe) {
             throw new RuntimeException("Error while writing a report for " + resultFileName, ioe);
         }
-    }
-
-    private String buildHeader(Set<String> sortedKeys) {
-        StringBuilder headerBuf = new StringBuilder(256);
-        headerBuf.append(Constants.PEER);
-
-        for (String key : sortedKeys) {
-            headerBuf.append(Constants.CSV_REPORT_SEPARATOR).append(key);
-        }
-        return headerBuf.toString();
     }
 
     private String constructResultFileName(ProcessedCategory processedCategory, ProcessedSystem processedSystem, String metric) {
@@ -74,12 +64,4 @@ public class CommonPeerFileReporter {
         return resultFileNameBuf.toString();
     }
 
-    private void convertMetricsToReportLine(Map<String, Object> properties,
-                                            Collection<String> sortedKeys,
-                                            StringBuilder reportLineBuf) {
-        for (String key : sortedKeys) {
-            Number scoreValue = (Number)properties.get(key);
-            reportLineBuf.append(Constants.CSV_REPORT_SEPARATOR).append(scoreValue.doubleValue());
-        }
-    }
 }

@@ -1,15 +1,13 @@
 package il.ac.sce.ir.metric.concrete_metric.elena.reporter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import il.ac.sce.ir.metric.core.container.data.Configuration;
+import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
-import il.ac.sce.ir.metric.core.reporter.utils.CommonFileReporter;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
-import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
-import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +16,8 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ElenaReadbilityTopicsReporter implements Reporter {
+public class ElenaReadbilityTopicsOriginalReporter implements Reporter {
+
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -51,18 +50,41 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
 
-        final FileSystemTopologyResolver fileSystemTopologyResolver = new FileSystemTopologyResolver();
-        final CommonFileReporter commonFileReporter = new CommonFileReporter();
-        final Configuration configuration = getConfiguration();
-        String workingSetDirectory = configuration.getWorkingSetDirectory();
+        Configuration configuration = getConfiguration();
 
-        Map<String, List<String>> topicFileLocationsPerTopic = fileSystemTopologyResolver.getTopicsWithFileNames(workingSetDirectory,
-                processedCategory, topicFile -> topicFile.substring(0, 4));
+        String categoryDir = configuration.getWorkingSetDirectory() + File.separator + processedCategory.getDirLocation();
 
-        topicFileLocationsPerTopic.forEach((topic, files) -> {
+        String topicsDir = categoryDir + File.separator + Constants.TOPICS;
 
-        });
+        if (!(new File(topicsDir).isDirectory())) {
+            throw new RuntimeException(topicsDir + " is not a directory");
+        }
 
+        // topic --> topic files
+        Map<String, List<String>> topicFileLocationsPerTopic = new HashMap<>();
+
+        String[] allTopicFiles = new File(topicsDir).list();
+        if (allTopicFiles == null || allTopicFiles.length == 0)  {
+            logger.warn("No files found in topic directory: {}", topicsDir);
+            return;
+        }
+
+        /*List<String> allTopicFiles= Arrays.stream(new File(topicsDir).list())
+                .map(fileName -> topicsDir + File.separator + fileName)
+                .collect(Collectors.toList());*/
+
+        Set<String> requestedTopics = new HashSet<>(topics);
+
+        for (String requestedTopic : requestedTopics) {
+            List<String> topicFileLocation = Arrays.stream(allTopicFiles)
+                    .filter(topicFile -> topicFile.startsWith(requestedTopic))
+                    .map(fileName -> topicsDir + File.separator + fileName)
+                    .collect(Collectors.toList());
+            topicFileLocationsPerTopic.put(requestedTopic, topicFileLocation);
+        }
+
+        requireAndCreateDirectory(configuration);
+        //boolean headerCreated = false;
         for (Map.Entry<String, List<String>> topic : topicFileLocationsPerTopic.entrySet()) {
             String resultFileName = configuration.getResultDirectory() + File.separator +
                     processedCategory.getDescription() + Constants.RESULT_FILE_ENITITIES_SEPARATOR
@@ -73,8 +95,8 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
                 logger.info("Processing file: {}", topicFile);
 
                 Text<String> text = Text.asFileLocation(topicFile);
-                
-                ReadabilityMetricScore readabilityMetricScore = getScoreCalculator().computeScore(text);
+
+                ReadabilityMetricScore readabilityMetricScore = scoreCalculator.computeScore(text);
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 Map<String, Object> scoreAsMap = objectMapper.convertValue(readabilityMetricScore, Map.class);
@@ -96,7 +118,7 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
                         )
                 )) {
                     if (!headerCreated) {
-                        String header = commonFileReporter.buildHeader(sortedKeys);
+                        String header = buildHeader(sortedKeys);
                         pw.println(header);
                         headerCreated = true;
                     }
@@ -121,4 +143,28 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
 
     }
 
+
+    private String buildHeader(Set<String> sortedKeys) {
+        StringBuilder headerBuf = new StringBuilder(256);
+        headerBuf.append(Constants.TOPIC);
+
+        for (String key : sortedKeys) {
+            headerBuf.append(Constants.CSV_REPORT_SEPARATOR).append(key);
+        }
+        return headerBuf.toString();
+    }
+
+
+    private void requireAndCreateDirectory(Configuration configuration) {
+        String resultDirectoryName = configuration.getResultDirectory();
+        File resultDirectory = new File(resultDirectoryName);
+        if (!resultDirectory.exists()) {
+            boolean mkdirsOk = resultDirectory.mkdirs();
+            if (!mkdirsOk) {
+                throw new RuntimeException("Cannot create result directory: " + resultDirectoryName);
+            }
+        } else if (!resultDirectory.isDirectory()) {
+            throw new RuntimeException(MessageFormat.format("Result Directory \"(0)\" is not a directory on file system", resultDirectory));
+        }
+    }
 }

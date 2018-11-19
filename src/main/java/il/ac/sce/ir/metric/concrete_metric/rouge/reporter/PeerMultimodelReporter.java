@@ -1,7 +1,7 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
 import il.ac.sce.ir.metric.core.async_action.Arbiter;
-import il.ac.sce.ir.metric.core.async_action.AsyncAllResultsProcessor;
+import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
@@ -11,7 +11,6 @@ import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class PeerMultimodelReporter extends AbstractPeerReporter<Future<ProcessedPeer<Score>>> {
@@ -55,11 +54,11 @@ public class PeerMultimodelReporter extends AbstractPeerReporter<Future<Processe
     @Override
     protected void processResults(List<Future<ProcessedPeer<Score>>> scoresCollector) {
         Arbiter arbiter = getArbiter();
-        AsyncAllResultsProcessor<Score> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector,
+        AsyncPeerAllResultsProcessor<Score> asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor<>(scoresCollector,
                 getConfiguration(), getArbiter(), getMetricName());
-        getExecutorService().submit(asyncAllResultsProcessor);
+        getExecutorService().submit(asyncPeerAllResultsProcessor);
         /*try {
-            asyncAllResultsProcessor.call();
+            asyncPeerAllResultsProcessor.call();
         } catch (Exception e) {
             getLogger().error("Error while dumping results onto the disk");
         }*/

@@ -1,6 +1,6 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
-import il.ac.sce.ir.metric.core.async_action.AsyncAllResultsProcessor;
+import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.data.Text;
@@ -110,7 +110,7 @@ public class PeerMultiModelOriginalMultithreadedReporter implements Reporter {
         }
 
         // processAllResults(scoresFutures);
-        AsyncAllResultsProcessor asyncAllResultsProcessor = new AsyncAllResultsProcessor(scoresFutures, getConfiguration(), null, null);
-        executorService.submit(asyncAllResultsProcessor);
+        AsyncPeerAllResultsProcessor asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor(scoresFutures, getConfiguration(), null, null);
+        executorService.submit(asyncPeerAllResultsProcessor);
     }
 }

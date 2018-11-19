@@ -7,9 +7,8 @@ import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FileSystemTopologyResolver {
@@ -18,6 +17,33 @@ public class FileSystemTopologyResolver {
         // TODO copy code from CategoryPathResolver and delete CategoryPathResolver
         CategoryPathResolver categoryPathResolver = new CategoryPathResolver();
         return categoryPathResolver.resolveCategories(startDirLocation);
+    }
+
+    public List<String> getAllTopicFiles(String workingSetDirectory, ProcessedCategory processedCategory) {
+        final FileSystemPath fileSystemPath = new FileSystemPath();
+        String categoryDir = fileSystemPath.combinePath(workingSetDirectory, processedCategory.getDirLocation());
+        String topicsDir = fileSystemPath.combinePath(categoryDir,Constants.TOPICS);
+        File categoryTopicsDir = getTopicsDir(workingSetDirectory, processedCategory);
+
+        String[] allTopicFiles = categoryTopicsDir.list((file, innerFileName) -> {
+            String absoluteFileName = fileSystemPath.combinePath(topicsDir, innerFileName);
+            return new File(absoluteFileName).isFile();
+        });
+        if (allTopicFiles == null) {
+            return Collections.EMPTY_LIST;
+        }
+        return Arrays.asList(allTopicFiles);
+    }
+
+    public File getTopicsDir(String workingSetDirectory, ProcessedCategory processedCategory) {
+        final FileSystemPath fileSystemPath = new FileSystemPath();
+        String categoryDir = fileSystemPath.combinePath(workingSetDirectory, processedCategory.getDirLocation());
+        String topicsDir = fileSystemPath.combinePath(categoryDir,Constants.TOPICS);
+        File categoryTopicsDir = new File(topicsDir);
+        if (!(categoryTopicsDir.isDirectory())) {
+            throw new RuntimeException(topicsDir + " is not a directory");
+        }
+        return categoryTopicsDir;
     }
 
     public File getModelsDirectory(String workingSetDirectory, ProcessedCategory processedCategory) {
@@ -104,6 +130,22 @@ public class FileSystemTopologyResolver {
                 .map(modelFileName -> fileSystemPath.combinePath(modelsDirectoryName, modelFileName))
                 .map(Text::asFileLocation)
                 .collect(Collectors.toList());
+    }
+
+    public Map<String, List<String>> getTopicsWithFileNames(String workingSetDirectory,
+                                                            ProcessedCategory processedCategory,
+                                                            Function<String, String> topicGrouper) {
+        FileSystemPath fileSystemPath = new FileSystemPath();
+        List<String> allTopicFiles = getAllTopicFiles(workingSetDirectory, processedCategory);
+        File topicsDir = getTopicsDir(workingSetDirectory, processedCategory);
+        Map<String, List<String>> topicsWithFileNames = new HashMap<>();
+        for (String topicFile : allTopicFiles) {
+            String group = topicGrouper.apply(topicFile);
+            List<String> topicFilesPerTopic = topicsWithFileNames.computeIfAbsent(group, key -> new ArrayList<>());
+            String absoluteTopicLocation = fileSystemPath.combinePath(topicsDir.getAbsolutePath(), topicFile);
+            topicFilesPerTopic.add(absoluteTopicLocation);
+        }
+        return topicsWithFileNames;
     }
 
 

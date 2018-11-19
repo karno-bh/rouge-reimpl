@@ -20,7 +20,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class AsyncAllResultsProcessor<T extends ReportedProperties> implements Callable<Void> {
+public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implements Callable<Void> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -32,10 +32,10 @@ public class AsyncAllResultsProcessor<T extends ReportedProperties> implements C
 
     private final Configuration configuration;
 
-    public AsyncAllResultsProcessor(List<Future<ProcessedPeer<T>>> allResultsPromisses,
-                                    Configuration configuration,
-                                    Arbiter arbiter,
-                                    String metricName) {
+    public AsyncPeerAllResultsProcessor(List<Future<ProcessedPeer<T>>> allResultsPromisses,
+                                        Configuration configuration,
+                                        Arbiter arbiter,
+                                        String metricName) {
         Objects.requireNonNull(allResultsPromisses, "Result Promisses cannot be null");
         Objects.requireNonNull(configuration, "Configuration could not be null");
         this.allResultsPromisses = allResultsPromisses;

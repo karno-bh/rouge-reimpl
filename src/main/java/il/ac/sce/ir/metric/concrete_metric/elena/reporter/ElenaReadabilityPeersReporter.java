@@ -1,31 +1,15 @@
 package il.ac.sce.ir.metric.concrete_metric.elena.reporter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import il.ac.sce.ir.metric.core.async_action.AsyncAllResultsProcessor;
+import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
-import il.ac.sce.ir.metric.core.container.data.Configuration;
-import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.data.Text;
-import il.ac.sce.ir.metric.core.reporter.Reporter;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedPeer;
-import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
 import il.ac.sce.ir.metric.core.reporter.template.AbstractPeerReporter;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
-import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
-import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
-import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
-import il.ac.sce.ir.metric.core.utils.file_system.FileSystemTopologyResolver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<ProcessedPeer<ReadabilityMetricScore>>> {
 
@@ -59,11 +43,11 @@ public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<P
 
     @Override
     protected void processResults(List<Future<ProcessedPeer<ReadabilityMetricScore>>> scoresCollector) {
-        AsyncAllResultsProcessor<ReadabilityMetricScore> asyncAllResultsProcessor = new AsyncAllResultsProcessor<>(scoresCollector,
+        AsyncPeerAllResultsProcessor<ReadabilityMetricScore> asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor<>(scoresCollector,
                 getConfiguration(), getArbiter(), getMetricName());
-        getExecutorService().submit(asyncAllResultsProcessor);
+        getExecutorService().submit(asyncPeerAllResultsProcessor);
         /*try {
-            asyncAllResultsProcessor.call();
+            asyncPeerAllResultsProcessor.call();
         } catch (Exception e) {
             getLogger().error("Error while dumping results onto the disk");
         }*/
