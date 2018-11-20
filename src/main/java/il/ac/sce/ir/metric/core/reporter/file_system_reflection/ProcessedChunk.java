@@ -14,6 +14,8 @@ public class ProcessedChunk<T> {
 
     private final String topic;
 
+    private final ProcessedChunkType chunkType;
+
     private final T chunkData;
 
     public ProcessedChunk(ProcessedCategory processedCategory,
@@ -21,12 +23,14 @@ public class ProcessedChunk<T> {
                           String metric,
                           String peerFileName,
                           String topic,
+                          ProcessedChunkType chunkType,
                           T chunkData) {
         this.processedCategory = processedCategory;
         this.processedSystem = processedSystem;
         this.metric = metric;
         this.peerFileName = peerFileName;
         this.topic = topic;
+        this.chunkType = chunkType;
         this.chunkData = chunkData;
     }
 
@@ -50,6 +54,10 @@ public class ProcessedChunk<T> {
         return topic;
     }
 
+    public ProcessedChunkType getChunkType() {
+        return chunkType;
+    }
+
     public T getChunkData() {
         return chunkData;
     }
@@ -70,6 +78,8 @@ public class ProcessedChunk<T> {
 
         private String topic;
 
+        private ProcessedChunkType chunkType = ProcessedChunkType.PEER_MULTI_MODEL;
+
         private U chunkData;
 
         private boolean checkChunkData = true;
@@ -79,6 +89,8 @@ public class ProcessedChunk<T> {
         private boolean checkPeerFileName = true;
 
         private boolean fromClone = false;
+
+
 
         public Builder<U> processedCategory(ProcessedCategory processedCategory) {
             this.processedCategory = processedCategory;
@@ -110,6 +122,23 @@ public class ProcessedChunk<T> {
             return this;
         }
 
+        public Builder<U> chunkType(ProcessedChunkType chunkType) {
+            this.chunkType = chunkType;
+            switch (chunkType) {
+                case PEER_MULTI_MODEL:
+                    this.checkTopicData = false;
+                    this.checkPeerFileName = true;
+                    break;
+                case TOPIC:
+                    this.checkTopicData = true;
+                    this.checkPeerFileName = false;
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown chunk type");
+            }
+            return this;
+        }
+
         public Builder<U> checkChunkData(boolean checkChunkData) {
             this.checkChunkData = checkChunkData;
             return this;
@@ -132,10 +161,12 @@ public class ProcessedChunk<T> {
             this.metric = processedChunk.getMetric();
             this.peerFileName = processedChunk.getPeerFileName();
             this.topic = processedChunk.getTopic();
+            this.chunkType = processedChunk.getChunkType();
             return this;
         }
 
         public ProcessedChunk<U> build() {
+            Objects.requireNonNull(chunkType, "Chunk type should be not null");
             Objects.requireNonNull(processedCategory, "Processed Category should not be null");
             if (!fromClone && checkPeerFileName) {
                 Objects.requireNonNull(processedSystem, "Processed System should not be null");
@@ -152,7 +183,7 @@ public class ProcessedChunk<T> {
             }
 
             return new ProcessedChunk<U>(processedCategory, processedSystem,
-                    metric, peerFileName, topic, chunkData);
+                    metric, peerFileName, topic, chunkType,chunkData);
         }
     }
 }

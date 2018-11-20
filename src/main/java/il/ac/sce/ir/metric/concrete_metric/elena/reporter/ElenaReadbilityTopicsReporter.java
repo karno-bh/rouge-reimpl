@@ -1,6 +1,8 @@
 package il.ac.sce.ir.metric.concrete_metric.elena.reporter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import il.ac.sce.ir.metric.core.async_action.Arbiter;
+import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.config.Constants;
@@ -8,6 +10,7 @@ import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
+import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunkType;
 import il.ac.sce.ir.metric.core.reporter.utils.CommonFileReporter;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
@@ -28,6 +31,8 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
     private Configuration configuration;
 
     private ExecutorService executorService;
+
+    private Arbiter arbiter;
 
     private ElenaReadabilityMetricScoreCalculator scoreCalculator;
 
@@ -61,12 +66,19 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
         this.executorService = executorService;
     }
 
+    public Arbiter getArbiter() {
+        return arbiter;
+    }
+
+    public void setArbiter(Arbiter arbiter) {
+        this.arbiter = arbiter;
+    }
+
     @Override
     public void report(ProcessedCategory processedCategory, String metric) {
 
         final FileSystemTopologyResolver fileSystemTopologyResolver = new FileSystemTopologyResolver();
         final FileSystemPath fileSystemPath = new FileSystemPath();
-        final CommonFileReporter commonFileReporter = new CommonFileReporter();
         final Configuration configuration = getConfiguration();
         String workingSetDirectory = configuration.getWorkingSetDirectory();
 
@@ -76,11 +88,9 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
         List<Future<ProcessedChunk<ReadabilityMetricScore>>> asyncChunks = new ArrayList<>();
         for (String topicFile : allTopicFiles) {
             String absoluteTopicFileName = fileSystemPath.combinePath(topicsDir.getAbsolutePath(), topicFile);
-            Text<String> processedFileText = new Text<>(topicFile, absoluteTopicFileName);
+            Text<String> processedFileText = Text.asFileLocation(absoluteTopicFileName);
             ProcessedChunk<Text<String>> processedChunk = new ProcessedChunk.Builder<Text<String>>()
-                    .checkChunkData(true)
-                    .checkTopicData(true)
-                    .checkPeerFileName(false)
+                    .chunkType(ProcessedChunkType.TOPIC)
                     .processedCategory(processedCategory)
                     .metric(metric)
                     .topic(topicFile)
@@ -93,6 +103,9 @@ public class ElenaReadbilityTopicsReporter implements Reporter {
             asyncChunks.add(asyncChunk);
         }
 
+        AsyncPeerAllResultsProcessor<ReadabilityMetricScore> asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor<>(asyncChunks,
+                getConfiguration(), getArbiter(), metric);
+        getExecutorService().submit(asyncPeerAllResultsProcessor);
 
     }
 

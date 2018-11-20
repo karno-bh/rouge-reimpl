@@ -1,7 +1,5 @@
 package il.ac.sce.ir.metric.concrete_metric.rouge.reporter;
 
-import il.ac.sce.ir.metric.core.async_action.AllResultProcessorGroupers;
-import il.ac.sce.ir.metric.core.async_action.Arbiter;
 import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.data.Text;
@@ -51,9 +49,9 @@ public class PeerMultimodelReporter extends AbstractPeerReporter<Future<Processe
 
     @Override
     protected void processResults(List<Future<ProcessedChunk<Score>>> scoresCollector) {
-        AllResultProcessorGroupers allResultProcessorGroupers = new AllResultProcessorGroupers();
+
         AsyncPeerAllResultsProcessor<Score> asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor<>(scoresCollector,
-                getConfiguration(), getArbiter(), getMetricName(), allResultProcessorGroupers.getFileNamePeerCombiner(Score.class));
+                getConfiguration(), getArbiter(), getMetricName());
         getExecutorService().submit(asyncPeerAllResultsProcessor);
         /*try {
             asyncPeerAllResultsProcessor.call();

@@ -1,3 +1,22 @@
+2018-11-20
+    CONTINUE:
+        1. Implementing AutoSummENG. + Write reporter for AutoSummENG.
+    Done:
+        1. ProcessedPeer => more common ProcessedChunk
+        2. Elena topic readability uses the same code as Peer Multimodel reportes
+        3. Elena topic readability is multithreaded
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
+        4. Start writing a Project Document.
+        5. Reducers should write in the same directory...
+        6. Reducer to generate(!) one gigantus table?..
+        7. Clean tests not to have absolute file paths. (=> need to upload test data)
+        8. Clean up the mess with ProcessedChunk & ProcessedChunkType
+        9. ***Score calculators for multi models should be configurable to calculate best or avg!!!***
+        10. Readability metrics should be added for models
+
 2018-11-19
     CONTINUE:
         1. Split ProcessedPeer to ProcessedPeer and ProcessedPeerData

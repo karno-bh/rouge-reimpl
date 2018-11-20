@@ -203,6 +203,10 @@ public class DefaultContainerImpl extends Container {
             elenaReadbilityTopicsReporter.setTopics(containerConfigData.getTopics());
             elenaReadbilityTopicsReporter.setScoreCalculator(readabilityMetricScoreCalculator);
 
+            arbiter.register(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE);
+            elenaReadbilityTopicsReporter.setArbiter(arbiter);
+            elenaReadbilityTopicsReporter.setExecutorService(executorService);
+
             setBean(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, elenaReadbilityTopicsReporter);
         }
 

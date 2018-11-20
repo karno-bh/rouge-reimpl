@@ -1,6 +1,5 @@
 package il.ac.sce.ir.metric.concrete_metric.elena.reporter;
 
-import il.ac.sce.ir.metric.core.async_action.AllResultProcessorGroupers;
 import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.data.Text;
@@ -44,15 +43,9 @@ public class ElenaReadabilityPeersReporter extends AbstractPeerReporter<Future<P
 
     @Override
     protected void processResults(List<Future<ProcessedChunk<ReadabilityMetricScore>>> scoresCollector) {
-        AllResultProcessorGroupers allResultProcessorGroupers = new AllResultProcessorGroupers();
         AsyncPeerAllResultsProcessor<ReadabilityMetricScore> asyncPeerAllResultsProcessor = new AsyncPeerAllResultsProcessor<>(scoresCollector,
-                getConfiguration(), getArbiter(), getMetricName(), allResultProcessorGroupers.getFileNamePeerCombiner(ReadabilityMetricScore.class));
+                getConfiguration(), getArbiter(), getMetricName());
         getExecutorService().submit(asyncPeerAllResultsProcessor);
-        /*try {
-            asyncPeerAllResultsProcessor.call();
-        } catch (Exception e) {
-            getLogger().error("Error while dumping results onto the disk");
-        }*/
     }
 
 }
