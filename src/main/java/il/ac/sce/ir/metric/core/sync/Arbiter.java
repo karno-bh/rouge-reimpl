@@ -1,4 +1,4 @@
-package il.ac.sce.ir.metric.core.async_action;
+package il.ac.sce.ir.metric.core.sync;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;

@@ -1,17 +1,14 @@
 package il.ac.sce.ir.metric.concrete_metric.elena.reporter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import il.ac.sce.ir.metric.core.async_action.Arbiter;
+import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.async_action.AsyncPeerAllResultsProcessor;
 import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
-import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunkType;
-import il.ac.sce.ir.metric.core.reporter.utils.CommonFileReporter;
 import il.ac.sce.ir.metric.core.score.ReadabilityMetricScore;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;

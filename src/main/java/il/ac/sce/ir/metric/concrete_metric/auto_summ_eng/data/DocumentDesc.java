@@ -1,4 +1,4 @@
-package il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.data;
+package il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data;
 
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.utils.StringUtils;

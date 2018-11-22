@@ -6,9 +6,9 @@ import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedSystem;
-import il.ac.sce.ir.metric.core.score.Score;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
+import il.ac.sce.ir.metric.core.score_calculator.data.PeerMultiModelPair;
 import il.ac.sce.ir.metric.core.utils.converter.ObjectToMapConverter;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemCommons;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
@@ -81,9 +81,9 @@ public class PeerMultiModelOriginalReporter implements Reporter {
                     continue;
                 }
                 Text<String> peerText = Text.asFileLocation(fileSystemPath.combinePath(processedSystemDirLocation, peerFileName));
-                MultiModelPair multiModelPair = new MultiModelPair(peerText, modelsPerPeer);
+                PeerMultiModelPair peerMultiModelPair = new PeerMultiModelPair(peerText, modelsPerPeer);
 
-                Score score = scoreCalculator.computeScore(multiModelPair);
+                Score score = scoreCalculator.computeScore(peerMultiModelPair);
                 reportConcreteSystem(processedCategory, processedSystem, metric, configuration, peerFileName, score, headerCreated);
             }
         }

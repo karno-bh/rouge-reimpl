@@ -1,7 +1,7 @@
 package il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor;
 
 import gr.demokritos.iit.jinsect.documentModel.documentTypes.SimpleTextDocument;
-import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.data.DocumentDesc;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.DocumentDesc;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;
 

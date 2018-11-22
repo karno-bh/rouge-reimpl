@@ -7,15 +7,15 @@ import il.ac.sce.ir.metric.core.builder.TextPipelineExtractor;
 import il.ac.sce.ir.metric.core.data.BiText;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.processor.*;
-import il.ac.sce.ir.metric.core.score.Score;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score.Score;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.DPMatrixBiTextProcessor;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.NGramHits;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.NGramTextProcessor;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.SomeModelMatchContinuation;
-import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeLMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeNMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeWMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeLMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeNMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeWMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.core.score_calculator.data.PeerMultiModelPair;
 import org.junit.Test;
 
 import java.text.MessageFormat;
@@ -93,15 +93,15 @@ public class RougeNPipeLineTest {
         rougeNMultimodelReporter.setnGramProcessor(nGram1Extractor.getTextProcessor());
         rougeNMultimodelReporter.setnGramHits(nGramHits);
 
-        MultiModelPair multiModelPair = new MultiModelPair(peer1, models);
+        PeerMultiModelPair peerMultiModelPair = new PeerMultiModelPair(peer1, models);
 
 
-        Score s = rougeNMultimodelReporter.computeScore(multiModelPair);
+        Score s = rougeNMultimodelReporter.computeScore(peerMultiModelPair);
         System.out.println(s);
 
         RougeLMultimodelScoreCalculator rougeLMultimodelReporter = new RougeLMultimodelScoreCalculator();
 
-        multiModelPair = new MultiModelPair(peer1, models);
+        peerMultiModelPair = new PeerMultiModelPair(peer1, models);
 
         BiTextPipelineExtractor<List<String>, int[][]> dpMatrixExtractor = new BiTextPipelineExtractor<>();
         BiTextPipelineExtractor<List<String>, boolean[]> someModelMatchExtractor = new BiTextPipelineExtractor<>();
@@ -114,7 +114,7 @@ public class RougeNPipeLineTest {
         rougeLMultimodelReporter.setDpMatrixProcessor(dpMatrixExtractor.getBiTextProcessor());
         rougeLMultimodelReporter.setTokensProcessor(tokensExtractor.getTextProcessor());
 
-        s = rougeLMultimodelReporter.computeScore(multiModelPair);
+        s = rougeLMultimodelReporter.computeScore(peerMultiModelPair);
         System.out.println(s);
 
         RougeWMultimodelScoreCalculator rougeWMultimodelReporter = new RougeWMultimodelScoreCalculator();
@@ -122,11 +122,11 @@ public class RougeNPipeLineTest {
         rougeWMultimodelReporter.setWeightFunctionSupplier(() -> value -> Math.pow(value, weighFactor));
         rougeWMultimodelReporter.setInverseWeightFunctionSupplier(() -> value -> Math.pow(value, 1 / weighFactor));
 
-        multiModelPair = new MultiModelPair(peer1, models);
+        peerMultiModelPair = new PeerMultiModelPair(peer1, models);
         rougeWMultimodelReporter.setTokenProcessor(tokensExtractor.getTextProcessor());
         rougeWMultimodelReporter.setSomeModelMatchProcessor(someModelMatchExtractor.getBiTextProcessor());
 
-        s = rougeWMultimodelReporter.computeScore(multiModelPair);
+        s = rougeWMultimodelReporter.computeScore(peerMultiModelPair);
         System.out.println(s);
     }
 }

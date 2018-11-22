@@ -1,6 +1,6 @@
 package il.ac.sce.ir.metric.core.reporter.template;
 
-import il.ac.sce.ir.metric.core.async_action.Arbiter;
+import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.reporter.Reporter;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedCategory;

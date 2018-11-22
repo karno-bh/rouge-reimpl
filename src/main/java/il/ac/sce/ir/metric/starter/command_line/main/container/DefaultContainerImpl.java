@@ -2,7 +2,7 @@ package il.ac.sce.ir.metric.starter.command_line.main.container;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import il.ac.sce.ir.metric.core.async_action.Arbiter;
+import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.builder.BiTextPipeline;
 import il.ac.sce.ir.metric.core.builder.BiTextPipelineExtractor;
 import il.ac.sce.ir.metric.core.builder.TextPipeline;
@@ -23,9 +23,9 @@ import il.ac.sce.ir.metric.concrete_metric.rouge.processor.NGramHits;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.NGramTextProcessor;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.SomeModelMatchContinuation;
 import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.PeerMultimodelReporter;
-import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeLMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeNMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.concrete_metric.rouge.score.RougeWMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeLMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeNMultimodelScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeWMultimodelScoreCalculator;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

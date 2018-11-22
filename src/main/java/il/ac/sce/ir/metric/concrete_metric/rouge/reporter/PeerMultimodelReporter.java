@@ -5,9 +5,9 @@ import il.ac.sce.ir.metric.core.async_action.AsyncScoreCalculator;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.template.AbstractPeerReporter;
-import il.ac.sce.ir.metric.core.score.Score;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score.Score;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
+import il.ac.sce.ir.metric.core.score_calculator.data.PeerMultiModelPair;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -35,14 +35,14 @@ public class PeerMultimodelReporter extends AbstractPeerReporter<Future<Processe
 
         Text<String> peerText = Text.asFileLocation(getFileSystemPath().combinePath(processedChunk.getProcessedSystem().getDirLocation(),
                 processedChunk.getPeerFileName()));
-        MultiModelPair multiModelPair = new MultiModelPair(peerText, modelsPerPeer);
+        PeerMultiModelPair peerMultiModelPair = new PeerMultiModelPair(peerText, modelsPerPeer);
 
-        ProcessedChunk<MultiModelPair> peerToProcess = new ProcessedChunk.Builder<MultiModelPair>()
+        ProcessedChunk<PeerMultiModelPair> peerToProcess = new ProcessedChunk.Builder<PeerMultiModelPair>()
                 .cloneWithoutData(processedChunk)
-                .chunkData(multiModelPair)
+                .chunkData(peerMultiModelPair)
                 .build();
 
-        AsyncScoreCalculator<MultiModelPair, Score> task = new AsyncScoreCalculator<>(peerToProcess, getScoreCalculator());
+        AsyncScoreCalculator<PeerMultiModelPair, Score> task = new AsyncScoreCalculator<>(peerToProcess, getScoreCalculator());
         Future<ProcessedChunk<Score>> bundleFuture = getExecutorService().submit(task);
         scoresCollector.add(bundleFuture);
     }

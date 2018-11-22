@@ -4,7 +4,7 @@ import gr.demokritos.iit.jinsect.documentModel.documentTypes.NGramSymWinDocument
 import gr.demokritos.iit.jinsect.documentModel.documentTypes.SimpleTextDocument;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.JInsectNGramSymWinDocumentTextProcessor;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.JInsectSimpleTextDocumentTextProcessor;
-import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.data.DocumentDesc;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.DocumentDesc;
 import il.ac.sce.ir.metric.core.builder.TextPipeline;
 import il.ac.sce.ir.metric.core.builder.TextPipelineExtractor;
 import il.ac.sce.ir.metric.core.data.Text;

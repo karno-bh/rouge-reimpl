@@ -1,12 +1,12 @@
-package il.ac.sce.ir.metric.concrete_metric.rouge.score;
+package il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator;
 
 import il.ac.sce.ir.metric.core.data.BiText;
 import il.ac.sce.ir.metric.core.data.Text;
 import il.ac.sce.ir.metric.core.processor.BiTextProcessor;
 import il.ac.sce.ir.metric.core.processor.TextProcessor;
 import il.ac.sce.ir.metric.core.score_calculator.PeerMultimodelScoreCalculator;
-import il.ac.sce.ir.metric.core.score.Score;
-import il.ac.sce.ir.metric.core.score_calculator.data.MultiModelPair;
+import il.ac.sce.ir.metric.concrete_metric.rouge.score.Score;
+import il.ac.sce.ir.metric.core.score_calculator.data.PeerMultiModelPair;
 
 import java.util.List;
 
@@ -34,9 +34,9 @@ public class RougeLMultimodelScoreCalculator implements PeerMultimodelScoreCalcu
 
 
     @Override
-    public Score computeScore(MultiModelPair multiModelPair) {
-        Text<String> peer = multiModelPair.getPeer();
-        List<Text<String>> models = multiModelPair.getModels();
+    public Score computeScore(PeerMultiModelPair peerMultiModelPair) {
+        Text<String> peer = peerMultiModelPair.getPeer();
+        List<Text<String>> models = peerMultiModelPair.getModels();
 
         double modelLengthCount = 0.0;
         double hitCount = 0.0;

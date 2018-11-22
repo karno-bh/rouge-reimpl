@@ -1,6 +1,7 @@
-package il.ac.sce.ir.metric.core.score;
+package il.ac.sce.ir.metric.concrete_metric.rouge.score;
 
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.score.ReportedProperties;
 
 import java.io.Serializable;
 import java.util.*;

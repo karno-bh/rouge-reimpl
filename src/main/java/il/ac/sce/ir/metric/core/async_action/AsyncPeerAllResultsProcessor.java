@@ -4,6 +4,7 @@ import il.ac.sce.ir.metric.core.container.data.Configuration;
 import il.ac.sce.ir.metric.core.reporter.file_system_reflection.ProcessedChunk;
 import il.ac.sce.ir.metric.core.reporter.utils.CommonChunkFileReporter;
 import il.ac.sce.ir.metric.core.score.ReportedProperties;
+import il.ac.sce.ir.metric.core.sync.Arbiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
