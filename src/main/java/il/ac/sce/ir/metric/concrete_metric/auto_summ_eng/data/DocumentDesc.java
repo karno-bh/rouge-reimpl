@@ -60,5 +60,13 @@ public class DocumentDesc {
                     documentDesc
             );
         }
+
+        public Text<DocumentDesc> buildText(DocumentDesc documentDesc) {
+            return new Text<>(
+                    MessageFormat.format("{0}___{1}_{2}_{3}", documentDesc.getFileLocation(),
+                            documentDesc.getMin(), documentDesc.getMax(), documentDesc.getDist()),
+                    documentDesc
+            );
+        }
     }
 }

@@ -1,5 +1,25 @@
 2018-11-22
     CONTINUE:
+        1. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
+    Done:
+        1. Auto Summ ENG works
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
+        4. Start writing a Project Document.
+        5. Reducers should write in the same directory...
+        6. Reducer to generate(!) one gigantus table?..
+        7. Clean tests not to have absolute file paths. (=> need to upload test data)
+        8. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        9. ***Score calculators for multi models should be configurable to calculate best or avg!!!***
+           9.1 Maybe it is even better not to calculate average or best... instead it should be done in Reducer actions?
+        10. Readability metrics should be added for models
+        11. PeerModelPair should be generic and common for all.
+        12. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
+2018-11-22
+    CONTINUE:
         1. PeerModelPair should be generic and common for all.
         2. ProcessedChunkShould be more common...
         3. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.

@@ -15,6 +15,9 @@ public class JInsectNGramSymWinDocumentTextProcessor implements TextProcessor<Do
         int charMax = documentDesc.getMax();
         int charDist = documentDesc.getDist();
         String fileLocation = documentDesc.getFileLocation();
+        if ("M009".equals(fileLocation)) {
+            System.out.println("here!");
+        }
 
         NGramSymWinDocument nGramSymWinDocument = new NGramSymWinDocument(charMin, charMax, charDist, charMin, charMax);
         nGramSymWinDocument.loadDataStringFromFile(fileLocation);

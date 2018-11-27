@@ -24,6 +24,7 @@ public interface Constants {
     String ELENA_READABILITY_LOWER_CASE = "elena_readability";
     String ELENA_TOPICS_READABILITY_LOWER_CASE = "elena_topics_readability";
     String GEORGE_GRAPH_METRIC_LOWER_CASE = "george_graph_metric";
+    String AUTO_SUMM_ENG_LOWER_CASE = "auto_summ_eng";
     String[] METRICS_FOR_SYSTEM = {
             ROUGEN_LOWER_CASE,
             ROUGEL_LOWER_CASE,
@@ -40,8 +41,11 @@ public interface Constants {
     String TOPICS = "topics";
     String RESULT_FILE_ENITITIES_SEPARATOR = "_";
     String CSV_REPORT_SEPARATOR = ",";
+    String CATEGORY = "category";
+    String SYSTEM = "system";
     String PEER = "peer";
     String TOPIC = "topic";
+    String MODEL = "model";
     String CSV_EXTENSION = ".csv";
 
     String FLESCH_READING_EASE = "fleschReadingEase";
@@ -74,5 +78,22 @@ public interface Constants {
 
     String MAIN_TRHEAD_POOL = "mainThreadPool";
     String ARBITER = "arbiter";
+
+    String AUTO_SUMM_ENG_GRAPH_COOCCURENCE = "GraphCooccurence";
+    String AUTO_SUMM_ENG_GRAPH_VALUE = "GraphValue";
+    String AUTO_SUMM_ENG_GRAPH_SIZE = "GraphSize";
+    String AUTO_SUMM_ENG_HISTO_CONTAINMENT_SIMILARITY = "HistoContainmentSimilarity";
+    String AUTO_SUMM_ENG_HISTO_VALUE = "HistoValue";
+    String AUTO_SUMM_ENG_HISTO_SIZE = "HistoSize";
+    String AUTO_SUMM_ENG_HISTO_OVERALL_SIMIL = "OverallSimil";
+
+    String AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE = "CharGraphValue";
+    String AUTO_SUMM_ENG_CHAR_GRAPH_VALUE = "CharGraphValue";
+    String AUTO_SUMM_ENG_CHAR_GRAPH_SIZE = "CharGraphSize";
+    String AUTO_SUMM_ENG_N_HISTO_CONTAINMENT_SIMILARITY = "NHistoContainmentSimilarity";
+    String AUTO_SUMM_ENG_N_HISTO_VALUE = "NHistoValue";
+    String AUTO_SUMM_ENG_N_HISTO_SIZE = "NHistoSize";
+    String AUTO_SUMM_ENG_N_HISTO_OVERALL_SIMIL = "NOverallSimil";
+
 
 }

@@ -29,11 +29,7 @@ public class CommonChunkFileReporter {
         String leftColumn = getLeftColumn(firstBundle);
         String header = commonFileReporter.buildHeader(sortedKeys, leftColumn);
 
-        try (PrintWriter pw = new PrintWriter(
-                new BufferedWriter(
-                        new FileWriter(resultFile)
-                )
-        )) {
+        try (PrintWriter pw = asWriter(resultFile)) {
             pw.println(header);
             for (ProcessedChunk<T> reportedBundle : reportedBundlesPerFile) {
                 Map<String, Object> reportedProperties = objectToMapConverter.getReportedProperties(reportedBundle.getChunkData());
@@ -47,6 +43,14 @@ public class CommonChunkFileReporter {
         } catch (IOException ioe) {
             throw new RuntimeException("Error while writing a report for " + resultFileName, ioe);
         }
+    }
+
+    public PrintWriter asWriter(File resultFile) throws IOException {
+        return new PrintWriter(
+                new BufferedWriter(
+                        new FileWriter(resultFile)
+                )
+        );
     }
 
     private String constructResultFileName(ProcessedChunk<?> processedChunk) {

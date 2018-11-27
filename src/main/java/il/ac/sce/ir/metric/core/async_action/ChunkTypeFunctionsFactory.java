@@ -6,7 +6,7 @@ import il.ac.sce.ir.metric.core.score.ReportedProperties;
 import java.text.MessageFormat;
 import java.util.function.Function;
 
-public class ChunkTypeFuntionsFactory {
+public class ChunkTypeFunctionsFactory {
 
     public <T extends ReportedProperties> Function<ProcessedChunk<T>, String> getFileNameCombiner(ProcessedChunk<T> processedChunk) {
         switch (processedChunk.getChunkType()) {

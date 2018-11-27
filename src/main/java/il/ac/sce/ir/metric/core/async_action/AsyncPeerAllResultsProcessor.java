@@ -85,7 +85,7 @@ public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implemen
     }
 
     public void groupAndReport(List<ProcessedChunk<T>> reportedBundles) {
-        ChunkTypeFuntionsFactory groupers = new ChunkTypeFuntionsFactory();
+        ChunkTypeFunctionsFactory groupers = new ChunkTypeFunctionsFactory();
         Function<ProcessedChunk<T>, String> fileNameCombiner = groupers.getFileNameCombiner(reportedBundles.get(0));
 
         Map<String, List<ProcessedChunk<T>>> groups = new HashMap<>();

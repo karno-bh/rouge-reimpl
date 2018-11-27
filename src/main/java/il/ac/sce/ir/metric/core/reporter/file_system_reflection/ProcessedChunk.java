@@ -12,6 +12,8 @@ public class ProcessedChunk<T> {
 
     private final String peerFileName;
 
+    private final String model;
+
     private final String topic;
 
     private final ProcessedChunkType chunkType;
@@ -22,6 +24,7 @@ public class ProcessedChunk<T> {
                           ProcessedSystem processedSystem,
                           String metric,
                           String peerFileName,
+                          String model,
                           String topic,
                           ProcessedChunkType chunkType,
                           T chunkData) {
@@ -29,6 +32,7 @@ public class ProcessedChunk<T> {
         this.processedSystem = processedSystem;
         this.metric = metric;
         this.peerFileName = peerFileName;
+        this.model = model;
         this.topic = topic;
         this.chunkType = chunkType;
         this.chunkData = chunkData;
@@ -48,6 +52,10 @@ public class ProcessedChunk<T> {
 
     public String getPeerFileName() {
         return peerFileName;
+    }
+
+    public String getModel() {
+        return model;
     }
 
     public String getTopic() {
@@ -75,6 +83,8 @@ public class ProcessedChunk<T> {
         private String metric;
 
         private String peerFileName;
+
+        private String model;
 
         private String topic;
 
@@ -109,6 +119,11 @@ public class ProcessedChunk<T> {
 
         public Builder<U> peerFileName(String peerFileName) {
             this.peerFileName = peerFileName;
+            return this;
+        }
+
+        public Builder<U> model(String model) {
+            this.model = model;
             return this;
         }
 
@@ -158,6 +173,7 @@ public class ProcessedChunk<T> {
             this.fromClone = true;
             this.processedCategory = processedChunk.getProcessedCategory();
             this.processedSystem = processedChunk.getProcessedSystem();
+            this.model = processedChunk.getModel();
             this.metric = processedChunk.getMetric();
             this.peerFileName = processedChunk.getPeerFileName();
             this.topic = processedChunk.getTopic();
@@ -183,7 +199,7 @@ public class ProcessedChunk<T> {
             }
 
             return new ProcessedChunk<U>(processedCategory, processedSystem,
-                    metric, peerFileName, topic, chunkType,chunkData);
+                    metric, peerFileName, model, topic, chunkType,chunkData);
         }
     }
 }

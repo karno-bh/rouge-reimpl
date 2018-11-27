@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class CommonFileReporter {
 
-    public String buildHeader(Set<String> keys, String... additionalColumnsFromLeft) {
+    public String buildHeader(Collection<String> keys, String... additionalColumnsFromLeft) {
         StringBuilder headerBuf = new StringBuilder(256);
 
         for (String additionalLeftColumn : additionalColumnsFromLeft) {

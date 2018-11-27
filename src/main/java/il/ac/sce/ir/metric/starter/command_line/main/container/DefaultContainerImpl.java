@@ -2,6 +2,17 @@ package il.ac.sce.ir.metric.starter.command_line.main.container;
 
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import gr.demokritos.iit.jinsect.documentModel.documentTypes.NGramSymWinDocument;
+import gr.demokritos.iit.jinsect.documentModel.documentTypes.SimpleTextDocument;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.DocumentDesc;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.NGramTextConfig;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.SimpleTextConfig;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.JInsectNGramSymWinDocumentTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.processor.JInsectSimpleTextDocumentTextProcessor;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.reporter.AutoSummENGReporter;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGNGramScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGSimpleTextScoreCalculator;
 import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.builder.BiTextPipeline;
 import il.ac.sce.ir.metric.core.builder.BiTextPipelineExtractor;
@@ -208,6 +219,55 @@ public class DefaultContainerImpl extends Container {
             elenaReadbilityTopicsReporter.setExecutorService(executorService);
 
             setBean(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, elenaReadbilityTopicsReporter);
+        }
+
+
+        if (lowerCaseMetrics.contains(Constants.AUTO_SUMM_ENG_LOWER_CASE)) {
+
+            TextPipelineExtractor<DocumentDesc, SimpleTextDocument> simpleTextDocumentTextPipelineExtractor = new TextPipelineExtractor<>();
+            new TextPipeline<>(new JInsectSimpleTextDocumentTextProcessor())
+                    .cacheIn(processor -> new FileSystemCacheTextProcessor<>(processor, fileSystemCachePath, "jinsect-simple-text-document", textIdCache))
+                    // .cacheIn(CacheMemoryTextProcessor::new)
+                    .extract(simpleTextDocumentTextPipelineExtractor);
+            TextProcessor<DocumentDesc, SimpleTextDocument> simpleTextDocumentTextProcessor = simpleTextDocumentTextPipelineExtractor.getTextProcessor();
+
+            TextPipelineExtractor<DocumentDesc, NGramSymWinDocument> nGramSymWinDocumentTextPipelineExtractor = new TextPipelineExtractor<>();
+            new TextPipeline<>(new JInsectNGramSymWinDocumentTextProcessor())
+                    .cacheIn(processor -> new FileSystemCacheTextProcessor<>(processor, fileSystemCachePath, "jinsect-ngram-sym-win-document", textIdCache))
+                    // .cacheIn(CacheMemoryTextProcessor::new)
+                    .extract(nGramSymWinDocumentTextPipelineExtractor);
+            TextProcessor<DocumentDesc, NGramSymWinDocument> nGramSymWinDocumentTextProcessor = nGramSymWinDocumentTextPipelineExtractor.getTextProcessor();
+
+            AutoSummENGScoreCalculator simpleTextScoreCalculator = new AutoSummENGSimpleTextScoreCalculator(simpleTextDocumentTextProcessor);
+            AutoSummENGScoreCalculator nGramScoreCalculator = new AutoSummENGNGramScoreCalculator(nGramSymWinDocumentTextProcessor);
+
+            // TODO get from config
+            SimpleTextConfig simpleTextConfig = new SimpleTextConfig.Builder()
+                    .wordMin(1)
+                    .wordMax(10)
+                    .wordDist(5)
+                    .build();
+
+            NGramTextConfig nGramTextConfig = new NGramTextConfig.Builder()
+                    .charMin(1)
+                    .charMax(10)
+                    .charDist(5)
+                    .build();
+
+            AutoSummENGReporter reporter = new AutoSummENGReporter();
+            reporter.setSimpleTextConfig(simpleTextConfig);
+            reporter.setnGramTextConfig(nGramTextConfig);
+
+            reporter.setSimpleTextDocumentTextProcessor(simpleTextScoreCalculator);
+            reporter.setnGramSymWinDocumentTextProcessor(nGramScoreCalculator);
+
+            reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
+
+            arbiter.register(Constants.AUTO_SUMM_ENG_LOWER_CASE);
+            reporter.setArbiter(arbiter);
+
+            setBean(Constants.AUTO_SUMM_ENG_LOWER_CASE, reporter);
         }
 
         List<String> reducers = configuration.getRequiredReducers().stream().map(String::trim).collect(Collectors.toList());
