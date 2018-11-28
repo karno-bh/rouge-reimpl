@@ -1,5 +1,24 @@
 2018-11-22
     CONTINUE:
+        1. Continue writing a skeleton to GUI
+    Done:
+        1. Some GUI skeleton design for running metrics
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Start writing a Project Document.
+        4. Reducers should write in the same directory...
+        5. Reducer to generate(!) one gigantus table?..
+        6. Clean tests not to have absolute file paths. (=> need to upload test data)
+        7. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        8. ***Score calculators for multi models should be configurable to calculate best or avg!!!***
+           8.1 Maybe it is even better not to calculate average or best... instead it should be done in Reducer actions?
+        9. Readability metrics should be added for models
+        10. PeerModelPair should be generic and common for all.
+        11. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
+2018-11-22
+    CONTINUE:
         1. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
     Done:
         1. Auto Summ ENG works

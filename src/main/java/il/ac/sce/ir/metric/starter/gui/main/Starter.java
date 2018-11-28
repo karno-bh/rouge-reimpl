@@ -1,17 +1,22 @@
 package il.ac.sce.ir.metric.starter.gui.main;
 
 import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
+import il.ac.sce.ir.metric.starter.gui.main.panel.FileChoosePanel;
+import il.ac.sce.ir.metric.starter.gui.main.panel.MetricPanel;
+import il.ac.sce.ir.metric.starter.gui.main.panel.ScrollableMetricPanelWrapper;
 import il.ac.sce.ir.metric.starter.gui.main.resources.DefaultGUIMessages;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
+import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.util.Map;
 
 public class Starter {
 
-    private DefaultGUIMessages guiMessages = new DefaultGUIMessages();
+    private final DefaultGUIMessages guiMessages;
 
     private final JFrame mainFrame;
     private final JList sectionsList;
@@ -47,23 +52,29 @@ public class Starter {
         listScroll.setPreferredSize(listMinimumSpace);
         Dimension mainRightPanelSpace = new Dimension(600, 400);
         mainRightPanel.setPreferredSize(mainRightPanelSpace);
+        mainRightPanel.setLayout(new GridBagLayout());
 
-        runMetricPanel = new JPanel();
-        runMetricPanel.add(new JButton("Hello"));
+        runMetricPanel = new ScrollableMetricPanelWrapper();
 
         analyzeResultPanel = new JPanel();
         analyzeResultPanel.add(new JButton("Bye"));
+        WholeSpaceFiller spaceFiller = new WholeSpaceFiller();
 
-        mainRightPanel.add(runMetricPanel);
-        mainRightPanel.add(analyzeResultPanel);
+        GridBagConstraints metricConstraints = spaceFiller.getFillingConstraints();
+        mainRightPanel.add(runMetricPanel, metricConstraints);
+
+        GridBagConstraints analyzeConstraints = spaceFiller.getFillingConstraints();
+        mainRightPanel.add(analyzeResultPanel, analyzeConstraints);
+
         analyzeResultPanel.setVisible(false);
         mainFrame.add(mainSplit);
 
-        mainFrame.pack();
+        // mainFrame.pack();
+        mainFrame.setSize(new Dimension(900, 600));
+        mainFrame.setMinimumSize(mainFrame.getSize());
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
-        mainFrame.setMinimumSize(mainFrame.getSize());
     }
 
     private void sectionsListItemChanged(ListSelectionEvent event) {
