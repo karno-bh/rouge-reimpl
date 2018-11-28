@@ -1,4 +1,4 @@
-2018-11-22
+2018-11-28
     CONTINUE:
         1. Continue writing a skeleton to GUI
     Done:
@@ -17,7 +17,7 @@
         10. PeerModelPair should be generic and common for all.
         11. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
 
-2018-11-22
+2018-11-25
     CONTINUE:
         1. Add GUI to project. Will be simple SWING. WebUI will wait till better times :-)
     Done:
