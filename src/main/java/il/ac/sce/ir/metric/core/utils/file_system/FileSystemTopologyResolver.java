@@ -85,10 +85,10 @@ public class FileSystemTopologyResolver {
         final FileSystemPath fileSystemPath = new FileSystemPath();
 //        String categoryDir = workingSetDirectory + File.separator + processedCategory.getDirLocation();
         String categoryDir = fileSystemPath.combinePath(workingSetDirectory, processedCategory.getDirLocation());
-//        String peersDirectoryName = categoryDir + File.separator + Constants.PEERS_DIRECTORY;
+//        String peersDirectoryName = categoryDir + File.separator + GUIConstants.PEERS_DIRECTORY;
         File peersDirectory = getPeersDirectory(workingSetDirectory, processedCategory);
 
-//        String modelsDirectoryName = categoryDir + File.separator + Constants.MODELS_DIRECTORY;
+//        String modelsDirectoryName = categoryDir + File.separator + GUIConstants.MODELS_DIRECTORY;
 //        File modelsDirectoryName = getModelsDirectory(workingSetDirectory, processedCategory);
 
         String[] systems = peersDirectory.list((file, name) -> file.isDirectory());
@@ -97,7 +97,7 @@ public class FileSystemTopologyResolver {
         }
         List<ProcessedSystem> processedSystems = Arrays.stream(systems)
                 .map(systemDirName -> {
-//                    String pathName = peersDirectory + File.separator + systemDirName + File.separator + Constants.DESCRIPTION_FILE;
+//                    String pathName = peersDirectory + File.separator + systemDirName + File.separator + GUIConstants.DESCRIPTION_FILE;
                     String pathName = fileSystemPath.combinePath(peersDirectory.toString(), systemDirName, Constants.DESCRIPTION_FILE);
                     File systemDescriptionFile = new File(pathName);
                     String description = null;

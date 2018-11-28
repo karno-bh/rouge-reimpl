@@ -72,7 +72,7 @@ public class CachedMapRecollector implements Recollector<Map<String, Object>> {
             String foundMetricForSystem = null;
             for (String metricForSystem : Constants.METRICS_FOR_SYSTEM) {
                 int index = fileName.indexOf(metricForSystem);
-                /*if (metricForSystem.equals(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE)) {
+                /*if (metricForSystem.equals(GUIConstants.ELENA_TOPICS_READABILITY_LOWER_CASE)) {
                     System.out.println(Arrays.asList("Index", "" + index));
                 }*/
                 if (index != -1) {
