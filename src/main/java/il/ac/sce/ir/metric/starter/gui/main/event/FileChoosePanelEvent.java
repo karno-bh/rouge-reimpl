@@ -1,4 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.event;
 
-public class FileChoosePanelEvent {
+import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
+
+public class FileChoosePanelEvent implements Event {
 }

@@ -1,28 +1,58 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel;
 
+import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
 public class MetricPanel extends JPanel {
 
-    private final FileChoosePanel fileChooserPanel;
+    private final PubSub pubSub;
 
-    public MetricPanel() {
-        this.fileChooserPanel = new FileChoosePanel();
+    private final FileChoosePanel workingSetDirectoryChooserPanel;
+    private final JButton goButton;
+
+    public MetricPanel(PubSub pubSub) {
+        this.pubSub = pubSub;
+
+        this.workingSetDirectoryChooserPanel = new FileChoosePanel(pubSub, null);
+        this.goButton = new JButton("Start");
         setLayout(new GridBagLayout());
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         setBorder(emptyBorder);
+        final Insets lineInsets = new Insets(0, 0, 20, 0);
+        final Insets headerInsets = new Insets(0, 0, 0, 0);
+
+        int y = 0;
+        GridBagConstraints workingSetHeaderConstraints = new GridBagConstraints();
+        workingSetHeaderConstraints.gridx = 0;
+        workingSetHeaderConstraints.gridy = y++;
+        workingSetHeaderConstraints.weightx = 1;
+        workingSetHeaderConstraints.fill = GridBagConstraints.HORIZONTAL;
+        // workingSetHeaderConstraints.insets = headerInsets;
+        add(new NamedHeaderPanel("Working Set Directory"), workingSetHeaderConstraints);
+
 
         GridBagConstraints fileLine = new GridBagConstraints();
         fileLine.gridx = 0;
-        fileLine.gridy = 0;
+        fileLine.gridy = y++;
         fileLine.weightx = 1;
         fileLine.fill = GridBagConstraints.HORIZONTAL;
         // fileLine.anchor = GridBagConstraints.FIRST_LINE_START;
-        add(fileChooserPanel, fileLine);
+        fileLine.insets = lineInsets;
+        add(workingSetDirectoryChooserPanel, fileLine);
 
-        for (int i = 1; i < 150; i++) {
+        GridBagConstraints rougeHeaderConstraints = new GridBagConstraints();
+        rougeHeaderConstraints.gridx = 0;
+        rougeHeaderConstraints.gridy = y++;
+        rougeHeaderConstraints.weightx = 1;
+        rougeHeaderConstraints.fill = GridBagConstraints.HORIZONTAL;
+        // rougeHeaderConstraints.insets = headerInsets;
+        add(new NamedHeaderPanel("Rouge"), rougeHeaderConstraints);
+
+
+        /*for (int i = 1; i < 150; i++) {
             GridBagConstraints dummy = new GridBagConstraints();
             dummy.gridx = 0;
             dummy.gridy = i;
@@ -30,11 +60,12 @@ public class MetricPanel extends JPanel {
             dummy.fill = GridBagConstraints.HORIZONTAL;
             dummy.insets = new Insets(10, 0,0,0);
             add(new JButton("Dummy Button: " + i), dummy);
-        }
+        }*/
 
+        y = 1000;
         GridBagConstraints spring = new GridBagConstraints();
         spring.gridx = 0;
-        spring.gridy = 1000;
+        spring.gridy = y++;
         spring.weightx = 1;
         spring.weighty = 1;
         spring.fill = GridBagConstraints.BOTH;
@@ -42,6 +73,12 @@ public class MetricPanel extends JPanel {
         JPanel springPanel = new JPanel();
 //        springPanel.setBorder(BorderFactory.createEtchedBorder());
         add(springPanel, spring);
+
+        GridBagConstraints goButtonConstraints = new GridBagConstraints();
+        goButtonConstraints.gridx = 0;
+        goButtonConstraints.gridy = y++;
+        goButtonConstraints.anchor = GridBagConstraints.LAST_LINE_END;
+        add(goButton, goButtonConstraints);
     }
 
 

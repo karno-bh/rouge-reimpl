@@ -1,4 +1,4 @@
-package il.ac.sce.ir.metric.starter.gui.main.event;
+package il.ac.sce.ir.metric.starter.gui.main.pubsub;
 
 public interface Event {
 

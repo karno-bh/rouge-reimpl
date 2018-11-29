@@ -4,6 +4,7 @@ import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
 import il.ac.sce.ir.metric.starter.gui.main.panel.FileChoosePanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.MetricPanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.ScrollableMetricPanelWrapper;
+import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.DefaultGUIMessages;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class Starter {
 
+    private final PubSub pubSub;
     private final DefaultGUIMessages guiMessages;
 
     private final JFrame mainFrame;
@@ -29,6 +31,7 @@ public class Starter {
 
     public Starter(String[] args) {
         guiMessages = new DefaultGUIMessages();
+        pubSub = new PubSub();
         Map<String, String> messages = guiMessages.getMessages();
         mainFrame = new JFrame();
         mainFrame.setTitle(messages.get(GUIConstants.MAIN_TITLE_NAME));
@@ -54,7 +57,7 @@ public class Starter {
         mainRightPanel.setPreferredSize(mainRightPanelSpace);
         mainRightPanel.setLayout(new GridBagLayout());
 
-        runMetricPanel = new ScrollableMetricPanelWrapper();
+        runMetricPanel = new ScrollableMetricPanelWrapper(pubSub);
 
         analyzeResultPanel = new JPanel();
         analyzeResultPanel.add(new JButton("Bye"));
