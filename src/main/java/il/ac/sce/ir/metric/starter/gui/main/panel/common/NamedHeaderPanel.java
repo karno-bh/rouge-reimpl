@@ -1,4 +1,4 @@
-package il.ac.sce.ir.metric.starter.gui.main.panel;
+package il.ac.sce.ir.metric.starter.gui.main.panel.common;
 
 import javax.swing.*;
 import javax.swing.border.Border;

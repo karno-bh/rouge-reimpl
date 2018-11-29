@@ -1,10 +1,19 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel;
 
+import il.ac.sce.ir.metric.starter.gui.main.event.MetricEnabledPanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
+import il.ac.sce.ir.metric.starter.gui.main.panel.common.FileChoosePanel;
+import il.ac.sce.ir.metric.starter.gui.main.panel.common.MetricEnabledPanel;
+import il.ac.sce.ir.metric.starter.gui.main.panel.common.NamedHeaderPanel;
+import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
 import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.File;
 
 public class MetricPanel extends JPanel {
 
@@ -13,11 +22,17 @@ public class MetricPanel extends JPanel {
     private final FileChoosePanel workingSetDirectoryChooserPanel;
     private final JButton goButton;
 
+    private final MetricPanelModel metricPanelModel;
+
     public MetricPanel(PubSub pubSub) {
         this.pubSub = pubSub;
 
-        this.workingSetDirectoryChooserPanel = new FileChoosePanel(pubSub, null);
+        pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricPanelModelChanged);
+
+        metricPanelModel = new MetricPanelModel(pubSub);
+        this.workingSetDirectoryChooserPanel = new FileChoosePanel(pubSub, GUIConstants.EVENT_WORKING_SET_DIRECTORY_CHOSE_PANEL, null);
         this.goButton = new JButton("Start");
+        goButton.setEnabled(false);
         setLayout(new GridBagLayout());
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         setBorder(emptyBorder);
@@ -51,6 +66,13 @@ public class MetricPanel extends JPanel {
         // rougeHeaderConstraints.insets = headerInsets;
         add(new NamedHeaderPanel("Rouge"), rougeHeaderConstraints);
 
+        GridBagConstraints rougeEnabledConstraints = new GridBagConstraints();
+        rougeEnabledConstraints.gridx = 0;
+        rougeEnabledConstraints.gridy = y++;
+        rougeEnabledConstraints.weightx = 1;
+        rougeEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), rougeEnabledConstraints);
+
 
         /*for (int i = 1; i < 150; i++) {
             GridBagConstraints dummy = new GridBagConstraints();
@@ -79,6 +101,20 @@ public class MetricPanel extends JPanel {
         goButtonConstraints.gridy = y++;
         goButtonConstraints.anchor = GridBagConstraints.LAST_LINE_END;
         add(goButton, goButtonConstraints);
+    }
+
+    private void onMetricPanelModelChanged(MetricPanelModelChangedEvent e) {
+        // MetricPanelModelChangedEvent e = (MetricPanelModelChangedEvent) event;
+        MetricPanelModel metricPanelModel = e.getMetricPanelModel();
+        String dirName = metricPanelModel.getChosenMetricsDirectory();
+        boolean goButtonEnabled = false;
+        if (dirName != null) {
+            File dir = new File(dirName);
+            if (dir.isDirectory() && metricPanelModel.isRougeEnabled()) {
+                goButtonEnabled = true;
+            }
+        }
+        goButton.setEnabled(goButtonEnabled);
     }
 
 

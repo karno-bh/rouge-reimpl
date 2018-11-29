@@ -1,8 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main;
 
 import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
-import il.ac.sce.ir.metric.starter.gui.main.panel.FileChoosePanel;
-import il.ac.sce.ir.metric.starter.gui.main.panel.MetricPanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.ScrollableMetricPanelWrapper;
 import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.DefaultGUIMessages;
@@ -10,7 +8,6 @@ import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.util.Map;

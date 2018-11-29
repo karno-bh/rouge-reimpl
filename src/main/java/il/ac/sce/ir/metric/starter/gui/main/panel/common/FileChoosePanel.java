@@ -1,5 +1,7 @@
-package il.ac.sce.ir.metric.starter.gui.main.panel;
+package il.ac.sce.ir.metric.starter.gui.main.panel.common;
 
+import il.ac.sce.ir.metric.starter.gui.main.event.FileChoosePanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
 import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
 
 import javax.swing.*;
@@ -9,15 +11,18 @@ import java.awt.event.ActionEvent;
 public class FileChoosePanel extends JPanel {
 
     private final PubSub pubSub;
+    private final String name;
 
     private final JLabel workingDirectoryLabel;
     private final JTextField workingDirectoryTextField;
     private final JButton choose;
 
 
-    public FileChoosePanel(PubSub pubSub, String label) {
+    public FileChoosePanel(PubSub pubSub, String name, String label) {
+        this.name = name;
         this.pubSub = pubSub;
 
+        pubSub.subscribe(FileChoosePanelEvent.class, this::onFileChooseEvent);
         workingDirectoryLabel = new JLabel(label);
         workingDirectoryTextField = new JTextField();
         // workingDirectoryTextField.setEditable(false);
@@ -75,10 +80,19 @@ public class FileChoosePanel extends JPanel {
         fileChooser.setDialogTitle("Chose the directory for processing");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
+        String chosenDirAbsolutePath = null;
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            workingDirectoryTextField.setText(fileChooser.getSelectedFile().getAbsolutePath());
-        } else {
-            // do nothing on Cancel
+            chosenDirAbsolutePath = fileChooser.getSelectedFile().getAbsolutePath();
+//            workingDirectoryTextField.setText(chosenDirAbsolutePath);
+        }
+        FileChoosePanelEvent fileChoosePanelEvent = new FileChoosePanelEvent(this.name, chosenDirAbsolutePath);
+        pubSub.publish(fileChoosePanelEvent);
+    }
+
+    public void onFileChooseEvent(Event appEvent) {
+        FileChoosePanelEvent event = (FileChoosePanelEvent) appEvent;
+        if (name.equals(event.getSource()) && event.getFileName() != null) {
+            workingDirectoryTextField.setText(event.getFileName());
         }
     }
 }
