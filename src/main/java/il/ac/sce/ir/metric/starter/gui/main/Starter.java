@@ -27,6 +27,7 @@ public class Starter {
 
 
     public Starter(String[] args) {
+        // setLnF();
         guiMessages = new DefaultGUIMessages();
         pubSub = new PubSub();
         Map<String, String> messages = guiMessages.getMessages();
@@ -98,6 +99,19 @@ public class Starter {
     private void analyzeResultsChosen() {
         runMetricPanel.setVisible(false);
         analyzeResultPanel.setVisible(true);
+    }
+
+    private final void setLnF() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
+        }
     }
 
     public static void main(String[] args) {

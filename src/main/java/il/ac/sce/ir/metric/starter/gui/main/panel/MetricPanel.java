@@ -37,7 +37,7 @@ public class MetricPanel extends JPanel {
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         setBorder(emptyBorder);
         final Insets lineInsets = new Insets(0, 0, 20, 0);
-        final Insets headerInsets = new Insets(0, 0, 0, 0);
+        //final Insets headerInsets = new Insets(0, 0, 0, 0);
 
         int y = 0;
         GridBagConstraints workingSetHeaderConstraints = new GridBagConstraints();
@@ -73,6 +73,14 @@ public class MetricPanel extends JPanel {
         rougeEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
         add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), rougeEnabledConstraints);
 
+        RougeSelectionPanel rougeSelectionPanel = new RougeSelectionPanel(pubSub);
+        // metricPanelModel.setRougeSelectionPanelModel(rougeSelectionPanel.getModel());
+        GridBagConstraints rougeSelectionConstraints = new GridBagConstraints();
+        rougeSelectionConstraints.gridx = 0;
+        rougeSelectionConstraints.gridy = y++;
+        rougeSelectionConstraints.weightx = 1;
+        rougeSelectionConstraints.fill = GridBagConstraints.HORIZONTAL;
+        add(rougeSelectionPanel, rougeSelectionConstraints);
 
         /*for (int i = 1; i < 150; i++) {
             GridBagConstraints dummy = new GridBagConstraints();

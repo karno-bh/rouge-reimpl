@@ -1,12 +1,15 @@
 package il.ac.sce.ir.metric.starter.gui.main.model;
 
-import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.starter.gui.main.event.FileChoosePanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.MetricEnabledPanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.RougeSelectionPanelModelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
 import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MetricPanelModel {
 
@@ -16,12 +19,14 @@ public class MetricPanelModel {
 
     private boolean rougeEnabled = false;
 
+    private RougeSelectionPanelModel rougeSelectionPanelModel = null;
 
     public MetricPanelModel(PubSub pubSub) {
         this.pubSub = pubSub;
 
         pubSub.subscribe(FileChoosePanelEvent.class, this::onMetricDirectoryChanged);
         pubSub.subscribe(MetricEnabledPanelEvent.class, this::onRougeMetricSelected);
+        pubSub.subscribe(RougeSelectionPanelModelEvent.class, this::onRougeSelectionPanelModelEvent);
     }
 
     public String getChosenMetricsDirectory() {
@@ -40,12 +45,19 @@ public class MetricPanelModel {
         return rougeEnabled;
     }
 
+    public RougeSelectionPanelModel getRougeSelectionPanelModel() {
+        return rougeSelectionPanelModel;
+    }
+
+    public void setRougeSelectionPanelModel(RougeSelectionPanelModel rougeSelectionPanelModel) {
+        this.rougeSelectionPanelModel = rougeSelectionPanelModel;
+    }
+
     private void onMetricDirectoryChanged(Event event) {
         FileChoosePanelEvent e = (FileChoosePanelEvent) event;
         if (GUIConstants.EVENT_WORKING_SET_DIRECTORY_CHOSE_PANEL.equals(e.getSource()) && e.getFileName() != null) {
             setChosenMetricsDirectory(e.getFileName());
-            MetricPanelModelChangedEvent changedEvent = new MetricPanelModelChangedEvent(this);
-            pubSub.publish(changedEvent);
+            publishSelf();
         }
     }
 
@@ -53,9 +65,18 @@ public class MetricPanelModel {
         MetricEnabledPanelEvent e = (MetricEnabledPanelEvent) event;
         if (GUIConstants.EVENT_ROUGE_METRIC_SELECTED.equals(e.getName())) {
             setRougeEnabled(e.isSelected());
-            MetricPanelModelChangedEvent changedEvent = new MetricPanelModelChangedEvent(this);
-            pubSub.publish(changedEvent);
+            publishSelf();
         }
+    }
+
+    private void onRougeSelectionPanelModelEvent(RougeSelectionPanelModelEvent event) {
+        setRougeSelectionPanelModel(event.getModel());
+        // publishSelf();
+    }
+
+    private void publishSelf() {
+        MetricPanelModelChangedEvent changedEvent = new MetricPanelModelChangedEvent(this);
+        pubSub.publish(changedEvent);
     }
 
 }
