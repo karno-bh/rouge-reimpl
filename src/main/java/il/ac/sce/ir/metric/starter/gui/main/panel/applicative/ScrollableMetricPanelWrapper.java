@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
+import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 
@@ -12,9 +13,9 @@ public class ScrollableMetricPanelWrapper extends JPanel {
 
     private final MetricPanel metricPanel;
 
-    public ScrollableMetricPanelWrapper(PubSub pubSub) {
+    public ScrollableMetricPanelWrapper(PubSub pubSub, ModelsManager modelsManager) {
         this.pubSub = pubSub;
-        metricPanel = new MetricPanel(pubSub);
+        metricPanel = new MetricPanel(pubSub, modelsManager);
         setLayout(new GridBagLayout());
         WholeSpaceFiller spaceFiller = new WholeSpaceFiller();
         GridBagConstraints metricPanelConstraints = spaceFiller.getFillingConstraints();

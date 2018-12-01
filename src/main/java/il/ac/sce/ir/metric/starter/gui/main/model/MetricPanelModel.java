@@ -3,12 +3,13 @@ package il.ac.sce.ir.metric.starter.gui.main.model;
 import il.ac.sce.ir.metric.starter.gui.main.event.component_event.FileChoosePanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.component_event.MetricEnabledPanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.ReadabilitySelectionPanelModelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.RougeSelectionPanelModelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.Event;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 
-public class MetricPanelModel {
+public class MetricPanelModel implements AppModel {
 
     private final PubSub pubSub;
 
@@ -20,12 +21,15 @@ public class MetricPanelModel {
 
     private RougeSelectionPanelModel rougeSelectionPanelModel = null;
 
+    private ReadabilitySelectionPanelModel readabilitySelectionPanelModel = null;
+
     public MetricPanelModel(PubSub pubSub) {
         this.pubSub = pubSub;
 
         pubSub.subscribe(FileChoosePanelEvent.class, this::onMetricDirectoryChanged);
         pubSub.subscribe(MetricEnabledPanelEvent.class, this::onRougeMetricSelected);
         pubSub.subscribe(RougeSelectionPanelModelEvent.class, this::onRougeSelectionPanelModelEvent);
+        pubSub.subscribe(ReadabilitySelectionPanelModelEvent.class, this::onReadabilitySelectionPanelModelEvent);
     }
 
     public String getChosenMetricsDirectory() {
@@ -50,6 +54,14 @@ public class MetricPanelModel {
 
     public void setRougeSelectionPanelModel(RougeSelectionPanelModel rougeSelectionPanelModel) {
         this.rougeSelectionPanelModel = rougeSelectionPanelModel;
+    }
+
+    public ReadabilitySelectionPanelModel getReadabilitySelectionPanelModel() {
+        return readabilitySelectionPanelModel;
+    }
+
+    public void setReadabilitySelectionPanelModel(ReadabilitySelectionPanelModel readabilitySelectionPanelModel) {
+        this.readabilitySelectionPanelModel = readabilitySelectionPanelModel;
     }
 
     public boolean isReadabilityEnabled() {
@@ -84,7 +96,12 @@ public class MetricPanelModel {
         // publishSelf();
     }
 
-    private void publishSelf() {
+    private void onReadabilitySelectionPanelModelEvent(ReadabilitySelectionPanelModelEvent event) {
+        setReadabilitySelectionPanelModel(event.getReadabilitySelectionPanelModel());
+    }
+
+    @Override
+    public void publishSelf() {
         MetricPanelModelChangedEvent changedEvent = new MetricPanelModelChangedEvent(this);
         pubSub.publish(changedEvent);
     }

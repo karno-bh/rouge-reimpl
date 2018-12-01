@@ -1,6 +1,8 @@
 package il.ac.sce.ir.metric.starter.gui.main.event.component_event;
 
-public class ReadabilitySelectionPanelEvent {
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.Event;
+
+public class ReadabilitySelectionPanelEvent implements Event{
 
     public enum SelectionType {
         PEERS_SELECTED,

@@ -1,7 +1,9 @@
 package il.ac.sce.ir.metric.starter.gui.main;
 
 import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
+import il.ac.sce.ir.metric.starter.gui.main.model.AppModel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.applicative.ScrollableMetricPanelWrapper;
+import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.DefaultGUIMessages;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
@@ -10,11 +12,13 @@ import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
+import java.util.Collection;
 import java.util.Map;
 
 public class Starter {
 
     private final PubSub pubSub;
+    private final ModelsManager modelsManager;
     private final DefaultGUIMessages guiMessages;
 
     private final JFrame mainFrame;
@@ -25,11 +29,16 @@ public class Starter {
     private final JPanel runMetricPanel;
     private final JPanel analyzeResultPanel;
 
+    public ModelsManager getModelsManager() {
+        return modelsManager;
+    }
 
     public Starter(String[] args) {
         // setLnF();
-        guiMessages = new DefaultGUIMessages();
         pubSub = new PubSub();
+        modelsManager = new ModelsManager();
+        guiMessages = new DefaultGUIMessages();
+
         Map<String, String> messages = guiMessages.getMessages();
         mainFrame = new JFrame();
         mainFrame.setTitle(messages.get(GUIConstants.MAIN_TITLE_NAME));
@@ -55,7 +64,7 @@ public class Starter {
         mainRightPanel.setPreferredSize(mainRightPanelSpace);
         mainRightPanel.setLayout(new GridBagLayout());
 
-        runMetricPanel = new ScrollableMetricPanelWrapper(pubSub);
+        runMetricPanel = new ScrollableMetricPanelWrapper(pubSub, modelsManager);
 
         analyzeResultPanel = new JPanel();
         analyzeResultPanel.add(new JButton("Bye"));
@@ -115,6 +124,9 @@ public class Starter {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Starter(args));
+        SwingUtilities.invokeLater(() -> {
+            Starter starter = new Starter(args);
+            starter.getModelsManager().publishAll();
+        });
     }
 }

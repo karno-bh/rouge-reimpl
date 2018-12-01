@@ -3,6 +3,7 @@ package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.component_event.RougeSelectionPanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.model.RougeSelectionPanelModel;
+import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import javax.swing.*;
@@ -34,14 +35,15 @@ public class RougeSelectionPanel extends JPanel {
 
     private final JLabel rougeW;
 
-    public RougeSelectionPanel(PubSub pubSub) {
+    public RougeSelectionPanel(PubSub pubSub, ModelsManager modelsManager) {
 
         this.pubSub = pubSub;
 
         this.model = new RougeSelectionPanelModel(pubSub);
+        modelsManager.register(model);
 
         pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricModelPanelChanged);
-        model.publishSelf();
+        // model.publishSelf();
 
         setLayout(new GridBagLayout());
         Insets leftLabelInsets = new Insets(0,20, 10, 20);

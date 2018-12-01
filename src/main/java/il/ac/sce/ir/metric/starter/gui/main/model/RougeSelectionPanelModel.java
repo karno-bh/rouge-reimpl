@@ -7,7 +7,7 @@ import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RougeSelectionPanelModel {
+public class RougeSelectionPanelModel implements AppModel {
 
     private final PubSub pubSub;
 
@@ -60,6 +60,7 @@ public class RougeSelectionPanelModel {
         publishSelf();
     }
 
+    @Override
     public void publishSelf() {
         RougeSelectionPanelModelEvent modelEvent = new RougeSelectionPanelModelEvent(this);
         pubSub.publish(modelEvent);

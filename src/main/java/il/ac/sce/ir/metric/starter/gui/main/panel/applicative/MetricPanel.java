@@ -5,6 +5,7 @@ import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.FileChoosePanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.MetricEnabledPanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.NamedHeaderPanel;
+import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 
@@ -22,12 +23,14 @@ public class MetricPanel extends JPanel {
 
     private final MetricPanelModel metricPanelModel;
 
-    public MetricPanel(PubSub pubSub) {
+    public MetricPanel(PubSub pubSub, ModelsManager modelsManager) {
         this.pubSub = pubSub;
 
         pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricPanelModelChanged);
 
         metricPanelModel = new MetricPanelModel(pubSub);
+        modelsManager.register(metricPanelModel);
+
         this.workingSetDirectoryChooserPanel = new FileChoosePanel(pubSub, GUIConstants.EVENT_WORKING_SET_DIRECTORY_CHOSE_PANEL, null);
         this.goButton = new JButton("Start");
         goButton.setEnabled(false);
@@ -71,7 +74,7 @@ public class MetricPanel extends JPanel {
         rougeEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
         add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), rougeEnabledConstraints);
 
-        RougeSelectionPanel rougeSelectionPanel = new RougeSelectionPanel(pubSub);
+        RougeSelectionPanel rougeSelectionPanel = new RougeSelectionPanel(pubSub, modelsManager);
         // metricPanelModel.setRougeSelectionPanelModel(rougeSelectionPanel.getModel());
         GridBagConstraints rougeSelectionConstraints = new GridBagConstraints();
         rougeSelectionConstraints.gridx = 0;
@@ -94,6 +97,13 @@ public class MetricPanel extends JPanel {
         readabilityEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
         add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_READABILITY_METRIC_SELECTED), readabilityEnabledConstraints);
 
+        ReadabilitySelectionPanel readabilitySelectionPanel = new ReadabilitySelectionPanel(pubSub, modelsManager);
+        GridBagConstraints readabilitySelectionPanelConstraints = new GridBagConstraints();
+        readabilitySelectionPanelConstraints.gridx = 0;
+        readabilitySelectionPanelConstraints.gridy = y++;
+        readabilitySelectionPanelConstraints.weightx = 1;
+        readabilitySelectionPanelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        add(readabilitySelectionPanel, readabilitySelectionPanelConstraints);
 
 
         /*for (int i = 1; i < 150; i++) {
