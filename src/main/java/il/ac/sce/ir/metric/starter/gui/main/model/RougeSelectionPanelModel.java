@@ -1,9 +1,8 @@
 package il.ac.sce.ir.metric.starter.gui.main.model;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.RougeSelectionPanelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.RougeSelectionPanelModelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.panel.RougeSelectionPanel;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.RougeSelectionPanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.RougeSelectionPanelModelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import java.util.HashMap;
 import java.util.Map;

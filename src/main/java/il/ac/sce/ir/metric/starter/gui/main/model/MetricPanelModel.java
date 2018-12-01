@@ -1,15 +1,12 @@
 package il.ac.sce.ir.metric.starter.gui.main.model;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.FileChoosePanelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.MetricEnabledPanelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.MetricPanelModelChangedEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.RougeSelectionPanelModelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.FileChoosePanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.MetricEnabledPanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.RougeSelectionPanelModelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.Event;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MetricPanelModel {
 
@@ -18,6 +15,8 @@ public class MetricPanelModel {
     private String chosenMetricsDirectory = null;
 
     private boolean rougeEnabled = false;
+
+    private boolean readabilityEnabled = false;
 
     private RougeSelectionPanelModel rougeSelectionPanelModel = null;
 
@@ -53,6 +52,14 @@ public class MetricPanelModel {
         this.rougeSelectionPanelModel = rougeSelectionPanelModel;
     }
 
+    public boolean isReadabilityEnabled() {
+        return readabilityEnabled;
+    }
+
+    public void setReadabilityEnabled(boolean readabilityEnabled) {
+        this.readabilityEnabled = readabilityEnabled;
+    }
+
     private void onMetricDirectoryChanged(Event event) {
         FileChoosePanelEvent e = (FileChoosePanelEvent) event;
         if (GUIConstants.EVENT_WORKING_SET_DIRECTORY_CHOSE_PANEL.equals(e.getSource()) && e.getFileName() != null) {
@@ -65,6 +72,9 @@ public class MetricPanelModel {
         MetricEnabledPanelEvent e = (MetricEnabledPanelEvent) event;
         if (GUIConstants.EVENT_ROUGE_METRIC_SELECTED.equals(e.getName())) {
             setRougeEnabled(e.isSelected());
+            publishSelf();
+        } else if (GUIConstants.EVENT_READABILITY_METRIC_SELECTED.equals(e.getName())) {
+            setReadabilityEnabled(e.isSelected());
             publishSelf();
         }
     }

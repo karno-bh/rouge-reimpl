@@ -1,13 +1,11 @@
-package il.ac.sce.ir.metric.starter.gui.main.panel;
+package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.MetricEnabledPanelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
 import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.FileChoosePanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.MetricEnabledPanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.NamedHeaderPanel;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 
 import javax.swing.*;
@@ -82,6 +80,22 @@ public class MetricPanel extends JPanel {
         rougeSelectionConstraints.fill = GridBagConstraints.HORIZONTAL;
         add(rougeSelectionPanel, rougeSelectionConstraints);
 
+        GridBagConstraints readabilityHeaderConstraints = new GridBagConstraints();
+        readabilityHeaderConstraints.gridx = 0;
+        readabilityHeaderConstraints.gridy = y++;
+        readabilityHeaderConstraints.weightx = 1;
+        readabilityHeaderConstraints.fill = GridBagConstraints.HORIZONTAL;
+        add(new NamedHeaderPanel("Readability"), readabilityHeaderConstraints);
+
+        GridBagConstraints readabilityEnabledConstraints = new GridBagConstraints();
+        readabilityEnabledConstraints.gridx = 0;
+        readabilityEnabledConstraints.gridy = y++;
+        readabilityEnabledConstraints.weightx = 1;
+        readabilityEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_READABILITY_METRIC_SELECTED), readabilityEnabledConstraints);
+
+
+
         /*for (int i = 1; i < 150; i++) {
             GridBagConstraints dummy = new GridBagConstraints();
             dummy.gridx = 0;
@@ -118,7 +132,7 @@ public class MetricPanel extends JPanel {
         boolean goButtonEnabled = false;
         if (dirName != null) {
             File dir = new File(dirName);
-            if (dir.isDirectory() && metricPanelModel.isRougeEnabled()) {
+            if (dir.isDirectory() && (metricPanelModel.isRougeEnabled() || metricPanelModel.isReadabilityEnabled())) {
                 goButtonEnabled = true;
             }
         }

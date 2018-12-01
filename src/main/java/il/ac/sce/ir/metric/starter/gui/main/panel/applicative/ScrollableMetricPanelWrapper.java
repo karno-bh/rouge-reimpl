@@ -1,6 +1,6 @@
-package il.ac.sce.ir.metric.starter.gui.main.panel;
+package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 
 import javax.swing.*;

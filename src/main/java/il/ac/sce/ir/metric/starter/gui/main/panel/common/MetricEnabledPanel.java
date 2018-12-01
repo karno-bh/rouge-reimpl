@@ -1,11 +1,9 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.common;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.MetricEnabledPanelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.MetricEnabledPanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 

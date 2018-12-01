@@ -1,8 +1,8 @@
 package il.ac.sce.ir.metric.starter.gui.main;
 
 import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
-import il.ac.sce.ir.metric.starter.gui.main.panel.ScrollableMetricPanelWrapper;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.panel.applicative.ScrollableMetricPanelWrapper;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import il.ac.sce.ir.metric.starter.gui.main.resources.DefaultGUIMessages;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;

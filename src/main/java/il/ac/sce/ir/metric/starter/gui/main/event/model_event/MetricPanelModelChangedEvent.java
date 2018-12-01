@@ -1,7 +1,7 @@
-package il.ac.sce.ir.metric.starter.gui.main.event;
+package il.ac.sce.ir.metric.starter.gui.main.event.model_event;
 
 import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.Event;
 
 import java.util.Objects;
 

@@ -1,9 +1,9 @@
-package il.ac.sce.ir.metric.starter.gui.main.panel;
+package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.MetricPanelModelChangedEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.RougeSelectionPanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.RougeSelectionPanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.model.RougeSelectionPanelModel;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import javax.swing.*;
 import java.awt.*;

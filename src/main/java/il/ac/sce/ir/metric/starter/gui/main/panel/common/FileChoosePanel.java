@@ -1,8 +1,8 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.common;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.FileChoosePanelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.Event;
-import il.ac.sce.ir.metric.starter.gui.main.pubsub.PubSub;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.FileChoosePanelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.Event;
+import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package il.ac.sce.ir.metric.starter.gui.main.pubsub;
+package il.ac.sce.ir.metric.starter.gui.main.util.pubsub;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
