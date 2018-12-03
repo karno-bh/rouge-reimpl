@@ -19,17 +19,13 @@ public class MetricPanelModel implements AppModel {
 
     private boolean readabilityEnabled = false;
 
-    private RougeSelectionPanelModel rougeSelectionPanelModel = null;
-
-    private ReadabilitySelectionPanelModel readabilitySelectionPanelModel = null;
+    private boolean autoSummENGEnabled = false;
 
     public MetricPanelModel(PubSub pubSub) {
         this.pubSub = pubSub;
 
         pubSub.subscribe(FileChoosePanelEvent.class, this::onMetricDirectoryChanged);
         pubSub.subscribe(MetricEnabledPanelEvent.class, this::onRougeMetricSelected);
-        pubSub.subscribe(RougeSelectionPanelModelEvent.class, this::onRougeSelectionPanelModelEvent);
-        pubSub.subscribe(ReadabilitySelectionPanelModelEvent.class, this::onReadabilitySelectionPanelModelEvent);
     }
 
     public String getChosenMetricsDirectory() {
@@ -48,28 +44,20 @@ public class MetricPanelModel implements AppModel {
         return rougeEnabled;
     }
 
-    public RougeSelectionPanelModel getRougeSelectionPanelModel() {
-        return rougeSelectionPanelModel;
-    }
-
-    public void setRougeSelectionPanelModel(RougeSelectionPanelModel rougeSelectionPanelModel) {
-        this.rougeSelectionPanelModel = rougeSelectionPanelModel;
-    }
-
-    public ReadabilitySelectionPanelModel getReadabilitySelectionPanelModel() {
-        return readabilitySelectionPanelModel;
-    }
-
-    public void setReadabilitySelectionPanelModel(ReadabilitySelectionPanelModel readabilitySelectionPanelModel) {
-        this.readabilitySelectionPanelModel = readabilitySelectionPanelModel;
-    }
-
     public boolean isReadabilityEnabled() {
         return readabilityEnabled;
     }
 
     public void setReadabilityEnabled(boolean readabilityEnabled) {
         this.readabilityEnabled = readabilityEnabled;
+    }
+
+    public boolean isAutoSummENGEnabled() {
+        return autoSummENGEnabled;
+    }
+
+    public void setAutoSummENGEnabled(boolean autoSummENGEnabled) {
+        this.autoSummENGEnabled = autoSummENGEnabled;
     }
 
     private void onMetricDirectoryChanged(Event event) {
@@ -88,16 +76,10 @@ public class MetricPanelModel implements AppModel {
         } else if (GUIConstants.EVENT_READABILITY_METRIC_SELECTED.equals(e.getName())) {
             setReadabilityEnabled(e.isSelected());
             publishSelf();
+        } else if (GUIConstants.EVENT_AUTO_SUMM_ENG_METRIC_SELECTED.equals(e.getName())) {
+            setAutoSummENGEnabled(e.isSelected());
+            publishSelf();
         }
-    }
-
-    private void onRougeSelectionPanelModelEvent(RougeSelectionPanelModelEvent event) {
-        setRougeSelectionPanelModel(event.getModel());
-        // publishSelf();
-    }
-
-    private void onReadabilitySelectionPanelModelEvent(ReadabilitySelectionPanelModelEvent event) {
-        setReadabilitySelectionPanelModel(event.getReadabilitySelectionPanelModel());
     }
 
     @Override

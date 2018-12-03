@@ -1,13 +1,15 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.GoButtonModelChangedEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
+import il.ac.sce.ir.metric.starter.gui.main.model.GoButtonModel;
 import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.FileChoosePanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.MetricEnabledPanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.NamedHeaderPanel;
+import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
-import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -22,14 +24,18 @@ public class MetricPanel extends JPanel {
     private final JButton goButton;
 
     private final MetricPanelModel metricPanelModel;
+    private final GoButtonModel goButtonModel;
 
     public MetricPanel(PubSub pubSub, ModelsManager modelsManager) {
         this.pubSub = pubSub;
 
-        pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricPanelModelChanged);
+//        pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricPanelModelChanged);
+        pubSub.subscribe(GoButtonModelChangedEvent.class, this::onGoButtonModelChangedEvent);
 
         metricPanelModel = new MetricPanelModel(pubSub);
         modelsManager.register(metricPanelModel);
+        goButtonModel = new GoButtonModel(pubSub);
+        modelsManager.register(goButtonModel);
 
         this.workingSetDirectoryChooserPanel = new FileChoosePanel(pubSub, GUIConstants.EVENT_WORKING_SET_DIRECTORY_CHOSE_PANEL, null);
         this.goButton = new JButton("Start");
@@ -41,70 +47,22 @@ public class MetricPanel extends JPanel {
         //final Insets headerInsets = new Insets(0, 0, 0, 0);
 
         int y = 0;
-        GridBagConstraints workingSetHeaderConstraints = new GridBagConstraints();
-        workingSetHeaderConstraints.gridx = 0;
-        workingSetHeaderConstraints.gridy = y++;
-        workingSetHeaderConstraints.weightx = 1;
-        workingSetHeaderConstraints.fill = GridBagConstraints.HORIZONTAL;
-        // workingSetHeaderConstraints.insets = headerInsets;
-        add(new NamedHeaderPanel("Working Set Directory"), workingSetHeaderConstraints);
-
-
-        GridBagConstraints fileLine = new GridBagConstraints();
-        fileLine.gridx = 0;
-        fileLine.gridy = y++;
-        fileLine.weightx = 1;
-        fileLine.fill = GridBagConstraints.HORIZONTAL;
-        // fileLine.anchor = GridBagConstraints.FIRST_LINE_START;
+        add(new NamedHeaderPanel("Working Set Directory"), fullLine(y++));
+        GridBagConstraints fileLine = fullLine(y++);
         fileLine.insets = lineInsets;
         add(workingSetDirectoryChooserPanel, fileLine);
 
-        GridBagConstraints rougeHeaderConstraints = new GridBagConstraints();
-        rougeHeaderConstraints.gridx = 0;
-        rougeHeaderConstraints.gridy = y++;
-        rougeHeaderConstraints.weightx = 1;
-        rougeHeaderConstraints.fill = GridBagConstraints.HORIZONTAL;
-        // rougeHeaderConstraints.insets = headerInsets;
-        add(new NamedHeaderPanel("Rouge"), rougeHeaderConstraints);
+        add(new NamedHeaderPanel("Rouge"), fullLine(y++));
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), fullLine(y++));
+        add(new RougeSelectionPanel(pubSub, modelsManager), fullLine(y++));
 
-        GridBagConstraints rougeEnabledConstraints = new GridBagConstraints();
-        rougeEnabledConstraints.gridx = 0;
-        rougeEnabledConstraints.gridy = y++;
-        rougeEnabledConstraints.weightx = 1;
-        rougeEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), rougeEnabledConstraints);
+        add(new NamedHeaderPanel("Readability"), fullLine(y++));
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_READABILITY_METRIC_SELECTED), fullLine(y++));
+        add(new ReadabilitySelectionPanel(pubSub, modelsManager), fullLine(y++));
 
-        RougeSelectionPanel rougeSelectionPanel = new RougeSelectionPanel(pubSub, modelsManager);
-        // metricPanelModel.setRougeSelectionPanelModel(rougeSelectionPanel.getModel());
-        GridBagConstraints rougeSelectionConstraints = new GridBagConstraints();
-        rougeSelectionConstraints.gridx = 0;
-        rougeSelectionConstraints.gridy = y++;
-        rougeSelectionConstraints.weightx = 1;
-        rougeSelectionConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(rougeSelectionPanel, rougeSelectionConstraints);
-
-        GridBagConstraints readabilityHeaderConstraints = new GridBagConstraints();
-        readabilityHeaderConstraints.gridx = 0;
-        readabilityHeaderConstraints.gridy = y++;
-        readabilityHeaderConstraints.weightx = 1;
-        readabilityHeaderConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new NamedHeaderPanel("Readability"), readabilityHeaderConstraints);
-
-        GridBagConstraints readabilityEnabledConstraints = new GridBagConstraints();
-        readabilityEnabledConstraints.gridx = 0;
-        readabilityEnabledConstraints.gridy = y++;
-        readabilityEnabledConstraints.weightx = 1;
-        readabilityEnabledConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_READABILITY_METRIC_SELECTED), readabilityEnabledConstraints);
-
-        ReadabilitySelectionPanel readabilitySelectionPanel = new ReadabilitySelectionPanel(pubSub, modelsManager);
-        GridBagConstraints readabilitySelectionPanelConstraints = new GridBagConstraints();
-        readabilitySelectionPanelConstraints.gridx = 0;
-        readabilitySelectionPanelConstraints.gridy = y++;
-        readabilitySelectionPanelConstraints.weightx = 1;
-        readabilitySelectionPanelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(readabilitySelectionPanel, readabilitySelectionPanelConstraints);
-
+        add(new NamedHeaderPanel("Auto Summ ENG"), fullLine(y++));
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_AUTO_SUMM_ENG_METRIC_SELECTED), fullLine(y++));
+        add(new AutoSummENGSelectionPanel(pubSub, modelsManager), fullLine(y++));
 
         /*for (int i = 1; i < 150; i++) {
             GridBagConstraints dummy = new GridBagConstraints();
@@ -128,6 +86,7 @@ public class MetricPanel extends JPanel {
 //        springPanel.setBorder(BorderFactory.createEtchedBorder());
         add(springPanel, spring);
 
+
         GridBagConstraints goButtonConstraints = new GridBagConstraints();
         goButtonConstraints.gridx = 0;
         goButtonConstraints.gridy = y++;
@@ -135,19 +94,17 @@ public class MetricPanel extends JPanel {
         add(goButton, goButtonConstraints);
     }
 
-    private void onMetricPanelModelChanged(MetricPanelModelChangedEvent e) {
-        // MetricPanelModelChangedEvent e = (MetricPanelModelChangedEvent) event;
-        MetricPanelModel metricPanelModel = e.getMetricPanelModel();
-        String dirName = metricPanelModel.getChosenMetricsDirectory();
-        boolean goButtonEnabled = false;
-        if (dirName != null) {
-            File dir = new File(dirName);
-            if (dir.isDirectory() && (metricPanelModel.isRougeEnabled() || metricPanelModel.isReadabilityEnabled())) {
-                goButtonEnabled = true;
-            }
-        }
-        goButton.setEnabled(goButtonEnabled);
+    private void onGoButtonModelChangedEvent(GoButtonModelChangedEvent event) {
+        goButton.setEnabled(event.getGoButtonModel().isGoButtonEnabled());
     }
 
+    private GridBagConstraints fullLine(int lineY) {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = lineY;
+        constraints.weightx = 1;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        return constraints;
+    }
 
 }
