@@ -1,9 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.model;
 
-import il.ac.sce.ir.metric.starter.gui.main.event.model_event.GoButtonModelChangedEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.model_event.ReadabilitySelectionPanelModelEvent;
-import il.ac.sce.ir.metric.starter.gui.main.event.model_event.RougeSelectionPanelModelEvent;
+import il.ac.sce.ir.metric.starter.gui.main.event.model_event.*;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import java.io.File;
@@ -21,6 +18,8 @@ public class GoButtonModel implements AppModel {
 
     private ReadabilitySelectionPanelModel readabilitySelectionPanelModel;
 
+    private AutoSummENGSelectionPanelModel autoSummENGSelectionPanelModel;
+
     public boolean isGoButtonEnabled() {
         return goButtonEnabled;
     }
@@ -35,6 +34,7 @@ public class GoButtonModel implements AppModel {
         pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricPanelModelChangedEvent);
         pubSub.subscribe(RougeSelectionPanelModelEvent.class, this::onRougeSelectionPanelModelEvent);
         pubSub.subscribe(ReadabilitySelectionPanelModelEvent.class, this::onReadabilitySelectionPanelModelEvent);
+        pubSub.subscribe(AutoSummENGSelectionPanelModelEvent.class, this::onAutoSummENGSelectionPanelModelEvent);
     }
 
     private void onMetricPanelModelChangedEvent(MetricPanelModelChangedEvent event) {
@@ -49,6 +49,11 @@ public class GoButtonModel implements AppModel {
 
     private void onReadabilitySelectionPanelModelEvent(ReadabilitySelectionPanelModelEvent event) {
         readabilitySelectionPanelModel = event.getReadabilitySelectionPanelModel();
+        checkEnablement();
+    }
+
+    private void onAutoSummENGSelectionPanelModelEvent(AutoSummENGSelectionPanelModelEvent event) {
+        autoSummENGSelectionPanelModel = event.getModel();
         checkEnablement();
     }
 
@@ -76,7 +81,9 @@ public class GoButtonModel implements AppModel {
                     }
                 }
                 if (metricPanelModel.isAutoSummENGEnabled()) {
-                    goButtonEnabled = true;
+                    if (autoSummENGSelectionPanelModel.isSimpleTextConfigSelected() || autoSummENGSelectionPanelModel.isCharNGramSelected()) {
+                        goButtonEnabled = true;
+                    }
                 }
                 // goButtonEnabled = true;
             }

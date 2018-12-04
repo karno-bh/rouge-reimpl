@@ -80,8 +80,8 @@ public class Starter {
         mainFrame.add(mainSplit);
 
         // mainFrame.pack();
-        mainFrame.setSize(new Dimension(900, 600));
-        mainFrame.setMinimumSize(mainFrame.getSize());
+        mainFrame.setSize(new Dimension(1000, 700));
+        //mainFrame.setMinimumSize(mainFrame.getSize());
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);

@@ -1,12 +1,17 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
+import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.SimpleTextConfig;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.AutoSummENGSelectionPanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
 import il.ac.sce.ir.metric.starter.gui.main.model.AutoSummENGSelectionPanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.util.Arrays;
 
 public class AutoSummENGSelectionPanel extends JPanel {
 
@@ -24,15 +29,15 @@ public class AutoSummENGSelectionPanel extends JPanel {
 
     private final JSpinner charMaxSpinner = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
-    private final JSpinner charDistSpinnerchar = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+    private final JSpinner charDistSpinner = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
-    private final JCheckBox wordEnabledCheckBox;
+    private final JCheckBox wordEnabledCheckBox = new JCheckBox();
 
+    private final JCheckBox charEnabledCheckBox = new JCheckBox();
 
     private final JLabel wordOptions = new JLabel();
 
-    private final JLabel characterOptions = new JLabel();
-
+    private final JLabel charOptions = new JLabel();
 
 
     public AutoSummENGSelectionPanel(PubSub pubSub, ModelsManager modelsManager) {
@@ -41,147 +46,205 @@ public class AutoSummENGSelectionPanel extends JPanel {
         modelsManager.register(model);
         pubSub.subscribe(MetricPanelModelChangedEvent.class, this::onMetricModelPanelChanged);
         setLayout(new GridBagLayout());
+        subscribeOnInnerEvents();
 
-        Insets leftLabelInsets = new Insets(0,20, 10, 20);
         int y = 0;
+
+        constructHeader(wordOptions, "Word Options", y++);
+        JPanel wordInnerLinePanel = new JPanel();
+        wordInnerLinePanel.setLayout(new GridBagLayout());
+        GridBagConstraints wordInnerLinePanelConstraints = getInnerSelectionPanelConstraints(0, y++);
+        constructInnerWordPanel(wordInnerLinePanel);
+        add(wordInnerLinePanel, wordInnerLinePanelConstraints);
+
+        constructHeader(charOptions, "Character Options", y++);
+        JPanel characterInnerLinePanel = new JPanel();
+        characterInnerLinePanel.setLayout(new GridBagLayout());
+        GridBagConstraints characterInnerLinePanelConstraints = getInnerSelectionPanelConstraints(0, y);
+        constuctCharacterInnerLinePanel(characterInnerLinePanel);
+        add(characterInnerLinePanel, characterInnerLinePanelConstraints);
+    }
+
+    private void subscribeOnInnerEvents() {
+
+        wordEnabledCheckBox.addItemListener(this::onWordEnabledCheckBoxChanged);
+        charEnabledCheckBox.addItemListener(this::onCharEnabledCheckBoxChanged);
+
+        wordMinSpinner.addChangeListener(this::onWordSpinnerChanged);
+        wordMaxSpinner.addChangeListener(this::onWordSpinnerChanged);
+        wordDistSpinner.addChangeListener(this::onWordSpinnerChanged);
+
+        charMinSpinner.addChangeListener(this::onCharSpinnerChanged);
+        charMaxSpinner.addChangeListener(this::onCharSpinnerChanged);
+        charDistSpinner.addChangeListener(this::onCharSpinnerChanged);
+    }
+
+    private void constructInnerWordPanel(JPanel wordInnerLinePanel) {
+        constructCommonInnerPanel(wordInnerLinePanel,
+                wordEnabledCheckBox,
+                "Word Min:", wordMinSpinner,
+                "Word Max:", wordMaxSpinner,
+                "Word Dist:", wordDistSpinner);
+    }
+
+    private void constuctCharacterInnerLinePanel(JPanel characterInnerLinePanel) {
+        constructCommonInnerPanel(characterInnerLinePanel,
+                charEnabledCheckBox,
+                "Char Min:", charMinSpinner,
+                "Char Max:", charMaxSpinner,
+                "Char Dist:", charDistSpinner);
+    }
+
+    private void constructCommonInnerPanel(JPanel panel,
+                                           JCheckBox enableCheckBox,
+                                           String minSpinnerText,
+                                           JSpinner minSpinner,
+                                           String maxSpinnerText,
+                                           JSpinner maxSpinner,
+                                           String distSpinnerText,
+                                           JSpinner disSpinner) {
+        int innerX = 0, innerY = 0;
+        JLabel wordEnabled = new JLabel("Enabled:");
+        panel.add(wordEnabled, getEnabledLabelConstraints(innerX++, innerY));
+
+        enableCheckBox.setBorder(BorderFactory.createMatteBorder(0,0,0,0, Color.BLACK));
+        panel.add(enableCheckBox, getEnableCheckBoxConstraints(innerX++, innerY++));
+
+        Arrays.asList(minSpinner, maxSpinner, disSpinner).forEach(this::setSpinnerColumns);
+
+        innerX = 0;
+        panel.add(new JLabel(minSpinnerText), getSpinnerLabelConstraints(innerX++, innerY));
+        panel.add(minSpinner, getSpinnerConstraints(innerX++, innerY));
+
+        panel.add(new JLabel(maxSpinnerText), getSpinnerLabelConstraints(innerX++, innerY));
+        panel.add(maxSpinner, getSpinnerConstraints(innerX++, innerY));
+
+        panel.add(new JLabel(distSpinnerText), getEnabledLabelConstraints(innerX++, innerY));
+        panel.add(disSpinner, getSpinnerConstraints(innerX++, innerY));
+    }
+
+    private GridBagConstraints getInnerSelectionPanelConstraints(int x, int y) {
+        GridBagConstraints innerSelectionPanelConstraints = new GridBagConstraints();
+        innerSelectionPanelConstraints.gridx = x;
+        innerSelectionPanelConstraints.gridy = y;
+        innerSelectionPanelConstraints.gridwidth = 2;
+        innerSelectionPanelConstraints.anchor = GridBagConstraints.LINE_START;
+        innerSelectionPanelConstraints.insets = new Insets(0,40, 10, 20);
+        return innerSelectionPanelConstraints;
+    }
+
+    private GridBagConstraints getEnabledLabelConstraints(int x, int y) {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.insets = new Insets(0, 0, 10, 10);
+        constraints.anchor = GridBagConstraints.LINE_END;
+        return constraints;
+    }
+
+    private GridBagConstraints getEnableCheckBoxConstraints(int x, int y) {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.anchor = GridBagConstraints.LINE_START;
+        constraints.insets = new Insets(0, 0, 10, 10);
+        return constraints;
+    }
+
+    private GridBagConstraints getSpinnerLabelConstraints(int x, int y) {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.insets = new Insets(0, 0, 10, 10);
+        return constraints;
+    }
+
+    private GridBagConstraints getSpinnerConstraints(int x, int y) {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.weighty = 1;
+        constraints.fill = GridBagConstraints.VERTICAL;
+        constraints.insets = new Insets(0, 0, 10, 20);
+        return constraints;
+    }
+
+    private void setSpinnerColumns(JSpinner spinner) {
+        ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField().setColumns(4);
+    }
+
+    private void constructHeader(JLabel headerLabel, String headerLabelText, int y) {
         int x = 0;
+        Insets leftLabelInsets = new Insets(0,20, 10, 20);
         GridBagConstraints metricLabelConstraints = new GridBagConstraints();
         metricLabelConstraints.gridx = x++;
         metricLabelConstraints.gridy = y;
         metricLabelConstraints.insets = leftLabelInsets;
+        metricLabelConstraints.anchor = GridBagConstraints.LINE_START;
         Font metricFont = new Font("Verdana", Font.BOLD + Font.ITALIC, 14);
-        wordOptions.setFont(metricFont);
-        wordOptions.setText("Word Options");
-        add(wordOptions, metricLabelConstraints);
+        headerLabel.setFont(metricFont);
+        headerLabel.setText(headerLabelText);
+        add(headerLabel, metricLabelConstraints);
 
         //        System.out.println(y);
         GridBagConstraints rightSpringConstraints = new GridBagConstraints();
         rightSpringConstraints.gridx = x++;
-        rightSpringConstraints.gridy = y++;
+        rightSpringConstraints.gridy = y;
         rightSpringConstraints.weightx = 1;
-        // rightSpringConstraints.gridwidth = 10;
         rightSpringConstraints.fill = GridBagConstraints.HORIZONTAL;
-//        add(new JButton("Test"), rightSpringConstraints);
         add(new JPanel(), rightSpringConstraints);
-
-        x = 0;
-        JPanel wordInnerLinePanel = new JPanel();
-        wordInnerLinePanel.setLayout(new GridBagLayout());
-        GridBagConstraints wordInnerLinePanelConstraints = new GridBagConstraints();
-        wordInnerLinePanelConstraints.gridx = x++;
-        wordInnerLinePanelConstraints.gridy = y;
-//        wordInnerLinePanelConstraints.weightx = 0;
-        wordInnerLinePanelConstraints.gridwidth = 2;
-        wordInnerLinePanelConstraints.anchor = GridBagConstraints.LINE_START;
-        wordInnerLinePanelConstraints.insets = new Insets(0,40, 10, 20);
-//        wordInnerLinePanelConstraints.fill = GridBagConstraints.HORIZONTAL;
-
-        int innerX = 0, innerY = 0;
-        JLabel wordEnabled = new JLabel("Enabled:");
-        GridBagConstraints wordEnabledConstraints = new GridBagConstraints();
-        wordEnabledConstraints.gridx = innerX++;
-        wordEnabledConstraints.gridy = innerY;
-        wordEnabledConstraints.insets = new Insets(0, 0, 10, 10);
-        wordEnabledConstraints.anchor = GridBagConstraints.LINE_END;
-        wordInnerLinePanel.add(wordEnabled, wordEnabledConstraints);
-
-        wordEnabledCheckBox = new JCheckBox();
-        GridBagConstraints wordEnabledCheckBoxConstraints = new GridBagConstraints();
-        wordEnabledCheckBoxConstraints.gridx = innerX++;
-        wordEnabledCheckBoxConstraints.gridy = innerY++;
-        wordEnabledCheckBoxConstraints.anchor = GridBagConstraints.LINE_START;
-        wordEnabledCheckBoxConstraints.insets = new Insets(0, 0, 10, 10);
-        wordEnabledCheckBox.setBorder(BorderFactory.createMatteBorder(0,0,0,0, Color.BLACK));
-        wordInnerLinePanel.add(wordEnabledCheckBox, wordEnabledCheckBoxConstraints);
-
-        innerX = 0;
-        JLabel wordMin = new JLabel("Word Min:");
-        GridBagConstraints wordMinConstraints = new GridBagConstraints();
-        wordMinConstraints.gridx = innerX++;
-        wordMinConstraints.gridy = innerY;
-        wordMinConstraints.insets = new Insets(0, 0, 10, 10);
-        wordInnerLinePanel.add(wordMin, wordMinConstraints);
-
-        GridBagConstraints wordMinSpinnerConstraints = new GridBagConstraints();
-        wordMinSpinnerConstraints.gridx = innerX++;
-        wordMinSpinnerConstraints.gridy = innerY;
-        // wordMinSpinnerConstraints.insets = new Insets(0, 0, 10, 10);
-        // wordMinSpinner.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.red));
-        wordMinSpinnerConstraints.weighty = 1;
-        wordMinSpinnerConstraints.fill = GridBagConstraints.VERTICAL;
-        wordMinSpinnerConstraints.insets = new Insets(0, 0, 10, 20);;
-
-        ((JSpinner.DefaultEditor)wordMinSpinner.getEditor()).getTextField().setColumns(4);
-        wordInnerLinePanel.add(wordMinSpinner, wordMinSpinnerConstraints);
-
-
-
-//        JLabel wordMax = new JLabel("Word Max");
-
-        // x = 0;
-        // innerX = 0;
-        JLabel wordMax = new JLabel("Word Max:");
-        GridBagConstraints wordMaxConstraints = new GridBagConstraints();
-        wordMaxConstraints.gridx = innerX++;
-        wordMaxConstraints.gridy = innerY;
-        wordMaxConstraints.insets = new Insets(0, 0, 10, 10);;
-
-        // wordMinConstraints.insets = new Insets(0, 0, 10, 0);
-        wordInnerLinePanel.add(wordMax, wordMaxConstraints);
-
-        GridBagConstraints wordMaxSpinnerConstraints = new GridBagConstraints();
-        wordMaxSpinnerConstraints.gridx = innerX++;
-        wordMaxSpinnerConstraints.gridy = innerY;
-        // wordMinSpinnerConstraints.insets = new Insets(0, 0, 10, 10);
-        // wordMinSpinner.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.red));
-        ((JSpinner.DefaultEditor)wordMaxSpinner.getEditor()).getTextField().setColumns(4);
-        wordMaxSpinnerConstraints.weighty = 1;
-        wordMaxSpinnerConstraints.fill = GridBagConstraints.VERTICAL;
-        wordMaxSpinnerConstraints.insets = new Insets(0, 0, 10, 20);;
-
-        wordInnerLinePanel.add(wordMaxSpinner, wordMaxSpinnerConstraints);
-
-        // innerX = 0;
-        JLabel wordDist = new JLabel("Word Dist:");
-        GridBagConstraints wordDistConstraints = new GridBagConstraints();
-        wordDistConstraints.gridx = innerX++;
-        wordDistConstraints.gridy = innerY;
-        wordDistConstraints.insets = new Insets(0, 0, 10, 10);
-        // wordMinConstraints.insets = new Insets(0, 0, 10, 0);
-        wordInnerLinePanel.add(wordDist, wordDistConstraints);
-
-        GridBagConstraints wordDistSpinnerConstraints = new GridBagConstraints();
-        wordDistSpinnerConstraints.gridx = innerX++;
-        wordDistSpinnerConstraints.gridy = innerY;
-        // wordMinSpinnerConstraints.insets = new Insets(0, 0, 10, 10);
-        // wordMinSpinner.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.red));
-        ((JSpinner.DefaultEditor)wordDistSpinner.getEditor()).getTextField().setColumns(4);
-        wordDistSpinnerConstraints.weighty = 1;
-        wordDistSpinnerConstraints.insets = new Insets(0, 0, 10, 20);
-
-        wordDistSpinnerConstraints.fill = GridBagConstraints.VERTICAL;
-        wordInnerLinePanel.add(wordDistSpinner, wordDistSpinnerConstraints);
-
-        add(wordInnerLinePanel, wordInnerLinePanelConstraints);
-
-        // x = 0;
-        // System.out.println("x: " + x);
-        /*rightSpringConstraints = new GridBagConstraints();
-        rightSpringConstraints.gridx = x++;
-        rightSpringConstraints.gridy = y++;
-        rightSpringConstraints.weightx = 1;
-        // rightSpringConstraints.gridwidth = 11;
-        rightSpringConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new JButton("ss"), rightSpringConstraints);*/
-
     }
 
     private void onMetricModelPanelChanged(MetricPanelModelChangedEvent e) {
         boolean autoSummENGEnabled = e.getMetricPanelModel().isAutoSummENGEnabled();
         wordOptions.setEnabled(autoSummENGEnabled);
-        this.wordEnabledCheckBox.setEnabled(autoSummENGEnabled);
+        wordEnabledCheckBox.setEnabled(autoSummENGEnabled);
         wordMinSpinner.setEnabled(autoSummENGEnabled);
         wordMaxSpinner.setEnabled(autoSummENGEnabled);
         wordDistSpinner.setEnabled(autoSummENGEnabled);
+
+        charOptions.setEnabled(autoSummENGEnabled);
+        charEnabledCheckBox.setEnabled(autoSummENGEnabled);
+        charMinSpinner.setEnabled(autoSummENGEnabled);
+        charMaxSpinner.setEnabled(autoSummENGEnabled);
+        charDistSpinner.setEnabled(autoSummENGEnabled);
+    }
+
+    private void onWordEnabledCheckBoxChanged(ItemEvent itemEvent) {
+        boolean selected = itemEvent.getStateChange() == ItemEvent.SELECTED;
+
+        AutoSummENGSelectionPanelEvent event = new AutoSummENGSelectionPanelEvent(
+                AutoSummENGSelectionPanelEvent.SelectionType.WORD_N_GRAMS_SELECTED, selected);
+        pubSub.publish(event);
+    }
+
+    private void onCharEnabledCheckBoxChanged(ItemEvent itemEvent) {
+        boolean selected = itemEvent.getStateChange() == ItemEvent.SELECTED;
+
+        AutoSummENGSelectionPanelEvent event = new AutoSummENGSelectionPanelEvent(
+                AutoSummENGSelectionPanelEvent.SelectionType.CHARACTER_N_GRAMS_SELECTED, selected);
+        pubSub.publish(event);
+    }
+
+    private void onWordSpinnerChanged(ChangeEvent changeEvent) {
+        int min = (int)wordMinSpinner.getValue();
+        int max = (int)wordMaxSpinner.getValue();
+        int dist = (int)wordDistSpinner.getValue();
+
+        AutoSummENGSelectionPanelEvent event = new AutoSummENGSelectionPanelEvent(
+                AutoSummENGSelectionPanelEvent.SelectionType.WORD_N_GRAMS_VALUES_CHANGED, min, max, dist);
+
+        pubSub.publish(event);
+    }
+
+    private void onCharSpinnerChanged(ChangeEvent changeEvent) {
+        int min = (int)charMinSpinner.getValue();
+        int max = (int)charMaxSpinner.getValue();
+        int dist = (int)charDistSpinner.getValue();
+
+        AutoSummENGSelectionPanelEvent event = new AutoSummENGSelectionPanelEvent(
+                AutoSummENGSelectionPanelEvent.SelectionType.CHARACTER_N_GRAMS_VALUES_CHANGED, min, max, dist);
+
+        pubSub.publish(event);
     }
 }
