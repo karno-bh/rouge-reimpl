@@ -21,8 +21,10 @@ public interface Constants {
     String ROUGEN_LOWER_CASE = "rougen";
     String ROUGEL_LOWER_CASE = "rougel";
     String ROUGEW_LOWER_CASE = "rougew";
+    String READABILITY_LOWER_CASE = "readability";
     String ELENA_READABILITY_LOWER_CASE = "elena_readability";
     String ELENA_TOPICS_READABILITY_LOWER_CASE = "elena_topics_readability";
+    String READABILITY_PRE_CACHE = "readability_pre_cache";
     String GEORGE_GRAPH_METRIC_LOWER_CASE = "george_graph_metric";
     String AUTO_SUMM_ENG_LOWER_CASE = "auto_summ_eng";
     String[] METRICS_FOR_SYSTEM = {
@@ -95,5 +97,10 @@ public interface Constants {
     String AUTO_SUMM_ENG_N_HISTO_SIZE = "NHistoSize";
     String AUTO_SUMM_ENG_N_HISTO_OVERALL_SIMIL = "NOverallSimil";
 
+    String AUTO_SUMM_ENG_WORDS = "autoSummENGWords";
+    String AUTO_SUMM_ENG_CHARS = "autoSummENGChars";
 
+    String MIN = "min";
+    String MAX = "max";
+    String DIST = "dist";
 }

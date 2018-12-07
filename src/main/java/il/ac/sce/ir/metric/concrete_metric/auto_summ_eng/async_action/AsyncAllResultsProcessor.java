@@ -8,6 +8,8 @@ import il.ac.sce.ir.metric.core.reporter.utils.CommonChunkFileReporter;
 import il.ac.sce.ir.metric.core.reporter.utils.CommonFileReporter;
 import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.utils.file_system.FileSystemPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 public class AsyncAllResultsProcessor implements Callable<Void> {
+
+    private static final Logger log = LoggerFactory.getLogger(AsyncAllResultsProcessor.class);
 
     private final List<Future<ProcessedChunk<SimpleTextNGramResultPair>>> promises;
 
@@ -61,6 +65,9 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
                 System.out.println("Processed!");
             }
             printResult(results);
+            return null;
+        } catch (Exception e) {
+            log.error("Error while processing all results for Auto Summ ENG", e);
             return null;
         } finally {
             if (getArbiter() != null) {

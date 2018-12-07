@@ -17,7 +17,9 @@ public class Utils {
     }
 
     public<T> T requireJSONTypeAndCast(Object object, String requiredProperty, Class<T> expectedObjClass) {
-
+        if (object == null) {
+            return null;
+        }
         String resolvedName;
         boolean wasCheckPassed = false;
         if (List.class.isAssignableFrom(expectedObjClass)) {

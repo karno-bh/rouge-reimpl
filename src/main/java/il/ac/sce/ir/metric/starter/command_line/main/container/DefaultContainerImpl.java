@@ -13,6 +13,7 @@ import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.reporter.AutoSummENGRep
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGNGramScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGSimpleTextScoreCalculator;
+import il.ac.sce.ir.metric.concrete_metric.common.util.ParallelPreCache;
 import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.builder.BiTextPipeline;
 import il.ac.sce.ir.metric.core.builder.BiTextPipelineExtractor;
@@ -179,14 +180,21 @@ public class DefaultContainerImpl extends Container {
 
         TextPipelineExtractor<String, String> cachedTextExtractor = new TextPipelineExtractor<>();
         TextPipelineExtractor<String, Annotation> fsCachedCoreNLPAnnotationExtractor = new TextPipelineExtractor<>();
+        TextPipelineExtractor<String, Annotation> coreNLPAnnotationExtractor = new TextPipelineExtractor<>();
+        // FileSystemCacheTextProcessor fileSystemCacheTextProcessor = new FileSystemCacheTextProcessor<>(processor, fileSystemCachePath, "core-nlp-annotations", textIdCache);
         new TextPipeline<>(new FileToStringProcessor())
                 .cacheIn(CacheMemoryTextProcessor::new)
                 .extract(cachedTextExtractor)
                 .pipe(new CoreNLPTextProcessor(() -> new StanfordCoreNLP(coreNLPPipeProperties)))
+                .extract(coreNLPAnnotationExtractor)
                 .cacheIn(processor -> new FileSystemCacheTextProcessor<>(processor, fileSystemCachePath, "core-nlp-annotations", textIdCache))
                 .extract(fsCachedCoreNLPAnnotationExtractor);
-
+        ParallelPreCache parallelPreCache = new ParallelPreCache();
+        parallelPreCache.setTextProcessor(coreNLPAnnotationExtractor.getTextProcessor());
+        parallelPreCache.setFileSystemCacheTextProcessor((FileSystemCacheTextProcessor<String, Annotation>) fsCachedCoreNLPAnnotationExtractor.getTextProcessor());
+        setBean(Constants.READABILITY_PRE_CACHE, parallelPreCache);
         if (lowerCaseMetrics.contains(Constants.ELENA_READABILITY_LOWER_CASE)) {
+            parallelPreCache.setPeersEnabled(true);
             ElenaReadabilityPeersReporter elenaReadabilityPeersReporter = new ElenaReadabilityPeersReporter();
 
             ElenaReadabilityMetricScoreCalculator readabilityMetricScoreCalculator = new ElenaReadabilityMetricScoreCalculator();
@@ -204,6 +212,7 @@ public class DefaultContainerImpl extends Container {
         }
 
         if (lowerCaseMetrics.contains(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE)) {
+            parallelPreCache.setTopicsEnabled(true);
             ElenaReadbilityTopicsReporter elenaReadbilityTopicsReporter = new ElenaReadbilityTopicsReporter();
 
             ElenaReadabilityMetricScoreCalculator readabilityMetricScoreCalculator = new ElenaReadabilityMetricScoreCalculator();
@@ -241,18 +250,11 @@ public class DefaultContainerImpl extends Container {
             AutoSummENGScoreCalculator simpleTextScoreCalculator = new AutoSummENGSimpleTextScoreCalculator(simpleTextDocumentTextProcessor);
             AutoSummENGScoreCalculator nGramScoreCalculator = new AutoSummENGNGramScoreCalculator(nGramSymWinDocumentTextProcessor);
 
-            // TODO get from config
-            SimpleTextConfig simpleTextConfig = new SimpleTextConfig.Builder()
-                    .wordMin(1)
-                    .wordMax(10)
-                    .wordDist(5)
-                    .build();
+            Map<String, Object> autoSummENGWord = configuration.getAutoSummENGWord();
+            SimpleTextConfig simpleTextConfig = autoSummENGWord == null ? null : SimpleTextConfig.fromMap(autoSummENGWord);
 
-            NGramTextConfig nGramTextConfig = new NGramTextConfig.Builder()
-                    .charMin(1)
-                    .charMax(10)
-                    .charDist(5)
-                    .build();
+            Map<String, Object> autoSummENGChar = configuration.getAutoSummENGChar();
+            NGramTextConfig nGramTextConfig = autoSummENGChar == null ? null : NGramTextConfig.fromMap(autoSummENGChar);
 
             AutoSummENGReporter reporter = new AutoSummENGReporter();
             reporter.setSimpleTextConfig(simpleTextConfig);

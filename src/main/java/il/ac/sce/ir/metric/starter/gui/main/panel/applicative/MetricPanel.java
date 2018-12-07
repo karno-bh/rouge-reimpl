@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.GoButtonClickEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.GoButtonModelChangedEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.MetricPanelModelChangedEvent;
 import il.ac.sce.ir.metric.starter.gui.main.model.GoButtonModel;
@@ -14,6 +15,7 @@ import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.File;
 
 public class MetricPanel extends JPanel {
@@ -39,6 +41,7 @@ public class MetricPanel extends JPanel {
 
         this.workingSetDirectoryChooserPanel = new FileChoosePanel(pubSub, GUIConstants.EVENT_WORKING_SET_DIRECTORY_CHOSE_PANEL, null);
         this.goButton = new JButton("Start");
+        this.goButton.addActionListener(this::goButtonClicked);
         goButton.setEnabled(false);
         setLayout(new GridBagLayout());
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -96,6 +99,11 @@ public class MetricPanel extends JPanel {
 
     private void onGoButtonModelChangedEvent(GoButtonModelChangedEvent event) {
         goButton.setEnabled(event.getGoButtonModel().isGoButtonEnabled());
+    }
+
+    private void goButtonClicked(ActionEvent actionEvent) {
+        GoButtonClickEvent goButtonClickEvent = new GoButtonClickEvent();
+        pubSub.publish(goButtonClickEvent);
     }
 
     private GridBagConstraints fullLine(int lineY) {

@@ -1,14 +1,25 @@
 package il.ac.sce.ir.metric.starter.gui.main.model;
 
+import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.starter.gui.main.async.GoButtonAsyncAction;
+import il.ac.sce.ir.metric.starter.gui.main.data.MetricWrapper;
+import il.ac.sce.ir.metric.starter.gui.main.event.component_event.GoButtonClickEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.*;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GoButtonModel implements AppModel {
 
     private final PubSub pubSub;
+
+    private boolean metricsInRun = false;
 
     private boolean goButtonEnabled;
 
@@ -28,6 +39,22 @@ public class GoButtonModel implements AppModel {
         this.goButtonEnabled = goButtonEnabled;
     }
 
+    public MetricPanelModel getMetricPanelModel() {
+        return metricPanelModel;
+    }
+
+    public RougeSelectionPanelModel getRougeSelectionPanelModel() {
+        return rougeSelectionPanelModel;
+    }
+
+    public ReadabilitySelectionPanelModel getReadabilitySelectionPanelModel() {
+        return readabilitySelectionPanelModel;
+    }
+
+    public AutoSummENGSelectionPanelModel getAutoSummENGSelectionPanelModel() {
+        return autoSummENGSelectionPanelModel;
+    }
+
     public GoButtonModel(PubSub pubSub) {
         this.pubSub = pubSub;
 
@@ -35,6 +62,8 @@ public class GoButtonModel implements AppModel {
         pubSub.subscribe(RougeSelectionPanelModelEvent.class, this::onRougeSelectionPanelModelEvent);
         pubSub.subscribe(ReadabilitySelectionPanelModelEvent.class, this::onReadabilitySelectionPanelModelEvent);
         pubSub.subscribe(AutoSummENGSelectionPanelModelEvent.class, this::onAutoSummENGSelectionPanelModelEvent);
+
+        pubSub.subscribe(GoButtonClickEvent.class, this::goButtonClicked);
     }
 
     private void onMetricPanelModelChangedEvent(MetricPanelModelChangedEvent event) {
@@ -57,7 +86,14 @@ public class GoButtonModel implements AppModel {
         checkEnablement();
     }
 
-    private void checkEnablement() {
+    public void setMetricsInRun(boolean metricsInRun) {
+        this.metricsInRun = metricsInRun;
+    }
+
+    public void checkEnablement() {
+        if (metricsInRun) {
+            return;
+        }
         String dirName = metricPanelModel.getChosenMetricsDirectory();
         boolean goButtonEnabled = false;
         if (dirName != null) {
@@ -93,7 +129,16 @@ public class GoButtonModel implements AppModel {
         publishSelf();
     }
 
+    public void goButtonClicked(GoButtonClickEvent goButtonClickEvent) {
+        // System.out.println("Here!!!!!!!!!!");
+        metricsInRun = true;
+        setGoButtonEnabled(false);
+        publishSelf();
 
+        GoButtonAsyncAction goButtonAsyncAction = new GoButtonAsyncAction(this);
+        Thread t = new Thread(goButtonAsyncAction);
+        t.start();
+    }
 
     @Override
     public void publishSelf() {

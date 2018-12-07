@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.starter.command_line.main.container.algo;
 
+import il.ac.sce.ir.metric.concrete_metric.common.util.ParallelPreCache;
 import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.Container;
@@ -36,6 +37,8 @@ public class MainAlgoDefaultImpl implements MainAlgo {
 
         Container container = getContainer();
         try {
+            ParallelPreCache parallelPreCache = (ParallelPreCache)container.getBean(Constants.READABILITY_PRE_CACHE);
+            parallelPreCache.preCache(container.getConfiguration());
             String startDirLocation = container.getConfiguration().getWorkingSetDirectory();
             List<ProcessedCategory> categories = resolveCategories(startDirLocation);
 

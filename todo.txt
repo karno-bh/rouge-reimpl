@@ -1,3 +1,34 @@
+2018-12-07
+    CONTINUE:
+        1. GUI? Backend?
+    Done:
+        1. Some progress done with running simultaneously CoreNLP. CoreNPL cannot calculate simultaneously Annotation on
+           the same pipeline. However, one pipeline requires about 800MB. Therefore CoreNLPTextProcessor changed such
+           that StanfordCoreNLP (pipeline) is per working thread [i.e. on the ThreadLocal]. Since one pipeline is very
+           heavy, there are at most 3 such pipelines [as well 3 threads] which now calculate Annotation simultaneously.
+           It should be mentioned that memory required for the pipeline is caught from VisualVM [should be mentioned
+           in the document]. Also is has no resource to read what exact element that allows parallelism in CoreNLP.
+           Empirically it is proved that it is  StanfordCoreNLP. Despite of the fact that Annotating in parallel time
+           reduced, serializing to disk failed on ConcurrentModificationException deep in the CoreNLP. Therefore it was
+           decided that all Annotations firstly collected and then serially dumped by one thread. Also all caching for
+           CoreNLP based metrics now are calculated before the metric calculation.
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Start writing a Project Document.
+        4. Reducers should write in the same directory...
+        5. Reducer to generate(!) one gigantus table?..
+        6. Clean tests not to have absolute file paths. (=> need to upload test data)
+        7. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        8. ***Score calculators for multi models should be configurable to calculate best or avg!!!***
+           8.1 Maybe it is even better not to calculate average or best... instead it should be done in Reducer actions?
+        9. Readability metrics should be added for models
+        10. PeerModelPair should be generic and common for all.
+        11. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+        12. Compilation result should be a zip with related structure...
+
+
+
 2018-12-04
     CONTINUE:
         1. Connect GUI to backend to run metrics

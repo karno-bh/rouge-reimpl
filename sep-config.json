@@ -5,6 +5,11 @@
   "resultDirectory": "result",
   "containerClass": "il.ac.sce.ir.metric.starter.command_line.main.container.DefaultContainerImpl",
   "mainAlgoClass": "il.ac.sce.ir.metric.starter.command_line.main.container.algo.MainAlgoDefaultImpl",
+  "autoSummENGWords": {
+    "min": 1,
+    "max": 10,
+    "dist": 5
+  },
   "additionalContainerConfig": {
     "fileSystemCachePath": "cache",
     "topics": ["M000", "M001", "M002", "M003", "M004", "M005", "M006", "M007", "M008", "M009"]

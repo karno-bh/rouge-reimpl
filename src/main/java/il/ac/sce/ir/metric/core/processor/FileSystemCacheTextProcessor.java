@@ -45,13 +45,13 @@ public class FileSystemCacheTextProcessor<X, Y> extends AbstractCacheTextProcess
 
 
     @Override
-    protected Text<Y> getCached(Text<X> data) {
+    public Text<Y> getCached(Text<X> data) {
+        if (!pickCached(data.getTextId())) {
+            return null;
+        }
         String encodedKey = getTextIdHash(data.getTextId());
         String fsHashBucket = fsCachePrefix + "/" + encodedKey + "/" + parameter + ".cache";
         File cached = new File(fsHashBucket);
-        if (!cached.exists()) {
-            return null;
-        }
         try (ObjectInputStream is = new ObjectInputStream( new BufferedInputStream(new GZIPInputStream(new FileInputStream(cached))))) {
             Y result = (Y) is.readObject();
             return new Text<>(data.getTextId(), result);
@@ -62,8 +62,15 @@ public class FileSystemCacheTextProcessor<X, Y> extends AbstractCacheTextProcess
         return null;
     }
 
+    public boolean pickCached(String textId) {
+        String encodedKey = getTextIdHash(textId);
+        String fsHashBucket = fsCachePrefix + "/" + encodedKey + "/" + parameter + ".cache";
+        File cached = new File(fsHashBucket);
+        return cached.exists();
+    }
+
     @Override
-    protected void setToCache(Text<Y> computed) {
+    public void setToCache(Text<Y> computed) {
         String encodedKey = getTextIdHash(computed.getTextId());
         String fsHashBucket = fsCachePrefix + "/" + encodedKey + "/" + parameter + ".cache";
         File cached = new File(fsHashBucket);

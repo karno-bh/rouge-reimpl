@@ -19,6 +19,8 @@ public class Configuration {
     private final Map<String, Object> additionalContainerConfig;
     private final String resultDirectory;
     private final List<String> requiredReducers;
+    private final Map<String, Object> autoSummENGWord;
+    private final Map<String, Object> autoSummENGChar;
 
     private Configuration(Mirror mirror) {
         this.workingSetDirectory = mirror.workingSetDirectory;
@@ -28,6 +30,8 @@ public class Configuration {
         this.additionalContainerConfig = mirror.additionalContainerConfig;
         this.resultDirectory = mirror.resultDirectory;
         this.requiredReducers = mirror.requiredReducers;
+        this.autoSummENGWord = mirror.autoSummENGWord;
+        this.autoSummENGChar = mirror.autoSummENGChar;
     }
 
     public String getWorkingSetDirectory() {
@@ -56,6 +60,14 @@ public class Configuration {
 
     public List<String> getRequiredReducers() {
         return requiredReducers;
+    }
+
+    public Map<String, Object> getAutoSummENGWord() {
+        return autoSummENGWord;
+    }
+
+    public Map<String, Object> getAutoSummENGChar() {
+        return autoSummENGChar;
     }
 
     public static Configuration fromFileName(String configFileName) {
@@ -97,6 +109,8 @@ public class Configuration {
         mirror.containerClass = utils.requireJSONTypeAndCast(jsonData.get(Constants.CONTAINER_CLASS), Constants.CONTAINER_CLASS, String.class);
         mirror.mainAlgoClass = utils.requireJSONTypeAndCast(jsonData.get(Constants.MAIN_ALGO_CLASS), Constants.MAIN_ALGO_CLASS, String.class);
         mirror.additionalContainerConfig = utils.requireJSONTypeAndCast(jsonData.get(Constants.ADDITIONAL_CONTAINER_CONFIG), Constants.ADDITIONAL_CONTAINER_CONFIG, Map.class);
+        mirror.autoSummENGWord = utils.requireJSONTypeAndCast(jsonData.get(Constants.AUTO_SUMM_ENG_WORDS), Constants.AUTO_SUMM_ENG_WORDS, Map.class);
+        mirror.autoSummENGChar = utils.requireJSONTypeAndCast(jsonData.get(Constants.AUTO_SUMM_ENG_CHARS), Constants.AUTO_SUMM_ENG_CHARS, Map.class);
         mirror.resultDirectory = utils.requireJSONTypeAndCast(jsonData.get(Constants.RESULT_DIRECTORY), Constants.RESULT_DIRECTORY, String.class);
         List requiredReducersFromJSON = utils.requireJSONTypeAndCast(jsonData.get(Constants.POST_METRICS_PROCESSING), Constants.POST_METRICS_PROCESSING, List.class);
         List<String> requiredReducers = new ArrayList<>();
@@ -120,6 +134,8 @@ public class Configuration {
         private String resultDirectory;
         private List<String> requiredReducers = new ArrayList<>();
         private Map<String, Object> georgeGraphMetricConfig;
+        private Map<String, Object> autoSummENGWord;
+        private Map<String, Object> autoSummENGChar;
 
         public Mirror workingSetDirectory(String workingSetDirectory) {
             this.workingSetDirectory = workingSetDirectory;
@@ -153,6 +169,16 @@ public class Configuration {
 
         public Mirror addRequiredReducer(String requiredReducer) {
             this.requiredReducers.add(requiredReducer);
+            return this;
+        }
+
+        public Mirror autoSummENGWord(Map<String, Integer> wordConfig) {
+            this.autoSummENGWord = (Map)wordConfig;
+            return this;
+        }
+
+        public Mirror autoSummENGChar(Map<String, Integer> charConfig) {
+            this.autoSummENGChar = (Map)charConfig;
             return this;
         }
 

@@ -1,5 +1,10 @@
 package il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data;
 
+import il.ac.sce.ir.metric.core.config.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class SimpleTextConfig {
 
     private final int wordMin;
@@ -24,6 +29,22 @@ public class SimpleTextConfig {
 
     public int getWordDist() {
         return wordDist;
+    }
+
+    public static SimpleTextConfig fromMap(Map<String, Object> map) {
+        // int min, max, dist;
+        int min = Integer.parseInt(map.get(Constants.MIN).toString());
+        int max = Integer.parseInt(map.get(Constants.MAX).toString());
+        int dist = Integer.parseInt(map.get(Constants.DIST).toString());
+        return new SimpleTextConfig(min, max, dist);
+    }
+
+    public Map<String, Integer> toMap() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put(Constants.MIN, getWordMin());
+        map.put(Constants.MAX, getWordMax());
+        map.put(Constants.DIST, getWordDist());
+        return map;
     }
 
     public static class Builder {

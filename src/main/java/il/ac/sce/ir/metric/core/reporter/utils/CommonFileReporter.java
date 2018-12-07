@@ -32,7 +32,8 @@ public class CommonFileReporter {
                                             StringBuilder reportLineBuf) {
         for (String key : keys) {
             Number scoreValue = (Number)properties.get(key);
-            reportLineBuf.append(Constants.CSV_REPORT_SEPARATOR).append(scoreValue.doubleValue());
+            double value = scoreValue == null ? -1 : scoreValue.doubleValue();
+            reportLineBuf.append(Constants.CSV_REPORT_SEPARATOR).append(value);
         }
     }
 }
