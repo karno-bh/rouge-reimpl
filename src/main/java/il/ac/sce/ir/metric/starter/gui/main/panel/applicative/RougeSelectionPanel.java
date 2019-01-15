@@ -25,11 +25,17 @@ public class RougeSelectionPanel extends JPanel {
 
     private final JTextField additionalnGrams;
 
+    private final JCheckBox rougeSEnabledCheckbox;
+
+    private final JCheckBox rougeSUseUnigramsCheckBox;
+
     private final JCheckBox rougeLEnabledCheckbox;
 
     private final JCheckBox rougeWEnabledCheckbox;
 
     private final JLabel rougeN;
+
+    private final JLabel rougeS;
 
     private final JLabel rougeL;
 
@@ -135,6 +141,53 @@ public class RougeSelectionPanel extends JPanel {
         add(moreText, moreTextConstraints);
 
         x = 0;
+        rougeS = new JLabel("RougeS");
+        rougeS.setEnabled(false);
+        rougeS.setFont(metricFont);
+
+        metricLabelConstraints.gridx = x++;
+        metricLabelConstraints.gridy = y;
+        add(rougeS, metricLabelConstraints);
+
+        rightSpringConstraints.gridx = x++;
+        rightSpringConstraints.gridy = y++;
+        add(new JPanel(), rightSpringConstraints);
+
+        x = 0;
+        JLabel rougeSEnabledLabel = new JLabel("Enabled:");
+        GridBagConstraints rougeSEnabledConstraints = new GridBagConstraints();
+        rougeSEnabledConstraints.gridx = x++;
+        rougeSEnabledConstraints.gridy = y;
+        rougeSEnabledConstraints.insets = new Insets(0, 20, 10, 10);
+        add(rougeSEnabledLabel, rougeSEnabledConstraints);
+
+        rougeSEnabledCheckbox = new JCheckBox();
+        rougeSEnabledCheckbox.setEnabled(false);
+        rougeSEnabledCheckbox.addItemListener(this::onRougeSCheckBoxChanged);
+        GridBagConstraints rougeSEnabledCheckboxConstraints = new GridBagConstraints();
+        rougeSEnabledCheckboxConstraints.gridx = x++;
+        rougeSEnabledCheckboxConstraints.gridy = y++;
+        rougeSEnabledCheckboxConstraints.insets = new Insets(0,0,10, 5);
+        add(rougeSEnabledCheckbox, rougeSEnabledCheckboxConstraints);
+
+        x = 0;
+        JLabel rougeSUseUnigramsLabel = new JLabel("Use Unigrams:");
+        GridBagConstraints rougeSUseUnigramsConstraints = new GridBagConstraints();
+        rougeSUseUnigramsConstraints.gridx = x++;
+        rougeSUseUnigramsConstraints.gridy = y;
+        rougeSUseUnigramsConstraints.insets = new Insets(0, 20, 10, 10);
+        add(rougeSUseUnigramsLabel, rougeSUseUnigramsConstraints);
+
+        rougeSUseUnigramsCheckBox = new JCheckBox();
+        rougeSUseUnigramsCheckBox.setEnabled(false);
+        rougeSUseUnigramsCheckBox.addItemListener(this::onRougeSUseUnigramsCheckBoxChanged);
+        GridBagConstraints rougeSUseUnigramsCheckBoxConstraints = new GridBagConstraints();
+        rougeSUseUnigramsCheckBoxConstraints.gridx = x++;
+        rougeSUseUnigramsCheckBoxConstraints.gridy = y++;
+        rougeSUseUnigramsCheckBoxConstraints.insets = new Insets(0,0,10, 5);
+        add(rougeSUseUnigramsCheckBox, rougeSUseUnigramsCheckBoxConstraints);
+
+        x = 0;
         rougeL = new JLabel("RougeL");
         rougeL.setEnabled(false);
         rougeL.setFont(metricFont);
@@ -216,8 +269,11 @@ public class RougeSelectionPanel extends JPanel {
         }
         rougeLEnabledCheckbox.setEnabled(rougeEnabled);
         rougeWEnabledCheckbox.setEnabled(rougeEnabled);
+        rougeSEnabledCheckbox.setEnabled(rougeEnabled);
+        rougeSUseUnigramsCheckBox.setEnabled(rougeEnabled);
 
         rougeN.setEnabled(rougeEnabled);
+        rougeS.setEnabled(rougeEnabled);
         rougeL.setEnabled(rougeEnabled);
         rougeW.setEnabled(rougeEnabled);
     }
@@ -240,6 +296,24 @@ public class RougeSelectionPanel extends JPanel {
         event.setSelectionType(RougeSelectionPanelEvent.SelectionType.ROUGE_N_STATIC);
         event.setRougeNStatic(number);
         event.setRougeNStaticValue(selected);
+
+        pubSub.publish(event);
+    }
+
+    private void onRougeSCheckBoxChanged(ItemEvent itemEvent) {
+        boolean selected = itemEvent.getStateChange() == ItemEvent.SELECTED;
+        RougeSelectionPanelEvent event = new RougeSelectionPanelEvent();
+        event.setSelectionType(RougeSelectionPanelEvent.SelectionType.ROUGE_S);
+        event.setRougeS(selected);
+
+        pubSub.publish(event);
+    }
+
+    private void onRougeSUseUnigramsCheckBoxChanged(ItemEvent itemEvent) {
+        boolean selected = itemEvent.getStateChange() == ItemEvent.SELECTED;
+        RougeSelectionPanelEvent event = new RougeSelectionPanelEvent();
+        event.setSelectionType(RougeSelectionPanelEvent.SelectionType.ROUGE_S_UNIGRAMS);
+        event.setRougeSUseUnigrams(selected);
 
         pubSub.publish(event);
     }

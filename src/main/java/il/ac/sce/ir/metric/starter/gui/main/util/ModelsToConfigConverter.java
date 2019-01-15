@@ -52,6 +52,11 @@ public class ModelsToConfigConverter {
             if (rougeSelectionPanelModel.isRougeL()) {
                 workingSetMetrics.add(Constants.ROUGEL_LOWER_CASE);
             }
+            if (rougeSelectionPanelModel.isRougeS()) {
+                String rougeSConcreteMetric = rougeSelectionPanelModel.isRougeSUseUnigrams() ?
+                        Constants.ROUGESU_LOWER_CASE : Constants.ROUGES_LOWER_CASE;
+                workingSetMetrics.add(rougeSConcreteMetric);
+            }
             List<String> selectedRougeN = rougeSelectionPanelModel.getSelectedNGramMetrics().entrySet().stream()
                     .filter(Map.Entry::getValue)
                     .map(Map.Entry::getKey)

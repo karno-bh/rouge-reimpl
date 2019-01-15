@@ -57,7 +57,7 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
                 // this is the POS tag of the token
                 String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                 // this is the NER label of the token
-                String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
+                // String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
                 if (!stringUtils.contains(word, ",", ".", "?", "!", "'")) {
                     wordsNum++;

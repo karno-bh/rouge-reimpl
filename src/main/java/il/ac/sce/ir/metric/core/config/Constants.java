@@ -21,6 +21,8 @@ public interface Constants {
     String ROUGEN_LOWER_CASE = "rougen";
     String ROUGEL_LOWER_CASE = "rougel";
     String ROUGEW_LOWER_CASE = "rougew";
+    String ROUGES_LOWER_CASE = "rouges";
+    String ROUGESU_LOWER_CASE = "rougesu";
     String READABILITY_LOWER_CASE = "readability";
     String ELENA_READABILITY_LOWER_CASE = "elena_readability";
     String ELENA_TOPICS_READABILITY_LOWER_CASE = "elena_topics_readability";
@@ -28,9 +30,10 @@ public interface Constants {
     String GEORGE_GRAPH_METRIC_LOWER_CASE = "george_graph_metric";
     String AUTO_SUMM_ENG_LOWER_CASE = "auto_summ_eng";
     String[] METRICS_FOR_SYSTEM = {
-            ROUGEN_LOWER_CASE,
+            /*ROUGEN_LOWER_CASE,
+            ROUGES_LOWER_CASE,
             ROUGEL_LOWER_CASE,
-            ROUGEW_LOWER_CASE,
+            ROUGEW_LOWER_CASE,*/
             ELENA_READABILITY_LOWER_CASE,
             ELENA_TOPICS_READABILITY_LOWER_CASE,
     };

@@ -17,6 +17,10 @@ public class RougeSelectionPanelModel implements AppModel {
 
     private boolean rougeW;
 
+    private boolean rougeS;
+
+    private boolean rougeSUseUnigrams;
+
     public Map<Integer, Boolean> getSelectedNGramMetrics() {
         return selectedNGramMetrics;
     }
@@ -50,6 +54,10 @@ public class RougeSelectionPanelModel implements AppModel {
             }
             selectedNGramMetrics.clear();
             selectedNGramMetrics.putAll(clone);
+        } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_S.equals(e.getSelectionType())){
+            setRougeS(e.isRougeS());
+        } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_S_UNIGRAMS.equals(e.getSelectionType())) {
+            setRougeSUseUnigrams(e.isRougeSUseUnigrams());
         } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_L.equals(e.getSelectionType())) {
             setRougeL(e.isRougeL());
         } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_W.equals(e.getSelectionType())) {
@@ -64,6 +72,22 @@ public class RougeSelectionPanelModel implements AppModel {
     public void publishSelf() {
         RougeSelectionPanelModelEvent modelEvent = new RougeSelectionPanelModelEvent(this);
         pubSub.publish(modelEvent);
+    }
+
+    public void setRougeS(boolean rougeS) {
+        this.rougeS = rougeS;
+    }
+
+    public boolean isRougeS() {
+        return rougeS;
+    }
+
+    public void setRougeSUseUnigrams(boolean rougeSUseUnigrams) {
+        this.rougeSUseUnigrams = rougeSUseUnigrams;
+    }
+
+    public boolean isRougeSUseUnigrams() {
+        return rougeSUseUnigrams;
     }
 
     public boolean isRougeL() {

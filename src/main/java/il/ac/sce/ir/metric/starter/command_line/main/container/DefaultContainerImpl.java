@@ -14,6 +14,7 @@ import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSu
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGSimpleTextScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.common.util.ParallelPreCache;
+import il.ac.sce.ir.metric.concrete_metric.rouge.processor.*;
 import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.builder.BiTextPipeline;
 import il.ac.sce.ir.metric.core.builder.BiTextPipelineExtractor;
@@ -30,10 +31,6 @@ import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadabilityPeersR
 import il.ac.sce.ir.metric.concrete_metric.elena.reporter.ElenaReadbilityTopicsReporter;
 import il.ac.sce.ir.metric.concrete_metric.elena.score.ElenaReadabilityMetricScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.common.nlp.processor.CoreNLPTextProcessor;
-import il.ac.sce.ir.metric.concrete_metric.rouge.processor.DPMatrixBiTextProcessor;
-import il.ac.sce.ir.metric.concrete_metric.rouge.processor.NGramHits;
-import il.ac.sce.ir.metric.concrete_metric.rouge.processor.NGramTextProcessor;
-import il.ac.sce.ir.metric.concrete_metric.rouge.processor.SomeModelMatchContinuation;
 import il.ac.sce.ir.metric.concrete_metric.rouge.reporter.PeerMultimodelReporter;
 import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeLMultimodelScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.rouge.score_calculator.RougeNMultimodelScoreCalculator;
@@ -132,6 +129,30 @@ public class DefaultContainerImpl extends Container {
         List<String> lowerCaseMetrics = configuration.getRequiredMetrics().stream()
                 .map(String::trim)
                 .map(String::toLowerCase).collect(Collectors.toList());
+
+        if (lowerCaseMetrics.contains(Constants.ROUGES_LOWER_CASE) || lowerCaseMetrics.contains(Constants.ROUGESU_LOWER_CASE)) {
+            TextPipelineExtractor<String, Map<String, Integer>> rougeSGramExtractor = new TextPipelineExtractor<>();
+            boolean useUnigrams = lowerCaseMetrics.contains(Constants.ROUGESU_LOWER_CASE);
+            initialPipeline.pipe(new SGramTextProcessor(useUnigrams))
+                    .cacheIn(CacheMemoryTextProcessor::new)
+                    .extract(rougeSGramExtractor);
+
+            NGramHits nGramHits = new NGramHits(rougeSGramExtractor.getTextProcessor());
+            RougeNMultimodelScoreCalculator rougeNMultimodelReporter = new RougeNMultimodelScoreCalculator();
+
+            rougeNMultimodelReporter.setnGramProcessor(rougeSGramExtractor.getTextProcessor());
+            rougeNMultimodelReporter.setnGramHits(nGramHits);
+
+            PeerMultimodelReporter reporter = new PeerMultimodelReporter();
+            reporter.setScoreCalculator(rougeNMultimodelReporter);
+            reporter.setConfiguration(configuration);
+            reporter.setExecutorService(executorService);
+            arbiter.register(Constants.ROUGES_LOWER_CASE);
+            reporter.setArbiter(arbiter);
+            reporter.setMetricName(Constants.ROUGES_LOWER_CASE);
+
+            setBean(Constants.ROUGES_LOWER_CASE, reporter);
+        }
 
         if (lowerCaseMetrics.contains(Constants.ROUGEL_LOWER_CASE)) {
             RougeLMultimodelScoreCalculator rougeLMultimodelScoreCalculator = new RougeLMultimodelScoreCalculator();

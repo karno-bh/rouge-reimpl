@@ -7,6 +7,7 @@ import il.ac.sce.ir.metric.core.processor.TextProcessor;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
@@ -29,10 +30,14 @@ public class CoreNLPTextProcessor implements TextProcessor<String, Annotation> {
         StanfordCoreNLP realPipeline = cachedPipeline.get();
         LoggerFactory.getLogger(this.getClass()).info("Real pipe line is {}", realPipeline == null ? null : realPipeline.hashCode());
         if (realPipeline == null ) {
+            // for debug
             new Exception().printStackTrace();
             System.err.println("data: " + data.getTextId());
             // realPipeline = pipeline.get();
-            realPipeline = new StanfordCoreNLP();
+            String coreNLPPipelineAnnotators = "tokenize, ssplit, pos";
+            Properties coreNLPPipeProperties = new Properties();
+            coreNLPPipeProperties.setProperty("annotators", coreNLPPipelineAnnotators);
+            realPipeline = new StanfordCoreNLP(coreNLPPipeProperties);
             cachedPipeline.set(realPipeline);
         }
         realPipeline.annotate(document);

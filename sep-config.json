@@ -1,6 +1,6 @@
 {
   "workingSetDirectory": "c:\\my\\learning\\final-project\\working-set\\attempt001",
-  "workingSetMetrics": ["rougen1", "rougen2", "rougel", "rougew", "elena_readability", "elena_topics_readability", "auto_summ_eng"],
+  "workingSetMetrics": ["rougen1", "rougen2", "rougel", "rougew","rouges", "rougesu","elena_readability", "elena_topics_readability", "auto_summ_eng"],
   "postMetricsProcessing": ["normalizeFleschAndWordVariation", "saveToCSV"],
   "resultDirectory": "result",
   "containerClass": "il.ac.sce.ir.metric.starter.command_line.main.container.DefaultContainerImpl",

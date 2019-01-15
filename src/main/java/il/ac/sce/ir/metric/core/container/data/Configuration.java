@@ -1,6 +1,7 @@
 package il.ac.sce.ir.metric.core.container.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.utils.Utils;
 
@@ -39,7 +40,26 @@ public class Configuration {
     }
 
     public List<String> getRequiredMetrics() {
-        return requiredMetrics;
+        List<String> metricsToReturn = new ArrayList<>(requiredMetrics);
+        List<String> rougeSMetrics = new ArrayList<>();
+        for (String requiredMetric : metricsToReturn) {
+            if (requiredMetric != null) {
+                String possibleMetric = requiredMetric.trim().toLowerCase();
+                if (possibleMetric.startsWith(Constants.ROUGES_LOWER_CASE)) {
+                    rougeSMetrics.add(possibleMetric);
+                }
+            }
+        }
+
+        if (!rougeSMetrics.isEmpty()) {
+            metricsToReturn.removeAll(rougeSMetrics);
+            if (rougeSMetrics.contains(Constants.ROUGESU_LOWER_CASE)) {
+                metricsToReturn.add(Constants.ROUGESU_LOWER_CASE);
+            } else {
+                metricsToReturn.add(Constants.ROUGES_LOWER_CASE);
+            }
+        }
+        return metricsToReturn;
     }
 
     public String getContainerClass() {

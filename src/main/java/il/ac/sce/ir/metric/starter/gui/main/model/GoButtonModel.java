@@ -100,7 +100,7 @@ public class GoButtonModel implements AppModel {
             File dir = new File(dirName);
             if (dir.isDirectory()) {
                 if (metricPanelModel.isRougeEnabled()) {
-                    if (rougeSelectionPanelModel.isRougeL() || rougeSelectionPanelModel.isRougeW()) {
+                    if (rougeSelectionPanelModel.isRougeL() || rougeSelectionPanelModel.isRougeW() || rougeSelectionPanelModel.isRougeS()) {
                         goButtonEnabled = true;
                     } else {
                         for (Map.Entry<Integer, Boolean> rougeNEnablement : rougeSelectionPanelModel.getSelectedNGramMetrics().entrySet()) {

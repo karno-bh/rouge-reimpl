@@ -1,3 +1,23 @@
+2019-01-15
+    CONTINUE:
+        1. GUI. Charts
+    Done:
+        1. CoreNLP time reduced since there is no need to run all pipeline
+        2. RougeS implemented
+        3. Reducers run only when they really needed.
+        4. No need for reducers to generate one big table since graphically it is only needed to see the averages
+        5. Score calculation for multimodel is ok as per Marina.
+        6. No need readability metrics for models.
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Start writing a Project Document.
+        4. Clean tests not to have absolute file paths. (=> need to upload test data)
+        5. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        6. PeerModelPair should be generic and common for all.
+        7. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+        8. Compilation result should be a zip with related structure...
+
 2018-12-07
     CONTINUE:
         1. GUI? Backend?

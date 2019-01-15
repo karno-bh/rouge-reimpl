@@ -7,8 +7,10 @@ public class RougeSelectionPanelEvent implements Event {
     public enum SelectionType {
         ROUGE_N_STATIC,
         ROUGE_N_TEXT,
+        ROUGE_S,
+        ROUGE_S_UNIGRAMS,
         ROUGE_L,
-        ROUGE_W
+        ROUGE_W,
     }
 
     private SelectionType selectionType;
@@ -16,6 +18,10 @@ public class RougeSelectionPanelEvent implements Event {
     private int rougeNStatic;
 
     private boolean rougeNStaticValue;
+
+    private boolean rougeS;
+
+    private boolean rougeSUseUnigrams;
 
     private boolean rougeL;
 
@@ -53,6 +59,22 @@ public class RougeSelectionPanelEvent implements Event {
 
     public void setRougeNStaticValue(boolean rougeNStaticValue) {
         this.rougeNStaticValue = rougeNStaticValue;
+    }
+
+    public boolean isRougeS() {
+        return rougeS;
+    }
+
+    public void setRougeS(boolean rougeS) {
+        this.rougeS = rougeS;
+    }
+
+    public boolean isRougeSUseUnigrams() {
+        return rougeSUseUnigrams;
+    }
+
+    public void setRougeSUseUnigrams(boolean rougeSUseUnigrams) {
+        this.rougeSUseUnigrams = rougeSUseUnigrams;
     }
 
     public boolean isRougeL() {

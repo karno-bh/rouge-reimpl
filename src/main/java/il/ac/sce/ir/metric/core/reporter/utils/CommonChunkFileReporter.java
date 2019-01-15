@@ -100,7 +100,7 @@ public class CommonChunkFileReporter {
             case TOPIC:
                 return processedChunk.getTopic();
             case PEER_MULTI_MODEL:
-                return processedChunk.getMetric();
+                return processedChunk.getPeerFileName();
             default:
                 throw new IllegalStateException("Unknown chunk type");
         }

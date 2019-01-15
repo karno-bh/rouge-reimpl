@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class NGramTextProcessor implements TextProcessor<List<String>, Map<String, Integer>> {
 
-    public static final String COUNT = "_cn_";;
+    public static final String COUNT = "_cn_";
 
     private final int nSize;
 
