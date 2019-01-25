@@ -1,7 +1,7 @@
 package il.ac.sce.ir.metric.core.reducer;
 
-import il.ac.sce.ir.metric.core.utils.RangeMapper;
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.utils.math.RangeMapper;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;

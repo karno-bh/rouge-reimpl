@@ -24,7 +24,7 @@ public class AutoSummENGSimpleTextScoreCalculator implements AutoSummENGScoreCal
     @Override
     public ComparisonResult computeScore(PeerSingleModelPair peerSingleModelPair) {
 
-        System.out.println("AutoSummENGSimpleTextScoreCalculator start");
+        // System.out.println("AutoSummENGSimpleTextScoreCalculator start");
         DocumentDesc.TextBuilder textBuilder = new DocumentDesc.TextBuilder();
 
         DocumentDesc peer = peerSingleModelPair.getPeer();
@@ -45,7 +45,7 @@ public class AutoSummENGSimpleTextScoreCalculator implements AutoSummENGScoreCal
             throw new IllegalArgumentException("Error while calculating", e);
         }
 
-        System.out.println("AutoSummENGSimpleTextScoreCalculator end");
+        // System.out.println("AutoSummENGSimpleTextScoreCalculator end");
         return new ComparisonResult.Builder()
                 .overall(overallGraphSimilarity)
                 .graph(comparator.getGraphSimilarity())

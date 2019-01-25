@@ -27,7 +27,7 @@ public class AutoSummENGNGramScoreCalculator implements AutoSummENGScoreCalculat
     @Override
     public ComparisonResult computeScore(PeerSingleModelPair peerSingleModelPair) {
 
-        System.out.println("AutoSummENGNGramScoreCalculator start");
+        // System.out.println("AutoSummENGNGramScoreCalculator start");
         DocumentDesc.TextBuilder textBuilder = new DocumentDesc.TextBuilder();
 
         DocumentDesc peer = peerSingleModelPair.getPeer();
@@ -48,7 +48,7 @@ public class AutoSummENGNGramScoreCalculator implements AutoSummENGScoreCalculat
             throw new IllegalArgumentException("Error while calculating", e);
         }
 
-        System.out.println("AutoSummENGNGramScoreCalculator end");
+        // System.out.println("AutoSummENGNGramScoreCalculator end");
         return new ComparisonResult.Builder()
                 .overall(overallGraphSimilarity)
                 .graph(comparator.getGraphSimilarity())

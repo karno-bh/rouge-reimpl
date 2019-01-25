@@ -1,6 +1,7 @@
-package il.ac.sce.ir.metric.core.utils;
+package il.ac.sce.ir.metric.core.utils.math;
 
 public class RangeMapper {
+
     private final double fromL;
     private final double toL;
     private final double factor;
@@ -22,5 +23,9 @@ public class RangeMapper {
         double fact = toDiff / fromDiff;
         double normVal = value - fromL;
         return toL + normVal * fact;
+    }
+
+    public double getFactor() {
+        return factor;
     }
 }

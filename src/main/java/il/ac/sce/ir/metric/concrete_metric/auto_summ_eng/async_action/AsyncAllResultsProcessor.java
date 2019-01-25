@@ -62,7 +62,7 @@ public class AsyncAllResultsProcessor implements Callable<Void> {
             List<ProcessedChunk<SimpleTextNGramResultPair>> results = new ArrayList<>();
             for (Future<ProcessedChunk<SimpleTextNGramResultPair>> promise : promises) {
                 results.add(promise.get());
-                System.out.println("Processed!");
+                // System.out.println("Processed!");
             }
             printResult(results);
             return null;

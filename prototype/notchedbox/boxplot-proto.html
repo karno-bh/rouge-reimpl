@@ -1,0 +1,147 @@
+<document>
+<div id=a></div>
+<script>
+function log(str) {
+    let d = document
+    let newEl = d.createElement('div')
+    newEl.innerHTML = str
+    d.querySelector('#a').appendChild(newEl)
+}
+
+
+class Quantile {
+    
+    constructor(data) {
+        this.data = data;
+    }
+
+    pAtI(i, n) {
+        const   index = i,
+                p = (i - 0.5) / n;
+        return {
+            index,
+            p,
+        };
+    }
+
+    quantile(p) {
+        const d = this.data;
+        const pAtI = this.pAtI;
+
+        const n = d.length;
+        let l = pAtI(1, n);
+        let r = pAtI(n, n);
+        if (p <= l.p) {
+            return d[0];
+        } else if (p >= r.p) {
+            return d[n - 1];
+        }
+        let diff;
+        while ((diff = r.index - l.index) > 1) {
+            const middleIndex = Math.floor(diff / 2) + l.index;
+            const middle = pAtI(middleIndex, n);
+            if (middle.p === p) {
+                return d[middle.index - 1];
+            } else if (p > middle.p) {
+                l = middle;
+            } else {
+                r = middle;
+            }
+        }
+        const f = (p - l.p) / (r.p - l.p);
+        return (1 - f) * d[r.index - 1] + f * d[l.index - 1];
+    }
+
+    iqr() {
+        this.q25 = this.quantile(0.25);
+        this.median = this.quantile(0.5);
+        this.q75 = this.quantile(0.75);
+        this.iqrVal = this.q75 - this.q25;
+        return this.iqrVal;
+    }
+}
+
+class NotchedBoxCalc {
+    
+    constructor(data) {
+        this.data = data;
+        this.q = new Quantile(data);
+        this.q.iqr();
+    }
+
+    findVal(d, val, dir) {
+        let l = 0, r = d.length - 1;
+        let diff;
+        while((diff = r - l) > 1) {
+            const middleIndex = Math.floor(diff / 2) + l;
+            const middle = d[middleIndex];
+            if (middle === val) {
+                return val;
+            } else if (val > middle) {
+                l = middleIndex;
+            } else {
+                r = middleIndex;
+            }
+        }
+        if (dir > 0) {
+            return d[r];
+        }
+        return d[l];
+    }
+
+    adjucentValues() {
+        let d = this.data;
+        let findVal = this.findVal;
+        let {iqrVal, q25, q75} = this.q;
+        
+        const spreadIqr = 1.5 * iqrVal;
+        let upBound = q75 + spreadIqr;
+        if (upBound >= d[d.length - 1]) {
+            upBound = d[d.length - 1];
+        } else {
+            upBound = findVal(d, upBound, -1);
+        }
+
+        let lowBound = q25 - spreadIqr;
+        if (lowBound <= d[0]) {
+            lowBound = d[0];
+        } else {
+            lowBound = findVal(d, lowBound, 1);
+        }
+        
+        this.lowBound = lowBound;
+        this.upBound = upBound;
+    }
+
+    notches() {
+        let d = this.data;
+        let { median, iqrVal } = this.q;
+        let factor = 1.57 * iqrVal / Math.sqrt(d.length);
+        this.lowNotch = median - factor;
+        this.upNotch = median + factor;
+    }
+}
+
+function testQuantile() {
+    let data =
+        [58,  63,  69,  72,  74,  79,
+         88,  88,  90,  91,  93,  94,
+         97,  97,  99,  99,  99,  100,
+         103, 104, 105, 107, 118, 127];
+    let q = new Quantile(data);
+    log(`q(0.25) = ${q.quantile(0.25)}`);
+    q.iqr();
+    log(`iqr = ${q.iqrVal}, q25 = ${q.q25}, q75 = ${q.q75}`);
+
+    let nc1 = new NotchedBoxCalc(data);
+    nc1.adjucentValues();
+    log(`nc1.low = ${nc1.lowBound}, nc1.up = ${nc1.upBound}`);
+
+    nc1.notches();
+    log(`nc1.low = ${nc1.lowNotch}, nc1.up = ${nc1.upNotch}`);
+}
+
+testQuantile();
+
+</script>
+</document>

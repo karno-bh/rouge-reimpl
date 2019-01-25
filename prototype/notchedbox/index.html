@@ -1,0 +1,127 @@
+<document>
+<div id=a></div>
+<script>
+function log(str) {
+    let d = document
+    let newEl = d.createElement('div')
+    newEl.innerHTML = str
+    d.querySelector('#a').appendChild(newEl)
+}
+
+function pAtI(i, n) {
+    const   index = i,
+            p = (i - 0.5) / n;
+    return {
+        index,
+        p,
+    };
+}
+function quantile(d, p) {
+    const n = d.length;
+    let l = pAtI(1, n);
+    let r = pAtI(n, n);
+    if (p <= l.p) {
+        return d[0];
+    } else if (p >= r.p) {
+        return d[n - 1];
+    }
+    let diff;
+    while ((diff = r.index - l.index) > 1) {
+        const middleIndex = Math.floor(diff / 2) + l.index;
+        const middle = pAtI(middleIndex, n);
+        if (middle.p === p) {
+            return d[middle.index - 1];
+        } else if (p > middle.p) {
+            l = middle;
+        } else {
+            r = middle;
+        }
+    }
+    const f = (p - l.p) / (r.p - l.p);
+    return (1 - f) * d[r.index - 1] + f * d[l.index - 1];
+}
+
+function IQR(d) {
+    return quantile(d, 0.75) - quantile(d, 0.25);
+}
+
+/**
+ * data passed to this function should be safe!
+ * i.e. val should be in the range of data
+ * 
+ * */
+function findVal(d, val, dir) {
+    let l = 0, r = d.length - 1;
+    let diff;
+    while((diff = r - l) > 1) {
+        const middleIndex = Math.floor(diff / 2) + l;
+        const middle = d[middleIndex];
+        if (middle === val) {
+            return val;
+        } else if (val > middle) {
+            l = middleIndex;
+        } else {
+            r = middleIndex;
+        }
+    }
+    if (dir > 0) {
+        return d[r];
+    }
+    return d[l];
+}
+
+function adjucentValues(d) {
+    let iqr = IQR(d);
+    let upBound = quantile(d, 0.75) + 1.5 * iqr;
+    if (upBound >= d[d.length - 1]) {
+        upBound = d[d.length - 1];
+    } else {
+        upBound = findVal(d, upBound, -1);
+    }
+
+    let lowBound = quantile(d, 0.25) - 1.5 * iqr;
+    if (lowBound <= d[0]) {
+        lowBound = d[0];
+    } else {
+        lowBound = findVal(d, lowBound, 1);
+    }
+
+    return { lowBound, upBound };
+}
+
+function testFindVal() {
+    let data =
+        [58,  63,  69,  72,  74,  79,
+         88,  88,  90,  91,  93,  94,
+         97,  97,  99,  99,  99,  100,
+         103, 104, 105, 107, 118, 127];
+
+    let up = findVal(data, 118.5, -1);
+    log(` up = ${up}`);
+
+    let av = adjucentValues(data);
+    log(`up = ${av.upBound}, low = ${av.lowBound}`);
+}
+
+function main() {
+    let data =
+        [58,  63,  69,  72,  74,  79,
+         88,  88,  90,  91,  93,  94,
+         97,  97,  99,  99,  99,  100,
+         103, 104, 105, 107, 118, 127];
+    let n = data.length;
+    // for (let i = 1; i <= n; i++) {
+    //     let p = (i - 0.5) / n;
+    //     log(`p = ${p}`);
+    // }
+    let q = quantile(data, 0.6);
+    log(`q(0.6) = ${q}`);
+    q = quantile(data, 0.5);
+    log(`q(0.5) = ${q}`);
+    log(`data IQR=${IQR(data)}`);
+
+}
+// main();
+testFindVal();
+</script>
+</document>
