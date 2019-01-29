@@ -1,12 +1,9 @@
 package il.ac.sce.ir.metric.starter.gui.main.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.NGramTextConfig;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.SimpleTextConfig;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
-import il.ac.sce.ir.metric.starter.gui.main.data.MetricWrapper;
 import il.ac.sce.ir.metric.starter.gui.main.model.AutoSummENGSelectionPanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.model.ReadabilitySelectionPanelModel;

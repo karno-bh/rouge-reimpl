@@ -1,7 +1,6 @@
 package il.ac.sce.ir.metric.core.container.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.utils.Utils;
 

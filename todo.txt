@@ -2,6 +2,25 @@
     CONTINUE:
         1. GUI. Charts
     Done:
+        1. Finished preparations:
+          a. Table will reflect only the average for concrete metric by system
+          b. For the chart panel there will be an option to choose the needed metric (it will be the same as for table...)
+          c. Notched box choice will be the same as for table charts
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Start writing a Project Document.
+        4. Clean tests not to have absolute file paths. (=> need to upload test data)
+        5. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        6. PeerModelPair should be generic and common for all.
+        7. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+        8. Compilation result should be a zip with related structure...
+
+
+2019-01-25
+    CONTINUE:
+        1. GUI. Charts
+    Done:
         1. Notched Box Plot added! As part of it also added:
           a. Statistics quantile findings
           b. Decimal Range Analyzer ( automatically analyze the needed scale from min/max values available...

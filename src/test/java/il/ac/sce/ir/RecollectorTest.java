@@ -12,7 +12,7 @@ public class RecollectorTest {
     @Test
     public void recollectorTest() {
         Configuration c = Configuration.as()
-                .resultDirectory("c:\\my\\learning\\final-project\\rouge-reimpl\\rouge-reimpl\\result\\")
+                .resultDirectory("c:\\my\\learning\\final-project\\git\\rouge-reimpl\\result\\")
                 .build();
         CachedMapRecollector r = new CachedMapRecollector();
         r.setConfiguration(c);
@@ -22,7 +22,7 @@ public class RecollectorTest {
     @Test
     public void storeReducerTest() {
         Configuration c = Configuration.as()
-                .resultDirectory("c:\\my\\learning\\final-project\\rouge-reimpl\\rouge-reimpl\\result\\")
+                .resultDirectory("c:\\my\\learning\\final-project\\git\\rouge-reimpl\\result\\")
                 .build();
         CachedMapRecollector r = new CachedMapRecollector();
         r.setConfiguration(c);
