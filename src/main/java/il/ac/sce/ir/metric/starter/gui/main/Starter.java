@@ -2,6 +2,7 @@ package il.ac.sce.ir.metric.starter.gui.main;
 
 import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
 import il.ac.sce.ir.metric.starter.gui.main.model.AppModel;
+import il.ac.sce.ir.metric.starter.gui.main.panel.applicative.ScrollableAnalyzePanelWrapper;
 import il.ac.sce.ir.metric.starter.gui.main.panel.applicative.ScrollableMetricPanelWrapper;
 import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
@@ -60,14 +61,15 @@ public class Starter {
 
         Dimension listMinimumSpace = new Dimension(150, 400);
         listScroll.setPreferredSize(listMinimumSpace);
-        Dimension mainRightPanelSpace = new Dimension(600, 400);
+        Dimension mainRightPanelSpace = new Dimension(800, 600);
         mainRightPanel.setPreferredSize(mainRightPanelSpace);
         mainRightPanel.setLayout(new GridBagLayout());
 
         runMetricPanel = new ScrollableMetricPanelWrapper(pubSub, modelsManager);
 
-        analyzeResultPanel = new JPanel();
-        analyzeResultPanel.add(new JButton("Bye"));
+        /*analyzeResultPanel = new JPanel();
+        analyzeResultPanel.add(new JButton("Bye"));*/
+        analyzeResultPanel = new ScrollableAnalyzePanelWrapper(pubSub, modelsManager);
         WholeSpaceFiller spaceFiller = new WholeSpaceFiller();
 
         GridBagConstraints metricConstraints = spaceFiller.getFillingConstraints();

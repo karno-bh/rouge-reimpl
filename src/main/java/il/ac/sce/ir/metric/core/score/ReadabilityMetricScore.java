@@ -19,67 +19,101 @@ public class ReadabilityMetricScore implements Serializable, ReportedProperties 
                     Constants.FLESCH_READING_EASE,
                     Constants.PROPER_NOUN_RATION,
                     Constants.UNIQUE_PROPER_NOUN_RATIO,
-                    Constants.WORD_VARIATION_INDEX
+                    Constants.WORD_VARIATION_INDEX,
+                    Constants.AVERAGE_WORD_LENGTH,
+                    Constants.AVERAGE_SENTENCE_LENGTH,
+                    Constants.NOUN_RATIO,
+                    Constants.PRONOUN_RATIO
             )));
 
-    private int wordsNum;
+    private long wordsNum;
 
-    private int uniqueWordsNum;
+    private long charsNum;
 
-    private int sentenceNum;
+    private long uniqueWordsNum;
 
-    private int syllablesNum;
+    private long sentenceNum;
 
-    private int properNounsNum;
+    private long syllablesNum;
 
-    private int uniqueProperNounsNum;
+    private long nounsNum;
 
-    public int getWordsNum() {
+    private long properNounsNum;
+
+    private long uniqueProperNounsNum;
+
+    private long pronounsNum;
+
+    public long getWordsNum() {
         return wordsNum;
     }
 
-    public void setWordsNum(int wordsNum) {
+    public void setWordsNum(long wordsNum) {
         this.wordsNum = wordsNum;
     }
 
-    public int getUniqueWordsNum() {
+    public long getCharsNum() {
+        return charsNum;
+    }
+
+    public void setCharsNum(long charsNum) {
+        this.charsNum = charsNum;
+    }
+
+    public long getUniqueWordsNum() {
         return uniqueWordsNum;
     }
 
-    public void setUniqueWordsNum(int uniqueWordsNum) {
+    public void setUniqueWordsNum(long uniqueWordsNum) {
         this.uniqueWordsNum = uniqueWordsNum;
     }
 
-    public int getSentenceNum() {
+    public long getSentenceNum() {
         return sentenceNum;
     }
 
-    public void setSentenceNum(int sentenceNum) {
+    public void setSentenceNum(long sentenceNum) {
         this.sentenceNum = sentenceNum;
     }
 
-    public int getSyllablesNum() {
+    public long getSyllablesNum() {
         return syllablesNum;
     }
 
-    public void setSyllablesNum(int syllablesNum) {
+    public void setSyllablesNum(long syllablesNum) {
         this.syllablesNum = syllablesNum;
     }
 
-    public int getProperNounsNum() {
+    public long getNounsNum() {
+        return nounsNum;
+    }
+
+    public void setNounsNum(long nounsNum) {
+        this.nounsNum = nounsNum;
+    }
+
+    public long getProperNounsNum() {
         return properNounsNum;
     }
 
-    public void setProperNounsNum(int properNounsNum) {
+    public void setProperNounsNum(long properNounsNum) {
         this.properNounsNum = properNounsNum;
     }
 
-    public int getUniqueProperNounsNum() {
+    public long getUniqueProperNounsNum() {
         return uniqueProperNounsNum;
     }
 
-    public void setUniqueProperNounsNum(int uniqueProperNounsNum) {
+    public void setUniqueProperNounsNum(long uniqueProperNounsNum) {
         this.uniqueProperNounsNum = uniqueProperNounsNum;
+    }
+
+    public long getPronounsNum() {
+        return pronounsNum;
+    }
+
+    public void setPronounsNum(long pronounsNum) {
+        this.pronounsNum = pronounsNum;
     }
 
     public double getFleschReadingEase() {
@@ -87,14 +121,30 @@ public class ReadabilityMetricScore implements Serializable, ReportedProperties 
         double fre = 206.825 -
                 1.015 * ((double) wordsNum / (double) sentenceNum) -
                 84.6 * ((double) syllablesNum / (double) wordsNum);
-        logger.info("getFleschReadingEase: wordsNum = {}, sentenceNum = {}, syllablesNum = {}, fre = {}", wordsNum,
-                sentenceNum, syllablesNum, fre);
+        /*logger.info("getFleschReadingEase: wordsNum = {}, sentenceNum = {}, syllablesNum = {}, fre = {}", wordsNum,
+                sentenceNum, syllablesNum, fre);*/
 
         return fre;
     }
 
     public double getWordVariationIndex() {
         return Math.log10((double) wordsNum) / Math.log10(2 - Math.log10((double) uniqueWordsNum) / Math.log10((double) wordsNum));
+    }
+
+    public double getAverageWordLength() {
+        return (double) charsNum / (double) wordsNum;
+    }
+
+    public double getAverageSentenceLength() {
+        return (double) wordsNum / (double) sentenceNum;
+    }
+
+    public double getNounRatio() {
+        return (double) nounsNum / (double) wordsNum;
+    }
+
+    public double getPronounRatio() {
+        return (double) pronounsNum / (double) wordsNum;
     }
 
     public double getProperNounRation() {

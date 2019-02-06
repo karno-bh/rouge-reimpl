@@ -14,7 +14,7 @@ public class NormalizedFleschReducerTest {
     @Test
     public void normalizeFleschReducerTest() {
         Configuration configuration = Configuration.as()
-                .resultDirectory("c:\\my\\learning\\final-project\\rouge-reimpl\\rouge-reimpl\\result\\")
+                .resultDirectory("result")
                 .build();
         CachedMapRecollector r = new CachedMapRecollector();
         r.setConfiguration(configuration);

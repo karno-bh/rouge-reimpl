@@ -48,5 +48,6 @@ public class ReadabilityMetricScoreTest {
         System.out.println("ProperNounRation: " + readabilityMetricScore.getProperNounRation());
         System.out.println("UniqueProperNounsRatio: " + readabilityMetricScore.getUniqueProperNounsRatio());
         System.out.println("WordVariationIndex: " + readabilityMetricScore.getWordVariationIndex());
+        System.out.println("AverageWordLength: " + readabilityMetricScore.getAverageWordLength());
     }
 }

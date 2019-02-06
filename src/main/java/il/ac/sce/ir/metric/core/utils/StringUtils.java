@@ -14,4 +14,13 @@ public class StringUtils {
     public boolean isEmpty(CharSequence string) {
         return org.apache.commons.lang3.StringUtils.isEmpty(string);
     }
+
+    public String getLastFileInString(String str) {
+        str = str.replace('\\','/');
+        int lastSlash = str.lastIndexOf('/');
+        if (lastSlash > 0) {
+            return str.substring(lastSlash + 1);
+        }
+        return str;
+    }
 }

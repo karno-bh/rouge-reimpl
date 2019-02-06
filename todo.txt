@@ -1,3 +1,20 @@
+2019-02-06
+    CONTINUE:
+        1. GUI. Charts
+    Done:
+        1. "Lost" readability metrics
+        2. Loading all metrics to one big hierarchical report
+        3. Some classes that parses big hierarchical report
+    TODO:
+        1. Add missing libraries with .bat file to load them into local Maven repository
+        2. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        3. Start writing a Project Document.
+        4. Clean tests not to have absolute file paths. (=> need to upload test data)
+        5. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        6. PeerModelPair should be generic and common for all.
+        7. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+        8. Compilation result should be a zip with related structure...
+
 2019-01-29
     CONTINUE:
         1. GUI. Charts

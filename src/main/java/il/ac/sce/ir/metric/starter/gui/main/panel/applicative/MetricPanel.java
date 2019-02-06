@@ -9,6 +9,7 @@ import il.ac.sce.ir.metric.starter.gui.main.panel.common.FileChoosePanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.MetricEnabledPanel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.NamedHeaderPanel;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
+import il.ac.sce.ir.metric.starter.gui.main.util.FullLineFiller;
 import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
@@ -48,24 +49,25 @@ public class MetricPanel extends JPanel {
         setBorder(emptyBorder);
         final Insets lineInsets = new Insets(0, 0, 20, 0);
         //final Insets headerInsets = new Insets(0, 0, 0, 0);
+        FullLineFiller lineFiller = new FullLineFiller();
 
         int y = 0;
-        add(new NamedHeaderPanel("Working Set Directory"), fullLine(y++));
-        GridBagConstraints fileLine = fullLine(y++);
+        add(new NamedHeaderPanel("Working Set Directory"), lineFiller.fullLine(y++));
+        GridBagConstraints fileLine = lineFiller.fullLine(y++);
         fileLine.insets = lineInsets;
         add(workingSetDirectoryChooserPanel, fileLine);
 
-        add(new NamedHeaderPanel("Rouge"), fullLine(y++));
-        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), fullLine(y++));
-        add(new RougeSelectionPanel(pubSub, modelsManager), fullLine(y++));
+        add(new NamedHeaderPanel("Rouge"), lineFiller.fullLine(y++));
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), lineFiller.fullLine(y++));
+        add(new RougeSelectionPanel(pubSub, modelsManager), lineFiller.fullLine(y++));
 
-        add(new NamedHeaderPanel("Readability"), fullLine(y++));
-        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_READABILITY_METRIC_SELECTED), fullLine(y++));
-        add(new ReadabilitySelectionPanel(pubSub, modelsManager), fullLine(y++));
+        add(new NamedHeaderPanel("Readability"), lineFiller.fullLine(y++));
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_READABILITY_METRIC_SELECTED), lineFiller.fullLine(y++));
+        add(new ReadabilitySelectionPanel(pubSub, modelsManager), lineFiller.fullLine(y++));
 
-        add(new NamedHeaderPanel("Auto Summ ENG"), fullLine(y++));
-        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_AUTO_SUMM_ENG_METRIC_SELECTED), fullLine(y++));
-        add(new AutoSummENGSelectionPanel(pubSub, modelsManager), fullLine(y++));
+        add(new NamedHeaderPanel("Auto Summ ENG"), lineFiller.fullLine(y++));
+        add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_AUTO_SUMM_ENG_METRIC_SELECTED), lineFiller.fullLine(y++));
+        add(new AutoSummENGSelectionPanel(pubSub, modelsManager), lineFiller.fullLine(y++));
 
         /*for (int i = 1; i < 150; i++) {
             GridBagConstraints dummy = new GridBagConstraints();
@@ -104,15 +106,6 @@ public class MetricPanel extends JPanel {
     private void goButtonClicked(ActionEvent actionEvent) {
         GoButtonClickEvent goButtonClickEvent = new GoButtonClickEvent();
         pubSub.publish(goButtonClickEvent);
-    }
-
-    private GridBagConstraints fullLine(int lineY) {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = lineY;
-        constraints.weightx = 1;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        return constraints;
     }
 
 }

@@ -25,7 +25,7 @@ public class PubSub {
         Class<? extends Event> aClass = event.getClass();
         List<Consumer<Event>> consumers = listeners.get(aClass);
         if (consumers == null || consumers.isEmpty()) {
-            throw new IllegalStateException("Trying to publish event that has no subscription. Check your application logic");
+            throw new IllegalStateException("Trying to publish an event that has no subscription. Check your application logic");
         }
 
         for (Consumer<Event> consumer : consumers) {

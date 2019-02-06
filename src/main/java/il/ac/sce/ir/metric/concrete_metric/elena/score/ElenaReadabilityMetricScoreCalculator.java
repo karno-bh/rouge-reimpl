@@ -46,9 +46,12 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
 
         Set<String> uniqueWords = new HashSet<>();
         Set<String> uniqueProperNouns = new HashSet<>();
-        int wordsNum = 0;
-        int sentencesNum = 0;
-        int properNouns = 0;
+        long wordsNum = 0;
+        long sentencesNum = 0;
+        long properNouns = 0;
+        long charsNum = 0;
+        long nouns = 0;
+        long pronouns = 0;
         StringUtils stringUtils = new StringUtils();
         for (CoreMap sentence : sentences) {
             for (CoreLabel token: sentence.get(CoreAnnotations.TokensAnnotation.class)) {
@@ -58,13 +61,22 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
                 String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
                 // this is the NER label of the token
                 // String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
-
+                charsNum += word.length();
                 if (!stringUtils.contains(word, ",", ".", "?", "!", "'")) {
                     wordsNum++;
                     uniqueWords.add(word);
+                    // proper noun or proper noun in plural
                     if (pos.contains("NNP")) {
                         properNouns++;
                         uniqueProperNouns.add(word);
+                    }
+                    // nouns or plural nouns
+                    if (pos.contains("NN")) {
+                        nouns++;
+                    }
+                    // all pronouns: personal + wh-pronouns
+                    if (pos.contains("PRP") || pos.contains("WP")) {
+                        pronouns++;
                     }
                 }
             }
@@ -78,8 +90,11 @@ public class ElenaReadabilityMetricScoreCalculator implements ReadabilityMetrics
         ReadabilityMetricScore readabilityMetricScore = new ReadabilityMetricScore();
         readabilityMetricScore.setSentenceNum(sentencesNum);
         readabilityMetricScore.setWordsNum(wordsNum);
+        readabilityMetricScore.setCharsNum(charsNum);
         readabilityMetricScore.setSyllablesNum(syllablesNum);
+        readabilityMetricScore.setNounsNum(nouns);
         readabilityMetricScore.setProperNounsNum(properNouns);
+        readabilityMetricScore.setPronounsNum(pronouns);
         readabilityMetricScore.setUniqueProperNounsNum(uniqueProperNouns.size());
         readabilityMetricScore.setUniqueWordsNum(uniqueWords.size());
 

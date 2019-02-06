@@ -29,11 +29,19 @@ public interface Constants {
     String READABILITY_PRE_CACHE = "readability_pre_cache";
     String GEORGE_GRAPH_METRIC_LOWER_CASE = "george_graph_metric";
     String AUTO_SUMM_ENG_LOWER_CASE = "auto_summ_eng";
-    String[] METRICS_FOR_SYSTEM = {
+    String[] METRICS_FOR_SYSTEM_TO_BE_REDUCED = {
             /*ROUGEN_LOWER_CASE,
             ROUGES_LOWER_CASE,
             ROUGEL_LOWER_CASE,
             ROUGEW_LOWER_CASE,*/
+            ELENA_READABILITY_LOWER_CASE,
+            ELENA_TOPICS_READABILITY_LOWER_CASE,
+    };
+    String[] METRICS_WITH_CATEGORY_SYSTEM_METRIC_FORMAT = {
+            ROUGEN_LOWER_CASE,
+            ROUGES_LOWER_CASE,
+            ROUGEW_LOWER_CASE,
+            ROUGEL_LOWER_CASE,
             ELENA_READABILITY_LOWER_CASE,
             ELENA_TOPICS_READABILITY_LOWER_CASE,
     };
@@ -50,6 +58,7 @@ public interface Constants {
     String SYSTEM = "system";
     String PEER = "peer";
     String TOPIC = "topic";
+    String VIRTUAL_TOPIC_SYSTEM = "__topic__";
     String MODEL = "model";
     String CSV_EXTENSION = ".csv";
 
@@ -59,6 +68,14 @@ public interface Constants {
     String UNIQUE_PROPER_NOUN_RATIO = "uniqueProperNounsRatio";
     String WORD_VARIATION_INDEX = "wordVariationIndex";
     String WORD_VARIATION_INDEX_NORMALIZED = "wordVariationIndexNormalized";
+    String AVERAGE_WORD_LENGTH = "averageWordLength";
+    String AVERAGE_WORD_LENGTH_NORMALIZED = "averageWordLengthNormalized";
+    String AVERAGE_SENTENCE_LENGTH = "averageSentenceLength";
+    String AVERAGE_SENTENCE_LENGTH_NORMALIZED = "averageSentenceLengthNormalized";
+    String NOUN_RATIO = "nounRatio";
+    String NOUN_RATIO_NORMALIZED = "nounRatioNormalized";
+    String PRONOUN_RATIO = "pronounRatio";
+    String PRONOUN_RATIO_NORMALIZED = "pronounRatioNormalized";
 
 
     String PRECISION = "precision";

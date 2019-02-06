@@ -29,6 +29,8 @@ public class NormalizeFleschRedabilityAndWordVariationByCorpus implements Reduce
         Map<String, Object> storeData = store.getStore();
         final double[] minMaxFlesch = {Double.MAX_VALUE, Double.MIN_VALUE};
         final double[] minMaxWordVariation = {Double.MAX_VALUE, Double.MIN_VALUE};
+        final double[] minMaxAverageWordLength = {Double.MAX_VALUE, Double.MIN_VALUE};
+        final double[] minMaxAverageSentenceLength = {Double.MAX_VALUE, Double.MIN_VALUE};
         final int min = 0;
         final int max = 1;
         storeData.forEach((category, systemOrTopicRawData) -> {
@@ -58,6 +60,24 @@ public class NormalizeFleschRedabilityAndWordVariationByCorpus implements Reduce
                             if (wordVariationIndex > minMaxWordVariation[max]) {
                                 minMaxWordVariation[max] = wordVariationIndex;
                             }
+
+                            String averageWordLengthRaw = metricRow.get(Constants.AVERAGE_WORD_LENGTH);
+                            double averageWordLength = Double.parseDouble(averageWordLengthRaw);
+                            if (averageWordLength < minMaxAverageWordLength[min]) {
+                                minMaxAverageWordLength[min] = averageWordLength;
+                            }
+                            if (averageWordLength > minMaxAverageWordLength[max]) {
+                                minMaxAverageWordLength[max] = averageWordLength;
+                            }
+
+                            String averageSentenceLengthRaw = metricRow.get(Constants.AVERAGE_SENTENCE_LENGTH);
+                            double averageSentenceLength = Double.parseDouble(averageSentenceLengthRaw);
+                            if (averageSentenceLength < minMaxAverageSentenceLength[min]) {
+                                minMaxAverageSentenceLength[min] = averageSentenceLength;
+                            }
+                            if (averageSentenceLength > minMaxAverageSentenceLength[max]) {
+                                minMaxAverageSentenceLength[max] = averageSentenceLength;
+                            }
                         });
                     }
                     // System.out.println(metricData);
@@ -69,6 +89,8 @@ public class NormalizeFleschRedabilityAndWordVariationByCorpus implements Reduce
 
         RangeMapper fleschNormalizerByWholeCorpus = new RangeMapper(minMaxFlesch[min], minMaxFlesch[max], 0, 1);
         RangeMapper wordVariationIndexNormalizerByWholeCorpus = new RangeMapper(minMaxWordVariation[min], minMaxWordVariation[max], 0, 1);
+        RangeMapper averageWordLengthNormalizedByWholeCorpus = new RangeMapper(minMaxAverageWordLength[min], minMaxAverageWordLength[max], 0, 1);
+        RangeMapper averageSentenceLengthNormalizedByWholeCorpus = new RangeMapper(minMaxAverageSentenceLength[min], minMaxAverageSentenceLength[max], 0, 1);
 
         storeDataClone.forEach((category, systemOrTopicRawData) -> {
             Map<String, Object> systemOrTopicData = (Map<String, Object>) systemOrTopicRawData;
@@ -86,8 +108,18 @@ public class NormalizeFleschRedabilityAndWordVariationByCorpus implements Reduce
 
                             String wordVariationIndexRaw = metricRow.get(Constants.WORD_VARIATION_INDEX);
                             double wordVariationIndex = Double.parseDouble(wordVariationIndexRaw);
-                            double normalizedwordVariationIndex = wordVariationIndexNormalizerByWholeCorpus.map(wordVariationIndex);
-                            metricRow.put(Constants.WORD_VARIATION_INDEX_NORMALIZED, "" + normalizedwordVariationIndex);
+                            double normalizedWordVariationIndex = wordVariationIndexNormalizerByWholeCorpus.map(wordVariationIndex);
+                            metricRow.put(Constants.WORD_VARIATION_INDEX_NORMALIZED, "" + normalizedWordVariationIndex);
+
+                            String averageWordLengthRaw = metricRow.get(Constants.AVERAGE_WORD_LENGTH);
+                            double averageWordLength = Double.parseDouble(averageWordLengthRaw);
+                            double normalizedAverageWordLength = averageWordLengthNormalizedByWholeCorpus.map(averageWordLength);
+                            metricRow.put(Constants.AVERAGE_WORD_LENGTH_NORMALIZED, "" + normalizedAverageWordLength);
+
+                            String averageSentenceLengthRaw = metricRow.get(Constants.AVERAGE_SENTENCE_LENGTH);
+                            double averageSentenceLength = Double.parseDouble(averageSentenceLengthRaw);
+                            double normalizedAverageSentenceLength = averageSentenceLengthNormalizedByWholeCorpus.map(averageSentenceLength);
+                            metricRow.put(Constants.AVERAGE_SENTENCE_LENGTH_NORMALIZED, "" + normalizedAverageSentenceLength);
                         });
                         // System.out.println(metricData);
                     }
