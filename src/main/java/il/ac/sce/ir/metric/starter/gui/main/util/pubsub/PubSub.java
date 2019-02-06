@@ -1,12 +1,10 @@
 package il.ac.sce.ir.metric.starter.gui.main.util.pubsub;
 
+import il.ac.sce.ir.metric.core.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class PubSub {
@@ -18,6 +16,11 @@ public class PubSub {
     public<T extends Event> void subscribe(Class<T> category, Consumer<T> consumer) {
         List<Consumer<Event>> consumers = listeners.computeIfAbsent(category, c -> new ArrayList<>());
         consumers.add((Consumer<Event>) consumer);
+    }
+
+    public<T extends Event> void unsubscribe(Class<T> category, Consumer<T> consumer) {
+        List<Consumer<Event>> consumers = listeners.get(category);
+        consumers.removeIf(registered -> registered.equals(consumer));
     }
 
     public void publish(Event event) {

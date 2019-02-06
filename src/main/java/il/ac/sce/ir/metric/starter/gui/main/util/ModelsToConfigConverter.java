@@ -82,8 +82,8 @@ public class ModelsToConfigConverter {
         workingSetDirectory = correctWindowsDriveLetters(workingSetDirectory);
         String containerClass = "il.ac.sce.ir.metric.starter.command_line.main.container.DefaultContainerImpl";
         String mainAlgoClass = "il.ac.sce.ir.metric.starter.command_line.main.container.algo.MainAlgoDefaultImpl";
-        String resultDirectory = "result";
-        String cacheDirectory = "cache";
+        String resultDirectory = Constants.RESULT_DIRECTORY_DEFAULT;
+        String cacheDirectory = Constants.CACHE_DIRECTORY_DEFAULT;
         List<String> postMetricProcesing = Arrays.asList(
                 Constants.NORMALIZE_FLESCH_AND_WORD_VARIATION_REDUCER, Constants.SAVE_TO_CSV_REDUCER);
         Configuration.Mirror configurationMirror = Configuration.as()

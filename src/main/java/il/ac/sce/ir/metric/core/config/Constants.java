@@ -18,6 +18,7 @@ public interface Constants {
     String POST_METRICS_PROCESSING = "postMetricsProcessing";
     String GEORGE_GRAPH_METRIC_CONFIG = "georgeGraphMetricConfig";
 
+    String ROUGE_LOWER_CASE = "rouge";
     String ROUGEN_LOWER_CASE = "rougen";
     String ROUGEL_LOWER_CASE = "rougel";
     String ROUGEW_LOWER_CASE = "rougew";
@@ -73,10 +74,24 @@ public interface Constants {
     String AVERAGE_SENTENCE_LENGTH = "averageSentenceLength";
     String AVERAGE_SENTENCE_LENGTH_NORMALIZED = "averageSentenceLengthNormalized";
     String NOUN_RATIO = "nounRatio";
-    String NOUN_RATIO_NORMALIZED = "nounRatioNormalized";
+    // String NOUN_RATIO_NORMALIZED = "nounRatioNormalized";
     String PRONOUN_RATIO = "pronounRatio";
-    String PRONOUN_RATIO_NORMALIZED = "pronounRatioNormalized";
+    // String PRONOUN_RATIO_NORMALIZED = "pronounRatioNormalized";
 
+    String[] ELENA_READABILITY_SUB_METRICS = {
+            FLESCH_READING_EASE,
+            FLESCH_READING_EASE_NORMALIZED,
+            PROPER_NOUN_RATION,
+            UNIQUE_PROPER_NOUN_RATIO,
+            WORD_VARIATION_INDEX,
+            WORD_VARIATION_INDEX_NORMALIZED,
+            AVERAGE_WORD_LENGTH,
+            AVERAGE_WORD_LENGTH_NORMALIZED,
+            AVERAGE_SENTENCE_LENGTH,
+            AVERAGE_SENTENCE_LENGTH_NORMALIZED,
+            NOUN_RATIO,
+            PRONOUN_RATIO
+    };
 
     String PRECISION = "precision";
     String RECALL = "recall";
@@ -109,6 +124,16 @@ public interface Constants {
     String AUTO_SUMM_ENG_HISTO_SIZE = "HistoSize";
     String AUTO_SUMM_ENG_HISTO_OVERALL_SIMIL = "OverallSimil";
 
+    String[] AUTO_SUMM_ENG_WORD_SUB_METRICS = {
+            AUTO_SUMM_ENG_GRAPH_COOCCURENCE,
+            AUTO_SUMM_ENG_GRAPH_VALUE,
+            AUTO_SUMM_ENG_GRAPH_SIZE,
+            AUTO_SUMM_ENG_HISTO_CONTAINMENT_SIMILARITY,
+            AUTO_SUMM_ENG_HISTO_VALUE,
+            AUTO_SUMM_ENG_HISTO_SIZE,
+            AUTO_SUMM_ENG_HISTO_OVERALL_SIMIL
+    };
+
     String AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE = "CharGraphValue";
     String AUTO_SUMM_ENG_CHAR_GRAPH_VALUE = "CharGraphValue";
     String AUTO_SUMM_ENG_CHAR_GRAPH_SIZE = "CharGraphSize";
@@ -117,10 +142,23 @@ public interface Constants {
     String AUTO_SUMM_ENG_N_HISTO_SIZE = "NHistoSize";
     String AUTO_SUMM_ENG_N_HISTO_OVERALL_SIMIL = "NOverallSimil";
 
+    String[] AUTO_SUMM_ENG_CHAR_SUB_METRICS = {
+            AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE,
+            AUTO_SUMM_ENG_CHAR_GRAPH_VALUE,
+            AUTO_SUMM_ENG_CHAR_GRAPH_SIZE,
+            AUTO_SUMM_ENG_N_HISTO_CONTAINMENT_SIMILARITY,
+            AUTO_SUMM_ENG_N_HISTO_VALUE,
+            AUTO_SUMM_ENG_N_HISTO_SIZE,
+            AUTO_SUMM_ENG_N_HISTO_OVERALL_SIMIL,
+    };
+
     String AUTO_SUMM_ENG_WORDS = "autoSummENGWords";
     String AUTO_SUMM_ENG_CHARS = "autoSummENGChars";
 
     String MIN = "min";
     String MAX = "max";
     String DIST = "dist";
+
+    String RESULT_DIRECTORY_DEFAULT = "result";
+    String CACHE_DIRECTORY_DEFAULT = "cache";
 }
