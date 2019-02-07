@@ -17,7 +17,7 @@ public class ReadabilityMetricScore implements Serializable, ReportedProperties 
     private static final Set<String> REPORTED_PROPERTIES = Collections.unmodifiableSet(
             new HashSet<>(Arrays.asList(
                     Constants.FLESCH_READING_EASE,
-                    Constants.PROPER_NOUN_RATION,
+                    Constants.PROPER_NOUN_RATIO,
                     Constants.UNIQUE_PROPER_NOUN_RATIO,
                     Constants.WORD_VARIATION_INDEX,
                     Constants.AVERAGE_WORD_LENGTH,
@@ -147,7 +147,7 @@ public class ReadabilityMetricScore implements Serializable, ReportedProperties 
         return (double) pronounsNum / (double) wordsNum;
     }
 
-    public double getProperNounRation() {
+    public double getProperNounRatio() {
         return (double) properNounsNum / (double) wordsNum;
     }
 

@@ -32,4 +32,13 @@ public class ResultsMetricHierarchyAnalyzerTest {
         });
     }
 
+
+    @Test
+    public void calculateSystemAveragesTest() {
+        KnownMetricFormatsHierarchicalOrganizer organizer = new KnownMetricFormatsHierarchicalOrganizer();
+        Map<String, Object> metricHierarchy = organizer.organize("result", "result/reduced");
+        ResultsMetricHierarchyAnalyzer analyzer = new ResultsMetricHierarchyAnalyzer(metricHierarchy);
+        analyzer.calculateDerivatives();
+    }
+
 }

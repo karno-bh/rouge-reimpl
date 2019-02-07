@@ -45,7 +45,7 @@ public class ReadabilityMetricScoreTest {
 
         ReadabilityMetricScore readabilityMetricScore = readabilityMetricScoreReporter.computeScore(peer1);
         System.out.println("FleschReadingEase: " + readabilityMetricScore.getFleschReadingEase());
-        System.out.println("ProperNounRation: " + readabilityMetricScore.getProperNounRation());
+        System.out.println("ProperNounRation: " + readabilityMetricScore.getProperNounRatio());
         System.out.println("UniqueProperNounsRatio: " + readabilityMetricScore.getUniqueProperNounsRatio());
         System.out.println("WordVariationIndex: " + readabilityMetricScore.getWordVariationIndex());
         System.out.println("AverageWordLength: " + readabilityMetricScore.getAverageWordLength());

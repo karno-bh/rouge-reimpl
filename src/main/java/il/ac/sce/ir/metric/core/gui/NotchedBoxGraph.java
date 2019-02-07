@@ -22,7 +22,7 @@ public class NotchedBoxGraph extends JPanel {
 
     private String graphName;
 
-    private int borderPx;
+    private int borderPx = 40;
 
     public NotchedBoxGraph() {}
 
@@ -48,7 +48,7 @@ public class NotchedBoxGraph extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(600, 300);
+        return new Dimension(800, 600);
     }
 
     @Override

@@ -8,6 +8,7 @@ import il.ac.sce.ir.metric.starter.gui.main.event.model_event.AnalyzePanelModelE
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,8 +47,9 @@ public class AnalyzePanelModel implements AppModel {
         if (GUIConstants.EVENT_RESULT_DIRECTORY_CHOSE_PANEL.equals(event.getSource()) && chosenDirectory != null) {
             setChosenResultDirectory(chosenDirectory);
             KnownMetricFormatsHierarchicalOrganizer organizer = new KnownMetricFormatsHierarchicalOrganizer();
-            Map<String, Object> metricHierarchy = organizer.organize(chosenDirectory, Constants.REDUCERS_DUMP_DIRECTORY);
+            Map<String, Object> metricHierarchy = organizer.organize(chosenDirectory, chosenDirectory + File.separator + Constants.REDUCERS_DUMP_DIRECTORY);
             ResultsMetricHierarchyAnalyzer analyzer = new ResultsMetricHierarchyAnalyzer(metricHierarchy);
+            analyzer.calculateDerivatives();
             setResultsMetricHierarchyAnalyzer(analyzer);
             publishSelf();
         }

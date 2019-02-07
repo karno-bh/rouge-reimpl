@@ -65,7 +65,7 @@ public interface Constants {
 
     String FLESCH_READING_EASE = "fleschReadingEase";
     String FLESCH_READING_EASE_NORMALIZED = "fleschReadingEaseNormalized";
-    String PROPER_NOUN_RATION = "properNounRatio";
+    String PROPER_NOUN_RATIO = "properNounRatio";
     String UNIQUE_PROPER_NOUN_RATIO = "uniqueProperNounsRatio";
     String WORD_VARIATION_INDEX = "wordVariationIndex";
     String WORD_VARIATION_INDEX_NORMALIZED = "wordVariationIndexNormalized";
@@ -81,7 +81,7 @@ public interface Constants {
     String[] ELENA_READABILITY_SUB_METRICS = {
             FLESCH_READING_EASE,
             FLESCH_READING_EASE_NORMALIZED,
-            PROPER_NOUN_RATION,
+            PROPER_NOUN_RATIO,
             UNIQUE_PROPER_NOUN_RATIO,
             WORD_VARIATION_INDEX,
             WORD_VARIATION_INDEX_NORMALIZED,
@@ -97,6 +97,11 @@ public interface Constants {
     String RECALL = "recall";
     String ALPHA = "alpha";
     String F1_MEASURE = "f1Measure";
+    String[] ROUGE_SUB_METRICS = {
+            PRECISION,
+            RECALL,
+            F1_MEASURE
+    };
 
     String REDUCERS_DUMP_DIRECTORY = "reduced";
 

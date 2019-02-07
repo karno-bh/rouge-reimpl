@@ -22,6 +22,8 @@ public class Starter {
     private final ModelsManager modelsManager;
     private final DefaultGUIMessages guiMessages;
 
+    private static JFrame topLevelFrame;
+
     private final JFrame mainFrame;
     private final JList sectionsList;
     private final JScrollPane listScroll;
@@ -42,6 +44,7 @@ public class Starter {
 
         Map<String, String> messages = guiMessages.getMessages();
         mainFrame = new JFrame();
+        topLevelFrame = mainFrame;
         mainFrame.setTitle(messages.get(GUIConstants.MAIN_TITLE_NAME));
         sectionsList = new JList(new Object[] {
                 messages.get(GUIConstants.SECTION_RUN_METRICS),
@@ -130,5 +133,9 @@ public class Starter {
             Starter starter = new Starter(args);
             starter.getModelsManager().publishAll();
         });
+    }
+
+    public static JFrame getTopLevelFrame() {
+        return topLevelFrame;
     }
 }

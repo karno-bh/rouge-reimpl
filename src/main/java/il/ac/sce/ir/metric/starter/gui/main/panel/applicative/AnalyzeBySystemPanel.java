@@ -1,16 +1,27 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
+import il.ac.sce.ir.metric.core.gui.data.MultiNotchedBoxData;
+import il.ac.sce.ir.metric.core.gui.data.Table;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
+import il.ac.sce.ir.metric.starter.gui.main.Starter;
+import il.ac.sce.ir.metric.starter.gui.main.element.SystemMetricSubMetricCheckBox;
+import il.ac.sce.ir.metric.starter.gui.main.util.Caret;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.util.*;
+import java.util.List;
 
 public class AnalyzeBySystemPanel extends JPanel {
 
@@ -23,6 +34,8 @@ public class AnalyzeBySystemPanel extends JPanel {
     private final JButton barChartButton;
 
     private final JButton notchedBoxButton;
+
+    private final Map<String, Map<String, Boolean>> selectedMetrics = new HashMap<>();
 
     public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer) {
         this.category = category;
@@ -41,12 +54,12 @@ public class AnalyzeBySystemPanel extends JPanel {
             add(metricPanel, systemPanelConstraints);
         }
         y = 1000;
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new GridBagLayout());
+        JPanel analyzeButtonsPanel = new JPanel();
+        analyzeButtonsPanel.setLayout(new GridBagLayout());
         WholeSpaceFiller wholeSpaceFiller = new WholeSpaceFiller();
         GridBagConstraints buttonsPanelSpringConstraints = wholeSpaceFiller.getFillingConstraints();
         JPanel buttonsPanelSpring = new JPanel();
-        buttonsPanel.add(buttonsPanelSpring, buttonsPanelSpringConstraints);
+        analyzeButtonsPanel.add(buttonsPanelSpring, buttonsPanelSpringConstraints);
         int buttonsPanelX = 1;
 
         Insets buttonInsets = new Insets(20,0,0,10);
@@ -56,21 +69,26 @@ public class AnalyzeBySystemPanel extends JPanel {
         tableButtonConstraints.insets = buttonInsets;
 
         tableButton = new JButton("Table");
-        buttonsPanel.add(tableButton, tableButtonConstraints);
+        tableButton.addActionListener(this::onTableButtonClicked);
+        analyzeButtonsPanel.add(tableButton, tableButtonConstraints);
 
         barChartButton = new JButton("Bar Chart");
+        barChartButton.addActionListener(this::onBarChartButtonClicked);
         tableButtonConstraints.gridx = buttonsPanelX++;
-        buttonsPanel.add(barChartButton, tableButtonConstraints);
+        analyzeButtonsPanel.add(barChartButton, tableButtonConstraints);
 
         notchedBoxButton = new JButton("Notched Boxes");
+        notchedBoxButton.addActionListener(this::onNotchedBoxButtonClicked);
         // tableButtonConstraints = new GridBagConstraints();
         tableButtonConstraints.gridx = buttonsPanelX++;
         tableButtonConstraints.insets.right = 0;
-        buttonsPanel.add(notchedBoxButton, tableButtonConstraints);
+        analyzeButtonsPanel.add(notchedBoxButton, tableButtonConstraints);
 
         GridBagConstraints buttonsPanelConstraints = wholeSpaceFiller.getFillingConstraints();
         buttonsPanelConstraints.gridy = y++;
-        add(buttonsPanel, buttonsPanelConstraints);
+        add(analyzeButtonsPanel, buttonsPanelConstraints);
+
+
     }
 
     private java.util.List<JPanel> constructMetricFilterPanel(Set<String> systems) {
@@ -85,19 +103,137 @@ public class AnalyzeBySystemPanel extends JPanel {
         Set<String> availableSystemMetrics = new TreeSet<>(analyzer.getAvailableSystemMetrics(category, nonVirtualSystem));
         for (String availableSystemMetric : availableSystemMetrics) {
             TitledBorder titledBorder = BorderFactory.createTitledBorder(availableSystemMetric);
-            JPanel panel = new JPanel();
-            panel.setBorder(titledBorder);
+            JPanel availableSystemMetricPanel = new JPanel();
+            availableSystemMetricPanel.setBorder(titledBorder);
+            availableSystemMetricPanel.setLayout(new GridBagLayout());
+            JPanel availableSystemMetricPanelSpring = new JPanel();
+            WholeSpaceFiller wholeSpaceFiller = new WholeSpaceFiller();
+            GridBagConstraints springConstraints = wholeSpaceFiller.getFillingConstraints();
+            springConstraints.gridx = 1000;
+            availableSystemMetricPanel.add(availableSystemMetricPanelSpring, springConstraints);
             Set<String> availableSubMetrics = analyzer.getAvailableSubMetric(category, nonVirtualSystem, availableSystemMetric);
+            Caret caret = new Caret(0,0,8);
+            Insets insets = new Insets(4,0, 0,4 );
             for (String availableSubMetric : availableSubMetrics) {
-                panel.add(new JLabel(availableSubMetric));
+                // System.out.println("availableSystemMetric: " + availableSystemMetric + " availableSubMetric: " + availableSubMetric);
+                for (int i = 0; i < 2; i++) {
+                    int x = caret.getX(), y = caret.getY();
+                    JComponent comp;
+                    if (x % 2 == 0) {
+                        comp = new JLabel(availableSubMetric);
+                    } else {
+                        SystemMetricSubMetricCheckBox checkBox = new SystemMetricSubMetricCheckBox();
+                        checkBox.setMetric(availableSystemMetric);
+                        checkBox.setSubMetric(availableSubMetric);
+                        checkBox.addItemListener(this::onCheckBoxChanged);
+                        Map<String, Boolean> subMetricValues = selectedMetrics.computeIfAbsent(availableSystemMetric, k -> new HashMap<>());
+                        subMetricValues.put(availableSubMetric, false);
+                        comp = checkBox;
+                    }
+                    GridBagConstraints constraints = new GridBagConstraints();
+                    constraints.gridx = x;
+                    constraints.gridy = y;
+                    constraints.insets = insets;
+                    constraints.anchor = GridBagConstraints.EAST;
+                    availableSystemMetricPanel.add(comp, constraints);
+                    caret.next();
+                }
+                // availableSystemMetricPanel.add(new JLabel(availableSubMetric));
             }
-            metricPanels.add(panel);
+            metricPanels.add(availableSystemMetricPanel);
         }
-
 
         return metricPanels;
     }
 
+    private void onCheckBoxChanged(ItemEvent event) {
+        SystemMetricSubMetricCheckBox source = (SystemMetricSubMetricCheckBox)event.getSource();
+        // System.out.println("Metric: " + source.getMetric() + " Sub Metric: " + source.getSubMetric());
+        Map<String, Boolean> subMetrics = selectedMetrics.get(source.getMetric());
+        subMetrics.put(source.getSubMetric(), event.getStateChange() == ItemEvent.SELECTED);
+    }
 
+    private void onTableButtonClicked(ActionEvent event) {
+        Table table = analyzer.asAverageTable(category, selectedMetrics);
+        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Table View");
+        JTable systemsSummary = new JTable(table);
+        systemsSummary.setFillsViewportHeight(true);
+        systemsSummary.setAutoCreateRowSorter(true);
+        systemsSummary.setPreferredScrollableViewportSize(new Dimension(800, 600));
+        jDialog.add(new JScrollPane(systemsSummary));
+        jDialog.pack();
+        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setVisible(true);
+    }
+
+    private void onBarChartButtonClicked(ActionEvent event) {
+        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Bar Chart View");
+        CategoryDataset categoryDataset = analyzer.asAverageCategoryDataset(category, selectedMetrics);
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Average Metric Values By System",
+                "Metric",
+                "Metric Value",
+                categoryDataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+        jDialog.add(chartPanel);
+        jDialog.pack();
+        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setVisible(true);
+    }
+
+    private void onNotchedBoxButtonClicked(ActionEvent event) {
+        JPanel innerDialogPanel = new JPanel();
+        innerDialogPanel.setLayout(new GridBagLayout());
+        Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
+        Map<String, String> flattenedDataLegend = new HashMap<>();
+        Table table = new Table();
+        List<String> header = Arrays.asList("Metric", "Label");
+        table.setColumns(header);
+        int j = 1;
+        for (String flattenedDataKey : flattenedData.keySet()) {
+            List<Object> tableRow = new ArrayList<>();
+            tableRow.add(flattenedDataKey);
+            tableRow.add(j);
+            table.addRow(tableRow);
+
+            flattenedDataLegend.put(flattenedDataKey, "(" + j++ + ")");
+        }
+
+        MultiNotchedBoxData multiNotchedBoxData = new MultiNotchedBoxData(true);
+        flattenedData.forEach((compoundKey,values) -> {
+            double[] asDoubleArr = new double[values.size()];
+            for(int i = 0; i < asDoubleArr.length; i++) {
+                asDoubleArr[i] = values.get(i);
+            }
+            multiNotchedBoxData.add(flattenedDataLegend.get(compoundKey), asDoubleArr);
+        });
+
+        NotchedBoxGraph notchedBoxGraph = new NotchedBoxGraph();
+        notchedBoxGraph.setGraphName("Metrics Notched Boxes");
+        notchedBoxGraph.setMultiNotchedBoxData(multiNotchedBoxData);
+
+        WholeSpaceFiller wholeSpaceFiller = new WholeSpaceFiller();
+        GridBagConstraints notchBoxConstraints = wholeSpaceFiller.getFillingConstraints();
+        innerDialogPanel.add(notchedBoxGraph, notchBoxConstraints);
+
+        JTable legendTable = new JTable(table);
+        legendTable.setFillsViewportHeight(true);
+        legendTable.setAutoCreateRowSorter(true);
+        legendTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
+
+        GridBagConstraints legendConstraints  = new GridBagConstraints();
+        legendConstraints.gridy = 1;
+        legendConstraints.fill = GridBagConstraints.BOTH;
+        innerDialogPanel.add(new JScrollPane(legendTable), legendConstraints);
+
+        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Notched Boxes View");
+        jDialog.add(innerDialogPanel);
+        jDialog.pack();
+        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setVisible(true);
+    }
 
 }
