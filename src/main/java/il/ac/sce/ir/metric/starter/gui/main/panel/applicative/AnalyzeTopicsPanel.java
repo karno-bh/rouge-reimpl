@@ -1,6 +1,5 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.gui.data.Table;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
@@ -13,7 +12,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
-import salvo.jesus.graph.visual.layout.Grid;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
