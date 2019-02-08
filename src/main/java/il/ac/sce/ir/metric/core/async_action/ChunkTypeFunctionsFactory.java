@@ -22,7 +22,7 @@ public class ChunkTypeFunctionsFactory {
             case TOPIC:
                 return chunk -> {
                     MessageFormat keyFormat = new MessageFormat("{0}_{1}_{2}");
-                    String realTopic = chunk.getTopic().substring(0, 4);
+                    String realTopic = chunk.getTopic().substring(0, chunk.getTopic().indexOf('.'));
                     return keyFormat.format(new Object[]{
                             chunk.getProcessedCategory().getDirLocation(),
                             realTopic,

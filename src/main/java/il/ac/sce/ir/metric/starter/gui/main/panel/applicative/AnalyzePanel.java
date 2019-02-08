@@ -84,7 +84,9 @@ public class AnalyzePanel extends JPanel {
         }
         categoryAnalyzePanelMap = new HashMap<>();
         availableSystems.forEach((category, systems) -> {
-            ScrollableCategoryAnalyzePanelWrapper panel = new ScrollableCategoryAnalyzePanelWrapper(pubSub, category, resultsMetricHierarchyAnalyzer);
+            ScrollableCategoryAnalyzePanelWrapper panel = new ScrollableCategoryAnalyzePanelWrapper(pubSub, category,
+                    resultsMetricHierarchyAnalyzer,
+                    event.getModel().getChosenResultDirectory());
             categoriesTab.addTab(category, panel);
             panel.subscribe();
         });

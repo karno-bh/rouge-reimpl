@@ -65,7 +65,7 @@ public class CommonChunkFileReporter {
         String middle;
         switch (processedChunk.getChunkType()) {
             case TOPIC:
-                middle = topic.substring(0, 4);
+                middle = topic.substring(0, topic.indexOf('.'));
                 break;
             case PEER_MULTI_MODEL:
                 middle = processedSystem.getDescription().trim();

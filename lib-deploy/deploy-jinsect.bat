@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=JInsect.jar -DgroupId=demokritos -DartifactId=jinsect -Dversion=1.0 -Dpackaging=jar

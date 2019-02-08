@@ -1,5 +1,40 @@
 2019-02-07
     CONTINUE:
+        1. Correct build?
+        2. Write document
+    Done:
+        1. Save buttons for json
+        2. All external lib added with deployments jars
+        3. Topic level metrics
+    TODO:
+        1. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        2. Start writing a Project Document.
+        3. Clean tests not to have absolute file paths. (=> need to upload test data)
+        4. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        5. PeerModelPair should be generic and common for all.
+        6. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
+2019-02-07
+    CONTINUE:
+        1. Save buttons for JSON: all, average, flattened
+        2. Topic level metrics:
+           a. Topic Readability vs Summaries (by system)
+           b. Notched boxes of topics
+        3. Independence from external lib to build the uber jar
+        4. Add missing libraries with .bat file to load them into local Maven repository
+    Done:
+        1. Generated results will be an uber jar
+        2. Uber jar successfully generated on my machine
+    TODO:
+        1. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        2. Start writing a Project Document.
+        3. Clean tests not to have absolute file paths. (=> need to upload test data)
+        4. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        5. PeerModelPair should be generic and common for all.
+        6. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
+2019-02-07
+    CONTINUE:
         1. Save buttons for JSON: all, average, flattened
         2. Topic level metrics:
            a. Topic Readability vs Summaries (by system)

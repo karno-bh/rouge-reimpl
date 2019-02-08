@@ -69,7 +69,12 @@ public class MultiNotchedBoxData {
     }
 
     public List<BigDecimal> generateScale() {
-        DecimalRangeAnalyzer decimalRangeAnalyzer = new DecimalRangeAnalyzer(totalMin, totalMax);
+        DecimalRangeAnalyzer decimalRangeAnalyzer;
+        if (!boxesByLabel.isEmpty()) {
+            decimalRangeAnalyzer = new DecimalRangeAnalyzer(totalMin, totalMax);
+        } else {
+            decimalRangeAnalyzer = new DecimalRangeAnalyzer(0d, 1d);
+        }
         return decimalRangeAnalyzer.decimalRange();
     }
 }

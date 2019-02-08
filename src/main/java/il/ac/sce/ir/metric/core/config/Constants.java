@@ -1,5 +1,9 @@
 package il.ac.sce.ir.metric.core.config;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public interface Constants {
 
     // SEP = Summary Evaluation Platform
@@ -166,4 +170,10 @@ public interface Constants {
 
     String RESULT_DIRECTORY_DEFAULT = "result";
     String CACHE_DIRECTORY_DEFAULT = "cache";
+    String ALL_RESULT_JSON_FILE_NAME = "all_results.json";
+    String AVERAGES_BY_SYSTEMS_FILE_NAME = "averages_by_systems.json";
+
+    Map<String, String> TOPICS_METRICS_MAPPING = Collections.unmodifiableMap(new HashMap<String, String>() {{
+        put(ELENA_TOPICS_READABILITY_LOWER_CASE, ELENA_READABILITY_LOWER_CASE);
+    }});
 }

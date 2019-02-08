@@ -55,7 +55,8 @@ public class FileSystemCSVSaver implements Reducer {
                     File resultFile = new File(fullFileName);
                     try (PrintWriter pw = new PrintWriter(
                             new BufferedWriter(
-                                    new FileWriter(resultFile, true)
+                                    // new FileWriter(resultFile, true)
+                                    new FileWriter(resultFile)
                             )
                     )) {
 

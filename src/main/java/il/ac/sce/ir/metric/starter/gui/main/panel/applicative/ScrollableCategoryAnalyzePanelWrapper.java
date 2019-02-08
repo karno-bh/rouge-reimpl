@@ -11,8 +11,9 @@ public class ScrollableCategoryAnalyzePanelWrapper extends JPanel{
 
     private final CategoryAnalyzePanel panel;
 
-    public ScrollableCategoryAnalyzePanelWrapper(PubSub pubSub, String category, ResultsMetricHierarchyAnalyzer resultsMetricHierarchyAnalyzer) {
-        this.panel = new CategoryAnalyzePanel(pubSub, category, resultsMetricHierarchyAnalyzer);
+    public ScrollableCategoryAnalyzePanelWrapper(PubSub pubSub, String category, ResultsMetricHierarchyAnalyzer resultsMetricHierarchyAnalyzer, String resultDirectory) {
+        this.panel = new CategoryAnalyzePanel(pubSub, category,
+                resultsMetricHierarchyAnalyzer, resultDirectory);
         setLayout(new GridBagLayout());
         WholeSpaceFiller filler = new WholeSpaceFiller();
         add(new JScrollPane(panel), filler.getFillingConstraints());

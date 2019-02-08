@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=com.leo.namedentitygraph.jar -DgroupId=NamedEntityGraph -DartifactId=com.leo.namedentitygraph -Dversion=1.0-SNAPSHOT -Dpackaging=jar

@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=OpenJGraph.jar -DgroupId=demokritos -DartifactId=openjgraph -Dversion=1.0 -Dpackaging=jar

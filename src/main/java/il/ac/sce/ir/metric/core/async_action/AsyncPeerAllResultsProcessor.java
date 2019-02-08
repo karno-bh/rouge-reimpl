@@ -70,12 +70,17 @@ public class AsyncPeerAllResultsProcessor<T extends ReportedProperties> implemen
                     logger.error("Main thread pool was interrupted", e);
                     throw new IllegalStateException("Main thread pool was interrupted", e);
                 } catch (ExecutionException e) {
-                    logger.error("Got exception while calculating ReportedBundle");
+                    logger.error("Got exception while calculating ReportedBundle", e);
                     throw new RuntimeException("Got exception while calculating ReportedBundle", e);
+                } catch (Exception e) {
+                    logger.error("Got exception while calculating ReportedBundle", e);
                 }
             }
 
             groupAndReport(reportedBundles);
+            return null;
+        } catch (Exception e) {
+            logger.error("Error while processing peers", e);
             return null;
         } finally {
             if (getArbiter() != null) {

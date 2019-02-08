@@ -1,5 +1,7 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
 import il.ac.sce.ir.metric.core.gui.data.MultiNotchedBoxData;
@@ -40,7 +42,7 @@ public class AnalyzeBySystemPanel extends JPanel {
     public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer) {
         this.category = category;
         this.analyzer = analyzer;
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("System Level");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("System");
         setBorder(titledBorder);
         setLayout(new GridBagLayout());
         int y = 0;
@@ -112,7 +114,7 @@ public class AnalyzeBySystemPanel extends JPanel {
             springConstraints.gridx = 1000;
             availableSystemMetricPanel.add(availableSystemMetricPanelSpring, springConstraints);
             Set<String> availableSubMetrics = analyzer.getAvailableSubMetric(category, nonVirtualSystem, availableSystemMetric);
-            Caret caret = new Caret(0,0,8);
+            Caret caret = new Caret(0,0,10);
             Insets insets = new Insets(4,0, 0,4 );
             for (String availableSubMetric : availableSubMetrics) {
                 // System.out.println("availableSystemMetric: " + availableSystemMetric + " availableSubMetric: " + availableSubMetric);
@@ -154,6 +156,14 @@ public class AnalyzeBySystemPanel extends JPanel {
     }
 
     private void onTableButtonClicked(ActionEvent event) {
+        /*ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String s = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(analyzer.getOriginalMetricHierarchy());
+            System.out.println(s);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }*/
+
         Table table = analyzer.asAverageTable(category, selectedMetrics);
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Table View");
         JTable systemsSummary = new JTable(table);
@@ -168,7 +178,8 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private void onBarChartButtonClicked(ActionEvent event) {
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Bar Chart View");
-        CategoryDataset categoryDataset = analyzer.asAverageCategoryDataset(category, selectedMetrics);
+        Table table = analyzer.asAverageTable(category, selectedMetrics);
+        CategoryDataset categoryDataset = analyzer.tableToCategoryDataSet(table);
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Average Metric Values By System",
                 "Metric",
@@ -185,49 +196,8 @@ public class AnalyzeBySystemPanel extends JPanel {
     }
 
     private void onNotchedBoxButtonClicked(ActionEvent event) {
-        JPanel innerDialogPanel = new JPanel();
-        innerDialogPanel.setLayout(new GridBagLayout());
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
-        Map<String, String> flattenedDataLegend = new HashMap<>();
-        Table table = new Table();
-        List<String> header = Arrays.asList("Metric", "Label");
-        table.setColumns(header);
-        int j = 1;
-        for (String flattenedDataKey : flattenedData.keySet()) {
-            List<Object> tableRow = new ArrayList<>();
-            tableRow.add(flattenedDataKey);
-            tableRow.add(j);
-            table.addRow(tableRow);
-
-            flattenedDataLegend.put(flattenedDataKey, "(" + j++ + ")");
-        }
-
-        MultiNotchedBoxData multiNotchedBoxData = new MultiNotchedBoxData(true);
-        flattenedData.forEach((compoundKey,values) -> {
-            double[] asDoubleArr = new double[values.size()];
-            for(int i = 0; i < asDoubleArr.length; i++) {
-                asDoubleArr[i] = values.get(i);
-            }
-            multiNotchedBoxData.add(flattenedDataLegend.get(compoundKey), asDoubleArr);
-        });
-
-        NotchedBoxGraph notchedBoxGraph = new NotchedBoxGraph();
-        notchedBoxGraph.setGraphName("Metrics Notched Boxes");
-        notchedBoxGraph.setMultiNotchedBoxData(multiNotchedBoxData);
-
-        WholeSpaceFiller wholeSpaceFiller = new WholeSpaceFiller();
-        GridBagConstraints notchBoxConstraints = wholeSpaceFiller.getFillingConstraints();
-        innerDialogPanel.add(notchedBoxGraph, notchBoxConstraints);
-
-        JTable legendTable = new JTable(table);
-        legendTable.setFillsViewportHeight(true);
-        legendTable.setAutoCreateRowSorter(true);
-        legendTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
-
-        GridBagConstraints legendConstraints  = new GridBagConstraints();
-        legendConstraints.gridy = 1;
-        legendConstraints.fill = GridBagConstraints.BOTH;
-        innerDialogPanel.add(new JScrollPane(legendTable), legendConstraints);
+        JPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(flattenedData);
 
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Notched Boxes View");
         jDialog.add(innerDialogPanel);

@@ -37,7 +37,7 @@ public class Starter {
     }
 
     public Starter(String[] args) {
-        // setLnF();
+        setLnF();
         pubSub = new PubSub();
         modelsManager = new ModelsManager();
         guiMessages = new DefaultGUIMessages();
@@ -132,6 +132,7 @@ public class Starter {
         SwingUtilities.invokeLater(() -> {
             Starter starter = new Starter(args);
             starter.getModelsManager().publishAll();
+            starter.mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
         });
     }
 
