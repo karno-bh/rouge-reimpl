@@ -24,6 +24,8 @@ public class NotchedBoxGraph extends JPanel {
 
     private int borderPx = 40;
 
+    private boolean jitteredScatterPlot;
+
     public NotchedBoxGraph() {}
 
     public void setBorderPx(int borderPx) {
@@ -44,6 +46,14 @@ public class NotchedBoxGraph extends JPanel {
 
     public void setMultiNotchedBoxData(MultiNotchedBoxData multiNotchedBoxData) {
         this.multiNotchedBoxData = multiNotchedBoxData;
+    }
+
+    public boolean isJitteredScatterPlot() {
+        return jitteredScatterPlot;
+    }
+
+    public void setJitteredScatterPlot(boolean jitteredScatterPlot) {
+        this.jitteredScatterPlot = jitteredScatterPlot;
     }
 
     @Override
@@ -229,6 +239,16 @@ public class NotchedBoxGraph extends JPanel {
                 double screenValY = rY.map(upOutlier);
                 Line2D upOutlierScreenPointY = new Line2D.Double(0, screenValY, 0, screenValY);
                 g2.draw(upOutlierScreenPointY);
+            }
+            if (jitteredScatterPlot) {
+                g2.setPaint(Color.BLUE);
+                g2.setStroke(new BasicStroke(2));
+                for (int j = 0; j < data.length; j++) {
+                    double jitteredX = RangeMapper.map(Math.random(), 0, 1, -10, 10);
+                    double sceenValY = rY.map(data[j]);
+                    Line2D jitteredPoint = new Line2D.Double(jitteredX, sceenValY, jitteredX, sceenValY);
+                    g2.draw(jitteredPoint);
+                }
             }
             g2.setPaint(currentPaint);
             g2.setStroke(currentStroke);

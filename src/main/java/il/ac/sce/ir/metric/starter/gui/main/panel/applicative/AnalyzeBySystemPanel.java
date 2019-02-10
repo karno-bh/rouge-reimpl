@@ -37,6 +37,10 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private final JButton notchedBoxButton;
 
+    private final JCheckBox jitteredScatterPlotWithinNotchedBox;
+
+    private boolean scatterPlot;
+
     private final Map<String, Map<String, Boolean>> selectedMetrics = new HashMap<>();
 
     public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer) {
@@ -55,7 +59,10 @@ public class AnalyzeBySystemPanel extends JPanel {
             systemPanelConstraints.gridy = y++;
             add(metricPanel, systemPanelConstraints);
         }
+
         y = 1000;
+
+
         JPanel analyzeButtonsPanel = new JPanel();
         analyzeButtonsPanel.setLayout(new GridBagLayout());
         WholeSpaceFiller wholeSpaceFiller = new WholeSpaceFiller();
@@ -86,11 +93,26 @@ public class AnalyzeBySystemPanel extends JPanel {
         tableButtonConstraints.insets.right = 0;
         analyzeButtonsPanel.add(notchedBoxButton, tableButtonConstraints);
 
+        JPanel scatterPlotPanel = new JPanel();
+        scatterPlotPanel.setLayout(new GridBagLayout());
+        WholeSpaceFiller filler = new WholeSpaceFiller();
+        scatterPlotPanel.add(new JPanel(), filler.getFillingConstraints());
+        GridBagConstraints scatterPlotConstraints = new GridBagConstraints();
+        Insets scatterPlotPanelInsets = new Insets(0,0,0,10);
+        scatterPlotConstraints.gridx = 1;
+        scatterPlotConstraints.insets = scatterPlotPanelInsets;
+        scatterPlotPanel.add(new JLabel("Notched Box with Jittered Scatter Plot"), scatterPlotConstraints);
+        jitteredScatterPlotWithinNotchedBox = new JCheckBox();
+        jitteredScatterPlotWithinNotchedBox.addItemListener(this::onScatterPlotCheckBoxChanged);
+        scatterPlotConstraints.gridx = 2;
+        scatterPlotConstraints.insets.right = 0;
+        scatterPlotPanel.add(jitteredScatterPlotWithinNotchedBox);
+
         GridBagConstraints buttonsPanelConstraints = wholeSpaceFiller.getFillingConstraints();
         buttonsPanelConstraints.gridy = y++;
+        add(scatterPlotPanel, buttonsPanelConstraints);
+        buttonsPanelConstraints.gridy = y++;
         add(analyzeButtonsPanel, buttonsPanelConstraints);
-
-
     }
 
     private java.util.List<JPanel> constructMetricFilterPanel(Set<String> systems) {
@@ -155,6 +177,10 @@ public class AnalyzeBySystemPanel extends JPanel {
         subMetrics.put(source.getSubMetric(), event.getStateChange() == ItemEvent.SELECTED);
     }
 
+    private void onScatterPlotCheckBoxChanged(ItemEvent event) {
+        scatterPlot = event.getStateChange() == ItemEvent.SELECTED;
+    }
+
     private void onTableButtonClicked(ActionEvent event) {
         /*ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -197,7 +223,7 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private void onNotchedBoxButtonClicked(ActionEvent event) {
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
-        JPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(flattenedData);
+        JPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(flattenedData, scatterPlot);
 
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Notched Boxes View");
         jDialog.add(innerDialogPanel);

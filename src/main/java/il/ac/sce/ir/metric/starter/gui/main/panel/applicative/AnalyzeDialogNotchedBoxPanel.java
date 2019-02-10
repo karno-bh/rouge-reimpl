@@ -14,7 +14,7 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
 
     private final Map<String, List<Double>> flattenedData;
 
-    public AnalyzeDialogNotchedBoxPanel(Map<String, List<Double>> flattenedData) {
+    public AnalyzeDialogNotchedBoxPanel(Map<String, List<Double>> flattenedData, boolean jitteredScatterPlot) {
         Objects.requireNonNull(flattenedData, "Flattened data cannot be null");
         this.flattenedData = flattenedData;
 
@@ -43,6 +43,7 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
         });
 
         NotchedBoxGraph notchedBoxGraph = new NotchedBoxGraph();
+        notchedBoxGraph.setJitteredScatterPlot(jitteredScatterPlot);
         notchedBoxGraph.setGraphName("Metrics Notched Boxes");
         notchedBoxGraph.setMultiNotchedBoxData(multiNotchedBoxData);
 
