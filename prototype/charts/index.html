@@ -12,15 +12,26 @@
     }
     .submetric {
         border: 1px solid black;
+        padding: 8px;
     }
     canvas {
         display: block;
+    }
+    .btn {
+        margin: 5px;
     }
     </style>
     <script>
 
         const TOPIC_SYSTEM = "__topic__";
-
+        const colors = [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+        ];
         class ResultOrganizer {
             constructor(data) {
                 if (!data) {
@@ -107,8 +118,8 @@
             };
             const selectedCategoryData = organizer.data[selectedCategory];
             Object.keys(selectedCategoryData).forEach(systemKey => {
+                let systemAdded = false;
                 Object.keys(selectedCategoryData[systemKey]).forEach(metricKey => {
-                    let systemAdded = false;
                     const selectedSubMetrics = metricCheckBoxes[metricKey];
                     if (!selectedSubMetrics) return;
                     const subMetrics = selectedCategoryData[systemKey][metricKey];
@@ -119,20 +130,58 @@
                             systemAdded = true;
                         }
                         const compoundKey = `${metricKey} / ${subMetric}`;
-                        let systemSubMetricValues = barChartData.preDataSet[systemKey];
+                        let systemSubMetricValues = barChartData.preDataSet[compoundKey];
                         if (!systemSubMetricValues) {
-                            systemSubMetricValues = barChartData.preDataSet[systemKey] = {};
+                            systemSubMetricValues = barChartData.preDataSet[compoundKey] = {};
                         }
-                        let subMetricValues = systemSubMetricValues[compoundKey];
+                        let subMetricValues = systemSubMetricValues[systemKey];
                         if (!subMetricValues) {
-                            subMetricValues = systemSubMetricValues[compoundKey] = [];
+                            subMetricValues = systemSubMetricValues[systemKey] = [];
                         }
                         subMetricValues.push(subMetrics[subMetric]);
                     })
                 })
             });
-            // console.log(barChartData);
-            
+            console.log(barChartData);
+            let color = 0;
+            Object.keys(barChartData.preDataSet).forEach(compoundMetricKey => {
+                let bar = {
+                    label: compoundMetricKey,
+                    backgroundColor: colors[color++],
+                    data: [],
+                };
+                const values = barChartData.preDataSet[compoundMetricKey];
+                barChartData.labels.forEach(systemKey => {
+                    bar.data.push(values[systemKey][0]);
+                })
+                barChartData.datasets.push(bar);
+            });
+            console.log(barChartData);
+            const context = document.getElementById("chartCanvas");
+            context.innerHTML = "";
+            const myBar = new Chart(context, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					title: {
+						display: true,
+						text: 'Metrics Comparison - Stacked Bar'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: false,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+			});
         }
     </script>
 </head>
@@ -140,7 +189,7 @@
     <input type="file" id="input" accept=".json" onchange="handleFiles(this.files)">
     <div id="categories"></div>
     <div id="selectedCategory"></div>
-    <input type="button" onclick="displayChart()" value="Display Chart">
-    <canvas id="chartCanvas" width="1200" height="900"></canvas> 
+    <input type="button" class="btn" onclick="displayChart()" value="Display Chart">
+    <canvas id="chartCanvas" width="800" height="600"></canvas> 
 </body>
 </html>
