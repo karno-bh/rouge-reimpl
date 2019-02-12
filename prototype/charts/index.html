@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chart Playing</title>
+    <script src="script/Chart.bundle.min.js"></script>
+    <style>
+    .metric {
+        font-weight: 900;
+    }
+    .submetric {
+        border: 1px solid black;
+    }
+    canvas {
+        display: block;
+    }
+    </style>
+    <script>
+
+        const TOPIC_SYSTEM = "__topic__";
+
+        class ResultOrganizer {
+            constructor(data) {
+                if (!data) {
+                    throw new Error("Data should not be emtpy");
+                }
+                this.data = data;
+            }
+            
+            allCategories() {
+                return Object.keys(this.data);
+            }
+        }
+
+        let organizer;
+        let selectedCategory;
+        let metricCheckBoxes = {};
+
+        function selectCategory(el) {
+            // console.log(el.name);
+            const category = el.name;
+            selectedCategory = category;
+            const systems = organizer.data[category];
+            const systemKeys = Object.keys(systems);
+            if (!systemKeys) {
+                return;
+            }
+            const aSystem = systemKeys[0];
+            const metrics = systems[aSystem];
+            const metricKeys = Object.keys(metrics);
+            if (!metricKeys) {
+                return;
+            }
+            // let subMetricsDisp = "";
+            let allMetricDisp = "";
+            metricKeys.filter(metric => TOPIC_SYSTEM !== metric).forEach(metric => {
+                let metricDisp = `<div class="metric">${metric}</div><div class="submetric">`;
+                Object.keys(organizer.data[category][aSystem][metric]).forEach(subMetric => {
+                    metricDisp += `<span>${subMetric}: <input type="checkbox"
+                    data-metric="${metric}" data-submetric="${subMetric}"
+                    onclick="onMetricCheckBoxClick(this)"></span>`;
+                })
+                metricDisp += "</div>"
+                allMetricDisp += metricDisp;
+            });
+            document.querySelector("#selectedCategory").innerHTML = allMetricDisp;
+        }
+        function onMetricCheckBoxClick(checkbox) {
+            const selectedMetric = checkbox.dataset.metric;
+            const selectedSubMetric = checkbox.dataset.submetric;
+            if (!metricCheckBoxes[selectedMetric]) {
+                metricCheckBoxes[selectedMetric] = {
+                    [selectedSubMetric] : false,
+                };
+            }
+            metricCheckBoxes[selectedMetric][selectedSubMetric] = checkbox.checked;
+            return false;
+        }
+        function processResults(text) {
+            const data = JSON.parse(text);
+            organizer = new ResultOrganizer(data);
+            
+            const categories = "<span>" + organizer.allCategories().reduce((list, category) => {
+                const li = `<a href="#" name="${category}" onclick="selectCategory(this); return false;">${category}</a>`;
+                return list + li;
+            }, "") + "</span>";
+
+            document.querySelector("#categories").innerHTML = categories;
+        }
+        function handleFiles(files) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const text = reader.result;
+                processResults(text);
+            }
+            reader.readAsText(file, 'UTF-8');
+        }
+        function displayChart() {
+            if (!selectCategory) return;
+            let barChartData = {
+                labels: [],
+                datasets: [],
+                preDataSet: {},
+            };
+            const selectedCategoryData = organizer.data[selectedCategory];
+            Object.keys(selectedCategoryData).forEach(systemKey => {
+                Object.keys(selectedCategoryData[systemKey]).forEach(metricKey => {
+                    let systemAdded = false;
+                    const selectedSubMetrics = metricCheckBoxes[metricKey];
+                    if (!selectedSubMetrics) return;
+                    const subMetrics = selectedCategoryData[systemKey][metricKey];
+                    Object.keys(subMetrics).forEach(subMetric => {
+                        if (!selectedSubMetrics[subMetric]) return;
+                        if (!systemAdded) {
+                            barChartData.labels.push(systemKey);
+                            systemAdded = true;
+                        }
+                        const compoundKey = `${metricKey} / ${subMetric}`;
+                        let systemSubMetricValues = barChartData.preDataSet[systemKey];
+                        if (!systemSubMetricValues) {
+                            systemSubMetricValues = barChartData.preDataSet[systemKey] = {};
+                        }
+                        let subMetricValues = systemSubMetricValues[compoundKey];
+                        if (!subMetricValues) {
+                            subMetricValues = systemSubMetricValues[compoundKey] = [];
+                        }
+                        subMetricValues.push(subMetrics[subMetric]);
+                    })
+                })
+            });
+            // console.log(barChartData);
+            
+        }
+    </script>
+</head>
+<body>
+    <input type="file" id="input" accept=".json" onchange="handleFiles(this.files)">
+    <div id="categories"></div>
+    <div id="selectedCategory"></div>
+    <input type="button" onclick="displayChart()" value="Display Chart">
+    <canvas id="chartCanvas" width="1200" height="900"></canvas> 
+</body>
+</html>
