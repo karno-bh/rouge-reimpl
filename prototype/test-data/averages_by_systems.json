@@ -1,0 +1,630 @@
+{
+  "category01" : {
+    "sysid04" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.8176027824515254,
+        "GraphValue" : 0.03534398109562737,
+        "NOverallSimil" : 0.13740759899973082,
+        "NHistoValue" : 0.719876880989468,
+        "CharGraphValue" : 0.3809534906563189,
+        "HistoSize" : 0.9611911082447946,
+        "NHistoContainmentSimilarity" : 0.37557812988200906,
+        "GraphSize" : 0.9802998663440459,
+        "CharGraphSize" : 0.9111532640755152,
+        "GraphCooccurence" : 0.037230046929112026,
+        "HistoContainmentSimilarity" : 0.11028979997475945,
+        "NHistoSize" : 0.9226376803328435,
+        "OverallSimil" : 0.032317088846250334
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.37197413726930517,
+        "properNounRatio" : 0.15332067523413007,
+        "fleschReadingEaseNormalized" : 0.8808762915934187,
+        "pronounRatio" : 0.02075434853647355,
+        "uniqueProperNounsRatio" : 0.10041045337326557,
+        "nounRatio" : 0.36291631427835264,
+        "wordVariationIndexNormalized" : 0.3773844077882756,
+        "averageWordLength" : 4.938262988101639,
+        "averageSentenceLengthNormalized" : 0.06603158681126817,
+        "wordVariationIndex" : 59.45216537445966,
+        "fleschReadingEase" : 42.08322575653252,
+        "averageSentenceLength" : 26.216987179487177
+      },
+      "rouges" : {
+        "f1Measure" : 0.1412030308836081,
+        "recall" : 0.14128898192985723,
+        "precision" : 0.14114165972461815
+      },
+      "rougen1" : {
+        "f1Measure" : 0.395418682624313,
+        "recall" : 0.39551554849768256,
+        "precision" : 0.3953384909750937
+      },
+      "rougen3" : {
+        "f1Measure" : 0.0643809713342315,
+        "recall" : 0.06439545971940028,
+        "precision" : 0.06436984745081187
+      },
+      "rougew" : {
+        "f1Measure" : 0.05657757477455629,
+        "recall" : 0.037683598954697826,
+        "precision" : 0.11347823338025058
+      },
+      "rougen2" : {
+        "f1Measure" : 0.12617053688182994,
+        "recall" : 0.12619961701854304,
+        "precision" : 0.12614753470805562
+      },
+      "rougel" : {
+        "f1Measure" : 0.18214490427219004,
+        "recall" : 0.18218487465138838,
+        "precision" : 0.18211296415340247
+      }
+    },
+    "sysid05" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.7845539885430911,
+        "GraphValue" : 0.03028842456949303,
+        "NOverallSimil" : 0.10957448856530955,
+        "NHistoValue" : 0.7004443046365263,
+        "CharGraphValue" : 0.3167111011903138,
+        "HistoSize" : 0.9040808781895752,
+        "NHistoContainmentSimilarity" : 0.34287080307965695,
+        "GraphSize" : 0.9301669405772149,
+        "CharGraphSize" : 0.8448585613741069,
+        "GraphCooccurence" : 0.03438897469943615,
+        "HistoContainmentSimilarity" : 0.09551833246711756,
+        "NHistoSize" : 0.8572998334677939,
+        "OverallSimil" : 0.025172965314154312
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.41485759956634005,
+        "properNounRatio" : 0.14867586733592347,
+        "fleschReadingEaseNormalized" : 0.900798515147244,
+        "pronounRatio" : 0.02724521053790015,
+        "uniqueProperNounsRatio" : 0.07660285513702875,
+        "nounRatio" : 0.3518768646240204,
+        "wordVariationIndexNormalized" : 0.2648168179249531,
+        "averageWordLength" : 5.0122143585254575,
+        "averageSentenceLengthNormalized" : 0.03271396052659692,
+        "wordVariationIndex" : 53.3662863147437,
+        "fleschReadingEase" : 47.53871607506775,
+        "averageSentenceLength" : 18.94739843489843
+      },
+      "rouges" : {
+        "f1Measure" : 0.12842717535626558,
+        "recall" : 0.12104251214098687,
+        "precision" : 0.13708251974029928
+      },
+      "rougen1" : {
+        "f1Measure" : 0.36555225903136607,
+        "recall" : 0.3543648432688003,
+        "precision" : 0.377702419053168
+      },
+      "rougew" : {
+        "f1Measure" : 0.05097302733870712,
+        "recall" : 0.033437642460357055,
+        "precision" : 0.10727722484851036
+      },
+      "rougen3" : {
+        "f1Measure" : 0.053124150623343205,
+        "recall" : 0.051421111223074224,
+        "precision" : 0.05497640177460859
+      },
+      "rougen2" : {
+        "f1Measure" : 0.11227986313814471,
+        "recall" : 0.10885461688168845,
+        "precision" : 0.11599538975948928
+      },
+      "rougel" : {
+        "f1Measure" : 0.16946939662942917,
+        "recall" : 0.16436494345573419,
+        "precision" : 0.17500459058389134
+      }
+    },
+    "sysid06" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.7793102229988801,
+        "GraphValue" : 0.025290856125495278,
+        "NOverallSimil" : 0.0968011190410372,
+        "NHistoValue" : 0.7116486495206389,
+        "CharGraphValue" : 0.290432809304163,
+        "HistoSize" : 0.7779095601838507,
+        "NHistoContainmentSimilarity" : 0.3199532650526596,
+        "GraphSize" : 0.7855011855975779,
+        "CharGraphSize" : 0.7698792944444868,
+        "GraphCooccurence" : 0.03498582458919535,
+        "HistoContainmentSimilarity" : 0.08084173736588679,
+        "NHistoSize" : 0.7991595380959455,
+        "OverallSimil" : 0.01960016075667426
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.31941517131590647,
+        "properNounRatio" : 0.1423408141901224,
+        "fleschReadingEaseNormalized" : 0.8145899879591475,
+        "pronounRatio" : 0.031653706831504605,
+        "uniqueProperNounsRatio" : 0.098670100699244,
+        "nounRatio" : 0.3369339172855485,
+        "wordVariationIndexNormalized" : 0.38277337373943726,
+        "averageWordLength" : 4.8476264734146834,
+        "averageSentenceLengthNormalized" : 0.14143168921868182,
+        "wordVariationIndex" : 59.743515620791825,
+        "fleschReadingEase" : 23.93142223162866,
+        "averageSentenceLength" : 42.668571428571425
+      },
+      "rouges" : {
+        "f1Measure" : 0.12149423727970723,
+        "recall" : 0.09945727743442852,
+        "precision" : 0.16053683188910872
+      },
+      "rougen1" : {
+        "f1Measure" : 0.35775214624202933,
+        "recall" : 0.32085483236212753,
+        "precision" : 0.4066838289589322
+      },
+      "rougen3" : {
+        "f1Measure" : -0.1536334206620858,
+        "recall" : 0.04130274440385917,
+        "precision" : 0.053416208985742966
+      },
+      "rougew" : {
+        "f1Measure" : 0.051248111249174465,
+        "recall" : 0.03235658403929961,
+        "precision" : 0.12436963211022947
+      },
+      "rougen2" : {
+        "f1Measure" : 0.09859572074484244,
+        "recall" : 0.08815608412765938,
+        "precision" : 0.11274020550821806
+      },
+      "rougel" : {
+        "f1Measure" : 0.1752853718124409,
+        "recall" : 0.1569980206367077,
+        "precision" : 0.19972910690851386
+      }
+    },
+    "__topic__" : {
+      "elena_topics_readability" : {
+        "averageWordLengthNormalized" : 0.4434634608755871,
+        "properNounRatio" : 0.13658693547625692,
+        "fleschReadingEaseNormalized" : 0.8720849356584673,
+        "pronounRatio" : 0.02880833359552577,
+        "uniqueProperNounsRatio" : 0.09258489173981914,
+        "nounRatio" : 0.3440411848425805,
+        "wordVariationIndexNormalized" : 0.47720209203309666,
+        "averageWordLength" : 5.061544392358076,
+        "averageSentenceLengthNormalized" : 0.060482082245645136,
+        "wordVariationIndex" : 64.84873071864517,
+        "fleschReadingEase" : 39.67580586887072,
+        "averageSentenceLength" : 25.006138135692673
+      }
+    },
+    "sysid07" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.7848545035566584,
+        "GraphValue" : 0.01269922109335345,
+        "NOverallSimil" : 0.11579384530620374,
+        "NHistoValue" : 0.7209710751698956,
+        "CharGraphValue" : 0.31039995954047034,
+        "HistoSize" : 0.96617334614807,
+        "NHistoContainmentSimilarity" : 0.34304391827466674,
+        "GraphSize" : 0.9749495775878981,
+        "CharGraphSize" : 0.936693696154055,
+        "GraphCooccurence" : 0.013342641013351047,
+        "HistoContainmentSimilarity" : 0.0715906249613049,
+        "NHistoSize" : 0.9348999319589235,
+        "OverallSimil" : 0.01729868181247296
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.36108292375245643,
+        "properNounRatio" : 0.09985525329977593,
+        "fleschReadingEaseNormalized" : 0.881706624428341,
+        "pronounRatio" : 0.032032884955526565,
+        "uniqueProperNounsRatio" : 0.08706566164443026,
+        "nounRatio" : 0.31352498735410345,
+        "wordVariationIndexNormalized" : 0.6828966752443746,
+        "averageWordLength" : 4.9194813850778285,
+        "averageSentenceLengthNormalized" : 0.05286258481806276,
+        "wordVariationIndex" : 75.96944813102354,
+        "fleschReadingEase" : 42.31060362576696,
+        "averageSentenceLength" : 23.34363636363636
+      },
+      "rouges" : {
+        "f1Measure" : 0.11318409989996758,
+        "recall" : 0.11353739088755203,
+        "precision" : 0.11295933067253303
+      },
+      "rougen1" : {
+        "f1Measure" : 0.34953778342152025,
+        "recall" : 0.34992781146542506,
+        "precision" : 0.3492582972582972
+      },
+      "rougew" : {
+        "f1Measure" : 0.04761332021393311,
+        "recall" : 0.03172935723556476,
+        "precision" : 0.095386049409171
+      },
+      "rougen3" : {
+        "f1Measure" : 0.024963075311094114,
+        "recall" : 0.025029426264732237,
+        "precision" : 0.02489904681410527
+      },
+      "rougen2" : {
+        "f1Measure" : 0.07594146532572017,
+        "recall" : 0.07611921819886124,
+        "precision" : 0.07577847622373553
+      },
+      "rougel" : {
+        "f1Measure" : 0.1595444348679753,
+        "recall" : 0.15972802554733073,
+        "precision" : 0.1594089466089466
+      }
+    },
+    "sysid01" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.8051471978563979,
+        "GraphValue" : 0.025486836606887556,
+        "NOverallSimil" : 0.1252991022249154,
+        "NHistoValue" : 0.7228614776457014,
+        "CharGraphValue" : 0.34506559206188153,
+        "HistoSize" : 0.9353415545224367,
+        "NHistoContainmentSimilarity" : 0.3594574087310561,
+        "GraphSize" : 0.9435997121670049,
+        "CharGraphSize" : 0.911185897951815,
+        "GraphCooccurence" : 0.027900534507174623,
+        "HistoContainmentSimilarity" : 0.09235082914233433,
+        "NHistoSize" : 0.9103179752900062,
+        "OverallSimil" : 0.025026330955519527
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.462357625804657,
+        "properNounRatio" : 0.13190540245836976,
+        "fleschReadingEaseNormalized" : 0.87230821202345,
+        "pronounRatio" : 0.02420975801904232,
+        "uniqueProperNounsRatio" : 0.0979922411970443,
+        "nounRatio" : 0.3387904664811662,
+        "wordVariationIndexNormalized" : 0.5852786801511568,
+        "averageWordLength" : 5.094126868554616,
+        "averageSentenceLengthNormalized" : 0.05343926624808335,
+        "wordVariationIndex" : 70.69180726733796,
+        "fleschReadingEase" : 39.73694774112354,
+        "averageSentenceLength" : 23.469462759462758
+      },
+      "rouges" : {
+        "f1Measure" : 0.12177050311215772,
+        "recall" : 0.11965131945293653,
+        "precision" : 0.1264181930856609
+      },
+      "rougen1" : {
+        "f1Measure" : 0.363983567445322,
+        "recall" : 0.36038941634211663,
+        "precision" : 0.3693391941391941
+      },
+      "rougew" : {
+        "f1Measure" : 0.05107840342509083,
+        "recall" : 0.03388333050462792,
+        "precision" : 0.10433607714173498
+      },
+      "rougen3" : {
+        "f1Measure" : 0.04843274035157946,
+        "recall" : 0.04790515373411328,
+        "precision" : 0.04922341696535245
+      },
+      "rougen2" : {
+        "f1Measure" : 0.10233041043214883,
+        "recall" : 0.10117657159230169,
+        "precision" : 0.10403973167069754
+      },
+      "rougel" : {
+        "f1Measure" : 0.16679069300893778,
+        "recall" : 0.16529459594452134,
+        "precision" : 0.16904761904761906
+      }
+    },
+    "sysid02" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.8271696698309986,
+        "GraphValue" : 0.03476580181261245,
+        "NOverallSimil" : 0.1493634868715788,
+        "NHistoValue" : 0.7390974487891389,
+        "CharGraphValue" : 0.4036055918435253,
+        "HistoSize" : 0.9745210360739439,
+        "NHistoContainmentSimilarity" : 0.387202421114169,
+        "GraphSize" : 0.9787952051664185,
+        "CharGraphSize" : 0.9469477881677489,
+        "GraphCooccurence" : 0.03653451222045048,
+        "HistoContainmentSimilarity" : 0.11665152264729861,
+        "NHistoSize" : 0.9479128878360358,
+        "OverallSimil" : 0.03420899913900301
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.45355883245900097,
+        "properNounRatio" : 0.1705511471070842,
+        "fleschReadingEaseNormalized" : 0.8805471712604666,
+        "pronounRatio" : 0.016419584544520072,
+        "uniqueProperNounsRatio" : 0.1283906491303239,
+        "nounRatio" : 0.3782663413515292,
+        "wordVariationIndexNormalized" : 0.5144193436701547,
+        "averageWordLength" : 5.0789535875009495,
+        "averageSentenceLengthNormalized" : 0.04229306376731082,
+        "wordVariationIndex" : 66.86085243745575,
+        "fleschReadingEase" : 41.99309963254834,
+        "averageSentenceLength" : 21.037467532467527
+      },
+      "rouges" : {
+        "f1Measure" : 0.14939897074572392,
+        "recall" : 0.15010511790271702,
+        "precision" : 0.14873698007558267
+      },
+      "rougen1" : {
+        "f1Measure" : 0.40898430715976897,
+        "recall" : 0.4098244828972367,
+        "precision" : 0.4081757071445472
+      },
+      "rougen3" : {
+        "f1Measure" : 0.06444443156826199,
+        "recall" : 0.06458248478040328,
+        "precision" : 0.0643121181375223
+      },
+      "rougew" : {
+        "f1Measure" : 0.055620063731247935,
+        "recall" : 0.03708214897262062,
+        "precision" : 0.11123457067495643
+      },
+      "rougen2" : {
+        "f1Measure" : 0.13748261827542546,
+        "recall" : 0.13778102975183307,
+        "precision" : 0.1371953936162425
+      },
+      "rougel" : {
+        "f1Measure" : 0.18187922935258521,
+        "recall" : 0.18226015389596895,
+        "precision" : 0.1815124690672758
+      }
+    },
+    "sysid03" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.8481822061511397,
+        "GraphValue" : 0.04844792905356185,
+        "NOverallSimil" : 0.151878669320364,
+        "NHistoValue" : 0.7338417410084943,
+        "CharGraphValue" : 0.4240274220866605,
+        "HistoSize" : 0.8966667001689742,
+        "NHistoContainmentSimilarity" : 0.3992324191856689,
+        "GraphSize" : 0.895886133150594,
+        "CharGraphSize" : 0.898606777171215,
+        "GraphCooccurence" : 0.055068025000676826,
+        "HistoContainmentSimilarity" : 0.12910990420788584,
+        "NHistoSize" : 0.9182999806798867,
+        "OverallSimil" : 0.03887486946587191
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.5525416777333045,
+        "properNounRatio" : 0.1766659938456778,
+        "fleschReadingEaseNormalized" : 0.8412991750995709,
+        "pronounRatio" : 0.017232983709158572,
+        "uniqueProperNounsRatio" : 0.12158552983279987,
+        "nounRatio" : 0.39014706474374306,
+        "wordVariationIndexNormalized" : 0.5573577874463023,
+        "averageWordLength" : 5.249646825975532,
+        "averageSentenceLengthNormalized" : 0.06530445220427761,
+        "wordVariationIndex" : 69.18228595265613,
+        "fleschReadingEase" : 31.245450782048398,
+        "averageSentenceLength" : 26.058333333333337
+      },
+      "rouges" : {
+        "f1Measure" : 0.15393692774772988,
+        "recall" : 0.13884228420256967,
+        "precision" : 0.17311052934966153
+      },
+      "rougen1" : {
+        "f1Measure" : 0.40965502858395536,
+        "recall" : 0.3879836070695498,
+        "precision" : 0.43413920686042895
+      },
+      "rougew" : {
+        "f1Measure" : 0.06524046432457925,
+        "recall" : 0.04232261797423869,
+        "precision" : 0.14240770234595218
+      },
+      "rougen3" : {
+        "f1Measure" : 0.08738420277244177,
+        "recall" : 0.08283004123649881,
+        "precision" : 0.09251655292186609
+      },
+      "rougen2" : {
+        "f1Measure" : 0.15246931015488902,
+        "recall" : 0.14448392603248672,
+        "precision" : 0.1614760098302301
+      },
+      "rougel" : {
+        "f1Measure" : 0.2064986240625874,
+        "recall" : 0.19568874574996278,
+        "precision" : 0.21869501878894865
+      }
+    },
+    "sysid10" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.8846516667932623,
+        "GraphValue" : 0.09306343570419712,
+        "NOverallSimil" : 0.21039637911032485,
+        "NHistoValue" : 0.7645954351124264,
+        "CharGraphValue" : 0.5718034821803967,
+        "HistoSize" : 0.9724789409745438,
+        "NHistoContainmentSimilarity" : 0.46453815498189216,
+        "GraphSize" : 0.9806018165872481,
+        "CharGraphSize" : 0.9451630284834643,
+        "GraphCooccurence" : 0.09624180031380639,
+        "HistoContainmentSimilarity" : 0.1932607623342402,
+        "NHistoSize" : 0.9426893510824392,
+        "OverallSimil" : 0.07295380898197469
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.757091621758635,
+        "properNounRatio" : 0.14860469036703058,
+        "fleschReadingEaseNormalized" : 0.5570927244269653,
+        "pronounRatio" : 0.021682577978358934,
+        "uniqueProperNounsRatio" : 0.09921602759124754,
+        "nounRatio" : 0.35975802613648067,
+        "wordVariationIndexNormalized" : 0.5612404559046487,
+        "averageWordLength" : 5.602387669893692,
+        "averageSentenceLengthNormalized" : 0.38165648188563944,
+        "wordVariationIndex" : 69.39219939839269,
+        "fleschReadingEase" : -46.58148133326431,
+        "averageSentenceLength" : 95.08333333333334
+      },
+      "rouges" : {
+        "f1Measure" : 0.17432598797948187,
+        "recall" : 0.1698008165308772,
+        "precision" : 0.1791450026790481
+      },
+      "rougen1" : {
+        "f1Measure" : 0.45870124417403735,
+        "recall" : 0.45267564944208133,
+        "precision" : 0.46492063492063496
+      },
+      "rougen3" : {
+        "f1Measure" : 0.14129136046317717,
+        "recall" : 0.13941180448727325,
+        "precision" : 0.14323147927490643
+      },
+      "rougew" : {
+        "f1Measure" : 0.07044899929528774,
+        "recall" : 0.04660383961348531,
+        "precision" : 0.1442770706432685
+      },
+      "rougen2" : {
+        "f1Measure" : 0.21254820348271503,
+        "recall" : 0.20974465089073116,
+        "precision" : 0.2154417407839282
+      },
+      "rougel" : {
+        "f1Measure" : 0.2163256711006023,
+        "recall" : 0.21342234135111277,
+        "precision" : 0.21932298576415352
+      }
+    },
+    "sysid08" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.7913921149546542,
+        "GraphValue" : 0.023174448372324696,
+        "NOverallSimil" : 0.121178346582243,
+        "NHistoValue" : 0.7146342700431433,
+        "CharGraphValue" : 0.3283322611495739,
+        "HistoSize" : 0.9737478469765503,
+        "NHistoContainmentSimilarity" : 0.3506498585691651,
+        "GraphSize" : 0.9812619180057993,
+        "CharGraphSize" : 0.9317354079952148,
+        "GraphCooccurence" : 0.02445082901622565,
+        "HistoContainmentSimilarity" : 0.08669323400409626,
+        "NHistoSize" : 0.9439111148853011,
+        "OverallSimil" : 0.023319902554162327
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.4507793276880244,
+        "properNounRatio" : 0.1646001215471557,
+        "fleschReadingEaseNormalized" : 0.8917712554834509,
+        "pronounRatio" : 0.015856771554030542,
+        "uniqueProperNounsRatio" : 0.111300745619297,
+        "nounRatio" : 0.3653890615729126,
+        "wordVariationIndexNormalized" : 0.5055973604525529,
+        "averageWordLength" : 5.0741604067290815,
+        "averageSentenceLengthNormalized" : 0.03784174374332659,
+        "wordVariationIndex" : 66.38389878681475,
+        "fleschReadingEase" : 45.06669644504653,
+        "averageSentenceLength" : 20.06623189675821
+      },
+      "rouges" : {
+        "f1Measure" : 0.11798135681398628,
+        "recall" : 0.11677662646226047,
+        "precision" : 0.11923401421649145
+      },
+      "rougen1" : {
+        "f1Measure" : 0.34672832560534783,
+        "recall" : 0.3448814416793191,
+        "precision" : 0.34861348083912586
+      },
+      "rougew" : {
+        "f1Measure" : 0.05322910343520334,
+        "recall" : 0.03535542055694328,
+        "precision" : 0.10766115650924275
+      },
+      "rougen3" : {
+        "f1Measure" : 0.044241759970975306,
+        "recall" : 0.04397142112895018,
+        "precision" : 0.04451819752131701
+      },
+      "rougen2" : {
+        "f1Measure" : 0.09576982019497748,
+        "recall" : 0.09524578357007955,
+        "precision" : 0.09630490581395386
+      },
+      "rougel" : {
+        "f1Measure" : 0.1748587960330094,
+        "recall" : 0.17391780858693556,
+        "precision" : 0.175819618769793
+      }
+    },
+    "sysid09" : {
+      "auto_summ_eng" : {
+        "HistoValue" : 0.7868726548820444,
+        "GraphValue" : 0.018042125946119186,
+        "NOverallSimil" : 0.11391243987673419,
+        "NHistoValue" : 0.706156034119691,
+        "CharGraphValue" : 0.30626020670606663,
+        "HistoSize" : 0.9763705859755745,
+        "NHistoContainmentSimilarity" : 0.33993945607924714,
+        "GraphSize" : 0.9799348985835711,
+        "CharGraphSize" : 0.9425097544850838,
+        "GraphCooccurence" : 0.019251529832554248,
+        "HistoContainmentSimilarity" : 0.07758157103242606,
+        "NHistoSize" : 0.9440847689471684,
+        "OverallSimil" : 0.02011316651285005
+      },
+      "elena_readability" : {
+        "averageWordLengthNormalized" : 0.4153046154964176,
+        "properNounRatio" : 0.13544930470076716,
+        "fleschReadingEaseNormalized" : 0.8835454054150027,
+        "pronounRatio" : 0.03133440138690668,
+        "uniqueProperNounsRatio" : 0.08831421792760201,
+        "nounRatio" : 0.33180218954378027,
+        "wordVariationIndexNormalized" : 0.5011450989897177,
+        "averageWordLength" : 5.0129852254018665,
+        "averageSentenceLengthNormalized" : 0.06347807474062384,
+        "wordVariationIndex" : 66.14319073898369,
+        "fleschReadingEase" : 42.81413436085468,
+        "averageSentenceLength" : 25.65983516483517
+      },
+      "rouges" : {
+        "f1Measure" : 0.10668954815184022,
+        "recall" : 0.10718504677910694,
+        "precision" : 0.1062061579651941
+      },
+      "rougen1" : {
+        "f1Measure" : 0.33275422912194086,
+        "recall" : 0.3335232489914795,
+        "precision" : 0.3319946452476573
+      },
+      "rougew" : {
+        "f1Measure" : 0.049143333328293175,
+        "recall" : 0.032762269802962055,
+        "precision" : 0.09829001592440818
+      },
+      "rougen3" : {
+        "f1Measure" : 0.03744809235800141,
+        "recall" : 0.0375151362319811,
+        "precision" : 0.03738191632928475
+      },
+      "rougen2" : {
+        "f1Measure" : 0.08662050619984828,
+        "recall" : 0.08681872253936855,
+        "precision" : 0.08642473118279571
+      },
+      "rougel" : {
+        "f1Measure" : 0.16030679148376856,
+        "recall" : 0.16064463926018263,
+        "precision" : 0.15997322623828647
+      }
+    }
+  }
+}
