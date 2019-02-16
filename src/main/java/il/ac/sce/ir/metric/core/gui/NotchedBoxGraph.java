@@ -26,6 +26,12 @@ public class NotchedBoxGraph extends JPanel {
 
     private boolean jitteredScatterPlot;
 
+    private boolean peerLessPaint;
+
+    private int peerLessWidth;
+
+    private int peerLessHeight;
+
     public NotchedBoxGraph() {}
 
     public void setBorderPx(int borderPx) {
@@ -56,6 +62,34 @@ public class NotchedBoxGraph extends JPanel {
         this.jitteredScatterPlot = jitteredScatterPlot;
     }
 
+    public MultiNotchedBoxData getMultiNotchedBoxData() {
+        return multiNotchedBoxData;
+    }
+
+    public boolean isPeerLessPaint() {
+        return peerLessPaint;
+    }
+
+    public void setPeerLessPaint(boolean peerLessPaint) {
+        this.peerLessPaint = peerLessPaint;
+    }
+
+    public int getPeerLessWidth() {
+        return peerLessWidth;
+    }
+
+    public void setPeerLessWidth(int peerLessWidth) {
+        this.peerLessWidth = peerLessWidth;
+    }
+
+    public int getPeerLessHeight() {
+        return peerLessHeight;
+    }
+
+    public void setPeerLessHeight(int peerLessHeight) {
+        this.peerLessHeight = peerLessHeight;
+    }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(800, 600);
@@ -65,12 +99,25 @@ public class NotchedBoxGraph extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        drawAll(g2);
+    }
+
+    @Override
+    public Dimension getSize() {
+        if (!peerLessPaint) {
+            return super.getSize();
+        }
+        return new Dimension(peerLessWidth, peerLessHeight);
+    }
+
+    public void drawAll(Graphics2D g2) {
         drawName(g2);
         Dimension size = getSize();
         AffineTransform at = new AffineTransform();
         at.translate(borderPx, size.getHeight() - borderPx);
         at.scale(1,-1);
         double maxScreenY = size.height - 2 * borderPx;
+        // maxScreenY -= 100;
         double maxScreenX = size.width - 2 * borderPx;
         RangeMapper rX = new RangeMapper(0, 1, 0, maxScreenX);
         double[] shrunkMinMax = multiNotchedBoxData.getShrunkMinMax(1.05d);
@@ -257,4 +304,5 @@ public class NotchedBoxGraph extends JPanel {
 
         g2.setTransform(original);
     }
+
 }

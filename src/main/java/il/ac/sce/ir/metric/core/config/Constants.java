@@ -170,10 +170,16 @@ public interface Constants {
 
     String RESULT_DIRECTORY_DEFAULT = "result";
     String CACHE_DIRECTORY_DEFAULT = "cache";
+    String TEMP_DIRECTORY_DEFAULT = "temp";
     String ALL_RESULT_JSON_FILE_NAME = "all_results.json";
     String AVERAGES_BY_SYSTEMS_FILE_NAME = "averages_by_systems.json";
 
     Map<String, String> TOPICS_METRICS_MAPPING = Collections.unmodifiableMap(new HashMap<String, String>() {{
         put(ELENA_TOPICS_READABILITY_LOWER_CASE, ELENA_READABILITY_LOWER_CASE);
     }});
+
+    String SCRIPT_R_HSD_TEST = "hsd_test.r";
+    String SCRIPT_BAT_HSD_TEST = "run_hsd_test.bat";
+    String DEFAULT_CSV_FILE_RPC = "temp.csv";
+    String DEFAULT_HSD_TEST_RESULT = "hsd_result.txt";
 }

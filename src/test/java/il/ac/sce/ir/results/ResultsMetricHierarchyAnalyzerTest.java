@@ -40,7 +40,7 @@ public class ResultsMetricHierarchyAnalyzerTest {
         Map<String, Object> metricHierarchy = organizer.organize("result", "result/reduced");
         ResultsMetricHierarchyAnalyzer analyzer = new ResultsMetricHierarchyAnalyzer(metricHierarchy);
         analyzer.calculateDerivatives();
-        // System.out.println("End");
+        System.out.println("End");
     }
 
     @Test
@@ -51,6 +51,15 @@ public class ResultsMetricHierarchyAnalyzerTest {
         // analyzer.calculateDerivatives();
         Map<String, List<String>> topicMetrics = analyzer.getVirtualSTopicSystemMetrics("category01");
         System.out.println(topicMetrics);
+    }
+
+    @Test
+    public void csvSaveTest() {
+        KnownMetricFormatsHierarchicalOrganizer organizer = new KnownMetricFormatsHierarchicalOrganizer();
+        Map<String, Object> metricHierarchy = organizer.organize("result", "result/reduced");
+        ResultsMetricHierarchyAnalyzer analyzer = new ResultsMetricHierarchyAnalyzer(metricHierarchy);
+        analyzer.calculateDerivatives();
+        
     }
 
 }

@@ -1,5 +1,7 @@
 package il.ac.sce.ir.metric.starter.gui.main.util;
 
+import java.awt.*;
+
 public class Caret {
 
     private int x, y, elementsInLine;
@@ -28,5 +30,18 @@ public class Caret {
 
     public int getElementsInLine() {
         return elementsInLine;
+    }
+
+    public GridBagConstraints asGridBag() {
+        return asGridBag(null);
+    }
+
+    public GridBagConstraints asGridBag(GridBagConstraints constraints) {
+        if (constraints == null) {
+            constraints = new GridBagConstraints();
+        }
+        constraints.gridx = x;
+        constraints.gridy = y;
+        return constraints;
     }
 }

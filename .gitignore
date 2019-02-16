@@ -25,6 +25,7 @@ hs_err_pid*
 cache/
 result/
 target/
+temp/
 .idea/
 
 workspace.xml

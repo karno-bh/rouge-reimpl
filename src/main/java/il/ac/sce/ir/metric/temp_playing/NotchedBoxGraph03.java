@@ -1,8 +1,13 @@
 package il.ac.sce.ir.metric.temp_playing;
 
+import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
 import il.ac.sce.ir.metric.core.gui.data.MultiNotchedBoxData;
 import il.ac.sce.ir.metric.core.statistics.NotchedBoxData;
 import il.ac.sce.ir.metric.core.utils.math.RangeMapper;
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +15,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +61,15 @@ public class NotchedBoxGraph03 extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        drawAll(g2);
+        try {
+            exportChartAsSVG(null, new File("test.svg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void drawAll(Graphics2D g2) {
         drawName(g2);
         Dimension size = getSize();
         AffineTransform at = new AffineTransform();
@@ -282,5 +297,23 @@ public class NotchedBoxGraph03 extends JPanel {
         multiNotchedBoxData.add("Summer", data02);
         multiNotchedBoxData.add("Autumn", data03);
         return multiNotchedBoxData;
+    }
+
+    void exportChartAsSVG(Rectangle bounds, File svgFile) throws IOException {
+        // Get a DOMImplementation and create an XML document
+        DOMImplementation domImpl =
+                GenericDOMImplementation.getDOMImplementation();
+        Document document = domImpl.createDocument(null, "svg", null);
+
+        // Create an instance of the SVG Generator
+        SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
+        drawAll(svgGenerator);
+
+        // Write svg file
+        OutputStream outputStream = new FileOutputStream(svgFile);
+        Writer out = new OutputStreamWriter(outputStream, "UTF-8");
+        svgGenerator.stream(out, true /* use css */);
+        outputStream.flush();
+        outputStream.close();
     }
 }

@@ -1,27 +1,32 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
-import il.ac.sce.ir.metric.core.gui.data.MultiNotchedBoxData;
 import il.ac.sce.ir.metric.core.gui.data.Table;
+import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.RLanguageHSDTestRunner;
+import il.ac.sce.ir.metric.core.utils.converter.GraphicsToSVGExporter;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.Starter;
 import il.ac.sce.ir.metric.starter.gui.main.element.SystemMetricSubMetricCheckBox;
 import il.ac.sce.ir.metric.starter.gui.main.util.Caret;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
@@ -31,6 +36,8 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private final ResultsMetricHierarchyAnalyzer analyzer;
 
+    private final String resultDirectory;
+
     private final JButton tableButton;
 
     private final JButton barChartButton;
@@ -39,13 +46,33 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private final JCheckBox jitteredScatterPlotWithinNotchedBox;
 
+    private final JLabel svgFileNameLabel = new JLabel("SVG File Name");
+
+    private final JLabel widthLabel = new JLabel("Width");
+
+    private final JLabel heightLabel = new JLabel("Height");
+
+    private final JTextField svgFileNameTextField;
+
+    private final JTextField svgWidthTextField;
+
+    private final JTextField svgHeightTextField;
+
+    private List<JComponent> svgRelatedComponents;
+
+    private final JCheckBox saveToSVGCheckBox;
+
     private boolean scatterPlot;
+
+    private boolean saveToSVG;
 
     private final Map<String, Map<String, Boolean>> selectedMetrics = new HashMap<>();
 
-    public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer) {
+
+    public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer, String resultDirectory) {
         this.category = category;
         this.analyzer = analyzer;
+        this.resultDirectory = resultDirectory;
         TitledBorder titledBorder = BorderFactory.createTitledBorder("System");
         setBorder(titledBorder);
         setLayout(new GridBagLayout());
@@ -93,7 +120,33 @@ public class AnalyzeBySystemPanel extends JPanel {
         tableButtonConstraints.insets.right = 0;
         analyzeButtonsPanel.add(notchedBoxButton, tableButtonConstraints);
 
+        jitteredScatterPlotWithinNotchedBox = new JCheckBox();
+        JPanel scatterPlotPanel = createScatterPlotPanel();
+
+        svgFileNameTextField = new JTextField();
+        saveToSVGCheckBox = new JCheckBox();
+        svgWidthTextField = new JTextField();
+        svgHeightTextField = new JTextField();
+        svgRelatedComponents = Arrays.asList(
+                svgFileNameLabel, widthLabel, heightLabel,
+                svgFileNameTextField, svgWidthTextField, svgHeightTextField
+        );
+        svgRelatedComponents.forEach(c -> c.setEnabled(false));
+        JPanel svgSavePanel = createSVGSavePanel();
+
+        GridBagConstraints buttonsPanelConstraints = wholeSpaceFiller.getFillingConstraints();
+        buttonsPanelConstraints.gridy = y++;
+        add(svgSavePanel, buttonsPanelConstraints);
+        buttonsPanelConstraints.gridy = y++;
+        add(scatterPlotPanel, buttonsPanelConstraints);
+        buttonsPanelConstraints.gridy = y++;
+        add(analyzeButtonsPanel, buttonsPanelConstraints);
+
+    }
+
+    private JPanel createScatterPlotPanel() {
         JPanel scatterPlotPanel = new JPanel();
+//        scatterPlotPanel.setBorder(BorderFactory.createTitledBorder("Notched Box Configuration"));
         scatterPlotPanel.setLayout(new GridBagLayout());
         WholeSpaceFiller filler = new WholeSpaceFiller();
         scatterPlotPanel.add(new JPanel(), filler.getFillingConstraints());
@@ -102,18 +155,70 @@ public class AnalyzeBySystemPanel extends JPanel {
         scatterPlotConstraints.gridx = 1;
         scatterPlotConstraints.insets = scatterPlotPanelInsets;
         scatterPlotPanel.add(new JLabel("Notched Box with Jittered Scatter Plot"), scatterPlotConstraints);
-        jitteredScatterPlotWithinNotchedBox = new JCheckBox();
         jitteredScatterPlotWithinNotchedBox.addItemListener(this::onScatterPlotCheckBoxChanged);
         scatterPlotConstraints.gridx = 2;
         scatterPlotConstraints.insets.right = 0;
         scatterPlotPanel.add(jitteredScatterPlotWithinNotchedBox);
-
-        GridBagConstraints buttonsPanelConstraints = wholeSpaceFiller.getFillingConstraints();
-        buttonsPanelConstraints.gridy = y++;
-        add(scatterPlotPanel, buttonsPanelConstraints);
-        buttonsPanelConstraints.gridy = y++;
-        add(analyzeButtonsPanel, buttonsPanelConstraints);
+        return scatterPlotPanel;
     }
+
+    private JPanel createSVGSavePanel() {
+        JPanel svgSavePanel = new JPanel();
+        svgSavePanel.setBorder(BorderFactory.createTitledBorder("Chart/Graph to File"));
+        svgSavePanel.setLayout(new GridBagLayout());
+        Caret caret = new Caret(0,0, 2);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.LINE_END;
+
+        constraints = caret.asGridBag(constraints);
+        svgSavePanel.add(svgFileNameLabel, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        svgFileNameTextField.setColumns(15);
+        svgFileNameTextField.setToolTipText("The file will be saved in chosen result directory");
+        svgSavePanel.add(svgFileNameTextField, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        svgSavePanel.add(widthLabel, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        svgWidthTextField.setColumns(15);
+        svgSavePanel.add(svgWidthTextField, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        svgSavePanel.add(heightLabel, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        svgHeightTextField.setColumns(15);
+        svgSavePanel.add(svgHeightTextField, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        JLabel saveOnOpen = new JLabel("Save SVG on Char/Graph Open");
+        svgSavePanel.add(saveOnOpen, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+
+        saveToSVGCheckBox.addItemListener(this::onSaveToSVGCheckBoxChanged);
+        svgSavePanel.add(saveToSVGCheckBox, constraints);
+
+        JPanel wrapperPanel = new JPanel();
+        wrapperPanel.setLayout(new GridBagLayout());
+        WholeSpaceFiller filler = new WholeSpaceFiller();
+        GridBagConstraints fillingConstraints = filler.getFillingConstraints();
+        wrapperPanel.add(new JPanel(), fillingConstraints);
+        GridBagConstraints svgSavePanelConstraints = new GridBagConstraints();
+        svgSavePanelConstraints.gridx = 1;
+        wrapperPanel.add(svgSavePanel, svgSavePanelConstraints);
+        return wrapperPanel;
+    }
+
 
     private java.util.List<JPanel> constructMetricFilterPanel(Set<String> systems) {
         java.util.List<JPanel> metricPanels = new ArrayList<>();
@@ -181,6 +286,11 @@ public class AnalyzeBySystemPanel extends JPanel {
         scatterPlot = event.getStateChange() == ItemEvent.SELECTED;
     }
 
+    private void onSaveToSVGCheckBoxChanged(ItemEvent event) {
+        saveToSVG = event.getStateChange() == ItemEvent.SELECTED;
+        svgRelatedComponents.forEach(c -> c.setEnabled(saveToSVG));
+    }
+
     private void onTableButtonClicked(ActionEvent event) {
         /*ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -213,6 +323,11 @@ public class AnalyzeBySystemPanel extends JPanel {
                 categoryDataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
+
+
+        if (saveToSVG) {
+            exportChartAsSVG(barChart);
+        }
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
         jDialog.add(chartPanel);
@@ -223,13 +338,44 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private void onNotchedBoxButtonClicked(ActionEvent event) {
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
-        JPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(flattenedData, scatterPlot);
+        RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
+        List<Map<String, Object>> result = runner.process();
+        System.out.println(result);
 
+        AnalyzeDialogNotchedBoxPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(flattenedData, scatterPlot);
+        if (saveToSVG) {
+            innerDialogPanel.exportChartAsSVG(
+                    resultDirectory,
+                    svgFileNameTextField.getText(),
+                    svgWidthTextField.getText(),
+                    svgHeightTextField.getText()
+            );
+        }
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Notched Boxes View");
         jDialog.add(innerDialogPanel);
         jDialog.pack();
         jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
         jDialog.setVisible(true);
+    }
+
+
+    private void exportChartAsSVG(JFreeChart chart) {
+        try {
+            String fileName = svgFileNameTextField.getText().trim();
+            if (!fileName.toLowerCase().endsWith(".svg")) {
+                fileName += ".svg";
+            }
+            File svgFile = Paths.get(resultDirectory, fileName).toFile();
+            GraphicsToSVGExporter exporter = new GraphicsToSVGExporter(svgFile);
+            int width = Integer.parseInt(svgWidthTextField.getText().trim());
+            int height = Integer.parseInt(svgHeightTextField.getText().trim());
+            Rectangle bounds = new Rectangle(0, 0, width, height);
+            exporter.export(g2 -> {
+                chart.draw(g2, bounds);
+            });
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Cannot save chart to SVG: " + e.getMessage());
+        }
     }
 
 }

@@ -1,0 +1,7 @@
+library(agricolae)
+library(jsonlite)
+metric_data <- read.csv("temp.csv", header = TRUE)
+metric_anova <- aov(value ~ metric, data = metric_data)
+metric_hsd <- HSD.test(metric_anova, "metric", group = TRUE)
+result <- data.frame(groups = metric_hsd$groups, means = metric_hsd$means, params = metric_hsd$parameters, stats = metric_hsd$statistics)
+toJSON(result)

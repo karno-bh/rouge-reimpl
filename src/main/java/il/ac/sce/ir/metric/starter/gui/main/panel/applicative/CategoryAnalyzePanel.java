@@ -31,7 +31,7 @@ public class CategoryAnalyzePanel extends JPanel{
         constraints.gridy = y++;
         constraints.weightx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new AnalyzeBySystemPanel(category, resultsMetricHierarchyAnalyzer), constraints);
+        add(new AnalyzeBySystemPanel(category, resultsMetricHierarchyAnalyzer, resultDirectory), constraints);
         /*for (int i = 0; i < 1; i++) {
             constraints.gridx = 0;
             constraints.gridy = y++;
