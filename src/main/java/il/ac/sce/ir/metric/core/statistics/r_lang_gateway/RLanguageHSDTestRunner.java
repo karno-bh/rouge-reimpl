@@ -2,6 +2,8 @@ package il.ac.sce.ir.metric.core.statistics.r_lang_gateway;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import il.ac.sce.ir.metric.core.config.Constants;
+import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.data.HSDTestLetterRepresentationRow;
+import il.ac.sce.ir.metric.core.statistics.util.RLanguageHSDTestResponseAnalyzer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -91,9 +93,11 @@ public class RLanguageHSDTestRunner {
         }
     }
 
-    public List<Map<String, Object>> process() {
+    public List<HSDTestLetterRepresentationRow> process() {
         saveToTempCSV();
         runRScript();
-        return readResult();
+        List<Map<String, Object>> result = readResult();
+        RLanguageHSDTestResponseAnalyzer analyzer = new RLanguageHSDTestResponseAnalyzer(result);
+        return analyzer.asHSDTestLetterRepresentation();
     }
 }

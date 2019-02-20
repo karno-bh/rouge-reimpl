@@ -14,4 +14,10 @@ public class StringFunctionTest {
         System.out.println(lastIndex);
         System.out.println(path.substring(lastIndex + 1));
     }
+
+    @Test
+    public void strFunctTest2() {
+        String str = "group.test.id";
+        System.out.println(str.substring(str.indexOf('.') + 1));
+    }
 }

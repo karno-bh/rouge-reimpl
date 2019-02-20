@@ -4,6 +4,7 @@ import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
 import il.ac.sce.ir.metric.core.gui.data.Table;
 import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.RLanguageHSDTestRunner;
+import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.data.HSDTestLetterRepresentationRow;
 import il.ac.sce.ir.metric.core.utils.converter.GraphicsToSVGExporter;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.Starter;
@@ -67,6 +68,9 @@ public class AnalyzeBySystemPanel extends JPanel {
     private boolean saveToSVG;
 
     private final Map<String, Map<String, Boolean>> selectedMetrics = new HashMap<>();
+
+    private final Map<Map<String, Map<String, Boolean>>, List<HSDTestLetterRepresentationRow>> computedHSDCache =
+            new HashMap<>();
 
 
     public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer, String resultDirectory) {
@@ -169,6 +173,7 @@ public class AnalyzeBySystemPanel extends JPanel {
         Caret caret = new Caret(0,0, 2);
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.LINE_END;
+        constraints.insets = new Insets(0, 10, 0,0);
 
         constraints = caret.asGridBag(constraints);
         svgSavePanel.add(svgFileNameLabel, constraints);
@@ -206,6 +211,7 @@ public class AnalyzeBySystemPanel extends JPanel {
         constraints = caret.asGridBag(constraints);
 
         saveToSVGCheckBox.addItemListener(this::onSaveToSVGCheckBoxChanged);
+        constraints.anchor = GridBagConstraints.LINE_START;
         svgSavePanel.add(saveToSVGCheckBox, constraints);
 
         JPanel wrapperPanel = new JPanel();
@@ -338,11 +344,24 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private void onNotchedBoxButtonClicked(ActionEvent event) {
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
-        RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
-        List<Map<String, Object>> result = runner.process();
-        System.out.println(result);
+        List<HSDTestLetterRepresentationRow> result = computedHSDCache.computeIfAbsent(selectedMetrics, k -> {
+            RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
+            return runner.process();
+        });
+        Map<String, List<Double>> notchedBoxFlattenedData = new LinkedHashMap<>();
+        Map<String, String> metricGroups = new HashMap<>();
+        for (HSDTestLetterRepresentationRow hsdTestLetterRepresentationRow : result) {
+            String metric = hsdTestLetterRepresentationRow.getMetric();
+            notchedBoxFlattenedData.put(metric, flattenedData.get(metric));
+            metricGroups.put(metric, hsdTestLetterRepresentationRow.getGroups());
+        }
+        // System.out.println(result);
 
-        AnalyzeDialogNotchedBoxPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(flattenedData, scatterPlot);
+
+        AnalyzeDialogNotchedBoxPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(
+                notchedBoxFlattenedData,
+                metricGroups,
+                scatterPlot);
         if (saveToSVG) {
             innerDialogPanel.exportChartAsSVG(
                     resultDirectory,

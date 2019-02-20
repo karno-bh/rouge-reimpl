@@ -1,5 +1,23 @@
 2019-02-16
     CONTINUE:
+        1. Add button to enable/disable groups for notched boxes
+        2. Add text output for ANOVA + HSD
+        3. Rearrange GUI.
+        4. Add output to SVG file for topics
+        5. Remove "elena" from displaying
+    Done:
+        1. Added groups to notched boxes
+        2. HSD test is cached
+    TODO:
+        1. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        2. Start writing a Project Document.
+        3. Clean tests not to have absolute file paths. (=> need to upload test data)
+        4. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        5. PeerModelPair should be generic and common for all.
+        6. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
+2019-02-16
+    CONTINUE:
         1. Notched box should be able to display without legend
         2. Notched box should display groups as well
         3. Export groups as text?

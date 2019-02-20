@@ -22,12 +22,17 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
 
     private final Map<String, List<Double>> flattenedData;
 
+    private final Map<String, String> metricGroups;
+
     private final NotchedBoxGraph notchedBoxGraph;
 
-    public AnalyzeDialogNotchedBoxPanel(Map<String, List<Double>> flattenedData, boolean jitteredScatterPlot) {
-
+    public AnalyzeDialogNotchedBoxPanel(Map<String, List<Double>> flattenedData,
+                                        Map<String, String> metricGroups,
+                                        boolean jitteredScatterPlot) {
         Objects.requireNonNull(flattenedData, "Flattened data cannot be null");
+        Objects.requireNonNull(metricGroups, "Metric Groups cannot be null");
         this.flattenedData = flattenedData;
+        this.metricGroups = metricGroups;
         setLayout(new GridBagLayout());
         Map<String, String> flattenedDataLegend = new HashMap<>();
         Table table = new Table();
@@ -49,7 +54,7 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
             for(int i = 0; i < asDoubleArr.length; i++) {
                 asDoubleArr[i] = values.get(i);
             }
-            multiNotchedBoxData.add(flattenedDataLegend.get(compoundKey), asDoubleArr);
+            multiNotchedBoxData.add(flattenedDataLegend.get(compoundKey), asDoubleArr, metricGroups.get(compoundKey));
             // multiNotchedBoxData.add(compoundKey.substring(0, compoundKey.indexOf("/")), asDoubleArr);
         });
 

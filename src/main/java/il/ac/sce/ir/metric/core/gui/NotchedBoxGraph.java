@@ -32,6 +32,8 @@ public class NotchedBoxGraph extends JPanel {
 
     private int peerLessHeight;
 
+    private double letterMarginY = 1.05;
+
     public NotchedBoxGraph() {}
 
     public void setBorderPx(int borderPx) {
@@ -117,12 +119,22 @@ public class NotchedBoxGraph extends JPanel {
         at.translate(borderPx, size.getHeight() - borderPx);
         at.scale(1,-1);
         double maxScreenY = size.height - 2 * borderPx;
-        // maxScreenY -= 100;
+        FontRenderContext fontRenderContext = g2.getFontRenderContext();
+        Map<String, String> groupsPerBox = multiNotchedBoxData.getGroupsPerBox();
+        double groupsDelta = 0;
+        Rectangle2D boundRectangleOfA = null;
+        if (!groupsPerBox.isEmpty()) {
+            boundRectangleOfA = g2.getFont().getStringBounds("a", fontRenderContext);
+            double groupsHeight = boundRectangleOfA.getHeight();
+            String firstGroups = groupsPerBox.entrySet().iterator().next().getValue();
+            groupsDelta = groupsHeight * firstGroups.length() * letterMarginY;
+        }
+        maxScreenY -= groupsDelta;
         double maxScreenX = size.width - 2 * borderPx;
         RangeMapper rX = new RangeMapper(0, 1, 0, maxScreenX);
         double[] shrunkMinMax = multiNotchedBoxData.getShrunkMinMax(1.05d);
         RangeMapper rY = new RangeMapper(shrunkMinMax[0], shrunkMinMax[1], 0, maxScreenY);
-        drawGraph(g2, at, rX, rY, maxScreenX, maxScreenY);
+        drawGraph(g2, at, rX, rY, maxScreenX, maxScreenY, groupsDelta, boundRectangleOfA);
     }
 
     private void drawName(Graphics2D g2) {
@@ -137,7 +149,8 @@ public class NotchedBoxGraph extends JPanel {
         g2.drawString(graphName, (float) textRenderPoint, (float) graphNameBounds.getHeight());
     }
 
-    private void drawGraph(Graphics2D g2, AffineTransform screenTransform, RangeMapper rX, RangeMapper rY, double maxScreenX, double maxScreenY) {
+    private void drawGraph(Graphics2D g2, AffineTransform screenTransform, RangeMapper rX, RangeMapper rY,
+                           double maxScreenX, double maxScreenY, double groupsDelta, Rectangle2D boundRectangleOfA) {
         AffineTransform currentTransform;
         Paint currentPaint;
         Stroke currentStroke;
@@ -210,6 +223,21 @@ public class NotchedBoxGraph extends JPanel {
             g2.drawString(notchedBoxLabel, (float)(-labelHalfWidth), (float)(labelBounds.getHeight()));
             g2.setTransform(innerCurrentTransform);
             g2.translate(0, 5d);
+
+            original = g2.getTransform();
+            Map<String, String> groupsPerBox = multiNotchedBoxData.getGroupsPerBox();
+            if (!groupsPerBox.isEmpty()) {
+                String groups = groupsPerBox.get(notchedBoxLabel);
+                if (groups != null) {
+                    for (int gi = 0; gi < groups.length(); gi++) {
+                        g2.translate(-boundRectangleOfA.getWidth() / 2, maxScreenY + 0.75 * boundRectangleOfA.getHeight() * letterMarginY * gi);
+                        g2.scale(1, -1);
+                        g2.drawString("" + groups.charAt(gi), 0,0);
+
+                        g2.setTransform(original);
+                    }
+                }
+            }
 
             double min = data[notchedBoxData.getLowIndex()];
             double minScreen = rY.map(min);

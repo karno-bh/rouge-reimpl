@@ -20,12 +20,15 @@ public class MultiNotchedBoxData {
     // preserve the order of adding values
     private final Map<String, NotchedBoxData> boxesByLabel = new LinkedHashMap<>();
 
+    private final Map<String, String> groupsPerBox = new HashMap<>();
+
     public MultiNotchedBoxData(boolean sortWhenAdded) {
         this.sortWhenAdded = sortWhenAdded;
     }
 
-    public void add(String label, double[] data) {
-        if (new StringUtils().isEmpty(label)) {
+    public void add(String label, double[] data, String groups) {
+        StringUtils stringUtils = new StringUtils();
+        if (stringUtils.isEmpty(label)) {
             throw new IllegalArgumentException("Box Label should not be empty");
         }
 
@@ -52,6 +55,13 @@ public class MultiNotchedBoxData {
         notchedBoxData.notches();
 
         boxesByLabel.put(label, notchedBoxData);
+        if (!stringUtils.isEmpty(groups)) {
+            groupsPerBox.put(label, groups);
+        }
+    }
+
+    public void add(String label, double[] data) {
+        add(label, data, null);
     }
 
     public Map<String, NotchedBoxData> getBoxesByLabel() {
@@ -76,5 +86,9 @@ public class MultiNotchedBoxData {
             decimalRangeAnalyzer = new DecimalRangeAnalyzer(0d, 1d);
         }
         return decimalRangeAnalyzer.decimalRange();
+    }
+
+    public Map<String, String> getGroupsPerBox() {
+        return groupsPerBox;
     }
 }
