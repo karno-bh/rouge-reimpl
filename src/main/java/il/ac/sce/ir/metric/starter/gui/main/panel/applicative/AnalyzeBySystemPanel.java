@@ -1,7 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
 import il.ac.sce.ir.metric.core.config.Constants;
-import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
 import il.ac.sce.ir.metric.core.gui.data.Table;
 import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.RLanguageHSDTestRunner;
 import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.data.HSDTestLetterRepresentationRow;
@@ -11,15 +10,11 @@ import il.ac.sce.ir.metric.starter.gui.main.Starter;
 import il.ac.sce.ir.metric.starter.gui.main.element.SystemMetricSubMetricCheckBox;
 import il.ac.sce.ir.metric.starter.gui.main.util.Caret;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
-import org.apache.batik.dom.GenericDOMImplementation;
-import org.apache.batik.svggen.SVGGraphics2D;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -63,13 +58,21 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private final JCheckBox saveToSVGCheckBox;
 
+    private final JCheckBox groupsInNotchedBoxesCheckBox;
+
+    private final JCheckBox legendInNotchedBoxesCheckBox;
+
     private boolean scatterPlot;
+
+    private boolean groupsInNotchedBoxes;
+
+    private boolean legendInNotchedBoxes;
 
     private boolean saveToSVG;
 
     private final Map<String, Map<String, Boolean>> selectedMetrics = new HashMap<>();
 
-    private final Map<Map<String, Map<String, Boolean>>, List<HSDTestLetterRepresentationRow>> computedHSDCache =
+    private final Map<String, List<HSDTestLetterRepresentationRow>> computedHSDCache =
             new HashMap<>();
 
 
@@ -125,7 +128,9 @@ public class AnalyzeBySystemPanel extends JPanel {
         analyzeButtonsPanel.add(notchedBoxButton, tableButtonConstraints);
 
         jitteredScatterPlotWithinNotchedBox = new JCheckBox();
-        JPanel scatterPlotPanel = createScatterPlotPanel();
+        groupsInNotchedBoxesCheckBox = new JCheckBox();
+        legendInNotchedBoxesCheckBox = new JCheckBox();
+        // JPanel scatterPlotPanel = createScatterPlotPanel();
 
         svgFileNameTextField = new JTextField();
         saveToSVGCheckBox = new JCheckBox();
@@ -136,33 +141,80 @@ public class AnalyzeBySystemPanel extends JPanel {
                 svgFileNameTextField, svgWidthTextField, svgHeightTextField
         );
         svgRelatedComponents.forEach(c -> c.setEnabled(false));
-        JPanel svgSavePanel = createSVGSavePanel();
+        // JPanel svgSavePanel = createSVGSavePanel();
 
         GridBagConstraints buttonsPanelConstraints = wholeSpaceFiller.getFillingConstraints();
         buttonsPanelConstraints.gridy = y++;
+        add(createFunctionalPanels(), buttonsPanelConstraints);
+        /*buttonsPanelConstraints.gridy = y++;
         add(svgSavePanel, buttonsPanelConstraints);
         buttonsPanelConstraints.gridy = y++;
-        add(scatterPlotPanel, buttonsPanelConstraints);
+        add(scatterPlotPanel, buttonsPanelConstraints);*/
         buttonsPanelConstraints.gridy = y++;
         add(analyzeButtonsPanel, buttonsPanelConstraints);
 
     }
 
+
+    private JPanel createFunctionalPanels() {
+        JPanel wrapperPanel = new JPanel();
+        wrapperPanel.setLayout(new GridBagLayout());
+        WholeSpaceFiller filler = new WholeSpaceFiller();
+        GridBagConstraints fillingConstraints = filler.getFillingConstraints();
+        wrapperPanel.add(new JPanel(), fillingConstraints);
+        GridBagConstraints functionalPanelConstraints = new GridBagConstraints();
+        functionalPanelConstraints.fill = GridBagConstraints.BOTH;
+        int x = 1;
+        functionalPanelConstraints.gridx = x++;
+        wrapperPanel.add(createSVGSavePanel(), functionalPanelConstraints);
+
+        functionalPanelConstraints.gridx = x++;
+        wrapperPanel.add(createScatterPlotPanel(), functionalPanelConstraints);
+        return wrapperPanel;
+    }
+
     private JPanel createScatterPlotPanel() {
         JPanel scatterPlotPanel = new JPanel();
-//        scatterPlotPanel.setBorder(BorderFactory.createTitledBorder("Notched Box Configuration"));
+        scatterPlotPanel.setBorder(BorderFactory.createTitledBorder("Notched Box Configuration"));
         scatterPlotPanel.setLayout(new GridBagLayout());
-        WholeSpaceFiller filler = new WholeSpaceFiller();
-        scatterPlotPanel.add(new JPanel(), filler.getFillingConstraints());
-        GridBagConstraints scatterPlotConstraints = new GridBagConstraints();
-        Insets scatterPlotPanelInsets = new Insets(0,0,0,10);
-        scatterPlotConstraints.gridx = 1;
-        scatterPlotConstraints.insets = scatterPlotPanelInsets;
-        scatterPlotPanel.add(new JLabel("Notched Box with Jittered Scatter Plot"), scatterPlotConstraints);
+        Caret caret = new Caret(0,0, 2);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.LINE_END;
+        constraints.insets = new Insets(0, 10, 0,0);
+
+        constraints = caret.asGridBag(constraints);
+        scatterPlotPanel.add(new JLabel("Notched Box with Jittered Scatter Plot"), constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
         jitteredScatterPlotWithinNotchedBox.addItemListener(this::onScatterPlotCheckBoxChanged);
-        scatterPlotConstraints.gridx = 2;
-        scatterPlotConstraints.insets.right = 0;
-        scatterPlotPanel.add(jitteredScatterPlotWithinNotchedBox);
+        scatterPlotPanel.add(jitteredScatterPlotWithinNotchedBox, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        scatterPlotPanel.add(new JLabel("Groups in Notched Boxes"), constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        groupsInNotchedBoxesCheckBox.addItemListener(this::onGroupsInNotchedBoxesChanged);
+        scatterPlotPanel.add(groupsInNotchedBoxesCheckBox, constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        scatterPlotPanel.add(new JLabel("Full Metric Legend"), constraints);
+
+        caret.next();
+        constraints = caret.asGridBag(constraints);
+        legendInNotchedBoxesCheckBox.addItemListener(this::onLegendInNotchedBoxes);
+        scatterPlotPanel.add(legendInNotchedBoxesCheckBox, constraints);
+
+
+
+        WholeSpaceFiller filler = new WholeSpaceFiller();
+        GridBagConstraints fillingConstraints = filler.getFillingConstraints();
+        fillingConstraints.gridy = 1000;
+        scatterPlotPanel.add(new JPanel(), fillingConstraints);
+
         return scatterPlotPanel;
     }
 
@@ -214,15 +266,8 @@ public class AnalyzeBySystemPanel extends JPanel {
         constraints.anchor = GridBagConstraints.LINE_START;
         svgSavePanel.add(saveToSVGCheckBox, constraints);
 
-        JPanel wrapperPanel = new JPanel();
-        wrapperPanel.setLayout(new GridBagLayout());
-        WholeSpaceFiller filler = new WholeSpaceFiller();
-        GridBagConstraints fillingConstraints = filler.getFillingConstraints();
-        wrapperPanel.add(new JPanel(), fillingConstraints);
-        GridBagConstraints svgSavePanelConstraints = new GridBagConstraints();
-        svgSavePanelConstraints.gridx = 1;
-        wrapperPanel.add(svgSavePanel, svgSavePanelConstraints);
-        return wrapperPanel;
+
+        return svgSavePanel;
     }
 
 
@@ -292,20 +337,23 @@ public class AnalyzeBySystemPanel extends JPanel {
         scatterPlot = event.getStateChange() == ItemEvent.SELECTED;
     }
 
+    private void onGroupsInNotchedBoxesChanged(ItemEvent event){
+        groupsInNotchedBoxes = event.getStateChange() == ItemEvent.SELECTED;
+    }
+
+    private void onLegendInNotchedBoxes(ItemEvent event) {
+        legendInNotchedBoxes = event.getStateChange() == ItemEvent.SELECTED;
+    }
+
     private void onSaveToSVGCheckBoxChanged(ItemEvent event) {
         saveToSVG = event.getStateChange() == ItemEvent.SELECTED;
         svgRelatedComponents.forEach(c -> c.setEnabled(saveToSVG));
     }
 
     private void onTableButtonClicked(ActionEvent event) {
-        /*ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String s = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(analyzer.getOriginalMetricHierarchy());
-            System.out.println(s);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }*/
-
+        if (!hasSelection()) {
+            return;
+        }
         Table table = analyzer.asAverageTable(category, selectedMetrics);
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Table View");
         JTable systemsSummary = new JTable(table);
@@ -319,6 +367,9 @@ public class AnalyzeBySystemPanel extends JPanel {
     }
 
     private void onBarChartButtonClicked(ActionEvent event) {
+        if (!hasSelection()) {
+            return;
+        }
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Bar Chart View");
         Table table = analyzer.asAverageTable(category, selectedMetrics);
         CategoryDataset categoryDataset = analyzer.tableToCategoryDataSet(table);
@@ -343,17 +394,25 @@ public class AnalyzeBySystemPanel extends JPanel {
     }
 
     private void onNotchedBoxButtonClicked(ActionEvent event) {
+        if (!hasSelection()) {
+            return;
+        }
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
-        List<HSDTestLetterRepresentationRow> result = computedHSDCache.computeIfAbsent(selectedMetrics, k -> {
-            RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
-            return runner.process();
-        });
-        Map<String, List<Double>> notchedBoxFlattenedData = new LinkedHashMap<>();
+        Map<String, List<Double>> notchedBoxFlattenedData;
         Map<String, String> metricGroups = new HashMap<>();
-        for (HSDTestLetterRepresentationRow hsdTestLetterRepresentationRow : result) {
-            String metric = hsdTestLetterRepresentationRow.getMetric();
-            notchedBoxFlattenedData.put(metric, flattenedData.get(metric));
-            metricGroups.put(metric, hsdTestLetterRepresentationRow.getGroups());
+        if (groupsInNotchedBoxes) {
+            List<HSDTestLetterRepresentationRow> result = computedHSDCache.computeIfAbsent(selectedMetricsToCacheKey(), k -> {
+                RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
+                return runner.process();
+            });
+            notchedBoxFlattenedData = new LinkedHashMap<>();
+            for (HSDTestLetterRepresentationRow hsdTestLetterRepresentationRow : result) {
+                String metric = hsdTestLetterRepresentationRow.getMetric();
+                notchedBoxFlattenedData.put(metric, flattenedData.get(metric));
+                metricGroups.put(metric, hsdTestLetterRepresentationRow.getGroups());
+            }
+        } else {
+            notchedBoxFlattenedData = flattenedData;
         }
         // System.out.println(result);
 
@@ -361,7 +420,8 @@ public class AnalyzeBySystemPanel extends JPanel {
         AnalyzeDialogNotchedBoxPanel innerDialogPanel = new AnalyzeDialogNotchedBoxPanel(
                 notchedBoxFlattenedData,
                 metricGroups,
-                scatterPlot);
+                scatterPlot,
+                legendInNotchedBoxes);
         if (saveToSVG) {
             innerDialogPanel.exportChartAsSVG(
                     resultDirectory,
@@ -377,6 +437,46 @@ public class AnalyzeBySystemPanel extends JPanel {
         jDialog.setVisible(true);
     }
 
+    private boolean hasSelection() {
+        boolean hasSelection = false;
+        drop:
+        for (Map.Entry<String, Map<String, Boolean>> metricSelection : selectedMetrics.entrySet()) {
+            Map<String, Boolean> selectedSubMetrics = metricSelection.getValue();
+            if (selectedSubMetrics == null) {
+                continue;
+            }
+            for (Map.Entry<String, Boolean> selectedSubMetric : selectedSubMetrics.entrySet()) {
+                Boolean selected = selectedSubMetric.getValue();
+                if (selected != null && selected) {
+                    hasSelection = true;
+                    break drop;
+                }
+            }
+        }
+        if (!hasSelection) {
+            JOptionPane.showMessageDialog(null, "Please select at least one metric");
+        }
+        return hasSelection;
+    }
+
+    /**
+     * Map as a key in another map produces unexpected result. Thus, map is reduced to a string
+     * @return reduced selected metric to string key
+     */
+    private String selectedMetricsToCacheKey() {
+        StringBuilder sb = new StringBuilder(256);
+        new TreeSet<>(selectedMetrics.keySet()).forEach(metric -> {
+            Map<String, Boolean> subMetrics = selectedMetrics.get(metric);
+            new TreeSet<>(subMetrics.keySet()).forEach(subMetric -> {
+                Boolean selected = subMetrics.get(subMetric);
+                if (selected != null && selected) {
+                    sb.append(metric).append('/').append(subMetric);
+                }
+                sb.append('/');
+            });
+        });
+        return sb.toString();
+    }
 
     private void exportChartAsSVG(JFreeChart chart) {
         try {

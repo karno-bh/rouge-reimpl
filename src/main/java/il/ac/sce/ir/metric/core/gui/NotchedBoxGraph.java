@@ -205,7 +205,7 @@ public class NotchedBoxGraph extends JPanel {
 
         double i = 0;
         double n = multiNotchedBoxData.getBoxesByLabel().size() + 1;
-
+        Map<String, String> boxDisplayValue = multiNotchedBoxData.getBoxDisplayValue();
         for (Map.Entry<String, NotchedBoxData> labeledNotchedBox :  multiNotchedBoxData.getBoxesByLabel().entrySet()) {
             i++; // from 1 to n - 1
             String notchedBoxLabel = labeledNotchedBox.getKey();
@@ -216,11 +216,12 @@ public class NotchedBoxGraph extends JPanel {
             g2.draw(xAxesScaleNotchLine);
 
             FontRenderContext fontRenderContext = g2.getFontRenderContext();
-            Rectangle2D labelBounds = g2.getFont().getStringBounds(notchedBoxLabel, fontRenderContext);
+            String boxDisplay = boxDisplayValue.get(notchedBoxLabel);
+            Rectangle2D labelBounds = g2.getFont().getStringBounds(boxDisplay, fontRenderContext);
             double labelHalfWidth = labelBounds.getWidth() / 2;
             AffineTransform innerCurrentTransform = g2.getTransform();
             g2.scale(1, -1);
-            g2.drawString(notchedBoxLabel, (float)(-labelHalfWidth), (float)(labelBounds.getHeight()));
+            g2.drawString(boxDisplay, (float)(-labelHalfWidth), (float)(labelBounds.getHeight()));
             g2.setTransform(innerCurrentTransform);
             g2.translate(0, 5d);
 

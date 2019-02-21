@@ -22,11 +22,13 @@ public class MultiNotchedBoxData {
 
     private final Map<String, String> groupsPerBox = new HashMap<>();
 
+    private final Map<String, String> boxDisplayValue = new HashMap<>();
+
     public MultiNotchedBoxData(boolean sortWhenAdded) {
         this.sortWhenAdded = sortWhenAdded;
     }
 
-    public void add(String label, double[] data, String groups) {
+    public void add(String label, double[] data, String groups, String labelDisplay) {
         StringUtils stringUtils = new StringUtils();
         if (stringUtils.isEmpty(label)) {
             throw new IllegalArgumentException("Box Label should not be empty");
@@ -58,14 +60,21 @@ public class MultiNotchedBoxData {
         if (!stringUtils.isEmpty(groups)) {
             groupsPerBox.put(label, groups);
         }
+        if (!stringUtils.isEmpty(labelDisplay)) {
+            boxDisplayValue.put(label, labelDisplay);
+        }
     }
 
     public void add(String label, double[] data) {
-        add(label, data, null);
+        add(label, data, null, null);
     }
 
     public Map<String, NotchedBoxData> getBoxesByLabel() {
         return boxesByLabel;
+    }
+
+    public Map<String, String> getBoxDisplayValue() {
+        return boxDisplayValue;
     }
 
     public double[] getShrunkMinMax(double factor) {
