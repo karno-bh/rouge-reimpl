@@ -6,7 +6,23 @@ public class HSDTestLetterRepresentationRow {
 
     private String metric;
 
-    private double mean;
+    private double value;
+
+    private double meansValue;
+
+    private double meansStd;
+
+    private int meansR;
+
+    private double meansMin;
+
+    private double meansMax;
+
+    private double q25;
+
+    private double q50;
+
+    private double q75;
 
     public String getGroups() {
         return groups;
@@ -24,11 +40,75 @@ public class HSDTestLetterRepresentationRow {
         this.metric = metric;
     }
 
-    public double getMean() {
-        return mean;
+    public double getValue() {
+        return value;
     }
 
-    public void setMean(double mean) {
-        this.mean = mean;
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public double getMeansValue() {
+        return meansValue;
+    }
+
+    public void setMeansValue(double meansValue) {
+        this.meansValue = meansValue;
+    }
+
+    public double getMeansStd() {
+        return meansStd;
+    }
+
+    public void setMeansStd(double meansStd) {
+        this.meansStd = meansStd;
+    }
+
+    public int getMeansR() {
+        return meansR;
+    }
+
+    public void setMeansR(int meansR) {
+        this.meansR = meansR;
+    }
+
+    public double getMeansMin() {
+        return meansMin;
+    }
+
+    public void setMeansMin(double meansMin) {
+        this.meansMin = meansMin;
+    }
+
+    public double getMeansMax() {
+        return meansMax;
+    }
+
+    public void setMeansMax(double meansMax) {
+        this.meansMax = meansMax;
+    }
+
+    public double getQ25() {
+        return q25;
+    }
+
+    public void setQ25(double q25) {
+        this.q25 = q25;
+    }
+
+    public double getQ50() {
+        return q50;
+    }
+
+    public void setQ50(double q50) {
+        this.q50 = q50;
+    }
+
+    public double getQ75() {
+        return q75;
+    }
+
+    public void setQ75(double q75) {
+        this.q75 = q75;
     }
 }

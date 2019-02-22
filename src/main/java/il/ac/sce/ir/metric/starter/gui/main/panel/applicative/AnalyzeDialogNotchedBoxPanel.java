@@ -1,5 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
+import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.gui.NotchedBoxGraph;
 import il.ac.sce.ir.metric.core.gui.data.MultiNotchedBoxData;
 import il.ac.sce.ir.metric.core.gui.data.Table;
@@ -42,7 +43,8 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
         int j = 1;
         for (String flattenedDataKey : flattenedData.keySet()) {
             List<Object> tableRow = new ArrayList<>();
-            tableRow.add(flattenedDataKey);
+            String displayFlattenedDataKey = flattenedDataKey.replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE);
+            tableRow.add(displayFlattenedDataKey);
             tableRow.add(j);
             table.addRow(tableRow);
 

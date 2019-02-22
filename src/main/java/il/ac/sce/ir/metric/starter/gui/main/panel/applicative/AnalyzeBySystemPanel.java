@@ -8,8 +8,10 @@ import il.ac.sce.ir.metric.core.utils.converter.GraphicsToSVGExporter;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.Starter;
 import il.ac.sce.ir.metric.starter.gui.main.element.SystemMetricSubMetricCheckBox;
+import il.ac.sce.ir.metric.starter.gui.main.panel.common.SVGSavePanel;
 import il.ac.sce.ir.metric.starter.gui.main.util.Caret;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
+import org.apache.xpath.operations.Bool;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -38,25 +40,12 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private final JButton barChartButton;
 
+    private final JButton statisticsButton;
+
     private final JButton notchedBoxButton;
 
     private final JCheckBox jitteredScatterPlotWithinNotchedBox;
 
-    private final JLabel svgFileNameLabel = new JLabel("SVG File Name");
-
-    private final JLabel widthLabel = new JLabel("Width");
-
-    private final JLabel heightLabel = new JLabel("Height");
-
-    private final JTextField svgFileNameTextField;
-
-    private final JTextField svgWidthTextField;
-
-    private final JTextField svgHeightTextField;
-
-    private List<JComponent> svgRelatedComponents;
-
-    private final JCheckBox saveToSVGCheckBox;
 
     private final JCheckBox groupsInNotchedBoxesCheckBox;
 
@@ -68,13 +57,16 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private boolean legendInNotchedBoxes;
 
-    private boolean saveToSVG;
-
     private final Map<String, Map<String, Boolean>> selectedMetrics = new HashMap<>();
 
-    private final Map<String, List<HSDTestLetterRepresentationRow>> computedHSDCache =
+    private final Map<String, Boolean> selectedRougeMetrics = new HashMap<>();
+
+    private final Map<String, Boolean> selectedRougeSubMetrics = new HashMap<>();
+
+    private final Map<String, RLanguageHSDTestRunner> computedHSDCache =
             new HashMap<>();
 
+    private final SVGSavePanel svgSavePanel = new SVGSavePanel();
 
     public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer, String resultDirectory) {
         this.category = category;
@@ -120,6 +112,11 @@ public class AnalyzeBySystemPanel extends JPanel {
         tableButtonConstraints.gridx = buttonsPanelX++;
         analyzeButtonsPanel.add(barChartButton, tableButtonConstraints);
 
+        statisticsButton = new JButton("Statistics");
+        statisticsButton.addActionListener(this::onStatisticsButtonClicked);
+        tableButtonConstraints.gridx = buttonsPanelX++;
+        analyzeButtonsPanel.add(statisticsButton, tableButtonConstraints);
+
         notchedBoxButton = new JButton("Notched Boxes");
         notchedBoxButton.addActionListener(this::onNotchedBoxButtonClicked);
         // tableButtonConstraints = new GridBagConstraints();
@@ -130,26 +127,11 @@ public class AnalyzeBySystemPanel extends JPanel {
         jitteredScatterPlotWithinNotchedBox = new JCheckBox();
         groupsInNotchedBoxesCheckBox = new JCheckBox();
         legendInNotchedBoxesCheckBox = new JCheckBox();
-        // JPanel scatterPlotPanel = createScatterPlotPanel();
 
-        svgFileNameTextField = new JTextField();
-        saveToSVGCheckBox = new JCheckBox();
-        svgWidthTextField = new JTextField();
-        svgHeightTextField = new JTextField();
-        svgRelatedComponents = Arrays.asList(
-                svgFileNameLabel, widthLabel, heightLabel,
-                svgFileNameTextField, svgWidthTextField, svgHeightTextField
-        );
-        svgRelatedComponents.forEach(c -> c.setEnabled(false));
-        // JPanel svgSavePanel = createSVGSavePanel();
 
         GridBagConstraints buttonsPanelConstraints = wholeSpaceFiller.getFillingConstraints();
         buttonsPanelConstraints.gridy = y++;
         add(createFunctionalPanels(), buttonsPanelConstraints);
-        /*buttonsPanelConstraints.gridy = y++;
-        add(svgSavePanel, buttonsPanelConstraints);
-        buttonsPanelConstraints.gridy = y++;
-        add(scatterPlotPanel, buttonsPanelConstraints);*/
         buttonsPanelConstraints.gridy = y++;
         add(analyzeButtonsPanel, buttonsPanelConstraints);
 
@@ -166,7 +148,7 @@ public class AnalyzeBySystemPanel extends JPanel {
         functionalPanelConstraints.fill = GridBagConstraints.BOTH;
         int x = 1;
         functionalPanelConstraints.gridx = x++;
-        wrapperPanel.add(createSVGSavePanel(), functionalPanelConstraints);
+        wrapperPanel.add(svgSavePanel, functionalPanelConstraints);
 
         functionalPanelConstraints.gridx = x++;
         wrapperPanel.add(createScatterPlotPanel(), functionalPanelConstraints);
@@ -209,65 +191,12 @@ public class AnalyzeBySystemPanel extends JPanel {
         scatterPlotPanel.add(legendInNotchedBoxesCheckBox, constraints);
 
 
-
         WholeSpaceFiller filler = new WholeSpaceFiller();
         GridBagConstraints fillingConstraints = filler.getFillingConstraints();
         fillingConstraints.gridy = 1000;
         scatterPlotPanel.add(new JPanel(), fillingConstraints);
 
         return scatterPlotPanel;
-    }
-
-    private JPanel createSVGSavePanel() {
-        JPanel svgSavePanel = new JPanel();
-        svgSavePanel.setBorder(BorderFactory.createTitledBorder("Chart/Graph to File"));
-        svgSavePanel.setLayout(new GridBagLayout());
-        Caret caret = new Caret(0,0, 2);
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.LINE_END;
-        constraints.insets = new Insets(0, 10, 0,0);
-
-        constraints = caret.asGridBag(constraints);
-        svgSavePanel.add(svgFileNameLabel, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-        svgFileNameTextField.setColumns(15);
-        svgFileNameTextField.setToolTipText("The file will be saved in chosen result directory");
-        svgSavePanel.add(svgFileNameTextField, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-        svgSavePanel.add(widthLabel, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-        svgWidthTextField.setColumns(15);
-        svgSavePanel.add(svgWidthTextField, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-        svgSavePanel.add(heightLabel, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-        svgHeightTextField.setColumns(15);
-        svgSavePanel.add(svgHeightTextField, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-        JLabel saveOnOpen = new JLabel("Save SVG on Char/Graph Open");
-        svgSavePanel.add(saveOnOpen, constraints);
-
-        caret.next();
-        constraints = caret.asGridBag(constraints);
-
-        saveToSVGCheckBox.addItemListener(this::onSaveToSVGCheckBoxChanged);
-        constraints.anchor = GridBagConstraints.LINE_START;
-        svgSavePanel.add(saveToSVGCheckBox, constraints);
-
-
-        return svgSavePanel;
     }
 
 
@@ -279,10 +208,23 @@ public class AnalyzeBySystemPanel extends JPanel {
                 nonVirtualSystem = system;
             }
         }
+        Insets insets = new Insets(4,0, 0,4 );
         // assuming non virtual system has exactly the same metrics! (should be validated?)
         Set<String> availableSystemMetrics = new TreeSet<>(analyzer.getAvailableSystemMetrics(category, nonVirtualSystem));
+        Set<String> rougeMetrics = new TreeSet<>();
+        boolean hasAutoSummEng = false;
         for (String availableSystemMetric : availableSystemMetrics) {
-            TitledBorder titledBorder = BorderFactory.createTitledBorder(availableSystemMetric);
+            if (availableSystemMetric.startsWith(Constants.ROUGE_LOWER_CASE)) {
+                rougeMetrics.add(availableSystemMetric);
+                continue;
+            } else if (availableSystemMetric.startsWith(Constants.AUTO_SUMM_ENG_LOWER_CASE)) {
+                hasAutoSummEng = true;
+                continue;
+            }
+
+            String displayMetric = Constants.DISPLAY_FILTER_ELENA_METRIC.keySet().contains(availableSystemMetric) ?
+                    Constants.DISPLAY_FILTER_ELENA_METRIC.get(availableSystemMetric) : availableSystemMetric;
+            TitledBorder titledBorder = BorderFactory.createTitledBorder(displayMetric);
             JPanel availableSystemMetricPanel = new JPanel();
             availableSystemMetricPanel.setBorder(titledBorder);
             availableSystemMetricPanel.setLayout(new GridBagLayout());
@@ -293,7 +235,7 @@ public class AnalyzeBySystemPanel extends JPanel {
             availableSystemMetricPanel.add(availableSystemMetricPanelSpring, springConstraints);
             Set<String> availableSubMetrics = analyzer.getAvailableSubMetric(category, nonVirtualSystem, availableSystemMetric);
             Caret caret = new Caret(0,0,10);
-            Insets insets = new Insets(4,0, 0,4 );
+
             for (String availableSubMetric : availableSubMetrics) {
                 // System.out.println("availableSystemMetric: " + availableSystemMetric + " availableSubMetric: " + availableSubMetric);
                 for (int i = 0; i < 2; i++) {
@@ -318,12 +260,143 @@ public class AnalyzeBySystemPanel extends JPanel {
                     availableSystemMetricPanel.add(comp, constraints);
                     caret.next();
                 }
-                // availableSystemMetricPanel.add(new JLabel(availableSubMetric));
             }
+
             metricPanels.add(availableSystemMetricPanel);
+        }
+        if (!rougeMetrics.isEmpty()) {
+            JPanel rougeMetricsPanel = new JPanel();
+            rougeMetricsPanel.setBorder(BorderFactory.createTitledBorder(Constants.ROUGE_LOWER_CASE));
+            rougeMetricsPanel.setLayout(new GridBagLayout());
+            WholeSpaceFiller filler = new WholeSpaceFiller();
+            GridBagConstraints fillingConstraints = filler.getFillingConstraints();
+            fillingConstraints.gridx = 1000;
+            rougeMetricsPanel.add(new JPanel(), fillingConstraints);
+
+            GridBagConstraints c = new GridBagConstraints();
+            JPanel wrapperPanel = new JPanel();
+            wrapperPanel.setLayout(new GridBagLayout());
+            wrapperPanel.add(new JPanel(), fillingConstraints);
+            int x = 0;
+            c.gridy = 0;
+            c.insets = insets;
+            c.anchor = GridBagConstraints.EAST;
+            for (String rougeMetric : rougeMetrics) {
+                selectedRougeMetrics.put(rougeMetric, false);
+                selectedMetrics.computeIfAbsent(rougeMetric, k -> new HashMap<>());
+                String shortName = rougeMetric.substring(Constants.ROUGE_LOWER_CASE.length());
+                JLabel rougeLabel = new JLabel(shortName.toUpperCase());
+                c.gridx = x++;
+                wrapperPanel.add(rougeLabel, c);
+
+                SystemMetricSubMetricCheckBox rougeMetricCheckbox = new SystemMetricSubMetricCheckBox();
+                rougeMetricCheckbox.setMetric(rougeMetric);
+                rougeMetricCheckbox.addItemListener(this::onRougeMetricSelected);
+                c.gridx = x++;
+                wrapperPanel.add(rougeMetricCheckbox, c);
+            }
+            c.gridx = 0;
+            rougeMetricsPanel.add(wrapperPanel, c);
+
+            Set<String> availableSubMetrics = analyzer.getAvailableSubMetric(category, nonVirtualSystem, rougeMetrics.iterator().next());
+            wrapperPanel = new JPanel();
+            wrapperPanel.setLayout(new GridBagLayout());
+            wrapperPanel.add(new JPanel(), fillingConstraints);
+            c.gridx = x = 0;
+            for (String availableSubMetric : availableSubMetrics) {
+                selectedRougeSubMetrics.put(availableSubMetric, false);
+                JLabel subMetricLabel = new JLabel(availableSubMetric);
+                c.gridx = x++;
+                wrapperPanel.add(subMetricLabel, c);
+
+                SystemMetricSubMetricCheckBox rougeSubMetric = new SystemMetricSubMetricCheckBox();
+                rougeSubMetric.setSubMetric(availableSubMetric);
+                rougeSubMetric.addItemListener(this::onRougeSubMetricSelected);
+                c.gridx = x++;
+                wrapperPanel.add(rougeSubMetric, c);
+            }
+            c.gridx = 0;
+            c.gridy = 1;
+            rougeMetricsPanel.add(wrapperPanel, c);
+
+            metricPanels.add(rougeMetricsPanel);
+
+            clearRougeSelection();
+        }
+
+        if (hasAutoSummEng) {
+            Set<String> availableSubMetrics = analyzer.getAvailableSubMetric(category, nonVirtualSystem, Constants.AUTO_SUMM_ENG_LOWER_CASE);
+            Map<String, Boolean> subMetricsSelections = selectedMetrics.computeIfAbsent(Constants.AUTO_SUMM_ENG_LOWER_CASE, k -> new HashMap<>());
+            availableSubMetrics.forEach(subMetric -> {
+                subMetricsSelections.put(subMetric, false);
+            });
+
+            JPanel asePanel = new JPanel();
+            asePanel.setLayout(new GridBagLayout());
+            asePanel.setBorder(BorderFactory.createTitledBorder(Constants.AUTO_SUMM_ENG_LOWER_CASE));
+            WholeSpaceFiller filler = new WholeSpaceFiller();
+            GridBagConstraints fillingConstraints = filler.getFillingConstraints();
+            fillingConstraints.gridx = 1000;
+            asePanel.add(new JPanel(), fillingConstraints);
+
+            GridBagConstraints innerConstraints = new GridBagConstraints();
+            innerConstraints.fill = GridBagConstraints.HORIZONTAL;
+            Caret asePanelCaret = new Caret(0,0,3);
+            JPanel wordGraph = createAutoSummENGSubPanel("Word Graph", Constants.AUTO_SUMM_ENG_WORD_GRAPH_SUB_METRICS);
+            asePanel.add(wordGraph, asePanelCaret.asGridBag(innerConstraints));
+
+            asePanelCaret.next();
+            JPanel wordHistogram = createAutoSummENGSubPanel("Word Histogram", Constants.AUTO_SUMM_ENG_WORD_HISTOGRAM_SUB_METRICS);
+            asePanel.add(wordHistogram, asePanelCaret.asGridBag(innerConstraints));
+
+            asePanelCaret.next();
+            JPanel wordOverAll = createAutoSummENGSubPanel("Word Overall", new String[]{Constants.AUTO_SUMM_ENG_HISTO_OVERALL_SIMIL});
+            asePanel.add(wordOverAll, asePanelCaret.asGridBag(innerConstraints));
+
+            asePanelCaret.next();
+            JPanel charGraph = createAutoSummENGSubPanel("Char Graph", Constants.AUTO_SUMM_ENG_CHAR_GRAPH_SUB_METRICS);
+            asePanel.add(charGraph, asePanelCaret.asGridBag(innerConstraints));
+
+            asePanelCaret.next();
+            JPanel charHistogram = createAutoSummENGSubPanel("Char Histogram", Constants.AUTO_SUMM_ENG_CHAR_HISTOGRAM_SUB_METRICS);
+            asePanel.add(charHistogram, asePanelCaret.asGridBag(innerConstraints));
+
+            asePanelCaret.next();
+            JPanel charOverAll = createAutoSummENGSubPanel("Char Overall", new String[]{Constants.AUTO_SUMM_ENG_N_HISTO_OVERALL_SIMIL});
+            asePanel.add(charOverAll, asePanelCaret.asGridBag(innerConstraints));
+
+            metricPanels.add(asePanel);
         }
 
         return metricPanels;
+    }
+
+    private JPanel createAutoSummENGSubPanel(String title, String[] subMetrics) {
+        JPanel autoSummEngSubPanel = new JPanel();
+        autoSummEngSubPanel.setLayout(new GridBagLayout());
+        autoSummEngSubPanel.setBorder(BorderFactory.createTitledBorder(title));
+        Insets insets = new Insets(4,0, 0,4 );
+        WholeSpaceFiller filler = new WholeSpaceFiller();
+        GridBagConstraints fillingConstraints = filler.getFillingConstraints();
+        fillingConstraints.gridx = 0;
+        autoSummEngSubPanel.add(new JPanel(), fillingConstraints);
+        GridBagConstraints c = new GridBagConstraints();
+        int x = 1;
+        c.insets = insets;
+        c.anchor = GridBagConstraints.EAST;
+        for (String autoSumEngSubMetrics : subMetrics) {
+            JLabel wordGraphLabel = new JLabel(autoSumEngSubMetrics);
+            c.gridx = x++;
+            autoSummEngSubPanel.add(wordGraphLabel, c);
+
+            SystemMetricSubMetricCheckBox checkBox = new SystemMetricSubMetricCheckBox();
+            checkBox.setMetric(Constants.AUTO_SUMM_ENG_LOWER_CASE);
+            checkBox.setSubMetric(autoSumEngSubMetrics);
+            checkBox.addItemListener(this::onCheckBoxChanged);
+            c.gridx = x++;
+            autoSummEngSubPanel.add(checkBox, c);
+        }
+        return autoSummEngSubPanel;
     }
 
     private void onCheckBoxChanged(ItemEvent event) {
@@ -345,9 +418,34 @@ public class AnalyzeBySystemPanel extends JPanel {
         legendInNotchedBoxes = event.getStateChange() == ItemEvent.SELECTED;
     }
 
-    private void onSaveToSVGCheckBoxChanged(ItemEvent event) {
-        saveToSVG = event.getStateChange() == ItemEvent.SELECTED;
-        svgRelatedComponents.forEach(c -> c.setEnabled(saveToSVG));
+    private void onRougeMetricSelected(ItemEvent event) {
+        SystemMetricSubMetricCheckBox source = (SystemMetricSubMetricCheckBox)event.getSource();
+        selectedRougeMetrics.put(source.getMetric(), event.getStateChange() == ItemEvent.SELECTED);
+        syncRougeWithSelectedMetrics();
+    }
+
+    private void onRougeSubMetricSelected(ItemEvent event) {
+        SystemMetricSubMetricCheckBox source = (SystemMetricSubMetricCheckBox)event.getSource();
+        selectedRougeSubMetrics.put(source.getSubMetric(), event.getStateChange() == ItemEvent.SELECTED);
+        syncRougeWithSelectedMetrics();
+    }
+
+    private void clearRougeSelection() {
+        selectedRougeMetrics.forEach((metric,metricSelected) -> {
+            selectedRougeSubMetrics.forEach((subMetric, subMetricSelected) -> {
+                selectedMetrics.get(metric).put(subMetric, false);
+            });
+        });
+    }
+    private void syncRougeWithSelectedMetrics() {
+        clearRougeSelection();
+        selectedRougeMetrics.forEach((metric,metricSelected) -> {
+            if (metricSelected != null && metricSelected) {
+                selectedRougeSubMetrics.forEach((subMetric, subMetricSelected) -> {
+                    selectedMetrics.get(metric).put(subMetric, subMetricSelected);
+                });
+            }
+        });
     }
 
     private void onTableButtonClicked(ActionEvent event) {
@@ -355,6 +453,7 @@ public class AnalyzeBySystemPanel extends JPanel {
             return;
         }
         Table table = analyzer.asAverageTable(category, selectedMetrics);
+        filterTableDisplaying(table);
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Table View");
         JTable systemsSummary = new JTable(table);
         systemsSummary.setFillsViewportHeight(true);
@@ -372,6 +471,7 @@ public class AnalyzeBySystemPanel extends JPanel {
         }
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Bar Chart View");
         Table table = analyzer.asAverageTable(category, selectedMetrics);
+        filterTableDisplaying(table);
         CategoryDataset categoryDataset = analyzer.tableToCategoryDataSet(table);
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Average Metric Values By System",
@@ -382,12 +482,37 @@ public class AnalyzeBySystemPanel extends JPanel {
                 true, true, false);
 
 
-        if (saveToSVG) {
+        if (svgSavePanel.isSaveToSVG()) {
             exportChartAsSVG(barChart);
         }
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
         jDialog.add(chartPanel);
+        jDialog.pack();
+        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setVisible(true);
+    }
+
+    private void onStatisticsButtonClicked(ActionEvent event) {
+        if (!hasSelection()) {
+            return;
+        }
+        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Statistics");
+        JTextArea textArea = new JTextArea(48, 160);
+        textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+        Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
+        RLanguageHSDTestRunner results = computedHSDCache.computeIfAbsent(selectedMetricsToCacheKey(), k -> {
+            RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
+            runner.process();
+            return runner;
+        });
+        Map<String, String> statisticTables = results.getStatisticTables();
+        StringBuilder sb = new StringBuilder(512);
+        statisticTables.forEach((tableName, table) -> {
+            sb.append(tableName).append(":\n\n").append(table).append("\n\n");
+        });
+        textArea.setText(sb.toString());
+        jDialog.add(new JScrollPane(textArea));
         jDialog.pack();
         jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
         jDialog.setVisible(true);
@@ -401,12 +526,13 @@ public class AnalyzeBySystemPanel extends JPanel {
         Map<String, List<Double>> notchedBoxFlattenedData;
         Map<String, String> metricGroups = new HashMap<>();
         if (groupsInNotchedBoxes) {
-            List<HSDTestLetterRepresentationRow> result = computedHSDCache.computeIfAbsent(selectedMetricsToCacheKey(), k -> {
+            RLanguageHSDTestRunner results = computedHSDCache.computeIfAbsent(selectedMetricsToCacheKey(), k -> {
                 RLanguageHSDTestRunner runner = new RLanguageHSDTestRunner(flattenedData);
-                return runner.process();
+                runner.process();
+                return runner;
             });
             notchedBoxFlattenedData = new LinkedHashMap<>();
-            for (HSDTestLetterRepresentationRow hsdTestLetterRepresentationRow : result) {
+            for (HSDTestLetterRepresentationRow hsdTestLetterRepresentationRow : results.getHsdLetterRepresentation()) {
                 String metric = hsdTestLetterRepresentationRow.getMetric();
                 notchedBoxFlattenedData.put(metric, flattenedData.get(metric));
                 metricGroups.put(metric, hsdTestLetterRepresentationRow.getGroups());
@@ -422,12 +548,12 @@ public class AnalyzeBySystemPanel extends JPanel {
                 metricGroups,
                 scatterPlot,
                 legendInNotchedBoxes);
-        if (saveToSVG) {
+        if (svgSavePanel.isSaveToSVG()) {
             innerDialogPanel.exportChartAsSVG(
                     resultDirectory,
-                    svgFileNameTextField.getText(),
-                    svgWidthTextField.getText(),
-                    svgHeightTextField.getText()
+                    svgSavePanel.getSvgFileNameTextField().getText(),
+                    svgSavePanel.getSvgWidthTextField().getText(),
+                    svgSavePanel.getSvgHeightTextField().getText()
             );
         }
         JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Notched Boxes View");
@@ -480,14 +606,14 @@ public class AnalyzeBySystemPanel extends JPanel {
 
     private void exportChartAsSVG(JFreeChart chart) {
         try {
-            String fileName = svgFileNameTextField.getText().trim();
+            String fileName = svgSavePanel.getSvgFileNameTextField().getText().trim();
             if (!fileName.toLowerCase().endsWith(".svg")) {
                 fileName += ".svg";
             }
             File svgFile = Paths.get(resultDirectory, fileName).toFile();
             GraphicsToSVGExporter exporter = new GraphicsToSVGExporter(svgFile);
-            int width = Integer.parseInt(svgWidthTextField.getText().trim());
-            int height = Integer.parseInt(svgHeightTextField.getText().trim());
+            int width = Integer.parseInt(svgSavePanel.getSvgWidthTextField().getText().trim());
+            int height = Integer.parseInt(svgSavePanel.getSvgHeightTextField().getText().trim());
             Rectangle bounds = new Rectangle(0, 0, width, height);
             exporter.export(g2 -> {
                 chart.draw(g2, bounds);
@@ -495,6 +621,16 @@ public class AnalyzeBySystemPanel extends JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Cannot save chart to SVG: " + e.getMessage());
         }
+    }
+
+    private void filterTableDisplaying(Table table) {
+        List<String> newColumns = new ArrayList<>();
+        for (String column : table.getColumns()) {
+            String newColumn = column.replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE);
+            newColumn = newColumn.replace(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, Constants.TOPICS_READABILITY_LOWER_CASE);
+            newColumns.add(newColumn);
+        }
+        table.setColumns(newColumns);
     }
 
 }

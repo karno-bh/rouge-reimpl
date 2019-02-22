@@ -29,6 +29,7 @@ public interface Constants {
     String ROUGES_LOWER_CASE = "rouges";
     String ROUGESU_LOWER_CASE = "rougesu";
     String READABILITY_LOWER_CASE = "readability";
+    String TOPICS_READABILITY_LOWER_CASE = "topics_readability";
     String ELENA_READABILITY_LOWER_CASE = "elena_readability";
     String ELENA_TOPICS_READABILITY_LOWER_CASE = "elena_topics_readability";
     String READABILITY_PRE_CACHE = "readability_pre_cache";
@@ -133,6 +134,18 @@ public interface Constants {
     String AUTO_SUMM_ENG_HISTO_SIZE = "HistoSize";
     String AUTO_SUMM_ENG_HISTO_OVERALL_SIMIL = "OverallSimil";
 
+    String[] AUTO_SUMM_ENG_WORD_GRAPH_SUB_METRICS = {
+            AUTO_SUMM_ENG_GRAPH_COOCCURENCE,
+            AUTO_SUMM_ENG_GRAPH_VALUE,
+            AUTO_SUMM_ENG_GRAPH_SIZE,
+    };
+
+    String[] AUTO_SUMM_ENG_WORD_HISTOGRAM_SUB_METRICS = {
+            AUTO_SUMM_ENG_HISTO_CONTAINMENT_SIMILARITY,
+            AUTO_SUMM_ENG_HISTO_VALUE,
+            AUTO_SUMM_ENG_HISTO_SIZE,
+    };
+
     String[] AUTO_SUMM_ENG_WORD_SUB_METRICS = {
             AUTO_SUMM_ENG_GRAPH_COOCCURENCE,
             AUTO_SUMM_ENG_GRAPH_VALUE,
@@ -143,13 +156,25 @@ public interface Constants {
             AUTO_SUMM_ENG_HISTO_OVERALL_SIMIL
     };
 
-    String AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE = "CharGraphValue";
+    String AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE = "CharGraphCooccurence";
     String AUTO_SUMM_ENG_CHAR_GRAPH_VALUE = "CharGraphValue";
     String AUTO_SUMM_ENG_CHAR_GRAPH_SIZE = "CharGraphSize";
     String AUTO_SUMM_ENG_N_HISTO_CONTAINMENT_SIMILARITY = "NHistoContainmentSimilarity";
     String AUTO_SUMM_ENG_N_HISTO_VALUE = "NHistoValue";
     String AUTO_SUMM_ENG_N_HISTO_SIZE = "NHistoSize";
     String AUTO_SUMM_ENG_N_HISTO_OVERALL_SIMIL = "NOverallSimil";
+
+    String[] AUTO_SUMM_ENG_CHAR_GRAPH_SUB_METRICS = {
+            AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE,
+            AUTO_SUMM_ENG_CHAR_GRAPH_VALUE,
+            AUTO_SUMM_ENG_CHAR_GRAPH_SIZE,
+    };
+
+    String[] AUTO_SUMM_ENG_CHAR_HISTOGRAM_SUB_METRICS = {
+            AUTO_SUMM_ENG_N_HISTO_CONTAINMENT_SIMILARITY,
+            AUTO_SUMM_ENG_N_HISTO_VALUE,
+            AUTO_SUMM_ENG_N_HISTO_SIZE,
+    };
 
     String[] AUTO_SUMM_ENG_CHAR_SUB_METRICS = {
             AUTO_SUMM_ENG_CHAR_GRAPH_COOCCURENCE,
@@ -176,6 +201,11 @@ public interface Constants {
 
     Map<String, String> TOPICS_METRICS_MAPPING = Collections.unmodifiableMap(new HashMap<String, String>() {{
         put(ELENA_TOPICS_READABILITY_LOWER_CASE, ELENA_READABILITY_LOWER_CASE);
+    }});
+
+    Map<String, String> DISPLAY_FILTER_ELENA_METRIC = Collections.unmodifiableMap(new HashMap<String, String>() {{
+        put(ELENA_READABILITY_LOWER_CASE, READABILITY_LOWER_CASE);
+        put(ELENA_TOPICS_READABILITY_LOWER_CASE, TOPICS_READABILITY_LOWER_CASE);
     }});
 
     String SCRIPT_R_HSD_TEST = "hsd_test.r";

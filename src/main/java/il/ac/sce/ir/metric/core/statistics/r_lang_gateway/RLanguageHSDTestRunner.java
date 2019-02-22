@@ -17,6 +17,10 @@ public class RLanguageHSDTestRunner {
 
     private final Map<String, List<Double>> flattenedData;
 
+    private List<HSDTestLetterRepresentationRow> hsdLetterRepresentation;
+
+    private Map<String, String> statisticTables;
+
     public RLanguageHSDTestRunner(Map<String, List<Double>> flattenedData) {
         this.flattenedData = flattenedData;
         File tempDir = requireTempDirectory();
@@ -93,11 +97,21 @@ public class RLanguageHSDTestRunner {
         }
     }
 
-    public List<HSDTestLetterRepresentationRow> process() {
+    public void process() {
         saveToTempCSV();
         runRScript();
         List<Map<String, Object>> result = readResult();
         RLanguageHSDTestResponseAnalyzer analyzer = new RLanguageHSDTestResponseAnalyzer(result);
-        return analyzer.asHSDTestLetterRepresentation();
+        // System.out.println(analyzer.groupToTables().get(RLanguageHSDTestResponseAnalyzer.GROUP_AND_MEANS));
+        this.hsdLetterRepresentation =  analyzer.asHSDTestLetterRepresentation();
+        this.statisticTables = analyzer.groupToTables();
+    }
+
+    public List<HSDTestLetterRepresentationRow> getHsdLetterRepresentation() {
+        return hsdLetterRepresentation;
+    }
+
+    public Map<String, String> getStatisticTables() {
+        return statisticTables;
     }
 }

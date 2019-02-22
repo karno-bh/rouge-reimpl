@@ -42,7 +42,7 @@ public class CategoryAnalyzePanel extends JPanel{
         Set<String> systems = resultsMetricHierarchyAnalyzer.getAvailableSystems().get(category);
         if (systems.contains(Constants.VIRTUAL_TOPIC_SYSTEM)) {
             constraints.gridy = y++;
-            add(new AnalyzeTopicsPanel(category, resultsMetricHierarchyAnalyzer), constraints);
+            add(new AnalyzeTopicsPanel(category, resultsMetricHierarchyAnalyzer, resultDirectory), constraints);
         }
 
         constraints.gridy = y++;

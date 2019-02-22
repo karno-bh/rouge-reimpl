@@ -1,17 +1,42 @@
 package il.ac.sce.ir.metric.core.statistics.util;
 
-import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.data.HSDTestLetterRepresentation;
+import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.data.HSDTestLetterRepresentationRow;
-import il.ac.sce.ir.metric.core.utils.switch_obj.SwitchObj;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RLanguageHSDTestResponseAnalyzer {
 
-    public static final String GROUPS_PARAM = "groups.groups";
-    public static final String VALUE_PARAM = "groups.value";
+    public static final String GROUPS = "groups.";
+    public static final String GROUPS_GROUPS = "groups.groups";
+    public static final String GROUPS_VALUE = "groups.value";
+
+    public static final String STATISTICS = "Statistics";
+    public static final String STATS = "stats.";
+    public static final String STATS_MS_ERROR = "stats.MSerror";
+    public static final String STATS_DF = "stats.Df";
+    public static final String STATS_MEAN = "stats.Mean";
+    public static final String STATS_CV = "stats.CV";
+
+    public static final String TUKEY_TEST = "Tukey test";
+    public static final String PARAMS = "params.";
+    public static final String PARAMS_NTR = "params.ntr";
+    public static final String PARAMS_STUDENTIZED_RANGE = "params.StudentizedRange";
+    public static final String PARAMS_ALPHA = "params.alpha";
+
+    public static final String GROUP_AND_MEANS = "Group & Means";
+    public static final String MEANS = "means.";
+    public static final String MEANS_VALUE = "means.value";
+    public static final String MEANS_STD = "means.std";
+    public static final String MEANS_R = "means.r";
+    public static final String MEANS_MIN = "means.Min";
+    public static final String MEANS_MAX = "means.Max";
+    public static final String MEANS_Q25 = "means.Q25";
+    public static final String MEANS_Q50 = "means.Q50";
+    public static final String MEANS_Q75 = "means.Q75";
+
+
+    public static final String METRIC = "Metric";
     public static final String METRIC_PARAM = "_row";
 
     private final List<Map<String, Object>> originalResponse;
@@ -28,13 +53,46 @@ public class RLanguageHSDTestResponseAnalyzer {
         char maxGroup = 0;
         for (Map<String, Object> responseRow : originalResponse) {
             String metric = (String) responseRow.get(METRIC_PARAM);
-            String groups = (String) responseRow.get(GROUPS_PARAM);
-            double value = (double) responseRow.get(VALUE_PARAM);
+            String groups = (String) responseRow.get(GROUPS_GROUPS);
+            double value = (double) responseRow.get(GROUPS_VALUE);
+
+            double meansValue = (double) responseRow.get(MEANS_VALUE);
+            double meansStd = (double) responseRow.get(MEANS_STD);
+            int meansR = (int) responseRow.get(MEANS_R);
+            double meansMin;
+            if (responseRow.get(MEANS_MIN) instanceof Integer) {
+                int _meansMin =  (int) responseRow.get(MEANS_MIN);
+                meansMin = _meansMin;
+            } else {
+                meansMin = (double) responseRow.get(MEANS_MIN);
+            }
+            double meansMax;
+            if (responseRow.get(MEANS_MAX) instanceof Integer) {
+                int _meansMax =  (int) responseRow.get(MEANS_MAX);
+                meansMax = _meansMax;
+            } else {
+                meansMax = (double) responseRow.get(MEANS_MAX);
+            }
+            double meansQ25 = (double) responseRow.get(MEANS_Q25);
+            double meansQ50 = (double) responseRow.get(MEANS_Q50);
+            double meansQ75 = (double) responseRow.get(MEANS_Q75);
+
             HSDTestLetterRepresentationRow row = new HSDTestLetterRepresentationRow();
             row.setGroups(groups);
             row.setMetric(metric);
-            row.setMean(value);
+            row.setValue(value);
+
+            row.setMeansValue(meansValue);
+            row.setMeansStd(meansStd);
+            row.setMeansR(meansR);
+            row.setMeansMin(meansMin);
+            row.setMeansMax(meansMax);
+            row.setQ25(meansQ25);
+            row.setQ50(meansQ50);
+            row.setQ75(meansQ75);
+
             rows.add(row);
+
 
             char maxMetricGroup = groups.charAt(groups.length() - 1);
             if (maxMetricGroup > maxGroup) {
@@ -56,4 +114,138 @@ public class RLanguageHSDTestResponseAnalyzer {
         // System.out.println(rows);
         return rows;
     }
+
+    public Map<String, String> groupToTables() {
+        String statistics = parseStatistics();
+        String params = parseParams();
+        String distros = parseDistributions();
+
+        Map<String, String> tables = new HashMap<>();
+        tables.put(STATISTICS, statistics);
+        tables.put(TUKEY_TEST, params);
+        tables.put(GROUP_AND_MEANS, distros);
+
+        return tables;
+    }
+
+    private String parseStatistics() {
+        Map<String, Object> anyRow = originalResponse.get(0);
+        String msError = anyRow.get(STATS_MS_ERROR).toString();
+        String df = anyRow.get(STATS_DF).toString();
+        String mean = anyRow.get(STATS_MEAN).toString();
+        String cv = anyRow.get(STATS_CV).toString();
+        List<List<String>> table = new ArrayList<>();
+        int statsLength = STATS.length();
+        List<String> header = Arrays.asList(
+                STATS_MS_ERROR.substring(statsLength),
+                STATS_DF.substring(statsLength),
+                STATS_MEAN.substring(statsLength),
+                STATS_CV.substring(statsLength)
+        );
+        table.add(header);
+        List<String> row = Arrays.asList(msError, df, mean, cv);
+        table.add(row);
+
+        return tableAsTabularString(table);
+    }
+
+    private String parseDistributions() {
+        List<List<String>> table = new ArrayList<>();
+        int groupsLength = GROUPS.length();
+        int meansLength = MEANS.length();
+        List<String> header = Arrays.asList(
+                METRIC,
+
+                GROUPS_GROUPS.substring(groupsLength),
+                GROUPS_VALUE.substring(groupsLength),
+
+                MEANS_VALUE,
+                MEANS_STD.substring(meansLength),
+                MEANS_R.substring(meansLength),
+                MEANS_MIN.substring(meansLength),
+                MEANS_MAX.substring(meansLength),
+                MEANS_Q25.substring(meansLength),
+                MEANS_Q50.substring(meansLength),
+                MEANS_Q75.substring(meansLength)
+        );
+        table.add(header);
+
+        List<HSDTestLetterRepresentationRow> hsdTestLetterRepresentationRows = asHSDTestLetterRepresentation();
+        for (HSDTestLetterRepresentationRow _row : hsdTestLetterRepresentationRows) {
+
+            List<String> row = Arrays.asList(
+                    _row.getMetric()
+                            .replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE),
+
+                    _row.getGroups(),
+                    "" + _row.getValue(),
+
+                    "" + _row.getMeansValue(),
+                    "" + _row.getMeansStd(),
+                    "" + _row.getMeansR(),
+                    "" + _row.getMeansMin(),
+                    "" + _row.getMeansMax(),
+                    "" + _row.getQ25(),
+                    "" + _row.getQ50(),
+                    "" + _row.getQ75()
+            );
+            table.add(row);
+        }
+
+        return tableAsTabularString(table);
+    }
+
+    private String parseParams() {
+        Map<String, Object> anyRow = originalResponse.get(0);
+        String ntr = anyRow.get(PARAMS_NTR).toString();
+        String studentizedRange = anyRow.get(PARAMS_STUDENTIZED_RANGE).toString();
+        String alpha = anyRow.get(PARAMS_ALPHA).toString();
+
+        List<List<String>> table = new ArrayList<>();
+        int paramsLength = PARAMS.length();
+        List<String> header = Arrays.asList(
+                PARAMS_NTR.substring(paramsLength),
+                PARAMS_STUDENTIZED_RANGE.substring(paramsLength),
+                PARAMS_ALPHA.substring(paramsLength)
+        );
+        table.add(header);
+
+        List<String> row = Arrays.asList(ntr, studentizedRange, alpha);
+        table.add(row);
+
+        return tableAsTabularString(table);
+    }
+
+    private String tableAsTabularString(List<List<String>> table) {
+        int[] columnSizes = new int[table.get(0).size()];
+        for (int i = 0; i < columnSizes.length; i++) {
+            columnSizes[i] = Integer.MIN_VALUE;
+        }
+        for (List<String> line : table) {
+            for (int i = 0; i < line.size(); i++) {
+                int length = line.get(i).length();
+                if (length > columnSizes[i]) {
+                    columnSizes[i] = length;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder(256);
+        for (List<String> line : table) {
+            for (int i = 0; i < line.size(); i++) {
+                String column = line.get(i);
+                int length = column.length();
+                for (int j = 0; j <= columnSizes[i] - length; j++) {
+                    sb.append(' ');
+                }
+                sb.append(column);
+                if (i + 1 != line.size()) {
+                    sb.append(' ');
+                }
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+
 }
