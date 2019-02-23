@@ -8,6 +8,7 @@ import il.ac.sce.ir.metric.core.utils.converter.GraphicsToSVGExporter;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.Starter;
 import il.ac.sce.ir.metric.starter.gui.main.element.SystemMetricSubMetricCheckBox;
+import il.ac.sce.ir.metric.starter.gui.main.panel.applicative.utils.AnalyzePanelsCommons;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.SVGSavePanel;
 import il.ac.sce.ir.metric.starter.gui.main.util.Caret;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
@@ -67,6 +68,8 @@ public class AnalyzeBySystemPanel extends JPanel {
             new HashMap<>();
 
     private final SVGSavePanel svgSavePanel = new SVGSavePanel();
+
+    private final AnalyzePanelsCommons analyzePanelsCommons = new AnalyzePanelsCommons();
 
     public AnalyzeBySystemPanel(String category, ResultsMetricHierarchyAnalyzer analyzer, String resultDirectory) {
         this.category = category;
@@ -449,29 +452,29 @@ public class AnalyzeBySystemPanel extends JPanel {
     }
 
     private void onTableButtonClicked(ActionEvent event) {
-        if (!hasSelection()) {
+        if (!analyzePanelsCommons.hasSelection(selectedMetrics, this)) {
             return;
         }
         Table table = analyzer.asAverageTable(category, selectedMetrics);
-        filterTableDisplaying(table);
-        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Table View");
+        analyzePanelsCommons.filterTableDisplaying(table);
+        JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Table View");
         JTable systemsSummary = new JTable(table);
         systemsSummary.setFillsViewportHeight(true);
         systemsSummary.setAutoCreateRowSorter(true);
         systemsSummary.setPreferredScrollableViewportSize(new Dimension(800, 600));
         jDialog.add(new JScrollPane(systemsSummary));
         jDialog.pack();
-        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         jDialog.setVisible(true);
     }
 
     private void onBarChartButtonClicked(ActionEvent event) {
-        if (!hasSelection()) {
+        if (!analyzePanelsCommons.hasSelection(selectedMetrics, this)) {
             return;
         }
-        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Bar Chart View");
+        JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Bar Chart View");
         Table table = analyzer.asAverageTable(category, selectedMetrics);
-        filterTableDisplaying(table);
+        analyzePanelsCommons.filterTableDisplaying(table);
         CategoryDataset categoryDataset = analyzer.tableToCategoryDataSet(table);
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Average Metric Values By System",
@@ -483,21 +486,21 @@ public class AnalyzeBySystemPanel extends JPanel {
 
 
         if (svgSavePanel.isSaveToSVG()) {
-            exportChartAsSVG(barChart);
+            analyzePanelsCommons.exportChartAsSVG(barChart, svgSavePanel, resultDirectory);
         }
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
         jDialog.add(chartPanel);
         jDialog.pack();
-        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         jDialog.setVisible(true);
     }
 
     private void onStatisticsButtonClicked(ActionEvent event) {
-        if (!hasSelection()) {
+        if (!analyzePanelsCommons.hasSelection(selectedMetrics, this)) {
             return;
         }
-        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Statistics");
+        JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Statistics");
         JTextArea textArea = new JTextArea(48, 160);
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
@@ -514,12 +517,12 @@ public class AnalyzeBySystemPanel extends JPanel {
         textArea.setText(sb.toString());
         jDialog.add(new JScrollPane(textArea));
         jDialog.pack();
-        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         jDialog.setVisible(true);
     }
 
     private void onNotchedBoxButtonClicked(ActionEvent event) {
-        if (!hasSelection()) {
+        if (!analyzePanelsCommons.hasSelection(selectedMetrics, this)) {
             return;
         }
         Map<String, List<Double>> flattenedData = analyzer.asFlattenedData(category, selectedMetrics);
@@ -556,34 +559,14 @@ public class AnalyzeBySystemPanel extends JPanel {
                     svgSavePanel.getSvgHeightTextField().getText()
             );
         }
-        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Notched Boxes View");
+        JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Notched Boxes View");
         jDialog.add(innerDialogPanel);
         jDialog.pack();
-        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         jDialog.setVisible(true);
     }
 
-    private boolean hasSelection() {
-        boolean hasSelection = false;
-        drop:
-        for (Map.Entry<String, Map<String, Boolean>> metricSelection : selectedMetrics.entrySet()) {
-            Map<String, Boolean> selectedSubMetrics = metricSelection.getValue();
-            if (selectedSubMetrics == null) {
-                continue;
-            }
-            for (Map.Entry<String, Boolean> selectedSubMetric : selectedSubMetrics.entrySet()) {
-                Boolean selected = selectedSubMetric.getValue();
-                if (selected != null && selected) {
-                    hasSelection = true;
-                    break drop;
-                }
-            }
-        }
-        if (!hasSelection) {
-            JOptionPane.showMessageDialog(null, "Please select at least one metric");
-        }
-        return hasSelection;
-    }
+
 
     /**
      * Map as a key in another map produces unexpected result. Thus, map is reduced to a string
@@ -602,35 +585,6 @@ public class AnalyzeBySystemPanel extends JPanel {
             });
         });
         return sb.toString();
-    }
-
-    private void exportChartAsSVG(JFreeChart chart) {
-        try {
-            String fileName = svgSavePanel.getSvgFileNameTextField().getText().trim();
-            if (!fileName.toLowerCase().endsWith(".svg")) {
-                fileName += ".svg";
-            }
-            File svgFile = Paths.get(resultDirectory, fileName).toFile();
-            GraphicsToSVGExporter exporter = new GraphicsToSVGExporter(svgFile);
-            int width = Integer.parseInt(svgSavePanel.getSvgWidthTextField().getText().trim());
-            int height = Integer.parseInt(svgSavePanel.getSvgHeightTextField().getText().trim());
-            Rectangle bounds = new Rectangle(0, 0, width, height);
-            exporter.export(g2 -> {
-                chart.draw(g2, bounds);
-            });
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Cannot save chart to SVG: " + e.getMessage());
-        }
-    }
-
-    private void filterTableDisplaying(Table table) {
-        List<String> newColumns = new ArrayList<>();
-        for (String column : table.getColumns()) {
-            String newColumn = column.replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE);
-            newColumn = newColumn.replace(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, Constants.TOPICS_READABILITY_LOWER_CASE);
-            newColumns.add(newColumn);
-        }
-        table.setColumns(newColumns);
     }
 
 }

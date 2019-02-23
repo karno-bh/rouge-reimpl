@@ -136,7 +136,4 @@ public class Starter {
         });
     }
 
-    public static JFrame getTopLevelFrame() {
-        return topLevelFrame;
-    }
 }

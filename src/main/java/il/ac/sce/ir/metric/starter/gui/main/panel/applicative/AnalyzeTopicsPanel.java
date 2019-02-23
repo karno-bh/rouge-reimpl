@@ -6,6 +6,7 @@ import il.ac.sce.ir.metric.core.utils.converter.GraphicsToSVGExporter;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.Starter;
 import il.ac.sce.ir.metric.starter.gui.main.element.SystemMetricSubMetricCheckBox;
+import il.ac.sce.ir.metric.starter.gui.main.panel.applicative.utils.AnalyzePanelsCommons;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.SVGSavePanel;
 import il.ac.sce.ir.metric.starter.gui.main.util.Caret;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
@@ -42,6 +43,8 @@ public class AnalyzeTopicsPanel extends JPanel {
     private final JButton barChart;
 
     private final SVGSavePanel svgSavePanel = new SVGSavePanel();
+
+    private final AnalyzePanelsCommons analyzePanelsCommons = new AnalyzePanelsCommons();
 
     public AnalyzeTopicsPanel(String category, ResultsMetricHierarchyAnalyzer analyzer, String resultDirectory) {
         this.category = category;
@@ -155,23 +158,29 @@ public class AnalyzeTopicsPanel extends JPanel {
     }
 
     private void onTableClicked(ActionEvent event) {
+        if (!analyzePanelsCommons.hasSelection(selectedMetric, this)) {
+            return;
+        }
         Table tableData = analyzer.asTopicTable(category, selectedSystems, selectedMetric);
-        filterTableDisplaying(tableData);
-        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Table View");
+        analyzePanelsCommons.filterTableDisplaying(tableData);
+        JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Table View");
         JTable systemsSummary = new JTable(tableData);
         systemsSummary.setFillsViewportHeight(true);
         systemsSummary.setAutoCreateRowSorter(true);
         systemsSummary.setPreferredScrollableViewportSize(new Dimension(800, 600));
         jDialog.add(new JScrollPane(systemsSummary));
         jDialog.pack();
-        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         jDialog.setVisible(true);
     }
 
     private void onBarChartClicked(ActionEvent event) {
-        JDialog jDialog = new JDialog(Starter.getTopLevelFrame(), "Bar Chart View");
+        if (!analyzePanelsCommons.hasSelection(selectedMetric, this)) {
+            return;
+        }
+        JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Bar Chart View");
         Table tableData = analyzer.asTopicTable(category, selectedSystems, selectedMetric);
-        filterTableDisplaying(tableData);
+        analyzePanelsCommons.filterTableDisplaying(tableData);
         CategoryDataset categoryDataset = analyzer.tableToCategoryDataSet(tableData);
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Topic Average vs Summary Value",
@@ -181,13 +190,13 @@ public class AnalyzeTopicsPanel extends JPanel {
                 PlotOrientation.VERTICAL,
                 true, true, false);
         if (svgSavePanel.isSaveToSVG()) {
-            exportChartAsSVG(barChart);
+            analyzePanelsCommons.exportChartAsSVG(barChart, svgSavePanel, resultDirectory);
         }
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
         jDialog.add(chartPanel);
         jDialog.pack();
-        jDialog.setLocationRelativeTo(Starter.getTopLevelFrame());
+        jDialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
         jDialog.setVisible(true);
     }
 
@@ -196,7 +205,11 @@ public class AnalyzeTopicsPanel extends JPanel {
         topicSubMetrics.forEach((metricKey, subMetrics) -> {
             JPanel metricPanel = new JPanel();
             metricPanel.setLayout(new GridBagLayout());
-            metricPanel.setBorder(BorderFactory.createTitledBorder(metricKey));
+            metricPanel.setBorder(BorderFactory.createTitledBorder(
+                    metricKey
+                            .replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE)
+                            .replace(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, Constants.TOPICS_READABILITY_LOWER_CASE)
+            ));
             WholeSpaceFiller spaceFiller = new WholeSpaceFiller();
             GridBagConstraints metricPanelSpringConstraints = spaceFiller.getFillingConstraints();
             metricPanelSpringConstraints.gridx = 1000;
@@ -232,34 +245,5 @@ public class AnalyzeTopicsPanel extends JPanel {
             metricPanels.add(metricPanel);
         });
         return metricPanels;
-    }
-
-    private void filterTableDisplaying(Table table) {
-        List<String> newColumns = new ArrayList<>();
-        for (String column : table.getColumns()) {
-            String newColumn = column.replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE);
-            newColumn = newColumn.replace(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, Constants.TOPICS_READABILITY_LOWER_CASE);
-            newColumns.add(newColumn);
-        }
-        table.setColumns(newColumns);
-    }
-
-    private void exportChartAsSVG(JFreeChart chart) {
-        try {
-            String fileName = svgSavePanel.getSvgFileNameTextField().getText().trim();
-            if (!fileName.toLowerCase().endsWith(".svg")) {
-                fileName += ".svg";
-            }
-            File svgFile = Paths.get(resultDirectory, fileName).toFile();
-            GraphicsToSVGExporter exporter = new GraphicsToSVGExporter(svgFile);
-            int width = Integer.parseInt(svgSavePanel.getSvgWidthTextField().getText().trim());
-            int height = Integer.parseInt(svgSavePanel.getSvgHeightTextField().getText().trim());
-            Rectangle bounds = new Rectangle(0, 0, width, height);
-            exporter.export(g2 -> {
-                chart.draw(g2, bounds);
-            });
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Cannot save chart to SVG: " + e.getMessage());
-        }
     }
 }
