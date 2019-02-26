@@ -61,7 +61,4 @@ public class GoButtonAsyncAction implements Runnable {
         }
     }
 
-    /*public List<String> getSelectedMetrics(GoButtonModel goButtonModel) {
-
-    }*/
 }

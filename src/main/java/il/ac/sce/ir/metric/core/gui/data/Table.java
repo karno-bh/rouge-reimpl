@@ -18,6 +18,10 @@ public class Table extends AbstractTableModel {
         data.add(row);
     }
 
+    public void setData(List<List<Object>> data) {
+        this.data = data;
+    }
+
     @Override
     public int getRowCount() {
         return data.size();

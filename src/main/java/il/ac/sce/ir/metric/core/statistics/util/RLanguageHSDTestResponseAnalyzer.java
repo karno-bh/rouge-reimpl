@@ -2,6 +2,7 @@ package il.ac.sce.ir.metric.core.statistics.util;
 
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.statistics.r_lang_gateway.data.HSDTestLetterRepresentationRow;
+import il.ac.sce.ir.metric.core.utils.TableTabulator;
 
 import java.util.*;
 
@@ -146,7 +147,9 @@ public class RLanguageHSDTestResponseAnalyzer {
         List<String> row = Arrays.asList(msError, df, mean, cv);
         table.add(row);
 
-        return tableAsTabularString(table);
+        TableTabulator tabulator = new TableTabulator(table);
+        tabulator.tableAsTabularString();
+        return tabulator.getResultTable();
     }
 
     private String parseDistributions() {
@@ -192,7 +195,9 @@ public class RLanguageHSDTestResponseAnalyzer {
             table.add(row);
         }
 
-        return tableAsTabularString(table);
+        TableTabulator tabulator = new TableTabulator(table);
+        tabulator.tableAsTabularString();
+        return tabulator.getResultTable();
     }
 
     private String parseParams() {
@@ -213,39 +218,12 @@ public class RLanguageHSDTestResponseAnalyzer {
         List<String> row = Arrays.asList(ntr, studentizedRange, alpha);
         table.add(row);
 
-        return tableAsTabularString(table);
+        TableTabulator tabulator = new TableTabulator(table);
+        tabulator.tableAsTabularString();
+        return tabulator.getResultTable();
     }
 
-    private String tableAsTabularString(List<List<String>> table) {
-        int[] columnSizes = new int[table.get(0).size()];
-        for (int i = 0; i < columnSizes.length; i++) {
-            columnSizes[i] = Integer.MIN_VALUE;
-        }
-        for (List<String> line : table) {
-            for (int i = 0; i < line.size(); i++) {
-                int length = line.get(i).length();
-                if (length > columnSizes[i]) {
-                    columnSizes[i] = length;
-                }
-            }
-        }
-        StringBuilder sb = new StringBuilder(256);
-        for (List<String> line : table) {
-            for (int i = 0; i < line.size(); i++) {
-                String column = line.get(i);
-                int length = column.length();
-                for (int j = 0; j <= columnSizes[i] - length; j++) {
-                    sb.append(' ');
-                }
-                sb.append(column);
-                if (i + 1 != line.size()) {
-                    sb.append(' ');
-                }
-            }
-            sb.append('\n');
-        }
-        return sb.toString();
-    }
+
 
 
 }

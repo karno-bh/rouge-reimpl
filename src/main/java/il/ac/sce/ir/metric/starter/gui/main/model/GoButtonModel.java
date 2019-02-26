@@ -1,19 +1,12 @@
 package il.ac.sce.ir.metric.starter.gui.main.model;
 
-import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.starter.gui.main.async.GoButtonAsyncAction;
-import il.ac.sce.ir.metric.starter.gui.main.data.MetricWrapper;
 import il.ac.sce.ir.metric.starter.gui.main.event.component_event.GoButtonClickEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.*;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class GoButtonModel implements AppModel {
 

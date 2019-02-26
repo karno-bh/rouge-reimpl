@@ -67,6 +67,7 @@ public interface Constants {
     String VIRTUAL_TOPIC_SYSTEM = "__topic__";
     String MODEL = "model";
     String CSV_EXTENSION = ".csv";
+    String SVG_EXTENSION = ".svg";
 
     String FLESCH_READING_EASE = "fleschReadingEase";
     String FLESCH_READING_EASE_NORMALIZED = "fleschReadingEaseNormalized";
@@ -212,4 +213,6 @@ public interface Constants {
     String SCRIPT_BAT_HSD_TEST = "run_hsd_test.bat";
     String DEFAULT_CSV_FILE_RPC = "temp.csv";
     String DEFAULT_HSD_TEST_RESULT = "hsd_result.txt";
+
+    String AVERAGE_VIRTUAL_ROW = "__average__";
 }

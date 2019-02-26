@@ -46,8 +46,8 @@ public class AnalyzePanelsCommons {
     public void exportChartAsSVG(JFreeChart chart, SVGSavePanel svgSavePanel, String resultDirectory) {
         try {
             String fileName = svgSavePanel.getSvgFileNameTextField().getText().trim();
-            if (!fileName.toLowerCase().endsWith(".svg")) {
-                fileName += ".svg";
+            if (!fileName.toLowerCase().endsWith(Constants.SVG_EXTENSION)) {
+                fileName += Constants.SVG_EXTENSION;
             }
             File svgFile = Paths.get(resultDirectory, fileName).toFile();
             GraphicsToSVGExporter exporter = new GraphicsToSVGExporter(svgFile);

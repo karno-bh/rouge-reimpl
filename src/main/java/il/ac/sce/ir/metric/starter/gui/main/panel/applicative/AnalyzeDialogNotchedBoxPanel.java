@@ -58,9 +58,8 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
                 asDoubleArr[i] = values.get(i);
             }
             String showValue = showLegend ?
-                    flattenedDataLegend.get(compoundKey) :compoundKey.substring(0, compoundKey.indexOf("/"));
+                    flattenedDataLegend.get(compoundKey) : compoundKey.substring(0, compoundKey.indexOf("/"));
             multiNotchedBoxData.add(compoundKey, asDoubleArr, metricGroups.get(compoundKey), showValue);
-            // multiNotchedBoxData.add(compoundKey.substring(0, compoundKey.indexOf("/")), asDoubleArr);
         });
 
         notchedBoxGraph = new NotchedBoxGraph();
@@ -88,8 +87,8 @@ public class AnalyzeDialogNotchedBoxPanel extends JPanel {
     public void exportChartAsSVG(String resultDirectory, String fileNameRaw, String widthRaw, String heightRaw) {
         try {
             String fileName = fileNameRaw.trim();
-            if (!fileName.toLowerCase().endsWith(".svg")) {
-                fileName += ".svg";
+            if (!fileName.toLowerCase().endsWith(Constants.SVG_EXTENSION)) {
+                fileName += Constants.SVG_EXTENSION;
             }
             File svgFile = Paths.get(resultDirectory, fileName).toFile();
             GraphicsToSVGExporter exporter = new GraphicsToSVGExporter(svgFile);

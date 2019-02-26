@@ -1,3 +1,17 @@
+2019-02-26
+    CONTINUE:
+        1. Add stop word removal
+        2. Add stemming
+    Done:
+        1. Added "Heat" tables for topics (readability) metrics
+    TODO:
+        1. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        2. Start writing a Project Document.
+        3. Clean tests not to have absolute file paths. (=> need to upload test data)
+        4. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        5. PeerModelPair should be generic and common for all.
+        6. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
 2019-02-22
     CONTINUE:
         1. Project doc?
