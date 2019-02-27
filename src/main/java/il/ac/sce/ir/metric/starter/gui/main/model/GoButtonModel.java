@@ -24,6 +24,8 @@ public class GoButtonModel implements AppModel {
 
     private AutoSummENGSelectionPanelModel autoSummENGSelectionPanelModel;
 
+    private FilterSelectionPanelModel filterSelectionPanelModel;
+
     public boolean isGoButtonEnabled() {
         return goButtonEnabled;
     }
@@ -48,6 +50,10 @@ public class GoButtonModel implements AppModel {
         return autoSummENGSelectionPanelModel;
     }
 
+    public FilterSelectionPanelModel getFilterSelectionPanelModel() {
+        return filterSelectionPanelModel;
+    }
+
     public GoButtonModel(PubSub pubSub) {
         this.pubSub = pubSub;
 
@@ -55,6 +61,7 @@ public class GoButtonModel implements AppModel {
         pubSub.subscribe(RougeSelectionPanelModelEvent.class, this::onRougeSelectionPanelModelEvent);
         pubSub.subscribe(ReadabilitySelectionPanelModelEvent.class, this::onReadabilitySelectionPanelModelEvent);
         pubSub.subscribe(AutoSummENGSelectionPanelModelEvent.class, this::onAutoSummENGSelectionPanelModelEvent);
+        pubSub.subscribe(FilterSelectionPanelModelEvent.class, this::onFilterSelectionPanelModelEvent);
 
         pubSub.subscribe(GoButtonClickEvent.class, this::goButtonClicked);
     }
@@ -77,6 +84,10 @@ public class GoButtonModel implements AppModel {
     private void onAutoSummENGSelectionPanelModelEvent(AutoSummENGSelectionPanelModelEvent event) {
         autoSummENGSelectionPanelModel = event.getModel();
         checkEnablement();
+    }
+
+    private void onFilterSelectionPanelModelEvent(FilterSelectionPanelModelEvent event) {
+        filterSelectionPanelModel = event.getModel();
     }
 
     public void setMetricsInRun(boolean metricsInRun) {

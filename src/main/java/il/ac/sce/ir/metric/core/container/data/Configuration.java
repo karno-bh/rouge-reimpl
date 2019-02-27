@@ -14,6 +14,7 @@ public class Configuration {
 
     private final String workingSetDirectory;
     private final List<String> requiredMetrics;
+    private final List<String> requiredFilters;
     private final String containerClass;
     private final String mainAlgoClass;
     private final Map<String, Object> additionalContainerConfig;
@@ -25,6 +26,7 @@ public class Configuration {
     private Configuration(Mirror mirror) {
         this.workingSetDirectory = mirror.workingSetDirectory;
         this.requiredMetrics = mirror.requiredMetrics;
+        this.requiredFilters = mirror.requiredFilters;
         this.containerClass = mirror.containerClass;
         this.mainAlgoClass = mirror.mainAlgoClass;
         this.additionalContainerConfig = mirror.additionalContainerConfig;
@@ -59,6 +61,10 @@ public class Configuration {
             }
         }
         return metricsToReturn;
+    }
+
+    public List<String> getRequiredFilters() {
+        return requiredFilters;
     }
 
     public String getContainerClass() {
@@ -125,6 +131,13 @@ public class Configuration {
             requiredMetrics.add(requiredMetric);
         }
         mirror.requiredMetrics = Collections.unmodifiableList(requiredMetrics);
+        List requiredFiltersFromJson = utils.requireJSONTypeAndCast(jsonData.get(Constants.WORKING_SET_FILTERS), Constants.WORKING_SET_FILTERS, List.class);
+        List<String> requiredFilters = new ArrayList<>(requiredMetricsFromJson.size());
+        for (Object requiredFiltercObj : requiredFiltersFromJson) {
+            String requiredFilter = utils.requireJSONTypeAndCast(requiredFiltercObj, "working set array element", String.class);
+            requiredFilters.add(requiredFilter);
+        }
+        mirror.requiredFilters = Collections.unmodifiableList(requiredFilters);
         mirror.containerClass = utils.requireJSONTypeAndCast(jsonData.get(Constants.CONTAINER_CLASS), Constants.CONTAINER_CLASS, String.class);
         mirror.mainAlgoClass = utils.requireJSONTypeAndCast(jsonData.get(Constants.MAIN_ALGO_CLASS), Constants.MAIN_ALGO_CLASS, String.class);
         mirror.additionalContainerConfig = utils.requireJSONTypeAndCast(jsonData.get(Constants.ADDITIONAL_CONTAINER_CONFIG), Constants.ADDITIONAL_CONTAINER_CONFIG, Map.class);
@@ -147,6 +160,7 @@ public class Configuration {
 
         private String workingSetDirectory;
         private List<String> requiredMetrics = new ArrayList<>();
+        private List<String> requiredFilters = new ArrayList<>();
         private String containerClass;
         private String mainAlgoClass;
         private Map<String, Object> additionalContainerConfig;
@@ -163,6 +177,11 @@ public class Configuration {
 
         public Mirror addRequiredMetric(String metric) {
             requiredMetrics.add(metric);
+            return this;
+        }
+
+        public Mirror addRequiredFilter(String filter) {
+            requiredFilters.add(filter);
             return this;
         }
 

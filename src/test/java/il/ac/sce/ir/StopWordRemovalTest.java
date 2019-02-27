@@ -82,7 +82,7 @@ public class StopWordRemovalTest {
 
     @Test
     public void stopWordsTextProcessorTest() {
-        String fileName = "c:\\my\\learning\\final-project\\working-set\\attempt001\\category01\\models\\M004.B.250 ";
+        String fileName = "c:\\my\\learning\\final-project\\working-set\\attempt001\\category01\\models\\M004.B.250";
         TextPipelineExtractor<String, List<String>> tokensExtractor = new TextPipelineExtractor<>();
         TextPipelineExtractor<String, List<String>> lowercaseTokensExtractor = new TextPipelineExtractor<>();
         TextPipelineExtractor<String, List<String>> punctuationExtractor = new TextPipelineExtractor<>();

@@ -42,6 +42,7 @@ public class GoButtonAsyncAction implements Runnable {
         configConverter.setRougeSelectionPanelModel(goButtonModel.getRougeSelectionPanelModel());
         configConverter.setReadabilitySelectionPanelModel(goButtonModel.getReadabilitySelectionPanelModel());
         configConverter.setAutoSummENGSelectionPanelModel(goButtonModel.getAutoSummENGSelectionPanelModel());
+        configConverter.setFilterSelectionPanelModel(goButtonModel.getFilterSelectionPanelModel());
 
         Configuration configuration = configConverter.convert();
 

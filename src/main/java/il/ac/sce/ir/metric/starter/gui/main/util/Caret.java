@@ -20,6 +20,11 @@ public class Caret {
         }
     }
 
+    public GridBagConstraints next(GridBagConstraints constraints) {
+        next();
+        return asGridBag(constraints);
+    }
+
     public int getX() {
         return x;
     }

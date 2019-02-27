@@ -57,6 +57,11 @@ public class MetricPanel extends JPanel {
         fileLine.insets = lineInsets;
         add(workingSetDirectoryChooserPanel, fileLine);
 
+        add(new NamedHeaderPanel("Text Preprocessing"), lineFiller.fullLine(y++));
+        GridBagConstraints preprocessingLine = lineFiller.fullLine(y++);
+        preprocessingLine.insets = lineInsets;
+        add(new FiltersSelectionPanel(pubSub, modelsManager), preprocessingLine);
+
         add(new NamedHeaderPanel("Rouge"), lineFiller.fullLine(y++));
         add(new MetricEnabledPanel(pubSub, GUIConstants.EVENT_ROUGE_METRIC_SELECTED), lineFiller.fullLine(y++));
         add(new RougeSelectionPanel(pubSub, modelsManager), lineFiller.fullLine(y++));

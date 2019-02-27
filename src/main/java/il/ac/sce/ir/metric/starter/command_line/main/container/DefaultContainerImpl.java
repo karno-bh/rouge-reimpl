@@ -15,6 +15,10 @@ import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSu
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.score_calculator.AutoSummENGSimpleTextScoreCalculator;
 import il.ac.sce.ir.metric.concrete_metric.common.util.ParallelPreCache;
 import il.ac.sce.ir.metric.concrete_metric.rouge.processor.*;
+import il.ac.sce.ir.metric.core.processor.token_filter.LowerCaseFilterProcessor;
+import il.ac.sce.ir.metric.core.processor.token_filter.PorterStemmerFilterProcessor;
+import il.ac.sce.ir.metric.core.processor.token_filter.PunctuationFilterProcessor;
+import il.ac.sce.ir.metric.core.processor.token_filter.StopwordsRemovalFilterProcessor;
 import il.ac.sce.ir.metric.core.sync.Arbiter;
 import il.ac.sce.ir.metric.core.builder.BiTextPipeline;
 import il.ac.sce.ir.metric.core.builder.BiTextPipelineExtractor;
@@ -83,8 +87,15 @@ public class DefaultContainerImpl extends Container {
                     })
                     .collect(Collectors.toList());
 
+        List<String> filters = configuration.getRequiredFilters();
+        filters = filters == null ? new ArrayList<>() : filters;
+
         TextPipeline<String, List<String>> initialPipeline = new TextPipeline<>(new FileToStringProcessor())
                 .pipe(new TextToTokensProcessor())
+                .pipeIf(filters.contains(Constants.LOWER_CASE_FILTER), new LowerCaseFilterProcessor())
+                .pipeIf(filters.contains(Constants.PUNCTUATION_FILTER), new PunctuationFilterProcessor())
+                .pipeIf(filters.contains(Constants.STOP_WORDS_REMOVAL_FILTER), new StopwordsRemovalFilterProcessor())
+                .pipeIf(filters.contains(Constants.PORTER_STEMMER_FILTER), new PorterStemmerFilterProcessor())
                 .cacheIn(CacheMemoryTextProcessor::new)
                 .extract(tokensExtractor);
         Map<Integer, TextPipelineExtractor<String, Map<String, Integer>>> rougeNPipelineExtractors = new HashMap<>();
@@ -280,6 +291,9 @@ public class DefaultContainerImpl extends Container {
             AutoSummENGReporter reporter = new AutoSummENGReporter();
             reporter.setSimpleTextConfig(simpleTextConfig);
             reporter.setnGramTextConfig(nGramTextConfig);
+
+            reporter.setRequiredFilters(configuration.getRequiredFilters());
+            reporter.setFilterTextProcessor(tokensExtractor.getTextProcessor());
 
             reporter.setSimpleTextDocumentTextProcessor(simpleTextScoreCalculator);
             reporter.setnGramSymWinDocumentTextProcessor(nGramScoreCalculator);

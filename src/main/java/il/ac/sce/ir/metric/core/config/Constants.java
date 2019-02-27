@@ -13,6 +13,7 @@ public interface Constants {
 
     String WORKING_SET_DIRECTORY = "workingSetDirectory";
     String WORKING_SET_METRICS = "workingSetMetrics";
+    String WORKING_SET_FILTERS = "workingSetFilters";
     String CONTAINER_CLASS = "containerClass";
     String MAIN_ALGO_CLASS = "mainAlgoClass";
     String ADDITIONAL_CONTAINER_CONFIG = "additionalContainerConfig";
@@ -21,6 +22,11 @@ public interface Constants {
     String RESULT_DIRECTORY = "resultDirectory";
     String POST_METRICS_PROCESSING = "postMetricsProcessing";
     String GEORGE_GRAPH_METRIC_CONFIG = "georgeGraphMetricConfig";
+
+    String LOWER_CASE_FILTER = "lowerCaseFilter";
+    String PUNCTUATION_FILTER = "punctuationFilter";
+    String STOP_WORDS_REMOVAL_FILTER = "stopWordsRemovalFilter";
+    String PORTER_STEMMER_FILTER = "porterStemmerFilter";
 
     String ROUGE_LOWER_CASE = "rouge";
     String ROUGEN_LOWER_CASE = "rougen";

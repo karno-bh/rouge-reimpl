@@ -17,8 +17,16 @@ public class TextPipeline<X, Y> {
     }
 
     public <Z> TextPipeline<X, Z> pipe(TextProcessor<Y, Z> next) {
-        PipelineProcessor<X, Y, Z> pipedProcssors = new PipelineProcessor<>(current, next);
-        return new TextPipeline<>(pipedProcssors);
+        PipelineProcessor<X, Y, Z> pipedProcessors = new PipelineProcessor<>(current, next);
+        return new TextPipeline<>(pipedProcessors);
+    }
+
+    public TextPipeline<X,Y> pipeIf(boolean condition, TextProcessor<Y, Y> next) {
+        if (condition) {
+            PipelineProcessor<X, Y, Y> pipedProcessors = new PipelineProcessor<>(current, next);
+            return new TextPipeline<>(pipedProcessors);
+        }
+        return this;
     }
 
     public TextPipeline<X, Y> extract(TextPipelineExtractor<X, Y> extractor) {

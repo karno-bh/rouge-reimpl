@@ -44,6 +44,10 @@ public class AutoSummENGReporter implements Reporter {
 
     private NGramTextConfig nGramTextConfig;
 
+    private List<String> requiredFilters;
+
+    private TextProcessor<String, List<String>> filterTextProcessor;
+
     public ExecutorService getExecutorService() {
         return executorService;
     }
@@ -88,6 +92,14 @@ public class AutoSummENGReporter implements Reporter {
         return simpleTextConfig;
     }
 
+    public void setFilterTextProcessor(TextProcessor<String, List<String>> filterTextProcessor) {
+        this.filterTextProcessor = filterTextProcessor;
+    }
+
+    public void setRequiredFilters(List<String> requiredFilters) {
+        this.requiredFilters = requiredFilters;
+    }
+
     public void setSimpleTextConfig(SimpleTextConfig simpleTextConfig) {
         this.simpleTextConfig = simpleTextConfig;
     }
@@ -126,16 +138,16 @@ public class AutoSummENGReporter implements Reporter {
                     PeerSingleModelPair nGramPeerSingleModelPair = null;
                     if (simpleTextConfig != null) {
                         DocumentDesc peerDocumentDesc = new DocumentDesc(absolutePeerFileName, simpleTextConfig.getWordMin(),
-                                simpleTextConfig.getWordMax(), simpleTextConfig.getWordDist());
+                                simpleTextConfig.getWordMax(), simpleTextConfig.getWordDist(), requiredFilters, filterTextProcessor);
                         DocumentDesc modelDocumentDesc = new DocumentDesc(modelPerPeer.getTextData(), simpleTextConfig.getWordMin(),
-                                simpleTextConfig.getWordMax(), simpleTextConfig.getWordDist());
+                                simpleTextConfig.getWordMax(), simpleTextConfig.getWordDist(), requiredFilters, filterTextProcessor);
                         simpleTextPeerSingleModelPair  = new PeerSingleModelPair(peerDocumentDesc, modelDocumentDesc);
                     }
                     if (nGramTextConfig != null) {
                         DocumentDesc peerDocumentDesc = new DocumentDesc(absolutePeerFileName, nGramTextConfig.getCharMin(),
-                                nGramTextConfig.getCharMax(), nGramTextConfig.getCharDist());
+                                nGramTextConfig.getCharMax(), nGramTextConfig.getCharDist(), requiredFilters, filterTextProcessor);
                         DocumentDesc modelDocumentDesc = new DocumentDesc(modelPerPeer.getTextData(), nGramTextConfig.getCharMin(),
-                                nGramTextConfig.getCharMax(), nGramTextConfig.getCharDist());
+                                nGramTextConfig.getCharMax(), nGramTextConfig.getCharDist(), requiredFilters, filterTextProcessor);
                         nGramPeerSingleModelPair  = new PeerSingleModelPair(peerDocumentDesc, modelDocumentDesc);
                     }
                     SimpleTextNGramPair simpleTextNGramPair = new SimpleTextNGramPair(simpleTextPeerSingleModelPair, nGramPeerSingleModelPair);

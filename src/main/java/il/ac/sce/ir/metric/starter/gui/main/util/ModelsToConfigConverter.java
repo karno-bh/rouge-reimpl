@@ -4,10 +4,7 @@ import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.NGramTextConfig;
 import il.ac.sce.ir.metric.concrete_metric.auto_summ_eng.data.SimpleTextConfig;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.container.data.Configuration;
-import il.ac.sce.ir.metric.starter.gui.main.model.AutoSummENGSelectionPanelModel;
-import il.ac.sce.ir.metric.starter.gui.main.model.MetricPanelModel;
-import il.ac.sce.ir.metric.starter.gui.main.model.ReadabilitySelectionPanelModel;
-import il.ac.sce.ir.metric.starter.gui.main.model.RougeSelectionPanelModel;
+import il.ac.sce.ir.metric.starter.gui.main.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +18,8 @@ public class ModelsToConfigConverter {
     private ReadabilitySelectionPanelModel readabilitySelectionPanelModel;
 
     private AutoSummENGSelectionPanelModel autoSummENGSelectionPanelModel;
+
+    private FilterSelectionPanelModel filterSelectionPanelModel;
 
     public void setMetricPanelModel(MetricPanelModel metricPanelModel) {
         this.metricPanelModel = metricPanelModel;
@@ -36,6 +35,10 @@ public class ModelsToConfigConverter {
 
     public void setAutoSummENGSelectionPanelModel(AutoSummENGSelectionPanelModel autoSummENGSelectionPanelModel) {
         this.autoSummENGSelectionPanelModel = autoSummENGSelectionPanelModel;
+    }
+
+    public void setFilterSelectionPanelModel(FilterSelectionPanelModel filterSelectionPanelModel) {
+        this.filterSelectionPanelModel = filterSelectionPanelModel;
     }
 
     public Configuration convert() {
@@ -86,6 +89,14 @@ public class ModelsToConfigConverter {
         String cacheDirectory = Constants.CACHE_DIRECTORY_DEFAULT;
         List<String> postMetricProcesing = Arrays.asList(
                 Constants.NORMALIZE_FLESCH_AND_WORD_VARIATION_REDUCER, Constants.SAVE_TO_CSV_REDUCER);
+
+        List<String> filters = new ArrayList<>();
+        filterSelectionPanelModel.getSelections().forEach((filter, selected) -> {
+            if (selected != null && selected) {
+                filters.add(filter);
+            }
+        });
+
         Configuration.Mirror configurationMirror = Configuration.as()
                 .workingSetDirectory(workingSetDirectory)
                 .resultDirectory(resultDirectory)
@@ -93,6 +104,7 @@ public class ModelsToConfigConverter {
                 .mainAlgoClass(mainAlgoClass);
         workingSetMetrics.forEach(configurationMirror::addRequiredMetric);
         postMetricProcesing.forEach(configurationMirror::addRequiredReducer);
+        filters.forEach(configurationMirror::addRequiredFilter);
         configurationMirror.autoSummENGWord(simpleTextConfig == null ? null : simpleTextConfig.toMap());
         configurationMirror.autoSummENGChar(nGramTextConfig == null ? null : nGramTextConfig.toMap());
         Map<String, Object> additionalContainerConfig = new HashMap<>();
