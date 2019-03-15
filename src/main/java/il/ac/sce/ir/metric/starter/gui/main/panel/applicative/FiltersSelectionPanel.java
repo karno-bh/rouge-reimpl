@@ -51,6 +51,7 @@ public class FiltersSelectionPanel extends JPanel {
         constraints = caret.next(constraints);
         lowerCaseCheckbox = new FilterSelectionCheckbox(Constants.LOWER_CASE_FILTER);
         lowerCaseCheckbox.addItemListener(this::onCheckBoxClicked);
+        lowerCaseCheckbox.setSelected(model.getSelections().get(Constants.LOWER_CASE_FILTER));
         add(lowerCaseCheckbox, constraints);
 
         constraints = caret.next(constraints);
@@ -60,6 +61,7 @@ public class FiltersSelectionPanel extends JPanel {
         constraints = caret.next(constraints);
         punctuationCheckbox = new FilterSelectionCheckbox(Constants.PUNCTUATION_FILTER);
         punctuationCheckbox.addItemListener(this::onCheckBoxClicked);
+        punctuationCheckbox.setSelected(model.getSelections().get(Constants.PUNCTUATION_FILTER));
         add(punctuationCheckbox, constraints);
 
         constraints = caret.next(constraints);
@@ -69,6 +71,7 @@ public class FiltersSelectionPanel extends JPanel {
         constraints = caret.next(constraints);
         stopwordsRemovalCheckbox = new FilterSelectionCheckbox(Constants.STOP_WORDS_REMOVAL_FILTER);
         stopwordsRemovalCheckbox.addItemListener(this::onCheckBoxClicked);
+        stopwordsRemovalCheckbox.setSelected(model.getSelections().get(Constants.STOP_WORDS_REMOVAL_FILTER));
         add(stopwordsRemovalCheckbox, constraints);
 
         constraints = caret.next(constraints);
@@ -78,6 +81,7 @@ public class FiltersSelectionPanel extends JPanel {
         constraints = caret.next(constraints);
         porterStemmingCheckbox = new FilterSelectionCheckbox(Constants.PORTER_STEMMER_FILTER);
         porterStemmingCheckbox.addItemListener(this::onCheckBoxClicked);
+        porterStemmingCheckbox.setSelected(model.getSelections().get(Constants.PORTER_STEMMER_FILTER));
         add(porterStemmingCheckbox, constraints);
     }
 

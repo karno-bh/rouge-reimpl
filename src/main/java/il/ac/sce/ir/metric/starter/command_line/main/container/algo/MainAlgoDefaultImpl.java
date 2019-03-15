@@ -44,9 +44,6 @@ public class MainAlgoDefaultImpl implements MainAlgo {
 
             for (ProcessedCategory category : categories) {
                 for (String requiredMetric : container.getConfiguration().getRequiredMetrics()) {
-                    if (requiredMetric != null && requiredMetric.trim().equals(Constants.ROUGESU_LOWER_CASE)) {
-                        requiredMetric = Constants.ROUGES_LOWER_CASE;
-                    }
                     String beanKey = requiredMetric.trim().toLowerCase();
                     Object bean = container.getBean(beanKey);
                     if (bean != null) {

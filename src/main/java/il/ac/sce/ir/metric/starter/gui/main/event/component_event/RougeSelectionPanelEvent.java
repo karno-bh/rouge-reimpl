@@ -9,6 +9,7 @@ public class RougeSelectionPanelEvent implements Event {
         ROUGE_N_TEXT,
         ROUGE_S,
         ROUGE_S_UNIGRAMS,
+        ROUGE_S_SKIP_DISTANCE,
         ROUGE_L,
         ROUGE_W,
     }
@@ -22,6 +23,8 @@ public class RougeSelectionPanelEvent implements Event {
     private boolean rougeS;
 
     private boolean rougeSUseUnigrams;
+
+    private int skipDistance;
 
     private boolean rougeL;
 
@@ -75,6 +78,14 @@ public class RougeSelectionPanelEvent implements Event {
 
     public void setRougeSUseUnigrams(boolean rougeSUseUnigrams) {
         this.rougeSUseUnigrams = rougeSUseUnigrams;
+    }
+
+    public int getSkipDistance() {
+        return skipDistance;
+    }
+
+    public void setSkipDistance(int skipDistance) {
+        this.skipDistance = skipDistance;
     }
 
     public boolean isRougeL() {

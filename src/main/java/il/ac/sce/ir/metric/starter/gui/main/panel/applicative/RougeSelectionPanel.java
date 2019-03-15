@@ -7,6 +7,7 @@ import il.ac.sce.ir.metric.starter.gui.main.util.ModelsManager;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -28,6 +29,8 @@ public class RougeSelectionPanel extends JPanel {
     private final JCheckBox rougeSEnabledCheckbox;
 
     private final JCheckBox rougeSUseUnigramsCheckBox;
+
+    private final JSpinner skipDistance = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
 
     private final JCheckBox rougeLEnabledCheckbox;
 
@@ -188,6 +191,27 @@ public class RougeSelectionPanel extends JPanel {
         add(rougeSUseUnigramsCheckBox, rougeSUseUnigramsCheckBoxConstraints);
 
         x = 0;
+        JLabel rougeSSkipDistanceLabel = new JLabel("Skip Distance:");
+        GridBagConstraints rougeSSkipDistanceLabelConstraints = new GridBagConstraints();
+        rougeSSkipDistanceLabelConstraints.gridx = x++;
+        rougeSSkipDistanceLabelConstraints.gridy = y;
+        rougeSSkipDistanceLabelConstraints.insets = new Insets(0, 20, 10, 10);
+        add(rougeSSkipDistanceLabel, rougeSSkipDistanceLabelConstraints);
+
+        skipDistance.setEnabled(false);
+        skipDistance.addChangeListener(this::onRougeSSkipDistanceChanged);
+        skipDistance.setToolTipText("Zero means unlimited skip distance");
+        Component spinnerEditor = skipDistance.getEditor();
+        JFormattedTextField textField = ((JSpinner.DefaultEditor) spinnerEditor).getTextField();
+        textField.setColumns(1);
+        GridBagConstraints rougeSSkipDistanceSpinnerConstraints = new GridBagConstraints();
+        rougeSSkipDistanceSpinnerConstraints.gridx = x++;
+        rougeSSkipDistanceSpinnerConstraints.gridy = y++;
+        rougeSSkipDistanceSpinnerConstraints.insets = new Insets(0,0,10, 5);
+        add(skipDistance, rougeSSkipDistanceSpinnerConstraints);
+
+
+        x = 0;
         rougeL = new JLabel("RougeL");
         rougeL.setEnabled(false);
         rougeL.setFont(metricFont);
@@ -271,6 +295,7 @@ public class RougeSelectionPanel extends JPanel {
         rougeWEnabledCheckbox.setEnabled(rougeEnabled);
         rougeSEnabledCheckbox.setEnabled(rougeEnabled);
         rougeSUseUnigramsCheckBox.setEnabled(rougeEnabled);
+        skipDistance.setEnabled(rougeEnabled);
 
         rougeN.setEnabled(rougeEnabled);
         rougeS.setEnabled(rougeEnabled);
@@ -314,6 +339,16 @@ public class RougeSelectionPanel extends JPanel {
         RougeSelectionPanelEvent event = new RougeSelectionPanelEvent();
         event.setSelectionType(RougeSelectionPanelEvent.SelectionType.ROUGE_S_UNIGRAMS);
         event.setRougeSUseUnigrams(selected);
+
+        pubSub.publish(event);
+    }
+
+    private void onRougeSSkipDistanceChanged(ChangeEvent changeEvent) {
+        int skipDistanceValue = (int) skipDistance.getValue();
+
+        RougeSelectionPanelEvent event = new RougeSelectionPanelEvent();
+        event.setSelectionType(RougeSelectionPanelEvent.SelectionType.ROUGE_S_SKIP_DISTANCE);
+        event.setSkipDistance(skipDistanceValue);
 
         pubSub.publish(event);
     }

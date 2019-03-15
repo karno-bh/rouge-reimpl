@@ -14,8 +14,16 @@ public class SGramTextProcessor implements TextProcessor<List<String>, Map<Strin
 
     private final boolean useUnigrams;
 
+    private final int skipDistance;
+
     public SGramTextProcessor(boolean useUnigrams) {
         this.useUnigrams = useUnigrams;
+        this.skipDistance = 0;
+    }
+
+    public SGramTextProcessor(boolean useUnigrams, int skipDistance) {
+        this.useUnigrams = useUnigrams;
+        this.skipDistance = skipDistance;
     }
 
     @Override
@@ -37,7 +45,7 @@ public class SGramTextProcessor implements TextProcessor<List<String>, Map<Strin
                 ++realSkipBiGrams.computeIfAbsent(leftToken, k -> new int[]{0})[0];
                 ++count;
             }
-            for (int j = i + 1; j < tokens.size(); j++) {
+            for (int j = i + 1; j < tokens.size() && (skipDistance <= 0 || j < i + skipDistance + 1); j++) {
                 String biGram = leftToken + " " + tokens.get(j);
                 ++realSkipBiGrams.computeIfAbsent(biGram, k -> new int[]{0})[0];
                 ++count;

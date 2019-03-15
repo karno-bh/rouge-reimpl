@@ -41,7 +41,7 @@ public class Configuration {
     }
 
     public List<String> getRequiredMetrics() {
-        List<String> metricsToReturn = new ArrayList<>(requiredMetrics);
+        /*List<String> metricsToReturn = new ArrayList<>(requiredMetrics);
         List<String> rougeSMetrics = new ArrayList<>();
         for (String requiredMetric : metricsToReturn) {
             if (requiredMetric != null) {
@@ -59,8 +59,8 @@ public class Configuration {
             } else {
                 metricsToReturn.add(Constants.ROUGES_LOWER_CASE);
             }
-        }
-        return metricsToReturn;
+        }*/
+        return requiredMetrics;
     }
 
     public List<String> getRequiredFilters() {

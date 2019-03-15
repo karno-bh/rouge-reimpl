@@ -19,6 +19,8 @@ public class RougeSelectionPanelModel implements AppModel {
 
     private boolean rougeS;
 
+    private int skipDistance;
+
     private boolean rougeSUseUnigrams;
 
     public Map<Integer, Boolean> getSelectedNGramMetrics() {
@@ -58,6 +60,8 @@ public class RougeSelectionPanelModel implements AppModel {
             setRougeS(e.isRougeS());
         } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_S_UNIGRAMS.equals(e.getSelectionType())) {
             setRougeSUseUnigrams(e.isRougeSUseUnigrams());
+        } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_S_SKIP_DISTANCE.equals(e.getSelectionType())) {
+            setSkipDistance(e.getSkipDistance());
         } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_L.equals(e.getSelectionType())) {
             setRougeL(e.isRougeL());
         } else if (RougeSelectionPanelEvent.SelectionType.ROUGE_W.equals(e.getSelectionType())) {
@@ -88,6 +92,14 @@ public class RougeSelectionPanelModel implements AppModel {
 
     public boolean isRougeSUseUnigrams() {
         return rougeSUseUnigrams;
+    }
+
+    public int getSkipDistance() {
+        return skipDistance;
+    }
+
+    public void setSkipDistance(int skipDistance) {
+        this.skipDistance = skipDistance;
     }
 
     public boolean isRougeL() {

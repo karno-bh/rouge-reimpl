@@ -141,10 +141,22 @@ public class DefaultContainerImpl extends Container {
                 .map(String::trim)
                 .map(String::toLowerCase).collect(Collectors.toList());
 
-        if (lowerCaseMetrics.contains(Constants.ROUGES_LOWER_CASE) || lowerCaseMetrics.contains(Constants.ROUGESU_LOWER_CASE)) {
+        List<String> rougeSMetrics = lowerCaseMetrics.stream()
+                .filter(metric -> metric.contains(Constants.ROUGES_LOWER_CASE))
+                .collect(Collectors.toList());
+
+        for (String rougeSMetric : rougeSMetrics) {
+            // String rougeSMetric = rougeSMetrics.get(0);
             TextPipelineExtractor<String, Map<String, Integer>> rougeSGramExtractor = new TextPipelineExtractor<>();
-            boolean useUnigrams = lowerCaseMetrics.contains(Constants.ROUGESU_LOWER_CASE);
-            initialPipeline.pipe(new SGramTextProcessor(useUnigrams))
+            boolean useUnigrams = rougeSMetric.contains(Constants.ROUGESU_LOWER_CASE);
+            String rougeSIndexStr = rougeSMetric.substring(
+                    useUnigrams ? Constants.ROUGESU_LOWER_CASE.length() : Constants.ROUGES_LOWER_CASE.length()
+            );
+            int skipDistance = 0;
+            if (rougeSIndexStr.length() > 0) {
+                skipDistance = Integer.parseInt(rougeSIndexStr);
+            }
+            initialPipeline.pipe(new SGramTextProcessor(useUnigrams, skipDistance))
                     .cacheIn(CacheMemoryTextProcessor::new)
                     .extract(rougeSGramExtractor);
 
@@ -158,11 +170,11 @@ public class DefaultContainerImpl extends Container {
             reporter.setScoreCalculator(rougeNMultimodelReporter);
             reporter.setConfiguration(configuration);
             reporter.setExecutorService(executorService);
-            arbiter.register(Constants.ROUGES_LOWER_CASE);
+            arbiter.register(rougeSMetric);
             reporter.setArbiter(arbiter);
-            reporter.setMetricName(Constants.ROUGES_LOWER_CASE);
+            reporter.setMetricName(rougeSMetric);
 
-            setBean(Constants.ROUGES_LOWER_CASE, reporter);
+            setBean(rougeSMetric, reporter);
         }
 
         if (lowerCaseMetrics.contains(Constants.ROUGEL_LOWER_CASE)) {

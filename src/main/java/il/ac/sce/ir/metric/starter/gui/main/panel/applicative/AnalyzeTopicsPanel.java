@@ -3,6 +3,8 @@ package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.gui.data.ColoredCell;
 import il.ac.sce.ir.metric.core.gui.data.Table;
+import il.ac.sce.ir.metric.core.utils.HtmlTableConverter;
+import il.ac.sce.ir.metric.core.utils.ReadabilityMetricHeatHtmlGenerator;
 import il.ac.sce.ir.metric.core.utils.TableTabulator;
 import il.ac.sce.ir.metric.core.utils.converter.GraphicsToSVGExporter;
 import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
@@ -27,10 +29,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
+import java.util.function.Function;
 
 public class AnalyzeTopicsPanel extends JPanel {
 
@@ -51,6 +55,8 @@ public class AnalyzeTopicsPanel extends JPanel {
     private final JButton metricHeat;
 
     private final JButton averageMetricHeat;
+
+    private final JTextField htmlMetricHeatFileName;
 
     private final SVGSavePanel svgSavePanel = new SVGSavePanel();
 
@@ -116,15 +122,34 @@ public class AnalyzeTopicsPanel extends JPanel {
 
 
         constraints.gridy = y++;
-        JPanel svgSavePanelWrapper = new JPanel();
-        svgSavePanelWrapper.setLayout(new GridBagLayout());
+        JPanel savePanelsWrapper = new JPanel();
+        savePanelsWrapper.setLayout(new GridBagLayout());
         WholeSpaceFiller svgFiller = new WholeSpaceFiller();
         GridBagConstraints fillingConstraints = svgFiller.getFillingConstraints();
-        svgSavePanelWrapper.add(new JPanel(), fillingConstraints);
+        savePanelsWrapper.add(new JPanel(), fillingConstraints);
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 1;
-        svgSavePanelWrapper.add(svgSavePanel, c);
-        add(svgSavePanelWrapper, constraints);
+        savePanelsWrapper.add(svgSavePanel, c);
+        htmlMetricHeatFileName = new JTextField();
+        htmlMetricHeatFileName.setColumns(15);
+        JPanel htmlPanel = new JPanel();
+        htmlPanel.setLayout(new GridBagLayout());
+        htmlPanel.setBorder(BorderFactory.createTitledBorder("Save Heat Map as HTML"));
+        GridBagConstraints htmlPanelConstraints = new GridBagConstraints();
+        htmlPanelConstraints.anchor = GridBagConstraints.LINE_END;
+        htmlPanelConstraints.insets = new Insets(0, 10, 0,0);
+        JLabel htmlFileTextFieldLabel = new JLabel("File Name");
+        htmlPanel.add(htmlFileTextFieldLabel, htmlPanelConstraints);
+        htmlPanelConstraints.gridx = 1;
+        htmlPanel.add(htmlMetricHeatFileName, htmlPanelConstraints);
+        WholeSpaceFiller htmlFiller = new WholeSpaceFiller();
+        GridBagConstraints htmlFillerConstraints = htmlFiller.getFillingConstraints();
+        htmlFillerConstraints.gridy = 1;
+        htmlPanel.add(new JPanel(), htmlFillerConstraints);
+        c.gridx = 2;
+        c.fill = GridBagConstraints.BOTH;
+        savePanelsWrapper.add(htmlPanel, c);
+        add(savePanelsWrapper, constraints);
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridBagLayout());
@@ -205,9 +230,11 @@ public class AnalyzeTopicsPanel extends JPanel {
         });
         Map<String, Boolean> categoryMetrics = selectedMetric.get(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE);
         int selections = 0;
+        String selectedMetricName = null;
         for (Map.Entry<String, Boolean> metricsSelection : categoryMetrics.entrySet()) {
             Boolean value = metricsSelection.getValue();
             if (value != null && value) {
+                selectedMetricName = metricsSelection.getKey();
                 selections++;
             }
             if (selections > 1) {
@@ -222,13 +249,14 @@ public class AnalyzeTopicsPanel extends JPanel {
         Table tableData = analyzer.asTopicTable(category, selectedSystems, selectedMetric);
         analyzer.addAverageToTableAndSort(tableData);
         int topicColumn = analyzer.getTopicColumn(tableData);
-        LinkedHashMap<String, List<ColoredCell>> heatMap = analyzer.tableToHeatMap(tableData, topicColumn);
+        LinkedHashMap<String, List<ColoredCell>> heatMap = analyzer.tableToHeatMap(selectedMetricName, tableData, topicColumn);
 
         DecimalFormat df = new DecimalFormat("#.####");
         List<List<String>> heatMapAsStrVals = new ArrayList<>();
         heatMapAsStrVals.add(new ArrayList<>());
         List<String> tableDataColumns = tableData.getColumns();
         int rowNum = 0;
+
         for (Map.Entry<String, List<ColoredCell>> topicToValuesEntry : heatMap.entrySet()) {
             String topic = topicToValuesEntry.getKey();
             List<ColoredCell> values = topicToValuesEntry.getValue();
@@ -264,9 +292,15 @@ public class AnalyzeTopicsPanel extends JPanel {
         textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
         String tableName = "Diff Heat Table:\n\n";
 
+        Function<String, String> headerFormatter = s -> {
+            String result = s.indexOf("/") > 0 ? s.substring(0, s.indexOf("/")).trim() : s;
+            return result.replace(Constants.ELENA_READABILITY_LOWER_CASE, Constants.READABILITY_LOWER_CASE)
+                    .replace(Constants.ELENA_TOPICS_READABILITY_LOWER_CASE, Constants.TOPICS_READABILITY_LOWER_CASE);
+        };
+
         List<List<String>> stringRepresentation = analyzer.tableToStringRepresentation(
                 tableData,
-                s -> s.indexOf("/") > 0 ? s.substring(0, s.indexOf("/")).trim() : s,
+                headerFormatter,
                 s -> Constants.AVERAGE_VIRTUAL_ROW.equals(s) ? "Avg" : s);
         TableTabulator origTable = new TableTabulator(stringRepresentation);
         origTable.tableAsTabularString();
@@ -300,6 +334,35 @@ public class AnalyzeTopicsPanel extends JPanel {
         }
 
 
+        String fileName = htmlMetricHeatFileName.getText().trim();
+        if (!fileName.isEmpty()) {
+            ReadabilityMetricHeatHtmlGenerator generator = new ReadabilityMetricHeatHtmlGenerator();
+
+            ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation heatTable =
+                    new ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation();
+            heatTable.setHeader(heatMapAsStrVals.get(0));
+            heatTable.setData(heatMap);
+            generator.setMetricHeatTable(heatTable);
+
+            ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation originalTable =
+                    new ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation();
+            originalTable.setHeader(tableData.getColumns());
+            originalTable.setData(analyzer.asRawColoredCells(tableData));
+            generator.setOriginalValuesTable(originalTable);
+
+            generator.setResultDirectory(resultDirectory);
+            generator.setFileName(fileName);
+            generator.setDiffHeatTableName("Diff Heat Table:");
+            generator.setOriginalValuesName("Original Values:");
+            generator.setValuesFormat(df);
+            generator.setHeaderFormatter(headerFormatter);
+
+            try {
+                generator.saveAsHtml();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Cannot save html file: " + e.getMessage());
+            }
+        }
 
         jDialog.add(new JScrollPane(textArea));
         jDialog.pack();
@@ -328,7 +391,7 @@ public class AnalyzeTopicsPanel extends JPanel {
             Table tableData = analyzer.asTopicTable(category, selectedSystems, dummySelectedMetric);
             analyzer.addAverageToTableAndSort(tableData);
             int topicColumn = analyzer.getTopicColumn(tableData);
-            LinkedHashMap<String, List<ColoredCell>> heatMap = analyzer.tableToHeatMap(tableData, topicColumn);
+            LinkedHashMap<String, List<ColoredCell>> heatMap = analyzer.tableToHeatMap(metric, tableData, topicColumn);
 
             metricHeats.put(metric, heatMap);
             originalMetricTables.put(metric, tableData);
@@ -340,6 +403,9 @@ public class AnalyzeTopicsPanel extends JPanel {
         avgStrTable.add(new ArrayList<>());
         originalStrTable.add(new ArrayList<>());
         int rowNum = 0;
+        LinkedHashMap<String, List<ColoredCell>> avgHeatMap = new LinkedHashMap<>();
+        Table avgOrigValues = new Table();
+        avgOrigValues.setData(new ArrayList<>());
         for (Map.Entry<String, LinkedHashMap<String, List<ColoredCell>>> metricToHeatMap : metricHeats.entrySet()) {
             String metric = metricToHeatMap.getKey();
             if (rowNum == 0) {
@@ -352,6 +418,7 @@ public class AnalyzeTopicsPanel extends JPanel {
             origStrTableValues.add(metric);
             LinkedHashMap<String, List<ColoredCell>> heatMap = metricToHeatMap.getValue();
             List<ColoredCell> coloredCells = heatMap.get(Constants.AVERAGE_VIRTUAL_ROW);
+            avgHeatMap.put(metric, coloredCells);
             Table originalTable = originalMetricTables.get(metric);
             int columnNum;
             if (rowNum == 0) {
@@ -368,6 +435,9 @@ public class AnalyzeTopicsPanel extends JPanel {
                 }
             }
             List<Object> origTableAvgRow = originalTable.getData().get(originalTable.getData().size() - 1);
+            List<Object> origTableAvgRowForFile = new ArrayList<>(origTableAvgRow);
+            origTableAvgRowForFile.set(0, metric);
+            avgOrigValues.getData().add(origTableAvgRowForFile);
             columnNum = 0;
             for (Object column : origTableAvgRow) {
                 if (columnNum != 0) {
@@ -389,6 +459,7 @@ public class AnalyzeTopicsPanel extends JPanel {
             rowNum++;
         }
 
+        avgOrigValues.setColumns(originalStrTable.get(0));
 
         TableTabulator tabulator = new TableTabulator(avgStrTable);
         tabulator.tableAsTabularString();
@@ -429,6 +500,37 @@ public class AnalyzeTopicsPanel extends JPanel {
 
         } catch (BadLocationException e) {
             throw new RuntimeException("Error while calculating highlighters", e);
+        }
+
+        String fileName = htmlMetricHeatFileName.getText().trim();
+
+        if (!fileName.isEmpty()) {
+            ReadabilityMetricHeatHtmlGenerator generator = new ReadabilityMetricHeatHtmlGenerator();
+
+            ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation heatTable =
+                    new ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation();
+            heatTable.setHeader(avgStrTable.get(0));
+            heatTable.setData(avgHeatMap);
+            generator.setMetricHeatTable(heatTable);
+
+            ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation originalTable =
+                    new ReadabilityMetricHeatHtmlGenerator.HtmlSuitableTableRepresentation();
+            originalTable.setHeader(avgOrigValues.getColumns());
+            originalTable.setData(analyzer.asRawColoredCells(avgOrigValues));
+            generator.setOriginalValuesTable(originalTable);
+
+            generator.setResultDirectory(resultDirectory);
+            generator.setFileName(fileName);
+            generator.setDiffHeatTableName("All Diff Heat Table:");
+            generator.setOriginalValuesName("Original Values:");
+            generator.setValuesFormat(df);
+            generator.setHeaderFormatter(null);
+
+            try {
+                generator.saveAsHtml();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Cannot save html file: " + e.getMessage());
+            }
         }
 
         jDialog.add(new JScrollPane(textArea));
