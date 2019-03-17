@@ -9,7 +9,6 @@ public class RougeUtils {
         int hits = 0;
         for (String modelGramToken : modelGrams.keySet()) {
             if (!"_cn_".equals(modelGramToken) && peerGrams.get(modelGramToken) != null) {
-                //System.out.println(modelGramToken);
                 int peerHits = peerGrams.get(modelGramToken);
                 int modelHits = modelGrams.get(modelGramToken);
                 hits += Math.min(peerHits, modelHits);
