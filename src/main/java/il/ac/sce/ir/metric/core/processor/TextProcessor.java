@@ -6,8 +6,4 @@ public interface TextProcessor<X, Y> {
 
     Text<Y> process(Text<X> data);
 
-     default <Z> TextProcessor<X,Z> pipe(TextProcessor<Y, Z> next) {
-         return new PipelineProcessor<>(this, next);
-     }
-
 }

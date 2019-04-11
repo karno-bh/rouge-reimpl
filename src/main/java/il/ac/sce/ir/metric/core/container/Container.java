@@ -18,6 +18,6 @@ public abstract class Container {
     }
 
     public abstract void build();
-    public abstract void setConfiguration(Configuration configureation);
+    public abstract void setConfiguration(Configuration configuration);
     public abstract Configuration getConfiguration();
 }

@@ -11,7 +11,7 @@ public class DPMatrixBiTextProcessor implements BiTextProcessor<List<String>, in
 
     @Override
     public BiText<int[][]> process(Text<List<String>> left, Text<List<String>> right) {
-        int[][] dpMatrix = RougeUtils.calculateLongestCommonSubsequenceDPMatrix(left.getTextData(), right.getTextData());
+        int[][] dpMatrix = RougeUtils.  calculateLongestCommonSubsequenceDPMatrix(left.getTextData(), right.getTextData());
         BiText<int[][]> result = new BiText<>(left.getTextId(), right.getTextId(), dpMatrix);
         return result;
     }

@@ -39,8 +39,4 @@ public class TextPipeline<X, Y> {
         return new TextPipeline<>(cache);
     }
 
-    /*public TextPipeline<X, Y> cacheIn(AbstractCacheTextProcessor<X, Y> cache) {
-        return null;
-    }*/
-
 }
