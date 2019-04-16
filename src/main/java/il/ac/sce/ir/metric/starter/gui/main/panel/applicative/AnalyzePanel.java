@@ -1,7 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
-import il.ac.sce.ir.metric.starter.gui.main.event.component_event.FileChoosePanelEvent;
+import il.ac.sce.ir.metric.core.utils.results.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.AnalyzePanelModelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.model.AnalyzePanelModel;
 import il.ac.sce.ir.metric.starter.gui.main.panel.common.FileChoosePanel;
@@ -18,7 +17,6 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class AnalyzePanel extends JPanel {
 

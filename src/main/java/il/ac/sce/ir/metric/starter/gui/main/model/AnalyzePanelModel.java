@@ -2,7 +2,7 @@ package il.ac.sce.ir.metric.starter.gui.main.model;
 
 import il.ac.sce.ir.metric.core.config.Constants;
 import il.ac.sce.ir.metric.core.utils.file_system.KnownMetricFormatsHierarchicalOrganizer;
-import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
+import il.ac.sce.ir.metric.core.utils.results.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.event.component_event.FileChoosePanelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.event.model_event.AnalyzePanelModelEvent;
 import il.ac.sce.ir.metric.starter.gui.main.resources.GUIConstants;
@@ -10,7 +10,6 @@ import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Set;
 
 public class AnalyzePanelModel implements AppModel {
 

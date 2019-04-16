@@ -1,7 +1,7 @@
 package il.ac.sce.ir.results;
 
 import il.ac.sce.ir.metric.core.utils.file_system.KnownMetricFormatsHierarchicalOrganizer;
-import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
+import il.ac.sce.ir.metric.core.utils.results.ResultsMetricHierarchyAnalyzer;
 import org.junit.Test;
 
 import java.util.List;

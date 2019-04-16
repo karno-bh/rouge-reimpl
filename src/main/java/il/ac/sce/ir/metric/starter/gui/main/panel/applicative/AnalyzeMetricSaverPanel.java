@@ -2,7 +2,7 @@ package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import il.ac.sce.ir.metric.core.config.Constants;
-import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
+import il.ac.sce.ir.metric.core.utils.results.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

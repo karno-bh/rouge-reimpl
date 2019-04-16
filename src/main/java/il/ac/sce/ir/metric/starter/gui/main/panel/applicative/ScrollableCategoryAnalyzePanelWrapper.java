@@ -1,6 +1,6 @@
 package il.ac.sce.ir.metric.starter.gui.main.panel.applicative;
 
-import il.ac.sce.ir.metric.core.utils.result.ResultsMetricHierarchyAnalyzer;
+import il.ac.sce.ir.metric.core.utils.results.ResultsMetricHierarchyAnalyzer;
 import il.ac.sce.ir.metric.starter.gui.main.util.WholeSpaceFiller;
 import il.ac.sce.ir.metric.starter.gui.main.util.pubsub.PubSub;
 
