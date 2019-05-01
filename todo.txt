@@ -1,5 +1,30 @@
 2019-03-15
     CONTINUE:
+        1. Project doc should be split into two documents
+           a. Project document
+           b. User manual
+        2. Abstract should be enhanced with that SE doesn't give a full picture or expensive (it is non-feasible task
+           to hire people for summary evaluation
+        3. Replace/Enhance introduction
+        4. Replace "3. Summary Evaluation" with "3. Project Scope", "3.1 Summary Evaluation", "3.2 Evaluation Analysis"
+        5. Change metrics (give hierarchical view of metrics)
+        6. Split "Metrics" to "Text Similarity Metrics" and "Readability Metrics"
+        7. Change "Platform as Library" to "Implementation". Change "Implementation Forewords" to "Document Convention"
+           or something similar. Move "Implementation Forewords" to "Implementation" under "Programming Language".
+        8. Remove "Platform as GUI Client". Either should be under "3.2 Evaluation Analysis" or in different place.
+        9. Give graphical view to pipeline
+    Done:
+        1. Initial project docs
+        2. Meeting with project curator
+    TODO:
+        1. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        2. Clean tests not to have absolute file paths. (=> need to upload test data)
+        3. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        4. PeerModelPair should be generic and common for all.
+        5. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
+2019-03-15
+    CONTINUE:
         1. Project docs
     Done:
         1. Text filtering now has default common selections
