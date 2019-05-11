@@ -1,3 +1,15 @@
+2019-05-11
+    CONTINUE:
+        1. Need to correct a user manual. At least numbers of figures.
+    Done:
+        1. Project curator remarks about project report document
+    TODO:
+        1. Remove MainAlgo! Should be part of container. Design become over-engineered with this to be a separate part.
+        2. Clean tests not to have absolute file paths. (=> need to upload test data)
+        3. Clean up the mess with ProcessedChunk & ProcessedChunkType [should be based on inheritance]
+        4. PeerModelPair should be generic and common for all.
+        5. Project clean-up remove from core common pieces which related to concrete metrics but still not being a core.
+
 2019-05-01
     CONTINUE:
         1. Project doc should be split into two documents
