@@ -49,34 +49,29 @@ public class RLanguageHSDTestResponseAnalyzer {
         this.originalResponse = originalResponse;
     }
 
+    private double getDoubleVal(Object possibleDouble) {
+        if (possibleDouble instanceof Integer) {
+            return (int) possibleDouble;
+        }
+        return (double) possibleDouble;
+    }
+
     public List<HSDTestLetterRepresentationRow> asHSDTestLetterRepresentation() {
         List<HSDTestLetterRepresentationRow> rows = new ArrayList<>();
         char maxGroup = 0;
         for (Map<String, Object> responseRow : originalResponse) {
             String metric = (String) responseRow.get(METRIC_PARAM);
             String groups = (String) responseRow.get(GROUPS_GROUPS);
-            double value = (double) responseRow.get(GROUPS_VALUE);
+            double value = getDoubleVal(responseRow.get(GROUPS_VALUE));
 
-            double meansValue = (double) responseRow.get(MEANS_VALUE);
-            double meansStd = (double) responseRow.get(MEANS_STD);
+            double meansValue = getDoubleVal(responseRow.get(MEANS_VALUE));
+            double meansStd = getDoubleVal(responseRow.get(MEANS_STD));
             int meansR = (int) responseRow.get(MEANS_R);
-            double meansMin;
-            if (responseRow.get(MEANS_MIN) instanceof Integer) {
-                int _meansMin =  (int) responseRow.get(MEANS_MIN);
-                meansMin = _meansMin;
-            } else {
-                meansMin = (double) responseRow.get(MEANS_MIN);
-            }
-            double meansMax;
-            if (responseRow.get(MEANS_MAX) instanceof Integer) {
-                int _meansMax =  (int) responseRow.get(MEANS_MAX);
-                meansMax = _meansMax;
-            } else {
-                meansMax = (double) responseRow.get(MEANS_MAX);
-            }
-            double meansQ25 = (double) responseRow.get(MEANS_Q25);
-            double meansQ50 = (double) responseRow.get(MEANS_Q50);
-            double meansQ75 = (double) responseRow.get(MEANS_Q75);
+            double meansMin = getDoubleVal(responseRow.get(MEANS_MIN));
+            double meansMax = getDoubleVal(responseRow.get(MEANS_MAX));
+            double meansQ25 = getDoubleVal(responseRow.get(MEANS_Q25));
+            double meansQ50 = getDoubleVal(responseRow.get(MEANS_Q50));
+            double meansQ75 = getDoubleVal(responseRow.get(MEANS_Q75));
 
             HSDTestLetterRepresentationRow row = new HSDTestLetterRepresentationRow();
             row.setGroups(groups);
