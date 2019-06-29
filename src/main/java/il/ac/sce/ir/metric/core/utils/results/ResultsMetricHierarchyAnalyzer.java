@@ -134,7 +134,11 @@ public class ResultsMetricHierarchyAnalyzer {
                         for (String subMetric : subMetrics) {
                             try {
                                 if (subMetric != null) {
-                                    final double subMetricVal = Double.parseDouble(subMetricsDataElem.get(subMetric));
+                                    String s = subMetricsDataElem.get(subMetric);
+                                    if (s == null) {
+                                        s = "100000000.0";
+                                    }
+                                    final double subMetricVal = Double.parseDouble(s);
                                     averMetricData.compute(subMetric, (k, v) -> v == null ? subMetricVal : v + subMetricVal);
                                 }
                             } catch (Exception e) {
@@ -346,12 +350,17 @@ public class ResultsMetricHierarchyAnalyzer {
                                 Map<String, List<Map<String, String>>> metrics = systems.get(systemKey);
                                 List<Map<String, String>> peerValues = metrics.get(peerMetricKey);
                                 Map<String, String> foundEl = null;
-                                for (Map<String, String> peerValue : peerValues) {
-                                    if (topicKey.equals(peerValue.get(Constants.PEER))) {
-                                        foundEl = peerValue;
-                                        break;
+                                try {
+                                    for (Map<String, String> peerValue : peerValues) {
+                                        if (topicKey.equals(peerValue.get(Constants.PEER))) {
+                                            foundEl = peerValue;
+                                            break;
+                                        }
                                     }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+
                                 if (foundEl == null) {
                                     throw new IllegalStateException("Cannot find peer per topic: " + topicKey +
                                     " in category: " + category + ", system: " + systemKey + ", metric: " + peerMetricKey);

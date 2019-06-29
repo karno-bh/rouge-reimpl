@@ -128,7 +128,11 @@ public class ReadabilityMetricScore implements Serializable, ReportedProperties 
     }
 
     public double getWordVariationIndex() {
-        return Math.log10((double) wordsNum) / Math.log10(2 - Math.log10((double) uniqueWordsNum) / Math.log10((double) wordsNum));
+        double divider = Math.log10(2 - Math.log10((double) uniqueWordsNum) / Math.log10((double) wordsNum));
+        if (divider == 0.0d) {
+            return 0.0d;
+        }
+        return Math.log10((double) wordsNum) / divider;
     }
 
     public double getAverageWordLength() {
